@@ -1,3 +1,6 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="zxx">
 
@@ -9,7 +12,7 @@
 ########################################################################
 -->
 
-<!-- NOMBRE DE LA PESTAёA -->
+<!-- NOMBRE DE LA PESTAÑA -->
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -86,7 +89,7 @@
             
             <li class="menu-item-has-children">
                 <a href="#">
-                    <i class="icon icon-layers s-24"></i> <span>Categorías</span>
+                    <i class="icon icon-layers s-24"></i> <span>CategorÃ­as</span>
                     <i class=" icon-angle-left  pull-right"></i>
                 </a>
                 <ul class="sub-menu">
@@ -404,7 +407,7 @@
 					<div class="dropdown-menu p-4 dropdown-menu-right">
 						<div class="row box justify-content-between my-4">
 							<div class="col text-center">
-								<a class="ajaxifyPage" href="profile.jsp" onclick="setTimeout(location.reload.bind(location), 1)">
+								<a class="ajaxifyPage" href="obtener_contenido_perfil" onclick="setTimeout(location.reload.bind(location), 1)">
 									<i class="icon-user-4  s-24"></i>
 									<div class="pt-1">Mi perfil</div>
 								</a>
@@ -412,7 +415,7 @@
 							<div class="col text-center">
 								<a class="ajaxifyPage" href="#" onclick="setTimeout(location.reload.bind(location), 1)">
 									<i class="icon-exit-2  s-24"></i>
-									<div class="pt-1">Cerrar sesi�n</div>
+									<div class="pt-1">Cerrar sesión</div>
 								</a>
 							</div>
 						</div>

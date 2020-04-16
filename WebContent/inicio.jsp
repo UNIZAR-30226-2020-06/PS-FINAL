@@ -1,3 +1,6 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="zxx">
 
@@ -110,8 +113,8 @@
 					<div class="pt-3 mb-5">
 						<p>Vender la empresa.</p>
                     </div>
-					<a href="sign_up.jsp" onclick="setTimeout(location.reload.bind(location), 1)" class="btn btn-primary btn-lg">Regístrate</a>
-					<a href="login.jsp" onclick="setTimeout(location.reload.bind(location), 1)" class="btn btn-primary btn-lg">Iniciar sesión</a>
+					<a href="sign_up.jsp" onclick="setTimeout(location.reload.bind(location), 1)" class="btn btn-primary btn-lg">RegÃ­strate</a>
+					<a href="login.jsp" onclick="setTimeout(location.reload.bind(location), 1)" class="btn btn-primary btn-lg">Iniciar sesiÃ³n</a>
 				</div>
             </div>
         </div>

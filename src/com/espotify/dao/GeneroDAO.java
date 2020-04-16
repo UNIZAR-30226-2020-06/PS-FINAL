@@ -10,7 +10,7 @@ import com.espotify.model.ConnectionManager;
 import com.espotify.model.Genero;
 
 public class GeneroDAO {
-	private final static String GET_ID_GENERO_MUSICA = "SELECT g.id FROM Reproductor_musica.Genero g WHERE g.tipo = 'cancion'";
+	private final static String GET_GENERO_MUSICA = "SELECT g.id, g.nombre FROM Reproductor_musica.Genero g WHERE g.tipo = 'cancion'";
 	private final static String GET_NOMBRE_GENERO_MUSICA = "SELECT g.nombre FROM Reproductor_musica.Genero g WHERE g.id = ? AND g.tipo = 'cancion'";
 	private final static String GET_ID_GENERO_PODCAST = "SELECT g.id FROM Reproductor_musica.Genero g WHERE g.tipo = 'podcast'";
 	private final static String GET_NOMBRE_GENERO_PODCAST = "SELECT g.nombre FROM Reproductor_musica.Genero g WHERE g.id = ? AND g.tipo = 'podcast'";
@@ -21,30 +21,21 @@ public class GeneroDAO {
 	
 	public ArrayList<Genero> obtenerGeneroMusica() {
 		ArrayList<Genero> generos = new ArrayList<Genero>();
-		
-		ArrayList<Integer> ids = obtenerIdGeneroMusica();
-		for(int id: ids) {
-			generos.add(new Genero(id, obtenerNombreMusica(id), CANCION));
-		}
-		return generos;
-	}
-	
-	private ArrayList<Integer> obtenerIdGeneroMusica() {
 		Connection conn;
 		try {
 			conn = ConnectionManager.getConnection();
-			PreparedStatement ps = conn.prepareStatement(GET_ID_GENERO_MUSICA);
+			PreparedStatement ps = conn.prepareStatement(GET_GENERO_MUSICA);
 			ResultSet rs = ps.executeQuery();
-			ArrayList<Integer> ids = new ArrayList<Integer>();
 			while(rs.next())
-				ids.add(Integer.parseInt(rs.getString(1)));
+				generos.add(new Genero(rs.getInt(1), rs.getString(2), CANCION));
 			ConnectionManager.releaseConnection(conn);
-			return ids; 
+			return generos; 
 		} catch (SQLException e) {
 			System.out.println("Error al obtener los ids de los generos");
 			return null;
-		}
+		}	
 	}
+
 	
 	private String obtenerNombreMusica(int id) {
 		System.out.println("obtenerIDCancion Entro +++++++++++++++++");

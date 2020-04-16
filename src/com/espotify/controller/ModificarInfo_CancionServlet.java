@@ -29,7 +29,7 @@ public class ModificarInfo_CancionServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String titulo = request.getParameter("nombre");
-		String genero = request.getParameter("genero");
+		int genero = Integer.valueOf(request.getParameter("genero"));
 		int id = Integer.parseInt(request.getParameter("id"));
 		CancionDAO cancion = new CancionDAO();
 		if (cancion.modificarCancion(titulo, genero, id))

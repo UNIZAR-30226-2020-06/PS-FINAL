@@ -1,3 +1,6 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="zxx">
 
@@ -16,7 +19,7 @@ String descripcion = (String) session.getAttribute("descripcion");
 <!-- END Obtener datos usuario -->
 
 
-<!-- NOMBRE DE LA PESTA脩A -->
+<!-- NOMBRE DE LA PESTA脙聭A -->
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -27,7 +30,7 @@ String descripcion = (String) session.getAttribute("descripcion");
     <!-- CSS -->
     <link rel="stylesheet" href="assets/css/app.css">
 </head>
-<!-- END PESTA脩A -->
+<!-- END PESTA脙聭A -->
 
 <body background="assets/img/fondo3.png" style="background-size: cover;background-repeat: no-repeat; background-position: center center;background-attachment: fixed;" class="sidebar-mini sidebar-collapse sidebar-expanded-on-hover has-preloader" style="display: none;">
 <!-- Pre loader
@@ -95,7 +98,7 @@ String descripcion = (String) session.getAttribute("descripcion");
             
             <li class="menu-item-has-children">
                 <a href="#">
-                    <i class="icon icon-layers s-24"></i> <span>Categor铆as</span>
+                    <i class="icon icon-layers s-24"></i> <span>Categor脙颅as</span>
                     <i class=" icon-angle-left  pull-right"></i>
                 </a>
                 <ul class="sub-menu">
@@ -422,7 +425,7 @@ String descripcion = (String) session.getAttribute("descripcion");
                             <div class="col text-center">
                                 <a class="ajaxifyPage" href="#" onclick="setTimeout(location.reload.bind(location), 1)">
                                     <i class="icon-exit-2  s-24"></i>
-                                    <div class="pt-1">Cerrar sesi髇</div>
+                                    <div class="pt-1">Cerrar sesi贸n</div>
                                 </a>
                             </div>
                         </div>
@@ -456,7 +459,7 @@ String descripcion = (String) session.getAttribute("descripcion");
                         <button id="nextTrack" class="btn btn-link d-none d-sm-block" onclick="playlist.nextTrack();">
                             <i class="icon-next s-18"></i>
                         </button>
-                        <button id="loopTrack" class="btn btn-link d-none d-sm-block">
+                        <button id="loopTrack" class="btn btn-link d-none d-sm-block" onclick="playlist.setLoop(true);">
                             <i class="icon-repeat s-18"></i>
                         </button>
                     </div>
@@ -508,7 +511,7 @@ String descripcion = (String) session.getAttribute("descripcion");
 				
                 <div class="p-4">
                     <div class="pl-4 mt-4">
-                        <h5>Descripci髇</h5>
+                        <h5>Descripci贸n</h5>
 						<span><%=descripcion %></span>
                     </div>
                     <div class="row">
@@ -568,7 +571,7 @@ String descripcion = (String) session.getAttribute("descripcion");
 				<div class="tab-pane fade show active text-center p-5" id="w3-tab1" role="tabpanel"
 					 aria-labelledby="w3-tab1">
 					<div class="contenido-pestanas">
-						<button class="btn btn-abrir-popup icon-plus" id="abrir-popup"> Subir canci髇</button>
+						<button class="btn btn-abrir-popup icon-plus" id="abrir-popup"> Subir canci贸n</button>
 					</div>
 					<div class="row">
 						<div class="col-lg-10 offset-lg-1">
@@ -576,116 +579,30 @@ String descripcion = (String) session.getAttribute("descripcion");
 								<div class="col-md-12">
 									<div class="playlist">
 										<ul id="playlist" class="playlist list-group">
-											<div style="margin-bottom: -1px;" class="cancion">
-												<li class="list-group-item my-1">
-													<div class="d-flex align-items-center">
-														<div class="col-1">
-															<a class="no-ajaxy media-url" href="http://34.69.44.48/almacen-mp3/13.mp3" >
-																<i class="icon-play s-28"></i>
-															</a>					
+											<c:forEach var="cancion" items="${canciones}">                    
+												<div style="margin-bottom: -1px;" class="cancion">
+													<li class="list-group-item my-1">
+														<div class="d-flex align-items-center">
+															<div class="col-1">
+																<a class="no-ajaxy media-url" href="${cancion.getUrl()}">
+																	<i class="icon-play s-28"></i>
+																</a>					
+															</div>
+															<div class="col-6">
+																<h6>${cancion.getTitulo()}</h6>${genero.getNombre()}
+															</div>
+															<span class=" ml-auto">${cancion.getGenero()}</span>
+															<a href="#" class="ml-auto"><i class="icon-share-1"></i></a>
+															<div class="ml-auto">
+																<a href="#" class="btn-favorito icon-star active"></a>
+																<a href="formulario-datos-cancion.jsp" class="btn-icono icon-pencil"></a>
+																<a href="#" class="btn-icono icon-list-1" onclick="document.getElementById('overlay-anadir-listas-reproduccion').classList.add('active');"></a>
+																<a href="#" class="btn-icono icon-trash-o"></a>
+															</div>
 														</div>
-														<div class="col-6">
-															<h6>Dance with me tonight</h6>
-														</div>
-														<span class=" ml-auto"> 5:03</span>
-														<a href="#" class="ml-auto"><i class="icon-share-1"></i></a>
-														<div class="ml-auto">
-															<a href="#" class="btn-favorito icon-star active"></a>
-															<a href="formulario-datos-cancion.jsp" class="btn-icono icon-pencil"></a>
-															<a href="#" class="btn-icono icon-list-1" onclick="document.getElementById('overlay-anadir-listas-reproduccion').classList.add('active');"></a>
-															<a href="#" class="btn-icono icon-trash-o"></a>
-														</div>
-													</div>
-												</li>
-											</div>
-											<div style="margin-bottom: -1px;" class="cancion">
-												<li class="list-group-item my-1">
-													<div class="d-flex align-items-center">
-														<div class="col-1">
-															<a class="no-ajaxy media-url" href="assets/media/track1.mp3" data-wave="assets/media/track1.json">
-																<i class="icon-play s-28"></i>
-															</a>
-														</div>
-														<div class="col-6">
-															<h6>Dance with me tonight</h6>
-														</div>
-														<span class=" ml-auto"> 5:03</span>
-														<a href="#" class="ml-auto"><i class="icon-share-1"></i></a>
-														<div class="ml-auto">
-															<a href="#" class="btn-favorito icon-star active"></a>
-															<a href="formulario-datos-cancion.jsp" onclick="setTimeout(location.reload.bind(location), 1)" class="btn-icono icon-pencil"></a>
-															<a href="#" class="btn-icono icon-list-1" onclick="document.getElementById('overlay-anadir-listas-reproduccion').classList.add('active');"></a>
-															<a href="#" class="btn-icono icon-trash-o"></a>
-														</div>
-													</div>
-												</li>
-											</div>
-											<div style="margin-bottom: -1px;" class="cancion">
-												<li class="list-group-item my-1">
-													<div class="d-flex align-items-center">
-														<div class="col-1">
-															<a class="no-ajaxy media-url" href="assets/media/track1.mp3" data-wave="assets/media/track1.json">
-																<i class="icon-play s-28"></i>
-															</a>
-														</div>
-														<div class="col-6">
-															<h6>Dance with me tonight</h6>
-														</div>
-														<span class=" ml-auto"> 5:03</span>
-														<a href="#" class="ml-auto"><i class="icon-share-1"></i></a>
-														<div class="ml-auto">
-															<a href="#" class="btn-favorito icon-star active"></a>
-															<a href="formulario-datos-cancion.jsp" onclick="setTimeout(location.reload.bind(location), 1)" class="btn-icono icon-pencil"></a>
-															<a href="#" class="btn-icono icon-list-1" onclick="document.getElementById('overlay-anadir-listas-reproduccion').classList.add('active');"></a>
-															<a href="#" class="btn-icono icon-trash-o"></a>
-														</div>
-													</div>
-												</li>
-											</div>
-											<div style="margin-bottom: -1px;" class="cancion">
-												<li class="list-group-item my-1">
-													<div class="d-flex align-items-center">
-														<div class="col-1">
-															<a class="no-ajaxy media-url" href="assets/media/track1.mp3" data-wave="assets/media/track1.json">
-																<i class="icon-play s-28"></i>
-															</a>
-														</div>
-														<div class="col-6">
-															<h6>Dance with me tonight</h6>
-														</div>
-														<span class=" ml-auto"> 5:03</span>
-														<a href="#" class="ml-auto"><i class="icon-share-1"></i></a>
-														<div class="ml-auto">
-															<a href="#" class="btn-favorito icon-star active"></a>
-															<a href="formulario-datos-cancion.jsp" onclick="setTimeout(location.reload.bind(location), 1)" class="btn-icono icon-pencil"></a>
-															<a href="#" class="btn-icono icon-list-1" onclick="document.getElementById('overlay-anadir-listas-reproduccion').classList.add('active');"></a>
-															<a href="#" class="btn-icono icon-trash-o"></a>
-														</div>
-													</div>
-												</li>
-											</div>
-											<div style="margin-bottom: -1px;" class="cancion">
-												<li class="list-group-item my-1">
-													<div class="d-flex align-items-center">
-														<div class="col-1">
-															<a class="no-ajaxy media-url" href="assets/media/track1.mp3" data-wave="assets/media/track1.json">
-																<i class="icon-play s-28"></i>
-															</a>
-														</div>
-														<div class="col-6">
-															<h6>Dance with me tonight</h6>
-														</div>
-														<span class=" ml-auto"> 5:03</span>
-														<a href="#" class="ml-auto"><i class="icon-share-1"></i></a>
-														<div class="ml-auto">
-															<a href="#" class="btn-favorito icon-star active"></a>
-															<a href="formulario-datos-cancion.jsp" onclick="setTimeout(location.reload.bind(location), 1)" class="btn-icono icon-pencil"></a>
-															<a href="#" class="btn-icono icon-list-1" onclick="document.getElementById('overlay-anadir-listas-reproduccion').classList.add('active');"></a>
-															<a href="#" class="btn-icono icon-trash-o"></a>
-														</div>
-													</div>
-												</li>
-											</div>
+													</li>
+												</div>								                
+											</c:forEach>									
 										</ul>
 									</div>
 								</div>
@@ -693,11 +610,11 @@ String descripcion = (String) session.getAttribute("descripcion");
 						</div>
 					</div>
 				</div>
-				<!--LISTAS REPRODUCCI覰-->
+				<!--LISTAS REPRODUCCI脫N-->
 				<div class="tab-pane fade show text-center p-5" id="w3-tab2" role="tabpanel"
 					 aria-labelledby="w3-tab2">
 					<div class="contenido-pestanas">
-						<button class="btn btn-abrir-popup icon-plus" id="abrir-listas-reproduccion">Crear Lista de Reproducci髇</button>
+						<button class="btn btn-abrir-popup icon-plus" id="abrir-listas-reproduccion">Crear Lista de Reproducci贸n</button>
 					</div>
 						<div class="row has-items-overlay">
 						<div class="col-lg-3 col-md-4 col-sm-6 my-2">
@@ -1049,7 +966,7 @@ String descripcion = (String) session.getAttribute("descripcion");
 		<form class="form-material" action="subir_audio" method="post" enctype="multipart/form-data">
 			<a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-subir-cancion" class="btn-cerrar-popup-perfil"><i class="icon-close1"></i></a>
 			<header class="relative nav-sticky card">
-					<h3>SUBIR CANCI覰</h3>
+					<h3>SUBIR CANCI脫N</h3>
 					<h5>Paso 1: subir el fichero .mp3 de la cancion</h5>
 			</header>
 			<div class="contenedor-inputs">
@@ -1067,7 +984,7 @@ String descripcion = (String) session.getAttribute("descripcion");
     <div class="col-md-7 card p-5">
 			<a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-perfil" class="btn-cerrar-popup-perfil"><i class="icon-close1"></i></a>
 			<header class="relative nav-sticky card">
-				<h3>CAMBIAR INFORMACI覰 DE PERFIL</h3>
+				<h3>CAMBIAR INFORMACI脫N DE PERFIL</h3>
 			</header>
 			<form class="form-material" action="modinfo">
 				<!-- Input -->
@@ -1084,12 +1001,12 @@ String descripcion = (String) session.getAttribute("descripcion");
 					<div class="form-group form-float">
 						<div class="form-line">
 							<input type="text" name="descripcion" class="form-control">
-							<label class="form-label">Descripci髇</label>
+							<label class="form-label">Descripci贸n</label>
 						</div>
 					</div>
 
 					<input type="submit" class="btn btn-outline-primary btn-sm pl-4 pr-4"
-						   value="Cambiar descripci髇">
+						   value="Cambiar descripci贸n">
 				</div>
 			</form>
 			<!-- #END# Input -->
@@ -1103,7 +1020,7 @@ String descripcion = (String) session.getAttribute("descripcion");
     <div class="col-md-7 card p-5">
 			<a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-cuenta" class="btn-cerrar-popup-perfil"><i class="icon-close1"></i></a>
 			<header class="relative nav-sticky card">
-				<h3>CAMBIAR INFORMACI覰 DE LA CUENTA</h3>
+				<h3>CAMBIAR INFORMACI脫N DE LA CUENTA</h3>
 			</header>
 			<form class="form-material" action="modinfo"> <!--QUITAR-->
 				<!-- Input -->
@@ -1125,24 +1042,24 @@ String descripcion = (String) session.getAttribute("descripcion");
 					<div class="form-group form-float">
 						<div class="form-line">
 							<input type="password" name="contrasena1" class="form-control">
-							<label class="form-label">Contrase馻 actual</label>
+							<label class="form-label">Contrase帽a actual</label>
 						</div>
 					</div>
 					<div class="form-group form-float">
 						<div class="form-line">
 							<input type="password" name="contrasena2" class="form-control">
-							<label class="form-label">Contrase馻 nueva</label>
+							<label class="form-label">Contrase帽a nueva</label>
 						</div>
 					</div>
 					<div class="form-group form-float">
 						<div class="form-line">
 							<input type="password" name="contrasena3" class="form-control">
-							<label class="form-label">Confirmar contrase馻</label>
+							<label class="form-label">Confirmar contrase帽a</label>
 						</div>
 					</div>
 
 					<input type="submit" class="btn btn-outline-primary btn-sm pl-4 pr-4"
-						   value="Cambiar constrase馻">
+						   value="Cambiar constrase帽a">
 				</div>
 			</form>
 			<!-- #END# Input -->
@@ -1174,7 +1091,7 @@ String descripcion = (String) session.getAttribute("descripcion");
 </div>
 <!-- END CAMBIAR FOTO -->
 
-<!-- CREAR LISTA DE REPRODUCCI覰 -->
+<!-- CREAR LISTA DE REPRODUCCI脫N -->
 <div class="overlay-pop-up" id="overlay-listas-reproduccion">
     <div class="col-md-7 card p-5">
 		<a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-listas-reproduccion" class="btn-cerrar-popup-perfil"><i class="icon-close1"></i></a>
@@ -1182,10 +1099,10 @@ String descripcion = (String) session.getAttribute("descripcion");
 			<!-- Input -->
 			<div class="body">
 				<header class="relative nav-sticky card">
-					<h3>CREAR LISTAS DE REPRODUCCI覰</h3>
+					<h3>CREAR LISTAS DE REPRODUCCI脫N</h3>
 				</header>
 				<div class="contenedor-inputs">
-					<h4>A馻dir imagen</h4>
+					<h4>A帽adir imagen</h4>
 					<input type="file" class="btn btn-outline-primary btn-sm  mt-3" name="fileName" required=""/> 
 					<input type="text" placeholder="Nombre" id="nombre-listas-reproduccion" required=""/>
 					<input type="text" placeholder="Descripcion" id="descripcion-listas-reproduccion"/>
@@ -1198,9 +1115,9 @@ String descripcion = (String) session.getAttribute("descripcion");
 		</form>
 	</div>
 </div>
-<!-- END CREAR LISTA DE REPRODUCCI訐N -->
+<!-- END CREAR LISTA DE REPRODUCCI脫聯N -->
 
-<!-- A脩ADIR CANCION A LISTA DE REPRODUCCI覰 -->
+<!-- A脙聭ADIR CANCION A LISTA DE REPRODUCCI脫N -->
 <div class="overlay-pop-up" id="overlay-anadir-listas-reproduccion">
     <div class="col-md-7 card p-5">
 		<a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-anadir-listas-reproduccion" class="btn-cerrar-popup-perfil"><i class="icon-close1"></i></a>
@@ -1380,7 +1297,7 @@ String descripcion = (String) session.getAttribute("descripcion");
 		</form>
 	</div>
 </div>
-<!-- END A脩ADIR CANCION A LISTA DE REPRODUCCI覰 -->
+<!-- END A脙聭ADIR CANCION A LISTA DE REPRODUCCI脫N -->
 
 </main><!--@Page Content-->
 

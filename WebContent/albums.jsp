@@ -1,7 +1,9 @@
-<!DOCTYPE html>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%><!DOCTYPE html>
 <html lang="zxx">
 
-<!-- NOMBRE DE LA PESTAÑA -->
+<!-- NOMBRE DE LA PESTAÃA -->
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -78,7 +80,7 @@
             
             <li class="menu-item-has-children">
                 <a href="#">
-                    <i class="icon icon-layers s-24"></i> <span>Categorías</span>
+                    <i class="icon icon-layers s-24"></i> <span>CategorÃ­as</span>
                     <i class=" icon-angle-left  pull-right"></i>
                 </a>
                 <ul class="sub-menu">
@@ -406,7 +408,7 @@
                     <div class="col text-center">
                         <a class="ajaxifyPage" href="#">
                             <i class="icon-exit-2  s-24"></i>
-                            <div class="pt-1">Cerrar sesión</div>
+                            <div class="pt-1">Cerrar sesiÃ³n</div>
                         </a>
                     </div>
                 </div>
@@ -692,7 +694,7 @@
         </div>
     </div>
 
-    <!-- CREAR LISTA DE REPRODUCCIÓN -->
+    <!-- CREAR LISTA DE REPRODUCCIÃN -->
 <div class="overlay-pop-up" id="overlay-listas-reproduccion">
     <div class="col-md-7 card p-5">
 		<a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-listas-reproduccion" class="btn-cerrar-popup"><i class="icon-close1"></i></a>
@@ -700,10 +702,10 @@
 			<!-- Input -->
 			<div class="body">
 				<header class="relative nav-sticky card">
-					<h3>CREAR LISTAS DE REPRODUCCIÓN</h3>
+					<h3>CREAR LISTAS DE REPRODUCCIÃN</h3>
 				</header>
 				<div class="contenedor-inputs">
-					<h4>Añadir imagen</h4>
+					<h4>AÃ±adir imagen</h4>
 					<input type="file" class="btn btn-outline-primary btn-sm  mt-3" name="fileName" required=""/> 
 					<input type="text" placeholder="Nombre" id="nombre-listas-reproduccion" required=""/>
 					<input type="text" placeholder="Descripcion" id="descripcion-listas-reproduccion"/>
@@ -716,7 +718,7 @@
 		</form>
 	</div>
 </div>
-<!-- END CREAR LISTA DE REPRODUCCIÓN -->
+<!-- END CREAR LISTA DE REPRODUCCIÃN -->
 
 
 
@@ -726,7 +728,7 @@
 		<form class="form-material" action="#">
 			<a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-cuenta" class="btn-cerrar-popup-perfil"><i class="icon-close1"></i></a>
 			<header class="relative nav-sticky card">
-				<h3>CAMBIAR INFORMACIÓN DE LA CUENTA</h3>
+				<h3>CAMBIAR INFORMACIÃN DE LA CUENTA</h3>
 			</header>
 			<form class="form-material" action="#"> <!--QUITAR-->
 				<!-- Input -->
@@ -748,24 +750,24 @@
 					<div class="form-group form-float">
 						<div class="form-line">
 							<input type="password" name="contrasena" class="form-control">
-							<label class="form-label">Contraseña actual</label>
+							<label class="form-label">ContraseÃ±a actual</label>
 						</div>
 					</div>
 					<div class="form-group form-float">
 						<div class="form-line">
 							<input type="password" name="contrasena" class="form-control">
-							<label class="form-label">Contraseña nueva</label>
+							<label class="form-label">ContraseÃ±a nueva</label>
 						</div>
 					</div>
 					<div class="form-group form-float">
 						<div class="form-line">
 							<input type="password" name="password" class="form-control">
-							<label class="form-label">Confirmar contraseña</label>
+							<label class="form-label">Confirmar contraseÃ±a</label>
 						</div>
 					</div>
 
 					<input type="submit" class="btn btn-outline-primary btn-sm pl-4 pr-4"
-						   value="Cambiar constraseña">
+						   value="Cambiar constraseÃ±a">
 				</div>
 			</form>
 			<!-- #END# Input -->
