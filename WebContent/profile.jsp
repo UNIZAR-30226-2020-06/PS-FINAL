@@ -95,24 +95,13 @@ String descripcion = (String) session.getAttribute("descripcion");
             
             <li class="menu-item-has-children">
                 <a href="#">
-                    <i class="icon icon-layers s-24"></i> <span>Categorías</span>
+                    <i class="icon icon-layers s-24"></i> <span>CategorÃ­as</span>
                     <i class=" icon-angle-left  pull-right"></i>
                 </a>
                 <ul class="sub-menu">
-
-                    <li><a href="page-blank.jsp" onclick="setTimeout(location.reload.bind(location), 1)">Genero1</a>
-                    </li>
-                    <li><a href="page-blank.jsp" onclick="setTimeout(location.reload.bind(location), 1)">Genero2</a>
-                    </li>
-                    <li>
-                        <a href="page-blank.jsp" onclick="setTimeout(location.reload.bind(location), 1)">Genero3</a>
-                    </li>
-                    <li>
-                        <a href="page-blank.jsp" onclick="setTimeout(location.reload.bind(location), 1)">Genero4</a>
-                    </li>
-                    <li>
-                        <a href="page-blank.jsp" onclick="setTimeout(location.reload.bind(location), 1)">Genero5</a>
-                    </li>
+					<c:forEach var="genero" items="${generos}">                    
+						<li><a href="page-blank.jsp" onclick="setTimeout(location.reload.bind(location), 1)">${genero.getNombre()}</a></li>
+	                </c:forEach>
 
                 </ul>
             </li>
@@ -1057,7 +1046,7 @@ String descripcion = (String) session.getAttribute("descripcion");
 <!-- Bloque de subir cancion datos-->
 <div class="overlay-pop-up" id="overlay-subir-cancion">
     <div class="col-md-7 card p-5">
-		<form class="form-material" action="subir_audio" method="post">
+		<form class="form-material" action="subir_audio" method="post" enctype="multipart/form-data">
 			<a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-subir-cancion" class="btn-cerrar-popup-perfil"><i class="icon-close1"></i></a>
 			<header class="relative nav-sticky card">
 					<h3>SUBIR CANCIÓN</h3>

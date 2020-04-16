@@ -24,12 +24,12 @@ public class CancionDAO {
 	private final static String GET_NOMBRE_GENERO_QUERY = "SELECT g.nombre FROM Reproductor_musica.Genero g WHERE g.id = ? AND g.tipo = 'cancion'";
 
 	
-	public int subirCancion(String titulo, String autor, String genero, String ruta) {
+	public int subirCancion(String titulo, int autor, int genero, String ruta) {
 		System.out.println("SubirCancion Entro+++++++++++++++++");
-		int id_autor = obtenerIDAutor(autor);
-		int id_genero = obtenerIDGenero(genero);
-		System.out.println(id_genero);
-		if (insertarCancion(titulo, id_autor, id_genero, ruta)) {
+		//int id_autor = obtenerIDAutor(autor);
+		//int id_genero = obtenerIDGenero(genero);
+		//System.out.println(id_genero);
+		if (insertarCancion(titulo, autor, genero, ruta)) {
 			return 1;
 		}
 		return 0;
@@ -194,26 +194,29 @@ public class CancionDAO {
 	private boolean insertarCancion(String titulo, int id_autor, int id_genero, String ruta) {
 		System.out.println("insertarCancion Entro +++++++++++++++++");
 		Connection conn;
-		try {
-			conn = ConnectionManager.getConnection();
-			PreparedStatement ps = conn.prepareStatement(INSERT_QUERY);
-			System.out.println(titulo);
-			System.out.println(id_autor);
-			System.out.println(id_genero);
-			ps.setString(1, titulo);
-			ps.setInt(2, id_autor);
-			ps.setInt(3, id_genero);
-			ps.setString(4, ruta);
-			ps.executeUpdate();
+
+			try {
+				conn = ConnectionManager.getConnection();
 			
-			ConnectionManager.releaseConnection(conn);
-			System.out.println("insertarCancion Salgo +++++++++++++++++");			
-			return true;
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			System.out.println("Error al insertar la canción");
-			return false;
-		}
+				PreparedStatement ps = conn.prepareStatement(INSERT_QUERY);
+				System.out.println(titulo);
+				System.out.println(id_autor);
+				System.out.println(id_genero);
+				ps.setString(1, titulo);
+				ps.setInt(2, id_autor);
+				ps.setInt(3, id_genero);
+				ps.setString(4, ruta);
+				ps.executeUpdate();
+				
+				ConnectionManager.releaseConnection(conn);
+				System.out.println("insertarCancion Salgo +++++++++++++++++");			
+				return true;
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				return false;
+			}
+		
 	}
 
 	private int obtenerIdCancion(String titulo) {

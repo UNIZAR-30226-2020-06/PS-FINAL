@@ -80,42 +80,31 @@
     <div class="sidebar">
         <ul class="sidebar-menu">
             <li><a class="ajaxifyPage active" href="index.jsp" onclick="setTimeout(location.reload.bind(location), 1)">
-					<i class="icon icon-home-1 s-24"></i> <span>Inicio</span>
-				</a>
+                    <i class="icon icon-home-1 s-24"></i> <span>Inicio</span>
+                </a>
             </li>
-			
+            
             <li class="menu-item-has-children">
                 <a href="#">
                     <i class="icon icon-layers s-24"></i> <span>Categorías</span>
                     <i class=" icon-angle-left  pull-right"></i>
                 </a>
                 <ul class="sub-menu">
-
-                    <li><a href="page-blank.jsp" onclick="setTimeout(location.reload.bind(location), 1)">Genero1</a>
-                    </li>
-                    <li><a href="page-blank.jsp" onclick="setTimeout(location.reload.bind(location), 1)">Genero2</a>
-                    </li>
-                    <li>
-                        <a href="page-blank.jsp" onclick="setTimeout(location.reload.bind(location), 1)">Genero3</a>
-                    </li>
-                    <li>
-                        <a href="page-blank.jsp" onclick="setTimeout(location.reload.bind(location), 1)">Genero4</a>
-                    </li>
-                    <li>
-                        <a href="page-blank.jsp" onclick="setTimeout(location.reload.bind(location), 1)">Genero5</a>
-                    </li>
+					<c:forEach var="genero" items="${generos}">                    
+						<li><a href="page-blank.jsp" onclick="setTimeout(location.reload.bind(location), 1)">${genero.getNombre()}</a></li>
+	                </c:forEach>
 
                 </ul>
             </li>
-			
-			<li><a class="ajaxifyPage" href="videos.jsp" onclick="setTimeout(location.reload.bind(location), 1)">
-					<i class="icon icon-compact-disc-1 s-24"></i> <span>Mis listas de reproduccion</span>
-				</a>
+            
+            <li><a class="ajaxifyPage" href="videos.jsp" onclick="setTimeout(location.reload.bind(location), 1)">
+                    <i class="icon icon-compact-disc-1 s-24"></i> <span>Mis listas de reproduccion</span>
+                </a>
             </li>
             
             <li><a class="ajaxifyPage" href="blog.jsp" onclick="setTimeout(location.reload.bind(location), 1)">
-					<i class="icon icon-headphones s-24"></i> <span>Mis podcasts</span>
-				</a>
+                    <i class="icon icon-headphones s-24"></i> <span>Mis podcasts</span>
+                </a>
             </li>
         </ul>
     </div>

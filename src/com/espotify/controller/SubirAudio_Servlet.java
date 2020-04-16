@@ -6,6 +6,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -22,13 +23,15 @@ import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
+import com.espotify.dao.GeneroDAO;
 import com.espotify.dao.SubirAudioDAO;
+import com.espotify.model.Genero;
 
 @WebServlet("/SubirAudio_Servlet")
 public class SubirAudio_Servlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final String ALMACEN_PATH = "/var/www/html/almacen-mp3/";
-	
+	private static final String RUTA = "http://34.69.44.48/almacen-mp3/";
 	/*
 	 * Constructor principal
 	 * 
@@ -49,7 +52,7 @@ public class SubirAudio_Servlet extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	/*	getServletContext().log("Comienza subida de MP3...");
+		getServletContext().log("Comienza subida de MP3...");
 		if(!ServletFileUpload.isMultipartContent(request)){
 			throw new ServletException("Content type is not multipart/form-data");
 		}
@@ -85,21 +88,21 @@ public class SubirAudio_Servlet extends HttpServlet {
 				ficheroAudio.setExecutable(true, false);
 				ficheroAudio.setWritable(true, false);
 				
-				request.setAttribute("ruta", rutaAudio);
-				request.getRequestDispatcher("formulario-datos-cancion.jsp").forward(request, response);
+				request.setAttribute("ruta", RUTA + lastId + ".mp3");
 				//out.write("<a href=\"UploadDownloadFileServlet?fileName="+fileItem.getName()+"\">Download "+fileItem.getName()+"</a>");
-			}*/
+			}
+			ArrayList<Genero> generos = new GeneroDAO().obtenerGeneroMusica();
+			request.setAttribute("generos", generos);
 			request.setAttribute("id_cancion", "0");
-			request.setAttribute("ruta", null);
 			request.getRequestDispatcher("formulario-datos-cancion.jsp").forward(request, response);
 
-	/*	} catch (FileUploadException e) {
+		} catch (FileUploadException e) {
 			getServletContext().log("FAIL: " + e.toString());
 			out.write("Se ha producido un error al subir el fichero");
 		} catch (Exception e) {
 			getServletContext().log("FAIL: " + e.toString());
 			out.write("Se ha producido un error al subir el fichero");
-		}*/
+		}
 		//out.write("</body></html>");
 	}
 

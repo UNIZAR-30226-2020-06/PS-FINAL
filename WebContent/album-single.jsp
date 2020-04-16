@@ -92,20 +92,9 @@
                     <i class=" icon-angle-left  pull-right"></i>
                 </a>
                 <ul class="sub-menu">
-
-                    <li><a href="page-blank.jsp" onclick="setTimeout(location.reload.bind(location), 1)">Genero1</a>
-                    </li>
-                    <li><a href="page-blank.jsp" onclick="setTimeout(location.reload.bind(location), 1)">Genero2</a>
-                    </li>
-                    <li>
-                        <a href="page-blank.jsp" onclick="setTimeout(location.reload.bind(location), 1)">Genero3</a>
-                    </li>
-                    <li>
-                        <a href="page-blank.jsp" onclick="setTimeout(location.reload.bind(location), 1)">Genero4</a>
-                    </li>
-                    <li>
-                        <a href="page-blank.jsp" onclick="setTimeout(location.reload.bind(location), 1)">Genero5</a>
-                    </li>
+					<c:forEach var="genero" items="${generos}">                    
+						<li><a href="page-blank.jsp" onclick="setTimeout(location.reload.bind(location), 1)">${genero.getNombre()}</a></li>
+	                </c:forEach>
 
                 </ul>
             </li>
