@@ -148,10 +148,14 @@ public class UsuarioDAO {
 			ps.setString(2, id);
 			ps.setString(3, pass1_HASH);
 	
-			ps.executeUpdate();
-			
-			ConnectionManager.releaseConnection(conn);
-			return true;
+			if(ps.executeUpdate()==1) { // Se ha podido insertar
+				ConnectionManager.releaseConnection(conn);
+				return true;
+			}
+			else {
+				ConnectionManager.releaseConnection(conn);
+				return false;
+			}
 		} catch(SQLException se) {
 			se.printStackTrace();
 			return false;
@@ -192,7 +196,7 @@ public class UsuarioDAO {
 			PreparedStatement ps = conn.prepareStatement(LOGIN_QUERY);
 			ps.setString(1, email);
 			
-			// ciframos la contrase�a con HASH256
+			// ciframos la contraseï¿½a con HASH256
 			String pass_HASH = convertirSHA256(contrasena);
 			ps.setString(2, pass_HASH);
 			
