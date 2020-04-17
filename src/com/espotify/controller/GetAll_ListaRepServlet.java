@@ -34,15 +34,17 @@ public class GetAll_ListaRepServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		String usuario = request.getParameter("usuario");
-		String tipo = request.getParameter("tipo");
+		HttpSession session = request.getSession();
+		String usuario = (String) session.getAttribute("id");
+		String tipo = request.getParameter("tipo"); // ?¿?¿?¿?¿?¿
 		try{
 			List<ListaReproduccion> listas = new ListaReproduccionDAO().showLists(usuario,tipo);
-			HttpSession session = request.getSession();
+			
 			session.setAttribute("listas", listas);
 				
 			//RequestDispatcher dispatcher=request.getRequestDispatcher("user.jsp");
 			//dispatcher.forward(request, response);
+			response.sendRedirect("albums.jsp");
 
 		}catch(Throwable theException) {
 			//response.sendRedirect("crearListaRep.jsp");

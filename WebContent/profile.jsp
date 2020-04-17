@@ -117,7 +117,7 @@ String descripcion = (String) session.getAttribute("descripcion");
                 </ul>
             </li>
             
-            <li><a class="ajaxifyPage" href="videos.jsp" onclick="setTimeout(location.reload.bind(location), 1)">
+            <li><a class="ajaxifyPage" href="albums.jsp" onclick="setTimeout(location.reload.bind(location), 1)">
                     <i class="icon icon-compact-disc-1 s-24"></i> <span>Mis listas de reproduccion</span>
                 </a>
             </li>
@@ -331,7 +331,7 @@ String descripcion = (String) session.getAttribute("descripcion");
                         <li class="list-group-item">
                             <div class="d-flex align-items-center ">
                                 <div class="col-8 ">
-                                    <a href="video-single.jsp" onclick="setTimeout(location.reload.bind(location), 1)">
+                                    <a href="album-single.jsp" onclick="setTimeout(location.reload.bind(location), 1)">
                                         <h6>Battal of Bands</h6>
                                     </a>
                                     <small class="mt-1"><i class="icon-placeholder-3 mr-1 "></i> London Music Hall
@@ -348,7 +348,7 @@ String descripcion = (String) session.getAttribute("descripcion");
                         <li class="list-group-item">
                             <div class="d-flex align-items-center ">
                                 <div class="col-8 ">
-                                    <a href="video-single.jsp" onclick="setTimeout(location.reload.bind(location), 1)">
+                                    <a href="album-single.jsp" onclick="setTimeout(location.reload.bind(location), 1)">
                                         <h6>Battal of Bands</h6>
                                     </a>
                                     <small class="mt-1"><i class="icon-placeholder-3 mr-1 "></i> London Music Hall
@@ -365,7 +365,7 @@ String descripcion = (String) session.getAttribute("descripcion");
                         <li class="list-group-item">
                             <div class="d-flex align-items-center ">
                                 <div class="col-8 ">
-                                    <a href="video-single.jsp" onclick="setTimeout(location.reload.bind(location), 1)">
+                                    <a href="album-single.jsp" onclick="setTimeout(location.reload.bind(location), 1)">
                                         <h6>Battal of Bands</h6>
                                     </a>
                                     <small class="mt-1"><i class="icon-placeholder-3 mr-1 "></i> London Music Hall
@@ -730,6 +730,9 @@ String descripcion = (String) session.getAttribute("descripcion");
 									</div>
 								</div>
 							</figure>
+							<div class="contenido-pestanas" style="text-align: center;">	
+									<button class="btn btn-abrir-popup icon-trash-o" onclick="document.getElementById('overlay-borrar-listas-reproduccion').classList.add('active');"></button>	
+							</div>
 						</div>
 						<div class="col-lg-3 col-md-4 col-sm-6 my-2">
 							<figure>
@@ -751,6 +754,9 @@ String descripcion = (String) session.getAttribute("descripcion");
 								</div>
 
 							</figure>
+							<div class="contenido-pestanas" style="text-align: center;">	
+									<button class="btn btn-abrir-popup icon-trash-o" onclick="document.getElementById('overlay-borrar-listas-reproduccion').classList.add('active');"></button>	
+							</div>
 						</div>
 						<div class="col-lg-3 col-md-4 col-sm-6 my-2">
 							<figure>
@@ -772,6 +778,9 @@ String descripcion = (String) session.getAttribute("descripcion");
 								</div>
 
 							</figure>
+							<div class="contenido-pestanas" style="text-align: center;">	
+									<button class="btn btn-abrir-popup icon-trash-o" onclick="document.getElementById('overlay-borrar-listas-reproduccion').classList.add('active');"></button>	
+							</div>
 						</div>
 						<div class="col-lg-3 col-md-4 col-sm-6 my-2">
 							<figure>
@@ -793,6 +802,9 @@ String descripcion = (String) session.getAttribute("descripcion");
 								</div>
 
 							</figure>
+							<div class="contenido-pestanas" style="text-align: center;">	
+									<button class="btn btn-abrir-popup icon-trash-o" onclick="document.getElementById('overlay-borrar-listas-reproduccion').classList.add('active');"></button>	
+							</div>
 						</div>
 						<div class="col-lg-3 col-md-4 col-sm-6 my-2">
 							<figure>
@@ -814,6 +826,9 @@ String descripcion = (String) session.getAttribute("descripcion");
 								</div>
 
 							</figure>
+							<div class="contenido-pestanas" style="text-align: center;">	
+									<button class="btn btn-abrir-popup icon-trash-o" onclick="document.getElementById('overlay-borrar-listas-reproduccion').classList.add('active');"></button>	
+							</div>
 						</div>
 						<div class="col-lg-3 col-md-4 col-sm-6 my-2">
 							<figure>
@@ -835,6 +850,9 @@ String descripcion = (String) session.getAttribute("descripcion");
 								</div>
 
 							</figure>
+							<div class="contenido-pestanas" style="text-align: center;">	
+									<button class="btn btn-abrir-popup icon-trash-o" onclick="document.getElementById('overlay-borrar-listas-reproduccion').classList.add('active');"></button>	
+							</div>
 						</div>
 						<div class="col-lg-3 col-md-4 col-sm-6 my-2">
 							<figure>
@@ -856,6 +874,9 @@ String descripcion = (String) session.getAttribute("descripcion");
 								</div>
 
 							</figure>
+							<div class="contenido-pestanas" style="text-align: center;">	
+									<button class="btn btn-abrir-popup icon-trash-o" onclick="document.getElementById('overlay-borrar-listas-reproduccion').classList.add('active');"></button>	
+							</div>
 						</div>
 						<div class="col-lg-3 col-md-4 col-sm-6 my-2">
 							<figure>
@@ -876,6 +897,9 @@ String descripcion = (String) session.getAttribute("descripcion");
 									</div>
 								</div>
 							</figure>
+							<div class="contenido-pestanas" style="text-align: center;">	
+									<button class="btn btn-abrir-popup icon-trash-o" onclick="document.getElementById('overlay-borrar-listas-reproduccion').classList.add('active');"></button>	
+							</div>
 						</div>
 					</div>
 				</div>
@@ -1189,7 +1213,7 @@ String descripcion = (String) session.getAttribute("descripcion");
 <div class="overlay-pop-up" id="overlay-listas-reproduccion">
     <div class="col-md-7 card p-5">
 		<a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-listas-reproduccion" class="btn-cerrar-popup-perfil"><i class="icon-close1"></i></a>
-		<form class="form-material" action="profile.jsp">
+		<form class="form-material" action="crear_lr" method="post">
 			<!-- Input -->
 			<div class="body">
 				<header class="relative nav-sticky card">
@@ -1197,8 +1221,8 @@ String descripcion = (String) session.getAttribute("descripcion");
 				</header>
 				<div class="contenedor-inputs">
 					<h4>Añadir imagen</h4>
-					<input type="file" class="btn btn-outline-primary btn-sm  mt-3" name="fileName" required=""/> 
-					<input type="text" placeholder="Nombre" id="nombre-listas-reproduccion" required=""/>
+					<input type="file" class="btn btn-outline-primary btn-sm  mt-3" name="fileName" required/> 
+					<input type="text" placeholder="Nombre" id="nombre-listas-reproduccion" required/>
 					<input type="text" placeholder="Descripcion" id="descripcion-listas-reproduccion"/>
 				</div>
 
@@ -1392,6 +1416,29 @@ String descripcion = (String) session.getAttribute("descripcion");
 	</div>
 </div>
 <!-- END AÃ‘ADIR CANCION A LISTA DE REPRODUCCIÓN -->
+<!-- BORRAR LISTA DE REPRODUCCIÓN -->	
+	<div class="overlay-pop-up" id="overlay-borrar-listas-reproduccion">	
+	    <div class="col-md-7 card p-5">	
+	        <a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-borrar-listas-reproduccion" class="btn-cerrar-popup-perfil"	
+	        class="btn btn-outline-primary btn-sm pl-4 pr-4"  onclick="document.getElementById('overlay-borrar-listas-reproduccion').classList.remove('active');"><i class="icon-close1"></i></a>	
+			<form class="form-material" action="borrar_lr" method="post">	
+				<!-- Input -->	
+				<div class="body">	
+					<header class="relative nav-sticky card">	
+	                    <h3>¿Estas seguro?</h3>	
+	                    <h5>Vas a borrar esta lista de reproduccion para siempre, no hay vuelta atras</h5>	
+					</header>	
+		
+		
+					<input type="submit" class="btn btn-outline-primary btn-sm pl-4 pr-4"	
+	                       value="Aceptar">	
+	                <button class="btn btn-outline-primary btn-sm pl-4 pr-4"  onclick="document.getElementById('overlay-borrar-listas-reproduccion').classList.remove('active');">Cerrar</button>	
+				</div>	
+				<!-- #END# Input -->	
+	        </form>	
+		</div>	
+	</div>	
+<!-- END BORRAR LISTA DE REPRODUCCIÓN -->
 
 </main><!--@Page Content-->
 

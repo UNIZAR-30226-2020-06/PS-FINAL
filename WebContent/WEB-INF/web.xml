@@ -97,6 +97,33 @@
 	</servlet-mapping>
 	
 	<servlet>
+		<servlet-name>crear_lr</servlet-name>
+		<servlet-class>com.espotify.controller.Crear_ListaRepServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>crear_lr</servlet-name>
+		<url-pattern>/crear_lr</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>borrar_lr</servlet-name>
+		<servlet-class>com.espotify.controller.Borrar_ListaRepServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>borrar_lr</servlet-name>
+		<url-pattern>/borrar_lr</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>mostrar_lrs</servlet-name>
+		<servlet-class>com.espotify.controller.GetAll_ListaRepServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>mostrar_lrs</servlet-name>
+		<url-pattern>/mostrar_lrs</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
 		<servlet-name>android_testing</servlet-name>
 		<servlet-class>com.espotify.controller.AndroidTesting</servlet-class>
 	</servlet>

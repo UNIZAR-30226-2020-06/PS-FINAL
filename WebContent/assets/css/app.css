@@ -28326,7 +28326,19 @@ to{
 	color: #000;
 }
 
-
+.btn-abrir-popup-lista{	
+		color:#ff6702;	
+		border-color:#050200;	
+		background:#1d1d1d	
+			
+}	
+		
+.btn-abrir-popup-lista:hover{	
+		box-shadow:0 3px 9px 0 rgba(0,0,0,.26);	
+		opacity:.8;	
+		color:#fff;	
+		background:#000000	
+}	
 
 /* ------------------------- */
 /* EDICION DE PERFIL		*/

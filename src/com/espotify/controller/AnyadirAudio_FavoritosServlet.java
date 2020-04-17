@@ -30,12 +30,13 @@ public class AnyadirAudio_FavoritosServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		String usuario = request.getParameter("usuario");
+		HttpSession session = request.getSession();
+		String usuario = (String)session.getAttribute("id");
 		String idAudio = request.getParameter("idAudio");
 		
 		Boolean anyadida = new FavoritosDAO().anyadirAudio(usuario, idAudio);
 		
-		HttpSession session = request.getSession();
+		
 		session.setAttribute("anyadida?", anyadida);
 		
 		//RequestDispatcher dispatcher=request.getRequestDispatcher("audio.jsp");

@@ -29,22 +29,24 @@ public class Crear_ListaRepServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		String nombre = request.getParameter("nombre");
-		String usuario = request.getParameter("usuario");
-		String descripcion = request.getParameter("descripcion");
-		String tipo = request.getParameter("tipo");
+		HttpSession session = request.getSession();
+		
+		String usuario = (String) session.getAttribute("id");
+		String nombre = request.getParameter("nombre-listas-reproduccion");
+		String descripcion = request.getParameter("descripcion-listas-reproduccion");
+		String tipo = request.getParameter("tipo"); //Mirar esto!!!
 		
 		Boolean creada = new ListaReproduccionDAO().crear(usuario,nombre,descripcion,tipo);
 		if(creada) {
-			HttpSession session = request.getSession();
-			session.setAttribute("usuario", usuario);
+			/* ¿feedback?
 			session.setAttribute("nombre", nombre);
 			session.setAttribute("descripcion", descripcion);
 			session.setAttribute("tipo", tipo);
-			
+			*/
+			String path = request.getContextPath(); // Guarda el path de donde se hace la peticion
 			//RequestDispatcher dispatcher=request.getRequestDispatcher("user.jsp");
 	        //dispatcher.forward(request, response);
+			response.sendRedirect(path); // Vuevle al mismo lugar donde se hace la peticion
 		}else {
 			//response.sendRedirect("crearListaRep.jsp");
 		}

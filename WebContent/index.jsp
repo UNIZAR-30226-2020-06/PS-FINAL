@@ -108,7 +108,7 @@
                 </ul>
             </li>
 			
-			<li><a class="ajaxifyPage" href="videos.jsp" onclick="setTimeout(location.reload.bind(location), 1)">
+			<li><a class="ajaxifyPage" href="mostrar_lrs" onclick="setTimeout(location.reload.bind(location), 1)">
 					<i class="icon icon-compact-disc-1 s-24"></i> <span>Mis listas de reproduccion</span>
 				</a>
             </li>
@@ -321,7 +321,7 @@
                         <li class="list-group-item">
                             <div class="d-flex align-items-center ">
                                 <div class="col-8 ">
-                                    <a href="video-single.jsp" onclick="setTimeout(location.reload.bind(location), 1)">
+                                    <a href="album-single.jsp" onclick="setTimeout(location.reload.bind(location), 1)">
                                         <h6>Battal of Bands</h6>
                                     </a>
                                     <small class="mt-1"><i class="icon-placeholder-3 mr-1 "></i> London Music Hall
@@ -338,7 +338,7 @@
                         <li class="list-group-item">
                             <div class="d-flex align-items-center ">
                                 <div class="col-8 ">
-                                    <a href="video-single.jsp" onclick="setTimeout(location.reload.bind(location), 1)">
+                                    <a href="album-single.jsp" onclick="setTimeout(location.reload.bind(location), 1)">
                                         <h6>Battal of Bands</h6>
                                     </a>
                                     <small class="mt-1"><i class="icon-placeholder-3 mr-1 "></i> London Music Hall
@@ -355,7 +355,7 @@
                         <li class="list-group-item">
                             <div class="d-flex align-items-center ">
                                 <div class="col-8 ">
-                                    <a href="video-single.jsp" onclick="setTimeout(location.reload.bind(location), 1)">
+                                    <a href="album-single.jsp" onclick="setTimeout(location.reload.bind(location), 1)">
                                         <h6>Battal of Bands</h6>
                                     </a>
                                     <small class="mt-1"><i class="icon-placeholder-3 mr-1 "></i> London Music Hall

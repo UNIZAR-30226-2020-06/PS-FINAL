@@ -83,24 +83,24 @@
                 </a>
                 <ul class="sub-menu">
 
-                    <li><a href="page-blank.jsp">Mierda1</a>
+                    <li><a href="page-blank.jsp" onclick="setTimeout(location.reload.bind(location), 1)">Genero1</a>
                     </li>
-                    <li><a href="page-blank.jsp">Mierda2</a>
-                    </li>
-                    <li>
-                        <a href="page-blank.jsp">Mierda3</a>
+                    <li><a href="page-blank.jsp" onclick="setTimeout(location.reload.bind(location), 1)">Genero2</a>
                     </li>
                     <li>
-                        <a href="page-blank.jsp">Mierda4</a>
+                        <a href="page-blank.jsp" onclick="setTimeout(location.reload.bind(location), 1)">Genero3</a>
                     </li>
                     <li>
-                        <a href="page-blank.jsp">Mierda5</a>
+                        <a href="page-blank.jsp" onclick="setTimeout(location.reload.bind(location), 1)">Genero4</a>
+                    </li>
+                    <li>
+                        <a href="page-blank.jsp" onclick="setTimeout(location.reload.bind(location), 1)">Genero5</a>
                     </li>
 
                 </ul>
             </li>
 			
-			<li><a class="ajaxifyPage" href="videos.jsp" onclick="setTimeout(location.reload.bind(location), 1)">
+			<li><a class="ajaxifyPage" href="albums.jsp" onclick="setTimeout(location.reload.bind(location), 1)">
 					<i class="icon icon-compact-disc-1 s-24"></i> <span>Mis listas de reproduccion</span>
 				</a>
             </li>
@@ -310,7 +310,7 @@
                         <li class="list-group-item">
                             <div class="d-flex align-items-center ">
                                 <div class="col-8 ">
-                                    <a href="video-single.jsp" onclick="setTimeout(location.reload.bind(location), 1)">
+                                    <a href="album-single.jsp" onclick="setTimeout(location.reload.bind(location), 1)">
                                         <h6>Battal of Bands</h6>
                                     </a>
                                     <small class="mt-1"><i class="icon-placeholder-3 mr-1 "></i> London Music Hall
@@ -327,7 +327,7 @@
                         <li class="list-group-item">
                             <div class="d-flex align-items-center ">
                                 <div class="col-8 ">
-                                    <a href="video-single.jsp" onclick="setTimeout(location.reload.bind(location), 1)">
+                                    <a href="album-single.jsp" onclick="setTimeout(location.reload.bind(location), 1)">
                                         <h6>Battal of Bands</h6>
                                     </a>
                                     <small class="mt-1"><i class="icon-placeholder-3 mr-1 "></i> London Music Hall
@@ -344,7 +344,7 @@
                         <li class="list-group-item">
                             <div class="d-flex align-items-center ">
                                 <div class="col-8 ">
-                                    <a href="video-single.jsp">
+                                   <a href="album-single.html" onclick="setTimeout(location.reload.bind(location), 1)">
                                         <h6>Battal of Bands</h6>
                                     </a>
                                     <small class="mt-1"><i class="icon-placeholder-3 mr-1 "></i> London Music Hall
@@ -499,6 +499,16 @@
 
 <main id="pageContent" class="page has-sidebar">
 
+<%@ page import="java.util.List"%>
+<%@ page import="com.espotify.model.ListaReproduccion" %>
+
+<%
+
+	List<ListaReproduccion> listas = (List<ListaReproduccion>) session.getAttribute("listas");
+	int i = 0;
+	
+%>
+
 <div class="container-fluid relative animatedParent animateOnce">
         <div class="animated fadeInUpShort p-5 ml-lg-5 mr-lg-5">
             <section>
@@ -506,30 +516,60 @@
                     <h1 class="mb-2 text-primary">Lista de Reproduccion</h1>
                     <p>Todas tus maravillosas listas de reproduccion</p>
                 </div>
+                <div class="contenido-pestanas" style="text-align: center;">
+						<button class="btn btn-abrir-popup icon-plus" id="abrir-listas-reproduccion">Crear Lista de Reproducción</button>
+				</div>
+                
                 <div class="row has-items-overlay">
-                    <div class="col-lg-3 col-md-4 col-sm-6 my-2">
+                	<div class="col-lg-3 col-md-4 col-sm-6 my-2">
                         <figure>
                             <div class="img-wrapper">
-                                <img src="assets/img/demo/a1.jpg" alt="/">
+                                <img src="assets/img/demo/fav.jpg" alt="/">
                                 <div class="img-overlay text-white text-center">
                                     <a href="album-single.jsp" onclick="setTimeout(location.reload.bind(location), 1)">
                                         <div class="figcaption mt-3">
                                             <i class="icon-link s-48"></i>
-                                            <h5 class="mt-5">To Phir Ao</h5>
-                                            <span>Atif Aslam</span>
+                                            <h5 class="mt-5">Mis Favoritos</h5>
+                                            
                                         </div>
                                     </a>
                                 </div>
                                 <div class="figure-title text-center p-2">
-                                    <h5>To Phir Ao</h5>
-                                    <span>Atif Aslam</span>
+                                    <h5>Mis favoritos</h5>
+                                    
+                                </div>
+                            </div>
+                     	</figure>
+                    <% if (listas != null ){ %>
+                	<% for(i=0; i < listas.size(); i++) { %>
+                    <div class="col-lg-3 col-md-4 col-sm-6 my-2">
+                        <figure>
+                            <div class="img-wrapper">
+                                <img src="<%listas.get(i).getImagen(); %>" alt="/">
+                                <div class="img-overlay text-white text-center">
+                                    <a href="album-single.jsp" onclick="setTimeout(location.reload.bind(location), 1)">
+                                        <div class="figcaption mt-3">
+                                            <i class="icon-link s-48"></i>
+                                            <h5 class="mt-5"><%listas.get(i).getNombre(); %></h5>
+                                            <span><%listas.get(i).getUsuario(); %></span>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="figure-title text-center p-2">
+                                    <h5>listas.get(i).getNombre();</h5>
+                                    <span>listas.get(i).getUsuario();</span>
                                 </div>
                             </div>
                         </figure>
                         <div class="contenido-pestanas" style="text-align: center;">
-                            <button class="btn btn-abrir-popup-lista icon-trash-o"></button>
+                            <button class="btn btn-abrir-popup-lista icon-trash-o" 
+                            onclick="document.getElementById('idLista').value = '<%=i %>';
+                            document.getElementById('overlay-borrar-listas-reproduccion').classList.add('active');"></button>
                         </div>
+                     <% }} %>
+                     
                     </div>
+                    <!--  Comentamos esto a ver si funciona
                     <div class="col-lg-3 col-md-4 col-sm-6 my-2">
                         <figure>
                             <div class="img-wrapper">
@@ -551,7 +591,7 @@
 
                         </figure>
                         <div class="contenido-pestanas" style="text-align: center;">
-                            <button class="btn btn-abrir-popup-lista icon-trash-o"></button>
+                            <button class="btn btn-abrir-popup-lista icon-trash-o" onclick="document.getElementById('overlay-borrar-listas-reproduccion').classList.add('active');"></button>
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-4 col-sm-6 my-2">
@@ -575,7 +615,7 @@
 
                         </figure>
                         <div class="contenido-pestanas" style="text-align: center;">
-                            <button class="btn btn-abrir-popup-lista icon-trash-o"></button>
+                            <button class="btn btn-abrir-popup-lista icon-trash-o" onclick="document.getElementById('overlay-borrar-listas-reproduccion').classList.add('active');"></button>
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-4 col-sm-6 my-2">
@@ -599,7 +639,7 @@
 
                         </figure>
                         <div class="contenido-pestanas" style="text-align: center;">
-                            <button class="btn btn-abrir-popup-lista icon-trash-o"></button>
+                            <button class="btn btn-abrir-popup-lista icon-trash-o" onclick="document.getElementById('overlay-borrar-listas-reproduccion').classList.add('active');"></button>
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-4 col-sm-6 my-2">
@@ -623,7 +663,7 @@
 
                         </figure>
                         <div class="contenido-pestanas" style="text-align: center;">
-                            <button class="btn btn-abrir-popup-lista icon-trash-o"></button>
+                            <button class="btn btn-abrir-popup-lista icon-trash-o" onclick="document.getElementById('overlay-borrar-listas-reproduccion').classList.add('active');"></button>
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-4 col-sm-6 my-2">
@@ -647,7 +687,7 @@
 
                         </figure>
                         <div class="contenido-pestanas" style="text-align: center;">
-                            <button class="btn btn-abrir-popup-lista icon-trash-o"></button>
+                            <button class="btn btn-abrir-popup-lista icon-trash-o" onclick="document.getElementById('overlay-borrar-listas-reproduccion').classList.add('active');"></button>
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-4 col-sm-6 my-2">
@@ -672,7 +712,7 @@
                         </figure>
                         <div class="contenido-pestanas" style="text-align: center;">
 
-                            <button class="btn btn-abrir-popup-lista icon-trash-o"></button>
+                            <button class="btn btn-abrir-popup-lista icon-trash-o" onclick="document.getElementById('overlay-borrar-listas-reproduccion').classList.add('active');"></button>
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-4 col-sm-6 my-2">
@@ -695,51 +735,51 @@
                             </div>
                         </figure>
                         <div class="contenido-pestanas" style="text-align: center;">
-                            <button class="btn btn-abrir-popup-lista icon-trash-o"></button>
+                            <button class="btn btn-abrir-popup-lista icon-trash-o" onclick="document.getElementById('overlay-borrar-listas-reproduccion').classList.add('active');"></button>
                         </div>
                     </div>
+                    -->
                 </div>
             </section>
         </div>
     </div>
-
-    <!-- CREAR LISTA DE REPRODUCCIÃ“N -->
+	
+<!-- CREAR LISTA DE REPRODUCCIÓN -->
 <div class="overlay-pop-up" id="overlay-listas-reproduccion">
     <div class="col-md-7 card p-5">
-		<a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-listas-reproduccion" class="btn-cerrar-popup"><i class="icon-close1"></i></a>
-		<form class="form-material" action="#">
+		<a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-listas-reproduccion" class="btn-cerrar-popup-perfil"><i class="icon-close1"></i></a>
+		<form class="form-material" action="crear_lr" method="post">
 			<!-- Input -->
 			<div class="body">
 				<header class="relative nav-sticky card">
-					<h3>CREAR LISTAS DE REPRODUCCIÃ“N</h3>
+					<h3>CREAR LISTAS DE REPRODUCCIÓN</h3>
 				</header>
 				<div class="contenedor-inputs">
-					<h4>AÃ±adir imagen</h4>
-					<input type="file" class="btn btn-outline-primary btn-sm  mt-3" name="fileName" required=""/> 
-					<input type="text" placeholder="Nombre" id="nombre-listas-reproduccion" required=""/>
+					<h4>Añadir imagen</h4>
+					<input type="file" class="btn btn-outline-primary btn-sm  mt-3" name="fileName" required/> 
+					<input type="text" placeholder="Nombre" id="nombre-listas-reproduccion" required/>
 					<input type="text" placeholder="Descripcion" id="descripcion-listas-reproduccion"/>
 				</div>
 
 				<input type="submit" class="btn btn-outline-primary btn-sm pl-4 pr-4"
-					   value="Crear">
+					   value="Aceptar">
 			</div>
 			<!-- #END# Input -->
 		</form>
 	</div>
 </div>
-<!-- END CREAR LISTA DE REPRODUCCIÃ“N -->
+<!-- END CREAR LISTA DE REPRODUCCIÓ“N -->
 
 
 
 <!-- AJUSTES CUENTA -->
 <div class="overlay-pop-up" id="overlay-cuenta">
     <div class="col-md-7 card p-5">
-		<form class="form-material" action="#">
 			<a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-cuenta" class="btn-cerrar-popup-perfil"><i class="icon-close1"></i></a>
 			<header class="relative nav-sticky card">
-				<h3>CAMBIAR INFORMACIÃ“N DE LA CUENTA</h3>
+				<h3>CAMBIAR INFORMACIÓN DE LA CUENTA</h3>
 			</header>
-			<form class="form-material" action="#"> <!--QUITAR-->
+			<form class="form-material" action="modinfo"> <!--QUITAR-->
 				<!-- Input -->
 				<div class="body">
 					
@@ -753,39 +793,61 @@
 						   value="Cambiar email">
 				</div>
 			</form>
-			<form class="form-material" action="#"> <!--QUITAR-->
+			<form class="form-material" action="modpass"> <!--QUITAR-->
 				<!-- Input -->
 				<div class="body">
 					<div class="form-group form-float">
 						<div class="form-line">
-							<input type="password" name="contrasena" class="form-control">
-							<label class="form-label">ContraseÃ±a actual</label>
+							<input type="password" name="contrasena1" class="form-control">
+							<label class="form-label">Contraseña actual</label>
 						</div>
 					</div>
 					<div class="form-group form-float">
 						<div class="form-line">
-							<input type="password" name="contrasena" class="form-control">
-							<label class="form-label">ContraseÃ±a nueva</label>
+							<input type="password" name="contrasena2" class="form-control">
+							<label class="form-label">Contraseña nueva</label>
 						</div>
 					</div>
 					<div class="form-group form-float">
 						<div class="form-line">
-							<input type="password" name="password" class="form-control">
-							<label class="form-label">Confirmar contraseÃ±a</label>
+							<input type="password" name="contrasena3" class="form-control">
+							<label class="form-label">Confirmar contraseña</label>
 						</div>
 					</div>
 
 					<input type="submit" class="btn btn-outline-primary btn-sm pl-4 pr-4"
-						   value="Cambiar constraseÃ±a">
+						   value="Cambiar constraseña">
 				</div>
 			</form>
 			<!-- #END# Input -->
-		</form>
 	</div>
 </div>
 <!-- END AJUSTES CUENTA -->
 
 
+<!-- BORRAR LISTA DE REPRODUCCIÓN -->	
+	<div class="overlay-pop-up" id="overlay-borrar-listas-reproduccion">	
+	    <div class="col-md-7 card p-5">	
+	        <a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-borrar-listas-reproduccion" class="btn-cerrar-popup-perfil"	
+	        class="btn btn-outline-primary btn-sm pl-4 pr-4"  onclick="document.getElementById('overlay-borrar-listas-reproduccion').classList.remove('active');"><i class="icon-close1"></i></a>	
+			<form class="form-material" action="albums.jsp">	
+				<!-- Input -->	
+				<div class="body">	
+					<header class="relative nav-sticky card">	
+	                    <h3>¿Estas seguro?</h3>	
+	                    <h5>Vas a borrar esta lista de reproduccion para siempre, no hay vuelta atras</h5>	
+					</header>	
+		
+					<input type="hidden" id="idLista" value="">
+					<input type="submit" class="btn btn-outline-primary btn-sm pl-4 pr-4"	
+	                       value="Aceptar">	
+	                <button class="btn btn-outline-primary btn-sm pl-4 pr-4"  onclick="document.getElementById('overlay-borrar-listas-reproduccion').classList.remove('active');">Cerrar</button>	
+				</div>	
+				<!-- #END# Input -->	
+	        </form>	
+		</div>	
+	</div>	
+<!-- END BORRAR LISTA DE REPRODUCCIÓN -->
 
 </main><!--@Page Content-->
 </div><!--@#app-->
