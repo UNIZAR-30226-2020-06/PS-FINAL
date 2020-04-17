@@ -17,6 +17,18 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import com.espotify.model.ConnectionManager;
+import com.espotify.model.Usuario;
+import com.mysql.cj.jdbc.Blob;
+
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 public class UsuarioDAO {
 	private final static String INSERT_QUERY = "INSERT INTO Reproductor_musica.Usuario (mail, descripcion, nombre, password, imagen) VALUES (?,?,?,?,null)";
@@ -27,6 +39,8 @@ public class UsuarioDAO {
 	private final static String UPDATE_IMG_QUERY = "UPDATE Reproductor_musica.Usuario SET imagen=? WHERE id = ?";
 	private final static String UPDATE_PASS_QUERY = "UPDATE Reproductor_musica.Usuario SET password=? WHERE id = ? AND password=?";
 	private final static String LOGIN_QUERY = "SELECT nombre, descripcion, mail, id, imagen FROM Reproductor_musica.Usuario WHERE mail = ? AND password = ?";
+	private final static String USER_GETID_QUERY = "SELECT id, imagen FROM Reproductor_musica.Usuario WHERE mail = ?";
+	private final static String USER_GETINFO_QUERY = "SELECT nombre, descripcion, mail FROM Reproductor_musica.Usuario WHERE mail = ?";
 	
 	
 	/**
@@ -74,7 +88,7 @@ public class UsuarioDAO {
 	}
 
 	public static boolean cambiar_info(String nombre, String descripcion, String email, String id, String imagen) {
-	
+		
 		try {
 			Connection conn = ConnectionManager.getConnection();
 			PreparedStatement ps;
@@ -182,7 +196,7 @@ public class UsuarioDAO {
 			PreparedStatement ps = conn.prepareStatement(LOGIN_QUERY);
 			ps.setString(1, email);
 			
-			// ciframos la contrase�a con HASH256
+			// ciframos la contraseï¿½a con HASH256
 			String pass_HASH = convertirSHA256(contrasena);
 			ps.setString(2, pass_HASH);
 			
@@ -202,6 +216,57 @@ public class UsuarioDAO {
 		return result;
 	}
 	
+	public static Usuario obtenerInfo(String email) {
+		Usuario result = null;
+		Blob blob = null;
+		try {
+
+			Connection conn = ConnectionManager.getConnection();
+			PreparedStatement ps = conn.prepareStatement(USER_GETINFO_QUERY);
+			ps.setString(1, email);
+			
+			ResultSet rs = ps.executeQuery();
+
+			if(rs.first()){
+				result = new Usuario(rs.getString("nombre"), rs.getString("descripcion"), rs.getString("mail"), null, null);
+			}
+			
+			ConnectionManager.releaseConnection(conn);
+		} catch(SQLException se) {
+			se.printStackTrace();
+		} catch(Exception e) {
+			e.printStackTrace(System.err);
+		}
+		
+		return result;
+	}
+	
+	
+	public static String obtenerId(String email) {
+		String id = "";
+
+		try {
+
+			Connection conn = ConnectionManager.getConnection();
+			PreparedStatement ps = conn.prepareStatement(USER_GETID_QUERY);
+			ps.setString(1, email);
+			
+			ResultSet rs = ps.executeQuery();
+
+			if(rs.first()){
+				id = rs.getString("id");
+			}
+			
+			ConnectionManager.releaseConnection(conn);
+		} catch(SQLException se) {
+			se.printStackTrace();
+		} catch(Exception e) {
+			e.printStackTrace(System.err);
+		}
+		
+		return id;
+	}
+	
 	// Prubas con la base de datos
  	public static void main(String[] args) throws SQLException, IOException{
  		/*
@@ -217,3 +282,4 @@ public class UsuarioDAO {
  		*/
  	}
 }
+

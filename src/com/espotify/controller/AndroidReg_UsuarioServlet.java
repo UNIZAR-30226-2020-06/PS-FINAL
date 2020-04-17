@@ -16,21 +16,20 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.JSONObject;
 
 import com.espotify.dao.UsuarioDAO;
-import com.espotify.model.Usuario;
 
 /**
- * Servlet implementation class AndroidVal
+ * Servlet implementation class AndroidTesting
  */
-@WebServlet("/AndroidVal_UsuarioServlet")
-public class AndroidVal_UsuarioServlet extends HttpServlet {
+@WebServlet("/AndroidReg_UsuarioServlet")
+public class AndroidReg_UsuarioServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final String PETICION_LOGIN = "login";
 	private static final String PETICION_REGISTRO = "registrar";
-       
+
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AndroidVal_UsuarioServlet() {
+    public AndroidReg_UsuarioServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -39,8 +38,8 @@ public class AndroidVal_UsuarioServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		getServletContext().log("PETICION RECIBIDA: CLIENTE ANDROID - LOGIN"); 
-		
+		getServletContext().log("PETICION RECIBIDA: CLIENTE ANDROID"); 
+
 		// Parsear JSON!
         StringBuilder sb = new StringBuilder();
         String s;
@@ -50,22 +49,24 @@ public class AndroidVal_UsuarioServlet extends HttpServlet {
 
         getServletContext().log("String recibido: " + sb.toString()); //got the full request as string. 
         String parseJSON = sb.toString();
-       
+
         JSONObject parametrosPeticion = new JSONObject(parseJSON);
         getServletContext().log("JSON Object: " + parametrosPeticion);
-        
-        String email = parametrosPeticion.getString("email");
+
+        String nombre = parametrosPeticion.getString("nombreUsuario");
+        String email = parametrosPeticion.getString("correo");
         String contrasena = parametrosPeticion.getString("contrasenya");
-        
+        String descripcion = parametrosPeticion.getString("descripcion");
+
         JSONObject respuestaPeticion = new JSONObject();
-        
+
         response.setContentType("application/json");
         response.setCharacterEncoding("utf-8");
         PrintWriter out = response.getWriter();
-        
-        Usuario u = new UsuarioDAO().login(email, contrasena);
-        if(u != null) {
-        	getServletContext().log("Login OK");
+
+        boolean reg = new UsuarioDAO().register(nombre, email, contrasena, descripcion, null);
+        if(reg) {
+        	getServletContext().log("Registro OK");
         	respuestaPeticion.put("respuesta", "ok");
         	out.print(respuestaPeticion.toString());
         } else {
@@ -73,7 +74,7 @@ public class AndroidVal_UsuarioServlet extends HttpServlet {
         	respuestaPeticion.put("respuesta", "error");
         	out.print(respuestaPeticion.toString());
         }
-        
+
         // finally output the json string       
         // out.print(parametrosPeticion.toString());
 	}
@@ -84,6 +85,17 @@ public class AndroidVal_UsuarioServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
+	}
+
+
+	private void redireccionarPeticion(JSONObject peticion, HttpServletRequest request) {
+		String peticionServlet = peticion.getString("peticion");
+
+		switch(peticionServlet) {
+			case PETICION_REGISTRO:
+				//request.
+
+		}
 	}
 
 }
