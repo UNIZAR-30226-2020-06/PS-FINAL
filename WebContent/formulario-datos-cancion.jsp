@@ -1,3 +1,6 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="zxx">
 
@@ -12,11 +15,10 @@
 String nombre = (String) session.getAttribute("nombre");
 int id_cancion = Integer.parseInt((String) request.getAttribute("id_cancion"));
 request.setAttribute("ruta", (String) request.getAttribute("ruta"));
-
 %>
 
 
-<!-- NOMBRE DE LA PESTAÑA -->
+<!-- NOMBRE DE LA PESTAÃA -->
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -93,24 +95,13 @@ request.setAttribute("ruta", (String) request.getAttribute("ruta"));
             
             <li class="menu-item-has-children">
                 <a href="#">
-                    <i class="icon icon-layers s-24"></i> <span>Categorías</span>
+                    <i class="icon icon-layers s-24"></i> <span>CategorÃ­as</span>
                     <i class=" icon-angle-left  pull-right"></i>
                 </a>
                 <ul class="sub-menu">
-
-                    <li><a href="page-blank.jsp" onclick="setTimeout(location.reload.bind(location), 1)">Genero1</a>
-                    </li>
-                    <li><a href="page-blank.jsp" onclick="setTimeout(location.reload.bind(location), 1)">Genero2</a>
-                    </li>
-                    <li>
-                        <a href="page-blank.jsp" onclick="setTimeout(location.reload.bind(location), 1)">Genero3</a>
-                    </li>
-                    <li>
-                        <a href="page-blank.jsp" onclick="setTimeout(location.reload.bind(location), 1)">Genero4</a>
-                    </li>
-                    <li>
-                        <a href="page-blank.jsp" onclick="setTimeout(location.reload.bind(location), 1)">Genero5</a>
-                    </li>
+					<c:forEach var="genero1" items="${generos}">                    
+						<li><a href="page-blank.jsp" onclick="setTimeout(location.reload.bind(location), 1)">${genero1.getNombre()}</a></li>
+	                </c:forEach>
 
                 </ul>
             </li>
@@ -436,7 +427,7 @@ request.setAttribute("ruta", (String) request.getAttribute("ruta"));
                             <div class="col text-center">
                                 <a class="ajaxifyPage" href="#" onclick="setTimeout(location.reload.bind(location), 1)">
                                     <i class="icon-exit-2  s-24"></i>
-                                    <div class="pt-1">Cerrar sesión</div>
+                                    <div class="pt-1">Cerrar sesiÃ³n</div>
                                 </a>
                             </div>
                         </div>
@@ -511,21 +502,23 @@ request.setAttribute("ruta", (String) request.getAttribute("ruta"));
             </div>
             <%if(id_cancion == 0) { %>
             <form action="subir_cancion" >
-            <% } else { 
+            <% String ruta = (String)request.getAttribute("ruta");
+            } else { 
             	request.setAttribute("id_cancion", id_cancion);%>
             <form action="modificar_cancion">
             <% } %>
 				<div class="text-center p-5 mt-5">
 					<div class="p5 b-b">
-						<input type="text" name="titulo" class="formulario-subir-cancion" placeholder="Título Canción" required=""/>
-						<select name="Seleccionar g�nero" class="selector-genero" name="genero">
-							<option value="prueba">prueba</option>
-							<option value="prueba2">prueba2</option>
+						<input type="hidden" value="${ruta}" name="ruta">
+						<input type="text" name="titulo" class="formulario-subir-cancion" placeholder="TÃ­tulo CanciÃ³n" required=""/>
+						<select name="genero">
+						   <c:forEach var="genero" items="${generos}">
+						   		<option value="${genero.getId()}">${genero.getNombre()}</option>
+						   </c:forEach>
 						</select>
 					</div>
 					<div="p-4">
 						<input type="submit" class="btn btn-outline-primary btn-sm  mt-3" value="Guardar">
-						<input type="submit" class="btn btn-outline-primary btn-sm  mt-3" value="Cancelar">
 					</div>
 				</div>
 			</form>

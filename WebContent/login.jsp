@@ -1,4 +1,6 @@
-<!DOCTYPE html>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%><!DOCTYPE html>
 <html lang="zxx">
 
 <!-- Mirrored from xvelopers.com/demos/html/record-light/login.jsp by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 05 Apr 2020 17:22:07 GMT -->
@@ -119,17 +121,17 @@
                                     <div class="form-group form-float">
                                         <div class="form-line">
                                             <input type="password" name="contrasena" class="form-control">
-                                            <label class="form-label">Contraseña</label>
+                                            <label class="form-label">ContraseÃ±a</label>
                                         </div>
                                     </div>
 									
 									<input type="submit" class="btn btn-outline-primary btn-sm pl-4 pr-4"
-                                           value="Iniciar sesión">
+                                           value="Iniciar sesiÃ³n">
                                            
                                     <%
 									if (aux!=null) {
 									%>
-									<h1 style="color: #F00;font-size: 14px;" >Email o contraseña incorrectos.</h1>
+									<h1 style="color: #F00;font-size: 14px;" >Email o contraseÃ±a incorrectos.</h1>
 									<% } %>
 
                                 </div>
@@ -137,10 +139,10 @@
                             </form>
                         </div>
                         <div style="position: relative;top: -420px;" class="col-md-5  p-5">
-                            <h1 style="color: #09090999" class="mt-3 font-weight-lighter"><strong>No tienes una cuenta todavía?</h1>
+                            <h1 style="color: #09090999" class="mt-3 font-weight-lighter"><strong>No tienes una cuenta todavÃ­a?</h1>
 
                             <div style="color: #000000c2;" class="pt-3 mb-5">
-                                <p><strong>Regístrate gratis para disfrutar de la mejor música.</p>
+                                <p><strong>RegÃ­strate gratis para disfrutar de la mejor mÃºsica.</p>
                             </div>
                             <a href="sign_up.jsp" class="btn btn-primary btn-lg" onclick="setTimeout(location.reload.bind(location), 1)">Crear cuenta</a>
 

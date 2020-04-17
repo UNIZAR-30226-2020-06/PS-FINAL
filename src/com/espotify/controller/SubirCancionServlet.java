@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -26,6 +27,8 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 
 import com.espotify.dao.CancionDAO;
+import com.espotify.dao.GeneroDAO;
+import com.espotify.model.Genero;
 
 /**
  * Servlet implementation class SubirCancion
@@ -52,15 +55,20 @@ public class SubirCancionServlet extends HttpServlet {
 		System.out.println("---------------------------------------------------------------");
 		String nombre = (String) request.getParameter("titulo");
 		System.out.println(nombre);
-		String autor = (String) session.getAttribute("nombre");
+		int autor = Integer.valueOf((String) session.getAttribute("id"));
 		System.out.println(autor);
-		String genero = (String) request.getParameter("genero");
-		System.out.println(genero);			
+		int genero = Integer.valueOf(request.getParameter("genero"));
+		System.out.println(genero);
 		String ruta = (String) request.getParameter("ruta");
 		System.out.println(ruta);	
 		System.out.println("------------------------------------------------------------------------");
 		CancionDAO cancion = new CancionDAO();
-		cancion.subirCancion(nombre, autor, genero, ruta);
+		if (cancion.subirCancion(nombre, autor, genero, ruta) != 0) {
+			ArrayList<Genero> generos = new GeneroDAO().obtenerGeneroMusica();
+			request.setAttribute("generos", generos);
+			request.getRequestDispatcher("profile.jsp").forward(request, response);
+		}
+			
 	}
 
 	/**
