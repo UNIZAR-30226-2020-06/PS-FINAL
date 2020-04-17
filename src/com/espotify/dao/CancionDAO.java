@@ -59,7 +59,7 @@ public class CancionDAO {
 			return listaAudios;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			System.out.println("Error al obtener el id de la canciÃ³n");
+			System.out.println("Error al obtener el id de la canción");
 			return null;
 		}
 	}
@@ -143,7 +143,7 @@ public class CancionDAO {
 			return nombre;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			System.out.println("Error al obtener el id de la canciÃ³n");
+			System.out.println("Error al obtener el id de la canción");
 			return null;
 		}
 	}
@@ -162,7 +162,7 @@ public class CancionDAO {
 			return nombre;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			System.out.println("Error al obtener el id de la canción");
+			System.out.println("Error al obtener el id de la canci�n");
 			return null;
 		}
 	}
@@ -188,7 +188,7 @@ public class CancionDAO {
 			return id_autor;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			System.out.println("Error al obtener el id del genero de la canciÃ³n");
+			System.out.println("Error al obtener el id del genero de la canción");
 			return 0;
 		}
 	}
@@ -213,7 +213,7 @@ public class CancionDAO {
 			return id_autor;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			System.out.println("Error al obtener el id del autor de la canciÃ³n");
+			System.out.println("Error al obtener el id del autor de la canción");
 			return 0;
 		}
 	}
@@ -222,26 +222,29 @@ public class CancionDAO {
 	private boolean insertarCancion(String titulo, int id_autor, int id_genero, String ruta) {
 		System.out.println("insertarCancion Entro +++++++++++++++++");
 		Connection conn;
-		try {
-			conn = ConnectionManager.getConnection();
-			PreparedStatement ps = conn.prepareStatement(INSERT_QUERY);
-			System.out.println(titulo);
-			System.out.println(id_autor);
-			System.out.println(id_genero);
-			ps.setString(1, titulo);
-			ps.setInt(2, id_autor);
-			ps.setInt(3, id_genero);
-			ps.setString(4, ruta);
-			ps.executeUpdate();
+
+			try {
+				conn = ConnectionManager.getConnection();
 			
-			ConnectionManager.releaseConnection(conn);
-			System.out.println("insertarCancion Salgo +++++++++++++++++");			
-			return true;
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			System.out.println("Error al insertar la canciÃ³n");
-			return false;
-		}
+				PreparedStatement ps = conn.prepareStatement(INSERT_QUERY);
+				System.out.println(titulo);
+				System.out.println(id_autor);
+				System.out.println(id_genero);
+				ps.setString(1, titulo);
+				ps.setInt(2, id_autor);
+				ps.setInt(3, id_genero);
+				ps.setString(4, ruta);
+				ps.executeUpdate();
+				
+				ConnectionManager.releaseConnection(conn);
+				System.out.println("insertarCancion Salgo +++++++++++++++++");			
+				return true;
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				return false;
+			}
+		
 	}
 
 	private int obtenerIdCancion(String titulo) {
@@ -261,7 +264,7 @@ public class CancionDAO {
 			return id;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			System.out.println("Error al obtener el id de la ultima canciÃ³n");
+			System.out.println("Error al obtener el id de la ultima canción");
 			return 0;
 		}
 	}
@@ -280,7 +283,7 @@ public class CancionDAO {
 			return id;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			System.out.println("Error al obtener el id de la canciÃ³n");
+			System.out.println("Error al obtener el id de la canción");
 			return 0;
 		}
 	}
