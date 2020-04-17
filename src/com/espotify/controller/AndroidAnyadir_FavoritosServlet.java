@@ -4,7 +4,9 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.util.Collections;
 import java.util.Enumeration;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
@@ -13,16 +15,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
+import com.espotify.dao.FavoritosDAO;
+import com.espotify.dao.JSONAdapter;
+import com.espotify.dao.ListaReproduccionDAO;
 import com.espotify.dao.UsuarioDAO;
+import com.espotify.model.Audio;
+import com.espotify.model.ListaReproduccion;
 import com.espotify.model.Usuario;
 
 /**
  * Servlet implementation class AndroidVal
  */
-@WebServlet("/AndroidVal_UsuarioServlet")
-public class AndroidVal_UsuarioServlet extends HttpServlet {
+@WebServlet("/AndroidAnyadir_FavoritosServlet")
+public class AndroidAnyadir_FavoritosServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final String PETICION_LOGIN = "login";
 	private static final String PETICION_REGISTRO = "registrar";
@@ -30,7 +38,7 @@ public class AndroidVal_UsuarioServlet extends HttpServlet {
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AndroidVal_UsuarioServlet() {
+    public AndroidAnyadir_FavoritosServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -39,43 +47,14 @@ public class AndroidVal_UsuarioServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		getServletContext().log("PETICION RECIBIDA: CLIENTE ANDROID - LOGIN"); 
-		
-		// Parsear JSON!
-        StringBuilder sb = new StringBuilder();
-        String s;
-        while ((s = request.getReader().readLine()) != null) {
-           sb.append(s);
-        }
-
-        getServletContext().log("String recibido: " + sb.toString()); //got the full request as string. 
-        String parseJSON = sb.toString();
-       
-        JSONObject parametrosPeticion = new JSONObject(parseJSON);
-        getServletContext().log("JSON Object: " + parametrosPeticion);
-        
-        String email = parametrosPeticion.getString("email");
-        String contrasena = parametrosPeticion.getString("contrasenya");
-        
-        JSONObject respuestaPeticion = new JSONObject();
-        
+		JSONObject respuestaPeticion = new JSONObject();
+        respuestaPeticion.put("url", "http://34.69.44.48/almacen-mp3/13.mp3");
+        // Lanzar JSON
+        PrintWriter out = response.getWriter();
         response.setContentType("application/json");
         response.setCharacterEncoding("utf-8");
-        PrintWriter out = response.getWriter();
-        
-        Usuario u = new UsuarioDAO().login(email, contrasena);
-        if(u != null) {
-        	getServletContext().log("Login OK");
-        	respuestaPeticion.put("respuesta", "ok");
-        	out.print(respuestaPeticion.toString());
-        } else {
-        	getServletContext().log("Registro FAIL");
-        	respuestaPeticion.put("respuesta", "error");
-        	out.print(respuestaPeticion.toString());
-        }
-        
-        // finally output the json string       
-        // out.print(parametrosPeticion.toString());
+        getServletContext().log("SONG TEST: " + respuestaPeticion);
+        out.print(respuestaPeticion.toString());
 	}
 
 	/**
