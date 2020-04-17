@@ -1,3 +1,4 @@
+
 package com.espotify.controller;
 
 import java.io.IOException;
@@ -30,19 +31,21 @@ public class Borrar_ListaRepServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+		HttpSession session = request.getSession();
+		String usuario = (String) session.getAttribute("id");
 		String nombre = request.getParameter("nombre");
-		String usuario = request.getParameter("usuario");
 		String tipo = request.getParameter("tipo");
 		
 		Boolean borrada = new ListaReproduccionDAO().borrar(nombre,usuario,tipo);
 		if(borrada) {
-			HttpSession session = request.getSession();
-			session.setAttribute("usuario", usuario);
+			String path = request.getContextPath(); // Guarda el path de donde se hace la peticion
 			
 			//RequestDispatcher dispatcher=request.getRequestDispatcher("user.jsp");
 	        //dispatcher.forward(request, response);
+			response.sendRedirect(path); // Vuevle al mismo lugar donde se hace la peticion
 		}else {
 			//response.sendRedirect("ListaRep.jsp");
+			// Pantalla de error ?¿
 		}
 	}
 
@@ -54,3 +57,4 @@ public class Borrar_ListaRepServlet extends HttpServlet {
 	}
 
 }
+

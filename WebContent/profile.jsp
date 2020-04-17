@@ -23,6 +23,7 @@ pageEncoding="UTF-8"%>
     <!-- CSS -->
     <link rel="stylesheet" href="assets/css/app.css">
 </head>
+
 <!-- END PESTAÃA -->
 
 <body background="assets/img/fondo3.png" style="background-size: cover;background-repeat: no-repeat; background-position: center center;background-attachment: fixed;" class="sidebar-mini sidebar-collapse sidebar-expanded-on-hover has-preloader" style="display: none;">
@@ -977,6 +978,7 @@ String descripcion = (String) session.getAttribute("descripcion");
 	</div>
 </div>
 <!-- END Bloque de subir cancion datos-->									 
+<<<<<<< HEAD
 
 
 <!-- EDICION PERFIL -->
@@ -1292,12 +1294,636 @@ String descripcion = (String) session.getAttribute("descripcion");
 						</figure>
 					</div>
 				</div>
+=======
+
+
+<!-- EDICION PERFIL -->
+<div class="overlay-pop-up" id="overlay-perfil">
+    <div class="col-md-7 card p-5">
+			<a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-perfil" class="btn-cerrar-popup-perfil"><i class="icon-close1"></i></a>
+			<header class="relative nav-sticky card">
+				<h3>CAMBIAR INFORMACIÓN DE PERFIL</h3>
+			</header>
+			<form class="form-material" action="modinfo">
+				<!-- Input -->
+				<div class="body">
+					
+					<div class="form-group form-float">
+						<div class="form-line">
+							<input type="text" name="nombre" class="form-control">
+							<label class="form-label">Nombre</label>
+						</div>
+					</div>
+					<input type="submit" class="btn btn-outline-primary btn-sm pl-4 pr-4"
+						   value="Cambiar nombre">
+					<div class="form-group form-float">
+						<div class="form-line">
+							<input type="text" name="descripcion" class="form-control">
+							<label class="form-label">Descripción</label>
+						</div>
+					</div>
+
+					<input type="submit" class="btn btn-outline-primary btn-sm pl-4 pr-4"
+						   value="Cambiar descripción">
+				</div>
+			</form>
+			<!-- #END# Input -->
+	</div>
+</div>
+<!-- END EDICION PERFIL -->
+
+
+<!-- AJUSTES CUENTA -->
+<div class="overlay-pop-up" id="overlay-cuenta">
+    <div class="col-md-7 card p-5">
+			<a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-cuenta" class="btn-cerrar-popup-perfil"><i class="icon-close1"></i></a>
+			<header class="relative nav-sticky card">
+				<h3>CAMBIAR INFORMACIÓN DE LA CUENTA</h3>
+			</header>
+			<form class="form-material" action="modinfo"> <!--QUITAR-->
+				<!-- Input -->
+				<div class="body">
+					
+					<div class="form-group form-float">
+						<div class="form-line">
+							<input type="email" name="email" class="form-control">
+							<label class="form-label">Email</label>
+						</div>
+					</div>
+					<input type="submit" class="btn btn-outline-primary btn-sm pl-4 pr-4"
+						   value="Cambiar email">
+				</div>
+			</form>
+			<form class="form-material" action="modpass"> <!--QUITAR-->
+				<!-- Input -->
+				<div class="body">
+					<div class="form-group form-float">
+						<div class="form-line">
+							<input type="password" name="contrasena1" class="form-control">
+							<label class="form-label">Contraseña actual</label>
+						</div>
+					</div>
+					<div class="form-group form-float">
+						<div class="form-line">
+							<input type="password" name="contrasena2" class="form-control">
+							<label class="form-label">Contraseña nueva</label>
+						</div>
+					</div>
+					<div class="form-group form-float">
+						<div class="form-line">
+							<input type="password" name="contrasena3" class="form-control">
+							<label class="form-label">Confirmar contraseña</label>
+						</div>
+					</div>
+
+					<input type="submit" class="btn btn-outline-primary btn-sm pl-4 pr-4"
+						   value="Cambiar constraseña">
+				</div>
+			</form>
+			<!-- #END# Input -->
+	</div>
+</div>
+<!-- END AJUSTES CUENTA -->
+
+
+<!-- CAMBIAR FOTO -->
+<div class="overlay-pop-up" id="overlay-foto">
+    <div class="col-md-7 card p-5">
+		<a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-foto" class="btn-cerrar-popup-perfil"><i class="icon-close1"></i></a>
+		<form class="form-material" action="modinfo" method="post" enctype="multipart/form-data">
+			<!-- Input -->
+			<div class="body">
+				<header class="relative nav-sticky card">
+					<h3>SUBIR FOTO</h3>
+				</header>
+				<div class="contenedor-inputs">
+					<input type="file" class="btn btn-outline-primary btn-sm  mt-3" name="imagen" id="imagen" accept="image/jpeg"> 
+				</div>
+
+				<input type="submit" class="btn btn-outline-primary btn-sm pl-4 pr-4"
+					   value="Aceptar">
+			</div>
+>>>>>>> 622f124c006754d594ef86e265ef63a16da23876
+			<!-- #END# Input -->
+		</form>
+	</div>
+</div>
+<!-- END CAMBIAR FOTO -->
+
+<!-- CREAR LISTA DE REPRODUCCIÓN -->
+<div class="overlay-pop-up" id="overlay-listas-reproduccion">
+    <div class="col-md-7 card p-5">
+		<a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-listas-reproduccion" class="btn-cerrar-popup-perfil"><i class="icon-close1"></i></a>
+		<form class="form-material" action="profile.jsp">
+			<!-- Input -->
+			<div class="body">
+				<header class="relative nav-sticky card">
+					<h3>CREAR LISTAS DE REPRODUCCIÓN</h3>
+				</header>
+				<div class="contenedor-inputs">
+					<h4>Añadir imagen</h4>
+					<input type="file" class="btn btn-outline-primary btn-sm  mt-3" name="fileName" required=""/> 
+					<input type="text" placeholder="Nombre" id="nombre-listas-reproduccion" required=""/>
+					<input type="text" placeholder="Descripcion" id="descripcion-listas-reproduccion"/>
+				</div>
+
+				<input type="submit" class="btn btn-outline-primary btn-sm pl-4 pr-4"
+					   value="Aceptar">
+			</div>
+			<!-- #END# Input -->
+		</form>
+	</div>
+</div>
+<!-- END CREAR LISTA DE REPRODUCCIÓN -->
+
+<!-- AÃADIR CANCION A LISTA DE REPRODUCCIÓN -->
+<div class="overlay-pop-up" id="overlay-anadir-listas-reproduccion">
+    <div class="col-md-7 card p-5">
+		<a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-anadir-listas-reproduccion" class="btn-cerrar-popup-perfil"><i class="icon-close1"></i></a>
+		<form class="form-material" action="profile.jsp">
+			<!-- Input -->
+			<div class="body">
+				<div class="row has-items-overlay">
+					<div class="col-lg-3 col-md-4 col-sm-6 my-2">
+						<figure>
+							<div class="img-wrapper">
+								<img src="assets/img/demo/a1.jpg" alt="/">
+								<div class="img-overlay text-white text-center">
+									<a href="#">
+										<div class="figcaption mt-3">
+											<i class="icon-link s-48"></i>
+											<h5 class="mt-5">To Phir Ao</h5>
+											<span>Atif Aslam</span>
+										</div>
+									</a>
+								</div>
+								<div class="figure-title text-center p-2">
+									<h5>To Phir Ao</h5>
+									<span>Atif Aslam</span>
+								</div>
+							</div>
+						</figure>
+					</div>
+					<div class="col-lg-3 col-md-4 col-sm-6 my-2">
+						<figure>
+							<div class="img-wrapper">
+								<img src="assets/img/demo/a2.jpg" alt="/">
+								<div class="img-overlay text-white text-center">
+									<a href="album-single.jsp" onclick="setTimeout(location.reload.bind(location), 1)">
+										<div class="figcaption mt-3">
+											<i class="icon-link s-48"></i>
+											<h5 class="mt-5">To Phir Ao</h5>
+											<span>Atif Aslam</span>
+										</div>
+									</a>
+								</div>
+								<div class="figure-title text-center p-2">
+									<h5>To Phir Ao</h5>
+									<span>Atif Aslam</span>
+								</div>
+							</div>
+
+						</figure>
+					</div>
+					<div class="col-lg-3 col-md-4 col-sm-6 my-2">
+						<figure>
+							<div class="img-wrapper">
+								<img src="assets/img/demo/a3.jpg" alt="/">
+								<div class="img-overlay text-white text-center">
+									<a href="#">
+										<div class="figcaption mt-3">
+											<i class="icon-link s-48"></i>
+											<h5 class="mt-5">To Phir Ao</h5>
+											<span>Atif Aslam</span>
+										</div>
+									</a>
+								</div>
+								<div class="figure-title text-center p-2">
+									<h5>To Phir Ao</h5>
+									<span>Atif Aslam</span>
+								</div>
+							</div>
+
+						</figure>
+					</div>
+					<div class="col-lg-3 col-md-4 col-sm-6 my-2">
+						<figure>
+							<div class="img-wrapper">
+								<img src="assets/img/demo/a4.jpg" alt="/">
+								<div class="img-overlay text-white text-center">
+									<a href="#">
+										<div class="figcaption mt-3">
+											<i class="icon-link s-48"></i>
+											<h5 class="mt-5">To Phir Ao</h5>
+											<span>Atif Aslam</span>
+										</div>
+									</a>
+								</div>
+								<div class="figure-title text-center p-2">
+									<h5>To Phir Ao</h5>
+									<span>Atif Aslam</span>
+								</div>
+							</div>
+
+						</figure>
+					</div>
+					<div class="col-lg-3 col-md-4 col-sm-6 my-2">
+						<figure>
+							<div class="img-wrapper">
+								<img src="assets/img/demo/a5.jpg" alt="/">
+								<div class="img-overlay text-white text-center">
+									<a href="#">
+										<div class="figcaption mt-3">
+											<i class="icon-link s-48"></i>
+											<h5 class="mt-5">To Phir Ao</h5>
+											<span>Atif Aslam</span>
+										</div>
+									</a>
+								</div>
+								<div class="figure-title text-center p-2">
+									<h5>To Phir Ao</h5>
+									<span>Atif Aslam</span>
+								</div>
+							</div>
+
+						</figure>
+					</div>
+					<div class="col-lg-3 col-md-4 col-sm-6 my-2">
+						<figure>
+							<div class="img-wrapper">
+								<img src="assets/img/demo/a6.jpg" alt="/">
+								<div class="img-overlay text-white text-center">
+									<a href="#">
+										<div class="figcaption mt-3">
+											<i class="icon-link s-48"></i>
+											<h5 class="mt-5">To Phir Ao</h5>
+											<span>Atif Aslam</span>
+										</div>
+									</a>
+								</div>
+								<div class="figure-title text-center p-2">
+									<h5>To Phir Ao</h5>
+									<span>Atif Aslam</span>
+								</div>
+							</div>
+
+						</figure>
+					</div>
+					<div class="col-lg-3 col-md-4 col-sm-6 my-2">
+						<figure>
+							<div class="img-wrapper">
+								<img src="assets/img/demo/a7.jpg" alt="/">
+								<div class="img-overlay text-white text-center">
+									<a href="#">
+										<div class="figcaption mt-3">
+											<i class="icon-link s-48"></i>
+											<h5 class="mt-5">To Phir Ao</h5>
+											<span>Atif Aslam</span>
+										</div>
+									</a>
+								</div>
+								<div class="figure-title text-center p-2">
+									<h5>To Phir Ao</h5>
+									<span>Atif Aslam</span>
+								</div>
+							</div>
+
+						</figure>
+					</div>
+					<div class="col-lg-3 col-md-4 col-sm-6 my-2">
+						<figure>
+							<div class="img-wrapper">
+								<img src="assets/img/demo/a8.jpg" alt="/">
+								<div class="img-overlay text-white text-center">
+									<a href="#">
+										<div class="figcaption mt-3">
+											<i class="icon-link s-48"></i>
+											<h5 class="mt-5">To Phir Ao</h5>
+											<span>Atif Aslam</span>
+										</div>
+									</a>
+								</div>
+								<div class="figure-title text-center p-2">
+									<h5>To Phir Ao</h5>
+									<span>Atif Aslam</span>
+								</div>
+							</div>
+						</figure>
+					</div>
+				</div>
+			<!-- #END# Input -->
+<<<<<<< HEAD
+	</div>
+</div>
+<!-- END EDICION PERFIL -->
+
+
+<!-- AJUSTES CUENTA -->
+<div class="overlay-pop-up" id="overlay-cuenta">
+    <div class="col-md-7 card p-5">
+			<a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-cuenta" class="btn-cerrar-popup-perfil"><i class="icon-close1"></i></a>
+			<header class="relative nav-sticky card">
+				<h3>CAMBIAR INFORMACI�N DE LA CUENTA</h3>
+			</header>
+			<form class="form-material" action="modinfo"> <!--QUITAR-->
+				<!-- Input -->
+				<div class="body">
+					
+					<div class="form-group form-float">
+						<div class="form-line">
+							<input type="email" name="email" class="form-control">
+							<label class="form-label">Email</label>
+						</div>
+					</div>
+					<input type="submit" class="btn btn-outline-primary btn-sm pl-4 pr-4"
+						   value="Cambiar email">
+				</div>
+			</form>
+			<form class="form-material" action="modpass"> <!--QUITAR-->
+				<!-- Input -->
+				<div class="body">
+					<div class="form-group form-float">
+						<div class="form-line">
+							<input type="password" name="contrasena1" class="form-control">
+							<label class="form-label">Contrase�a actual</label>
+						</div>
+					</div>
+					<div class="form-group form-float">
+						<div class="form-line">
+							<input type="password" name="contrasena2" class="form-control">
+							<label class="form-label">Contrase�a nueva</label>
+						</div>
+					</div>
+					<div class="form-group form-float">
+						<div class="form-line">
+							<input type="password" name="contrasena3" class="form-control">
+							<label class="form-label">Confirmar contrase�a</label>
+						</div>
+					</div>
+
+					<input type="submit" class="btn btn-outline-primary btn-sm pl-4 pr-4"
+						   value="Cambiar constrase�a">
+				</div>
+			</form>
+			<!-- #END# Input -->
+	</div>
+</div>
+<!-- END AJUSTES CUENTA -->
+
+
+<!-- CAMBIAR FOTO -->
+<div class="overlay-pop-up" id="overlay-foto">
+    <div class="col-md-7 card p-5">
+		<a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-foto" class="btn-cerrar-popup-perfil"><i class="icon-close1"></i></a>
+		<form class="form-material" action="modinfo" method="post" enctype="multipart/form-data">
+			<!-- Input -->
+			<div class="body">
+				<header class="relative nav-sticky card">
+					<h3>SUBIR FOTO</h3>
+				</header>
+				<div class="contenedor-inputs">
+					<input type="file" class="btn btn-outline-primary btn-sm  mt-3" name="imagen" id="imagen" accept="image/jpeg"> 
+				</div>
+
+				<input type="submit" class="btn btn-outline-primary btn-sm pl-4 pr-4"
+					   value="Aceptar">
+			</div>
+			<!-- #END# Input -->
+		</form>
+	</div>
+</div>
+<!-- END CAMBIAR FOTO -->
+
+<!-- CREAR LISTA DE REPRODUCCI�N -->
+<div class="overlay-pop-up" id="overlay-listas-reproduccion">
+    <div class="col-md-7 card p-5">
+		<a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-listas-reproduccion" class="btn-cerrar-popup-perfil"><i class="icon-close1"></i></a>
+		<form class="form-material" action="crear_lr" method="post">
+			<!-- Input -->
+			<div class="body">
+				<header class="relative nav-sticky card">
+					<h3>CREAR LISTAS DE REPRODUCCI�N</h3>
+				</header>
+				<div class="contenedor-inputs">
+					<h4>A�adir imagen</h4>
+					<input type="file" class="btn btn-outline-primary btn-sm  mt-3" name="fileName" required/> 
+					<input type="text" placeholder="Nombre" id="nombre-listas-reproduccion" required/>
+					<input type="text" placeholder="Descripcion" id="descripcion-listas-reproduccion"/>
+				</div>
+
+				<input type="submit" class="btn btn-outline-primary btn-sm pl-4 pr-4"
+					   value="Aceptar">
+			</div>
+			<!-- #END# Input -->
+		</form>
+	</div>
+</div>
+<!-- END CREAR LISTA DE REPRODUCCIӓN -->
+
+<!-- AÑADIR CANCION A LISTA DE REPRODUCCI�N -->
+<div class="overlay-pop-up" id="overlay-anadir-listas-reproduccion">
+    <div class="col-md-7 card p-5">
+		<a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-anadir-listas-reproduccion" class="btn-cerrar-popup-perfil"><i class="icon-close1"></i></a>
+		<form class="form-material" action="profile.jsp">
+			<!-- Input -->
+			<div class="body">
+				<div class="row has-items-overlay">
+					<div class="col-lg-3 col-md-4 col-sm-6 my-2">
+						<figure>
+							<div class="img-wrapper">
+								<img src="assets/img/demo/a1.jpg" alt="/">
+								<div class="img-overlay text-white text-center">
+									<a href="#">
+										<div class="figcaption mt-3">
+											<i class="icon-link s-48"></i>
+											<h5 class="mt-5">To Phir Ao</h5>
+											<span>Atif Aslam</span>
+										</div>
+									</a>
+								</div>
+								<div class="figure-title text-center p-2">
+									<h5>To Phir Ao</h5>
+									<span>Atif Aslam</span>
+								</div>
+							</div>
+						</figure>
+					</div>
+					<div class="col-lg-3 col-md-4 col-sm-6 my-2">
+						<figure>
+							<div class="img-wrapper">
+								<img src="assets/img/demo/a2.jpg" alt="/">
+								<div class="img-overlay text-white text-center">
+									<a href="album-single.jsp" onclick="setTimeout(location.reload.bind(location), 1)">
+										<div class="figcaption mt-3">
+											<i class="icon-link s-48"></i>
+											<h5 class="mt-5">To Phir Ao</h5>
+											<span>Atif Aslam</span>
+										</div>
+									</a>
+								</div>
+								<div class="figure-title text-center p-2">
+									<h5>To Phir Ao</h5>
+									<span>Atif Aslam</span>
+								</div>
+							</div>
+
+						</figure>
+					</div>
+					<div class="col-lg-3 col-md-4 col-sm-6 my-2">
+						<figure>
+							<div class="img-wrapper">
+								<img src="assets/img/demo/a3.jpg" alt="/">
+								<div class="img-overlay text-white text-center">
+									<a href="#">
+										<div class="figcaption mt-3">
+											<i class="icon-link s-48"></i>
+											<h5 class="mt-5">To Phir Ao</h5>
+											<span>Atif Aslam</span>
+										</div>
+									</a>
+								</div>
+								<div class="figure-title text-center p-2">
+									<h5>To Phir Ao</h5>
+									<span>Atif Aslam</span>
+								</div>
+							</div>
+
+						</figure>
+					</div>
+					<div class="col-lg-3 col-md-4 col-sm-6 my-2">
+						<figure>
+							<div class="img-wrapper">
+								<img src="assets/img/demo/a4.jpg" alt="/">
+								<div class="img-overlay text-white text-center">
+									<a href="#">
+										<div class="figcaption mt-3">
+											<i class="icon-link s-48"></i>
+											<h5 class="mt-5">To Phir Ao</h5>
+											<span>Atif Aslam</span>
+										</div>
+									</a>
+								</div>
+								<div class="figure-title text-center p-2">
+									<h5>To Phir Ao</h5>
+									<span>Atif Aslam</span>
+								</div>
+							</div>
+
+						</figure>
+					</div>
+					<div class="col-lg-3 col-md-4 col-sm-6 my-2">
+						<figure>
+							<div class="img-wrapper">
+								<img src="assets/img/demo/a5.jpg" alt="/">
+								<div class="img-overlay text-white text-center">
+									<a href="#">
+										<div class="figcaption mt-3">
+											<i class="icon-link s-48"></i>
+											<h5 class="mt-5">To Phir Ao</h5>
+											<span>Atif Aslam</span>
+										</div>
+									</a>
+								</div>
+								<div class="figure-title text-center p-2">
+									<h5>To Phir Ao</h5>
+									<span>Atif Aslam</span>
+								</div>
+							</div>
+
+						</figure>
+					</div>
+					<div class="col-lg-3 col-md-4 col-sm-6 my-2">
+						<figure>
+							<div class="img-wrapper">
+								<img src="assets/img/demo/a6.jpg" alt="/">
+								<div class="img-overlay text-white text-center">
+									<a href="#">
+										<div class="figcaption mt-3">
+											<i class="icon-link s-48"></i>
+											<h5 class="mt-5">To Phir Ao</h5>
+											<span>Atif Aslam</span>
+										</div>
+									</a>
+								</div>
+								<div class="figure-title text-center p-2">
+									<h5>To Phir Ao</h5>
+									<span>Atif Aslam</span>
+								</div>
+							</div>
+
+						</figure>
+					</div>
+					<div class="col-lg-3 col-md-4 col-sm-6 my-2">
+						<figure>
+							<div class="img-wrapper">
+								<img src="assets/img/demo/a7.jpg" alt="/">
+								<div class="img-overlay text-white text-center">
+									<a href="#">
+										<div class="figcaption mt-3">
+											<i class="icon-link s-48"></i>
+											<h5 class="mt-5">To Phir Ao</h5>
+											<span>Atif Aslam</span>
+										</div>
+									</a>
+								</div>
+								<div class="figure-title text-center p-2">
+									<h5>To Phir Ao</h5>
+									<span>Atif Aslam</span>
+								</div>
+							</div>
+
+						</figure>
+					</div>
+					<div class="col-lg-3 col-md-4 col-sm-6 my-2">
+						<figure>
+							<div class="img-wrapper">
+								<img src="assets/img/demo/a8.jpg" alt="/">
+								<div class="img-overlay text-white text-center">
+									<a href="#">
+										<div class="figcaption mt-3">
+											<i class="icon-link s-48"></i>
+											<h5 class="mt-5">To Phir Ao</h5>
+											<span>Atif Aslam</span>
+										</div>
+									</a>
+								</div>
+								<div class="figure-title text-center p-2">
+									<h5>To Phir Ao</h5>
+									<span>Atif Aslam</span>
+								</div>
+							</div>
+						</figure>
+					</div>
+				</div>
 			<!-- #END# Input -->
 			</div>
 		</form>
 	</div>
 </div>
-<!-- END AÃADIR CANCION A LISTA DE REPRODUCCIÓN -->
+<!-- END AÑADIR CANCION A LISTA DE REPRODUCCI�N -->
+<!-- BORRAR LISTA DE REPRODUCCI�N -->	
+	<div class="overlay-pop-up" id="overlay-borrar-listas-reproduccion">	
+	    <div class="col-md-7 card p-5">	
+	        <a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-borrar-listas-reproduccion" class="btn-cerrar-popup-perfil"	
+	        class="btn btn-outline-primary btn-sm pl-4 pr-4"  onclick="document.getElementById('overlay-borrar-listas-reproduccion').classList.remove('active');"><i class="icon-close1"></i></a>	
+			<form class="form-material" action="borrar_lr" method="post">	
+				<!-- Input -->	
+				<div class="body">	
+					<header class="relative nav-sticky card">	
+	                    <h3>�Estas seguro?</h3>	
+	                    <h5>Vas a borrar esta lista de reproduccion para siempre, no hay vuelta atras</h5>	
+					</header>	
+		
+		
+					<input type="submit" class="btn btn-outline-primary btn-sm pl-4 pr-4"	
+	                       value="Aceptar">	
+	                <button class="btn btn-outline-primary btn-sm pl-4 pr-4"  onclick="document.getElementById('overlay-borrar-listas-reproduccion').classList.remove('active');">Cerrar</button>	
+				</div>	
+				<!-- #END# Input -->	
+	        </form>	
+		</div>	
+	</div>	
+<!-- END BORRAR LISTA DE REPRODUCCI�N -->
 
 </main><!--@Page Content-->
 

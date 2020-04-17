@@ -41,7 +41,6 @@
 	</servlet-mapping>
 	
 	
-	
 	<servlet>
 		<servlet-name>Usuario_Val</servlet-name>
 		<servlet-class>com.espotify.controller.Val_UsuarioServlet</servlet-class>
@@ -98,6 +97,33 @@
 	</servlet-mapping>
 	
 	<servlet>
+		<servlet-name>crear_lr</servlet-name>
+		<servlet-class>com.espotify.controller.Crear_ListaRepServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>crear_lr</servlet-name>
+		<url-pattern>/crear_lr</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>borrar_lr</servlet-name>
+		<servlet-class>com.espotify.controller.Borrar_ListaRepServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>borrar_lr</servlet-name>
+		<url-pattern>/borrar_lr</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>mostrar_lrs</servlet-name>
+		<servlet-class>com.espotify.controller.GetAll_ListaRepServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>mostrar_lrs</servlet-name>
+		<url-pattern>/mostrar_lrs</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
 		<servlet-name>android_testing</servlet-name>
 		<servlet-class>com.espotify.controller.AndroidTesting</servlet-class>
 	</servlet>
@@ -107,22 +133,21 @@
 	</servlet-mapping>
 	
 	<servlet>
-		<servlet-name>obtener_contenido_perfil</servlet-name>
-		<servlet-class>com.espotify.controller.ObtenerCotenidoUsuario</servlet-class>
+			<servlet-name>obtener_contenido_perfil</servlet-name>
+			<servlet-class>com.espotify.controller.ObtenerCotenidoUsuario</servlet-class>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>obtener_contenido_perfil</servlet-name>
-		<url-pattern>/obtener_contenido_perfil</url-pattern>
+			<servlet-name>obtener_contenido_perfil</servlet-name>
+			<url-pattern>/obtener_contenido_perfil</url-pattern>
 	</servlet-mapping>
-	
 	<servlet>
-		<servlet-name>ir_modificar</servlet-name>
-		<servlet-class>com.espotify.controller.IrModificar</servlet-class>
+        <servlet-name>ir_modificar</servlet-name>
+	    <servlet-class>com.espotify.controller.IrModificar</servlet-class>
 	</servlet>
-	<servlet-mapping>
-		<servlet-name>ir_modificar</servlet-name>
-		<url-pattern>/ir_modificar</url-pattern>
-	</servlet-mapping>
+	    <servlet-mapping>
+		 	<servlet-name>ir_modificar</servlet-name>
+	       	<url-pattern>/ir_modificar</url-pattern>
+		</servlet-mapping>
 	
 	<context-param>
     <param-name>directorio_ficheroTmp</param-name>
@@ -133,7 +158,4 @@
     <param-name>directorio_ficheroTmp</param-name>
     <param-value>tmpfiles</param-value>
   </context-param>
-
-
-  
 </web-app>

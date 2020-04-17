@@ -12,7 +12,7 @@ pageEncoding="UTF-8"%>
 ########################################################################
 -->
 
-<!-- NOMBRE DE LA PESTAÑA -->
+<!-- NOMBRE DE LA PESTAÃÂA -->
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -89,7 +89,7 @@ pageEncoding="UTF-8"%>
             
             <li class="menu-item-has-children">
                 <a href="#">
-                    <i class="icon icon-layers s-24"></i> <span>CategorÃ­as</span>
+                    <i class="icon icon-layers s-24"></i> <span>CategorÃÂ­as</span>
                     <i class=" icon-angle-left  pull-right"></i>
                 </a>
                 <ul class="sub-menu">
@@ -415,7 +415,7 @@ pageEncoding="UTF-8"%>
 							<div class="col text-center">
 								<a class="ajaxifyPage" href="#" onclick="setTimeout(location.reload.bind(location), 1)">
 									<i class="icon-exit-2  s-24"></i>
-									<div class="pt-1">Cerrar sesión</div>
+									<div class="pt-1">Cerrar sesiÃ³n</div>
 								</a>
 							</div>
 						</div>
@@ -1248,4 +1248,5 @@ pageEncoding="UTF-8"%>
 </body>
 
 <!-- Mirrored from xvelopers.com/demos/html/record-light/index.jsp by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 05 Apr 2020 17:21:40 GMT -->
+>>>>>>> branch 'master' of https://github.com/UNIZAR-30226-2020-06/PS-FINAL.git
 </html>
