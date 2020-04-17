@@ -28,9 +28,14 @@ public class Eliminar_CancionServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int id = Integer.parseInt(request.getParameter("id"));
-		new CancionDAO().borrarCancion(id);
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		int id_cancion = Integer.parseInt((String) request.getParameter("id_cancion"));
+		CancionDAO cancion = new CancionDAO();
+		if (cancion.borrarCancion(id_cancion)) {
+			System.out.println("Entro");
+			request.getRequestDispatcher("index.jsp").forward(request, response);
+		}else {
+			System.out.println("Error al eliminar cancion");
+		}
 	}
 
 	/**

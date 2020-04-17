@@ -28,13 +28,16 @@ public class ModificarInfo_CancionServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String titulo = request.getParameter("nombre");
+		System.out.println("ENTRE EN MODIFICAR");
+		String titulo = request.getParameter("titulo");
 		int genero = Integer.valueOf(request.getParameter("genero"));
 		int id = Integer.parseInt(request.getParameter("id"));
 		CancionDAO cancion = new CancionDAO();
-		if (cancion.modificarCancion(titulo, genero, id))
-			System.out.println("EXITO AL MODIFICAR");
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		if (cancion.modificarCancion(titulo, genero, id)) {
+			request.getRequestDispatcher("index.jsp").forward(request, response);
+		}else {
+			System.out.println("Error al modificar");
+		}
 	}
 
 	/**

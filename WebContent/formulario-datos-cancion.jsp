@@ -1,3 +1,4 @@
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -13,7 +14,7 @@ pageEncoding="UTF-8"%>
 <!-- RECOGIDA DATOS -->
 <%
 String nombre = (String) session.getAttribute("nombre");
-int id_cancion = Integer.parseInt((String) request.getAttribute("id_cancion"));
+int id_cancion = Integer.parseInt((String) request.getParameter("id_cancion"));
 request.setAttribute("ruta", (String) request.getAttribute("ruta"));
 
 %>
@@ -510,6 +511,7 @@ request.setAttribute("ruta", (String) request.getAttribute("ruta"));
             <% } %>
 				<div class="text-center p-5 mt-5">
 					<div class="p5 b-b">
+						<input type="hidden" value="${id_cancion}" name="id">
 						<input type="hidden" value="${ruta}" name="ruta">
 						<input type="text" name="titulo" class="formulario-subir-cancion" placeholder="TÃ­tulo CanciÃ³n" required=""/>
 						<select name="genero">

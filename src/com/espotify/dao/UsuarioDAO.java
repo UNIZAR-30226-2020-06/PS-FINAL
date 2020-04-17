@@ -11,6 +11,7 @@ import com.espotify.model.ConnectionManager;
 import com.espotify.model.Usuario;
 import com.mysql.cj.jdbc.Blob;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -101,12 +102,12 @@ public class UsuarioDAO {
 			}
 			else if(imagen != null && !imagen.equals("")) {
 				ps = conn.prepareStatement(UPDATE_IMG_QUERY);
-				FileInputStream imagenBinaria = new FileInputStream(imagen);
+				File fichero = new File(imagen);
+				FileInputStream streamEntrada = new FileInputStream(fichero);
 				
-				ps.setBlob(1, imagenBinaria);
+				ps.setBinaryStream(1, streamEntrada, (int) fichero.length());
 				ps.setString(2, id);
 				ps.executeUpdate();
-				imagenBinaria.close();
 			}
 	
 			ConnectionManager.releaseConnection(conn);
@@ -133,10 +134,14 @@ public class UsuarioDAO {
 			ps.setString(2, id);
 			ps.setString(3, pass1_HASH);
 	
-			ps.executeUpdate();
-			
-			ConnectionManager.releaseConnection(conn);
-			return true;
+			if(ps.executeUpdate()==1) { // Se ha podido insertar
+				ConnectionManager.releaseConnection(conn);
+				return true;
+			}
+			else {
+				ConnectionManager.releaseConnection(conn);
+				return false;
+			}
 		} catch(SQLException se) {
 			se.printStackTrace();
 			return false;

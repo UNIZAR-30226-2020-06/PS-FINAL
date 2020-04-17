@@ -18,8 +18,7 @@ var btnAbrirCrearLR = document.getElementById('abrir-listas-reproduccion'),
 	overlayCrearLR = document.getElementById('overlay-listas-reproduccion');
 	btnCerrarCrearLR = document.getElementById('btn-cerrar-listas-reproduccion');
 	
-var btnAbrirAnadirLR = document.getElementById('abrir-anadir-listas-reproduccion'),
-	overlayAnadirLR = document.getElementById('overlay-anadir-listas-reproduccion');
+var overlayAnadirLR = document.getElementById('overlay-anadir-listas-reproduccion'),
 	btnCerrarAnadirLR = document.getElementById('btn-cerrar-anadir-listas-reproduccion');
 
 btnAbrirPerfil.addEventListener('click', function(){
@@ -61,4 +60,8 @@ btnAbrirCrearLR.addEventListener('click', function(){
 
 btnCerrarCrearLR.addEventListener('click', function(){
 	overlayCrearLR.classList.remove('active');
+});
+
+btnCerrarAnadirLR.addEventListener('click', function(){
+	overlayAnadirLR.classList.remove('active');
 });

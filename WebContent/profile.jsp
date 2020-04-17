@@ -5,19 +5,12 @@ pageEncoding="UTF-8"%>
 <html lang="zxx">
 
 <!-- Mirrored from xvelopers.com/demos/html/record-light/index.jsp by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 05 Apr 2020 17:21:29 GMT -->
-
 <!--  
 ########################################################################
 ############### BASE DE TODAS LAS PAGINAS    ###########################
 ########################################################################
 -->
-<!-- Obtener datos usuario -->
-<% 
-String nombre = (String) session.getAttribute("nombre");
-String descripcion = (String) session.getAttribute("descripcion");
-%>
-<!-- END Obtener datos usuario -->
-
+<%request.setAttribute("generos", request.getAttribute("generos")); %>
 
 <!-- NOMBRE DE LA PESTAÃA -->
 <head>
@@ -98,7 +91,7 @@ String descripcion = (String) session.getAttribute("descripcion");
             
             <li class="menu-item-has-children">
                 <a href="#">
-                    <i class="icon icon-layers s-24"></i> <span>CategorÃ­as</span>
+                    <i class="icon icon-layers s-24"></i> <span>Categorías</span>
                     <i class=" icon-angle-left  pull-right"></i>
                 </a>
                 <ul class="sub-menu">
@@ -485,7 +478,13 @@ String descripcion = (String) session.getAttribute("descripcion");
 ########################################################################
 -->
 
-
+<!-- Obtener datos usuario -->
+<% 
+String nombre = (String) session.getAttribute("nombre");
+String descripcion = (String) session.getAttribute("descripcion");
+//String imagen = (String) session.getAttribute("imagen");
+%>
+<!-- END Obtener datos usuario -->
 
 <!--CONTENIDO DEL MEDIO-->
 <main id="pageContent" class="page has-sidebar">
@@ -500,7 +499,8 @@ String descripcion = (String) session.getAttribute("descripcion");
                 <div class="text-center p-5 mt-5">
 					
                     <figure style="width: 130px;height: 130px;width-max: 50%;" class="avatar avatar-xl">
-                        <img src="assets/img/demo/u7.jpg" alt=""></figure>
+                    	<img src="assets/img/demo/u7.jpg" alt="">
+                    </figure>
                     <div>
                         <h4 class="p-t-10"><%=nombre%></h4>
                     </div>
@@ -595,9 +595,9 @@ String descripcion = (String) session.getAttribute("descripcion");
 															<a href="#" class="ml-auto"><i class="icon-share-1"></i></a>
 															<div class="ml-auto">
 																<a href="#" class="btn-favorito icon-star active"></a>
-																<a href="formulario-datos-cancion.jsp" class="btn-icono icon-pencil"></a>
+																<a href="${pageContext.request.contextPath}/ir_modificar?id_cancion=${cancion.getId()}" class="btn-icono icon-pencil" onclick="setTimeout(location.reload.bind(location), 1)"></a>
 																<a href="#" class="btn-icono icon-list-1" onclick="document.getElementById('overlay-anadir-listas-reproduccion').classList.add('active');"></a>
-																<a href="#" class="btn-icono icon-trash-o"></a>
+																<a href="${pageContext.request.contextPath}/eliminar_cancion?id_cancion=${cancion.getId()}" class="btn-icono icon-trash-o" onclick="setTimeout(location.reload.bind(location), 1)"></a>
 															</div>
 														</div>
 													</li>
@@ -1072,14 +1072,14 @@ String descripcion = (String) session.getAttribute("descripcion");
 <div class="overlay-pop-up" id="overlay-foto">
     <div class="col-md-7 card p-5">
 		<a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-foto" class="btn-cerrar-popup-perfil"><i class="icon-close1"></i></a>
-		<form class="form-material" action="modinfo" method="post" enctype="multipart/form-data">
+		<form class="form-material" action="modinfo">
 			<!-- Input -->
 			<div class="body">
 				<header class="relative nav-sticky card">
 					<h3>SUBIR FOTO</h3>
 				</header>
 				<div class="contenedor-inputs">
-					<input type="file" class="btn btn-outline-primary btn-sm  mt-3" name="imagen" id="imagen" accept="image/jpeg"> 
+					<input class="btn btn-outline-primary btn-sm  mt-3" type="file" name="imagen" value=""> 
 				</div>
 
 				<input type="submit" class="btn btn-outline-primary btn-sm pl-4 pr-4"

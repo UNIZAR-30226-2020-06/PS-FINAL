@@ -41,6 +41,7 @@
 	</servlet-mapping>
 	
 	
+	
 	<servlet>
 		<servlet-name>Usuario_Val</servlet-name>
 		<servlet-class>com.espotify.controller.Val_UsuarioServlet</servlet-class>
@@ -112,6 +113,15 @@
 	<servlet-mapping>
 		<servlet-name>obtener_contenido_perfil</servlet-name>
 		<url-pattern>/obtener_contenido_perfil</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>ir_modificar</servlet-name>
+		<servlet-class>com.espotify.controller.IrModificar</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ir_modificar</servlet-name>
+		<url-pattern>/ir_modificar</url-pattern>
 	</servlet-mapping>
 	
 	<context-param>
