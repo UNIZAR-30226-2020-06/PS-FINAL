@@ -1,3 +1,4 @@
+
 var btnAbrirCancion = document.getElementById('abrir-popup'),
 	overlayCancion = document.getElementById('overlay-subir-cancion'),
 	btnCerrarCancion = document.getElementById('btn-cerrar-subir-cancion');

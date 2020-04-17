@@ -1,4 +1,6 @@
-<!DOCTYPE html>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%><!DOCTYPE html>
 <html lang="zxx">
 
 <!-- Mirrored from xvelopers.com/demos/html/record-light/index.jsp by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 05 Apr 2020 17:21:29 GMT -->
@@ -9,7 +11,7 @@
 ########################################################################
 -->
 
-<!-- NOMBRE DE LA PESTAÑA -->
+<!-- NOMBRE DE LA PESTAÃA -->
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -20,7 +22,7 @@
     <!-- CSS -->
     <link rel="stylesheet" href="assets/css/app.css">
 </head>
-<!-- END PESTAÑA -->
+<!-- END PESTAÃA -->
 
 <body background="assets/img/fondo3.png" style="background-size: cover;background-repeat: no-repeat; background-position: center center;background-attachment: fixed;" class="sidebar-mini sidebar-collapse sidebar-expanded-on-hover has-preloader" style="display: none;">
 <!-- Pre loader
@@ -88,24 +90,13 @@
             
             <li class="menu-item-has-children">
                 <a href="#">
-                    <i class="icon icon-layers s-24"></i> <span>Categorías</span>
+                    <i class="icon icon-layers s-24"></i> <span>CategorÃ­as</span>
                     <i class=" icon-angle-left  pull-right"></i>
                 </a>
                 <ul class="sub-menu">
-
-                    <li><a href="page-blank.jsp" onclick="setTimeout(location.reload.bind(location), 1)">Genero1</a>
-                    </li>
-                    <li><a href="page-blank.jsp" onclick="setTimeout(location.reload.bind(location), 1)">Genero2</a>
-                    </li>
-                    <li>
-                        <a href="page-blank.jsp" onclick="setTimeout(location.reload.bind(location), 1)">Genero3</a>
-                    </li>
-                    <li>
-                        <a href="page-blank.jsp" onclick="setTimeout(location.reload.bind(location), 1)">Genero4</a>
-                    </li>
-                    <li>
-                        <a href="page-blank.jsp" onclick="setTimeout(location.reload.bind(location), 1)">Genero5</a>
-                    </li>
+					<c:forEach var="genero" items="${generos}">                    
+						<li><a href="page-blank.jsp" onclick="setTimeout(location.reload.bind(location), 1)">${genero.getNombre()}</a></li>
+	                </c:forEach>
 
                 </ul>
             </li>
@@ -432,7 +423,7 @@
                             <div class="col text-center">
                                 <a class="ajaxifyPage" href="#" onclick="setTimeout(location.reload.bind(location), 1)">
                                     <i class="icon-exit-2  s-24"></i>
-                                    <div class="pt-1">Cerrar sesión</div>
+                                    <div class="pt-1">Cerrar sesiÃ³n</div>
                                 </a>
                             </div>
                         </div>
