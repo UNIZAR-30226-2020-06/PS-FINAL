@@ -125,7 +125,7 @@ pageEncoding="UTF-8"%>
         <div class="p-3">
             <ul id="playlist" class="playlist list-group">
                 <li class="list-group-item my-1">
-                    <a class="no-ajaxy media-url" href="assets/media/track1.mp3"  data-wave="assets/media/track1.json">
+                    <a class="no-ajaxy media-url" href="https://espotify.ddns.net/almacen-mp3/23.mp3"  data-wave="assets/media/track1.json">
                         <div class="d-flex justify-content-between align-items-center">
                             <i class="icon-play s-28"></i>
                             <figure class="avatar-md float-left mr-3 mt-1">

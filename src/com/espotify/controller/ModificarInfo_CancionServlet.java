@@ -34,7 +34,7 @@ public class ModificarInfo_CancionServlet extends HttpServlet {
 		int id = Integer.parseInt(request.getParameter("id"));
 		CancionDAO cancion = new CancionDAO();
 		if (cancion.modificarCancion(titulo, genero, id)) {
-			request.getRequestDispatcher("index.jsp").forward(request, response);
+			request.getRequestDispatcher("/obtener_contenido_perfil").forward(request, response);
 		}else {
 			System.out.println("Error al modificar");
 		}

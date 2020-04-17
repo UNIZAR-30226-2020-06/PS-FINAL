@@ -97,7 +97,7 @@ pageEncoding="UTF-8"%>
                 </a>
                 <ul class="sub-menu">
 					<c:forEach var="genero" items="${generos}">                    
-						<li><a href="page-blank.jsp" onclick="setTimeout(location.reload.bind(location), 1)">${genero.getNombre()}</a></li>
+						<li class="list-group-item my-1"><a href="page-blank.jsp" onclick="setTimeout(location.reload.bind(location), 1)">${genero.getNombre()}</a></li>
 	                </c:forEach>
 
                 </ul>
@@ -118,94 +118,7 @@ pageEncoding="UTF-8"%>
 <!-- END MENU DE LA IZQUIERDA-->
 
 <!-- MENU DONDE ESTAN LAS CANCIONES EN LA COLA (DERECHA) -->
-<aside class="control-sidebar fixed ">
-    <div class="slimScroll">
-        <div class="sidebar-header">
-            <h4>PlayList</h4>
-            <p>Awesome Collection for you</p>
-            <a href="#" data-toggle="control-sidebar" class="paper-nav-toggle  active"><i></i></a>
-        </div>
-        <div class="p-3">
-            <ul id="playlist" class="playlist list-group">
-                <li class="list-group-item my-1">
-                    <a class="no-ajaxy media-url" href="http://34.69.44.48/almacen-mp3/13.mp3" >
-                        <div class="d-flex justify-content-between align-items-center">
-                            <i class="icon-play s-28"></i>
-                            <figure class="avatar-md float-left mr-3 mt-1">
-                                <img class="r-5" src="assets/img/demo/a1.jpg" alt="">
-                            </figure>
-                            <div>
-                                <h6>alexander Pierce</h6>Atif Aslam
-                            </div>
-                            <span class="badge badge-primary badge-pill"> 5:03</span>
-                        </div>
-                    </a>
-                </li>
-                <li class="list-group-item my-1">
-                    <a class="no-ajaxy media-url" href="assets/media/track2.mp3" data-wave="assets/media/track2.json">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <i class="icon-play s-28"></i>
-                            <figure class="avatar-md float-left mr-3 mt-1">
-                                <img class="r-5" src="assets/img/demo/a2.jpg" alt="">
-                            </figure>
-                            <div>
-                                <h6>alexander Pierce</h6>Atif Aslam
-                            </div>
-                            <span class="badge badge-primary badge-pill"> 5:03</span>
-                        </div>
-                    </a>
-                </li>
-                <li class="list-group-item my-1">
-                    <a class="no-ajaxy media-url" href="assets/media/track3.mp3" data-wave="assets/media/track3.json">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <i class="icon-play s-28"></i>
-                            <figure class="avatar-md float-left mr-3 mt-1">
-                                <img class="r-5" src="assets/img/demo/a4.jpg" alt="">
-                            </figure>
-                            <div>
-                                <h6>alexander Pierce</h6>Atif Aslam
-                            </div>
-                            <span class="badge badge-primary badge-pill"> 5:03</span>
-                        </div>
-                    </a>
-                </li>
 
-                <li class="list-group-item my-1">
-                    <a class="no-ajaxy media-url" href="assets/media/track1.mp3"  data-wave="assets/media/track1.json">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <i class="icon-play s-28"></i>
-                            <figure class="avatar-md float-left mr-3 mt-1">
-                                <img class="r-5" src="assets/img/demo/a5.jpg" alt="">
-                            </figure>
-                            <div>
-                                <h6>alexander Pierce</h6>Atif Aslam
-                            </div>
-                            <span class="badge badge-primary badge-pill"> 5:03</span>
-                        </div>
-                    </a>
-                </li>
-
-                <li class="list-group-item my-1">
-                    <a class="no-ajaxy media-url" href="assets/media/track2.mp3" data-wave="assets/media/track2.json">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <i class="icon-play s-28"></i>
-                            <figure class="avatar-md float-left mr-3 mt-1">
-                                <img class="r-5" src="assets/img/demo/a6.jpg" alt="">
-                            </figure>
-                            <div>
-                                <h6>alexander Pierce</h6>Atif Aslam
-                            </div>
-                            <span class="badge badge-primary badge-pill"> 5:03</span>
-                        </div>
-                    </a>
-                </li>
-
-
-            </ul>
-
-        </div>
-    </div>
-</aside>
 
 <!-- Add the sidebar's background. This div must be placed
          immediately after the control sidebar -->
@@ -580,6 +493,7 @@ String descripcion = (String) session.getAttribute("descripcion");
 								<div class="col-md-12">
 									<div class="playlist">
 										<ul id="playlist" class="playlist list-group">
+										<li class="list-group-item my-1">		
 											<c:forEach var="cancion" items="${canciones}">                    
 												<div style="margin-bottom: -1px;" class="cancion">
 													<li class="list-group-item my-1">
@@ -592,7 +506,7 @@ String descripcion = (String) session.getAttribute("descripcion");
 															<div class="col-6">
 																<h6>${cancion.getTitulo()}</h6>${genero.getNombre()}
 															</div>
-															<span class=" ml-auto">${cancion.getGenero()}</span>
+															<span class="ml-auto">${cancion.getGenero()}</span>
 															<a href="#" class="ml-auto"><i class="icon-share-1"></i></a>
 															<div class="ml-auto">
 																<a href="#" class="btn-favorito icon-star active"></a>
@@ -603,7 +517,8 @@ String descripcion = (String) session.getAttribute("descripcion");
 														</div>
 													</li>
 												</div>								                
-											</c:forEach>									
+											</c:forEach>
+											
 										</ul>
 									</div>
 								</div>
@@ -978,7 +893,6 @@ String descripcion = (String) session.getAttribute("descripcion");
 	</div>
 </div>
 <!-- END Bloque de subir cancion datos-->									 
-<<<<<<< HEAD
 
 
 <!-- EDICION PERFIL -->
@@ -1294,8 +1208,10 @@ String descripcion = (String) session.getAttribute("descripcion");
 						</figure>
 					</div>
 				</div>
-=======
-
+			</div>
+		</form>
+	</div>
+</div>
 
 <!-- EDICION PERFIL -->
 <div class="overlay-pop-up" id="overlay-perfil">
@@ -1612,7 +1528,6 @@ String descripcion = (String) session.getAttribute("descripcion");
 					</div>
 				</div>
 			<!-- #END# Input -->
-<<<<<<< HEAD
 	</div>
 </div>
 <!-- END EDICION PERFIL -->

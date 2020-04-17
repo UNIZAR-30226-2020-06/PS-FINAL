@@ -14,9 +14,8 @@ pageEncoding="UTF-8"%>
 <!-- RECOGIDA DATOS -->
 <%
 String nombre = (String) session.getAttribute("nombre");
-int id_cancion = Integer.parseInt((String) request.getParameter("id_cancion"));
+int id_cancion = Integer.parseInt((String) request.getAttribute("id_cancion"));
 request.setAttribute("ruta", (String) request.getAttribute("ruta"));
-
 %>
 
 

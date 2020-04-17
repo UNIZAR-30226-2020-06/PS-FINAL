@@ -31,7 +31,7 @@ import com.espotify.model.Genero;
 public class SubirAudio_Servlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final String ALMACEN_PATH = "/var/www/html/almacen-mp3/";
-	private static final String RUTA = "http://34.69.44.48/almacen-mp3/";
+	private static final String RUTA = "https://espotify.ddns.net/almacen-mp3/";
 	/*
 	 * Constructor principal
 	 * 

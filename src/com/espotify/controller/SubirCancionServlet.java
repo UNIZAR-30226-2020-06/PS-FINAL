@@ -36,9 +36,6 @@ import com.espotify.model.Genero;
 @WebServlet("/SubirCancion")
 public class SubirCancionServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static final String ALMACEN_PATH = "/var/www/html/almacen-mp3/";
-       
-	private ServletFileUpload uploader = null;
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -64,9 +61,8 @@ public class SubirCancionServlet extends HttpServlet {
 		System.out.println("------------------------------------------------------------------------");
 		CancionDAO cancion = new CancionDAO();
 		if (cancion.subirCancion(nombre, autor, genero, ruta) != 0) {
-			ArrayList<Genero> generos = new GeneroDAO().obtenerGeneroMusica();
-			request.setAttribute("generos", generos);
-			request.getRequestDispatcher("profile.jsp").forward(request, response);
+
+			request.getRequestDispatcher("/obtener_contenido_perfil").forward(request, response);
 		}
 			
 	}

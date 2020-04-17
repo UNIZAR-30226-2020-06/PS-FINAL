@@ -32,7 +32,7 @@ public class Eliminar_CancionServlet extends HttpServlet {
 		CancionDAO cancion = new CancionDAO();
 		if (cancion.borrarCancion(id_cancion)) {
 			System.out.println("Entro");
-			request.getRequestDispatcher("index.jsp").forward(request, response);
+			request.getRequestDispatcher("/obtener_contenido_perfil").forward(request, response);
 		}else {
 			System.out.println("Error al eliminar cancion");
 		}
