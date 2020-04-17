@@ -418,8 +418,8 @@ pageEncoding="UTF-8"%>
                             </div>
                             <div class="col text-center">
                                 <a class="ajaxifyPage" href="#" onclick="setTimeout(location.reload.bind(location), 1)">
-                                    <i class="icon-exit-2  s-24"></i>
-                                    <div class="pt-1">Cerrar sesión</div>
+                                    <a href="<%= request.getContextPath()+"/Cerrar_SesionServlet"%>"><i class="icon-exit-2  s-24"></i>
+                                    <div class="pt-1">Cerrar sesión</div></a>
                                 </a>
                             </div>
                         </div>

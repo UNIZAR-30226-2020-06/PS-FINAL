@@ -89,7 +89,7 @@ pageEncoding="UTF-8"%>
             
             <li class="menu-item-has-children">
                 <a href="#">
-                    <i class="icon icon-layers s-24"></i> <span>CategorÃÂ­as</span>
+                    <i class="icon icon-layers s-24"></i> <span>Categorías</span>
                     <i class=" icon-angle-left  pull-right"></i>
                 </a>
                 <ul class="sub-menu">
@@ -101,7 +101,7 @@ pageEncoding="UTF-8"%>
             </li>
             
             <li><a class="ajaxifyPage" href="videos.jsp" onclick="setTimeout(location.reload.bind(location), 1)">
-                    <i class="icon icon-compact-disc-1 s-24"></i> <span>Mis listas de reproduccion</span>
+                    <i class="icon icon-compact-disc-1 s-24"></i> <span>Mis listas de reproducción</span>
                 </a>
             </li>
             
@@ -414,8 +414,8 @@ pageEncoding="UTF-8"%>
 							</div>
 							<div class="col text-center">
 								<a class="ajaxifyPage" href="#" onclick="setTimeout(location.reload.bind(location), 1)">
-									<i class="icon-exit-2  s-24"></i>
-									<div class="pt-1">Cerrar sesiÃ³n</div>
+									<a href="<%= request.getContextPath()+"/Cerrar_SesionServlet"%>"><i class="icon-exit-2  s-24"></i>
+                                    <div class="pt-1">Cerrar sesión</div></a>
 								</a>
 							</div>
 						</div>
