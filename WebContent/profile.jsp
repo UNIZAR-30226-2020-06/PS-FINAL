@@ -357,25 +357,30 @@ pageEncoding="UTF-8"%>
                         <button id="shuffleTrack" class="btn btn-link d-none d-sm-block">
                             <i class="icon-shuffle s-18"></i>
                         </button>
-                        <button id="previousTrack" class="btn btn-link d-none d-sm-block" onclick="playlist.prevTrack();">
+                        <button id="previousTrack" class="btn btn-link d-none d-sm-block">
                             <i class="icon-back s-18"></i>
                         </button>
-                        <audio src="" class="reproductor" controls id="audioPlayer" >
-                            Sorry, your browser doesn't support html5!
-                        </audio>
-                        <button id="nextTrack" class="btn btn-link d-none d-sm-block" onclick="playlist.nextTrack();">
+                        <button class=" btn btn-link" id="playPause">
+                            <span id="play" style=""><i class="icon-play s-36"></i></span>
+                            <span id="pause" style="display: none;"><i class="icon-pause s-36 text-primary"></i></span>
+                        </button>
+                        <button id="nextTrack" class="btn btn-link d-none d-sm-block">
                             <i class="icon-next s-18"></i>
                         </button>
-                        <button id="loopTrack" class="btn btn-link d-none d-sm-block" onclick="playlist.setLoop(true);">
+                        <button class="btn btn-link" onclick="loopAudio();">
                             <i class="icon-repeat s-18"></i>
                         </button>
                     </div>
                 </div>
                 
+                <div class="col-8 d-none d-lg-block">
+                    <div id="waveform"></div>
+                </div>
+                
                 <!-- COLA -->
                 <div class="col d-none d-lg-block">
                     <small class="track-time mr-2 text-primary align-middle"></small>
-                    <a style="position: absolute;top: -5px;right: 50px;" data-toggle="control-sidebar">
+                    <a style="position: absolute;top: -5px;right: -5px;" data-toggle="control-sidebar">
                         <i class="icon icon-menu-3 s-24 align-middle"></i>Cola
                     </a>
                 </div>  
@@ -491,36 +496,32 @@ String descripcion = (String) session.getAttribute("descripcion");
 						<div class="col-lg-10 offset-lg-1">
 							<div class="row">
 								<div class="col-md-12">
-									<div class="playlist">
-										<ul id="playlist" class="playlist list-group">
-										<li class="list-group-item my-1">		
-											<c:forEach var="cancion" items="${canciones}">                    
-												<div style="margin-bottom: -1px;" class="cancion">
-													<li class="list-group-item my-1">
-														<div class="d-flex align-items-center">
-															<div class="col-1">
-																<a class="no-ajaxy media-url" href="${cancion.getUrl()}">
-																	<i class="icon-play s-28"></i>
-																</a>					
-															</div>
-															<div class="col-6">
-																<h6>${cancion.getTitulo()}</h6>${genero.getNombre()}
-															</div>
-															<span class="ml-auto">${cancion.getGenero()}</span>
-															<a href="#" class="ml-auto"><i class="icon-share-1"></i></a>
-															<div class="ml-auto">
-																<a href="#" class="btn-favorito icon-star active"></a>
-																<a href="${pageContext.request.contextPath}/ir_modificar?id_cancion=${cancion.getId()}" class="btn-icono icon-pencil" onclick="setTimeout(location.reload.bind(location), 1)"></a>
-																<a href="#" class="btn-icono icon-list-1" onclick="document.getElementById('overlay-anadir-listas-reproduccion').classList.add('active');"></a>
-																<a href="${pageContext.request.contextPath}/eliminar_cancion?id_cancion=${cancion.getId()}" class="btn-icono icon-trash-o" onclick="setTimeout(location.reload.bind(location), 1)"></a>
-															</div>
+									<ul id="playlist" class="playlist list-group">		
+										<c:forEach var="cancion" items="${canciones}">                    
+											<div style="margin-bottom: -1px;" class="cancion">
+												<li class="list-group-item my-1">
+													<div class="d-flex align-items-center">
+														<div class="col-1">
+															<a class="no-ajaxy media-url" href="${cancion.getUrl()}">
+																<i class="icon-play s-28"></i>
+															</a>					
 														</div>
-													</li>
-												</div>								                
-											</c:forEach>
-											
-										</ul>
-									</div>
+														<div class="col-6">
+															<h6>${cancion.getTitulo()}</h6>${genero.getNombre()}
+														</div>
+														<span class="ml-auto">${cancion.getGenero()}</span>
+														<a href="#" class="ml-auto"><i class="icon-share-1"></i></a>
+														<div class="ml-auto">
+															<a href="#" class="btn-favorito icon-star active"></a>
+															<a href="${pageContext.request.contextPath}/ir_modificar?id_cancion=${cancion.getId()}" class="btn-icono icon-pencil" onclick="setTimeout(location.reload.bind(location), 1)"></a>
+															<a href="#" class="btn-icono icon-list-1" onclick="document.getElementById('overlay-anadir-listas-reproduccion').classList.add('active');"></a>
+															<a href="${pageContext.request.contextPath}/eliminar_cancion?id_cancion=${cancion.getId()}" class="btn-icono icon-trash-o" onclick="setTimeout(location.reload.bind(location), 1)"></a>
+														</div>
+													</div>
+												</li>
+											</div>								                
+										</c:forEach>
+									</ul>
 								</div>
 							</div>
 						</div>
@@ -1876,6 +1877,17 @@ String descripcion = (String) session.getAttribute("descripcion");
         var playlist = new AudioPlaylist();
         
     </script>
+    <script>
+	function loopAudio(){
+		var audio = document.getElementsByTagName("audio")[0];
+		if(audio.loop){
+			audio.loop = false;
+		}else{
+			audio.loop = true;
+		}
+		//audio.load();
+	}
+</script>
 </body>
 
 <!-- Mirrored from xvelopers.com/demos/html/record-light/profile.jsp by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 05 Apr 2020 17:22:10 GMT -->
