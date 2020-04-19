@@ -54,7 +54,8 @@ public class AndroidGet_FavoritosServlet extends HttpServlet {
         
         
         String idUsuario = UsuarioDAO.obtenerId(email);
-        List<Audio> audios = new FavoritosDAO().getAudios(idUsuario);
+        int usuario = Integer.valueOf(idUsuario);
+        List<Audio> audios = new FavoritosDAO().getAudios(usuario);
         JSONArray audiosJSON = new JSONArray();
         JSONObject datosAudio;
         

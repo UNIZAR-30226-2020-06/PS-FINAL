@@ -36,23 +36,25 @@ public class GetInfo_ListaRepServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+		HttpSession session = request.getSession();
+		int usuario = Integer.valueOf((String) session.getAttribute("id"));
 		String nombre = request.getParameter("nombre");
-		String usuario = request.getParameter("usuario");
-		String tipo = request.getParameter("tipo");
-		String aleatorio = request.getParameter("aleatorio");
+		String tipo = "ListaRep";
+		//String aleatorio = request.getParameter("aleatorio");
 		
 		try{
 			ListaReproduccion infoLista = new ListaReproduccionDAO().getInfoList(nombre,usuario,tipo);
 			List<Audio> audios = new ListaReproduccionDAO().getAudios(nombre,usuario,tipo);
 			
-			if (aleatorio.equals("si")) {
-				Collections.shuffle(audios);
-			}
+			//if (aleatorio.equals("si")) {
+			//	Collections.shuffle(audios);
+			//}
 			
-			HttpSession session = request.getSession();
+			
 			session.setAttribute("infoLista", infoLista);
 			session.setAttribute("audios", audios);
 				
+			request.getRequestDispatcher("album-single.jsp").forward(request, response);
 			//RequestDispatcher dispatcher=request.getRequestDispatcher("user.jsp");
 			//dispatcher.forward(request, response);
 

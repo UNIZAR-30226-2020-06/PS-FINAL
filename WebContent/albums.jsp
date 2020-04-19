@@ -92,7 +92,7 @@ pageEncoding="UTF-8"%>
                 </ul>
             </li>
             
-            <li><a class="ajaxifyPage" href="videos.jsp" onclick="setTimeout(location.reload.bind(location), 1)">
+            <li><a class="ajaxifyPage" href="mostrar_lrs" onclick="setTimeout(location.reload.bind(location), 1)">
                     <i class="icon icon-compact-disc-1 s-24"></i> <span>Mis listas de reproduccion</span>
                 </a>
             </li>
@@ -302,7 +302,7 @@ pageEncoding="UTF-8"%>
                         <li class="list-group-item">
                             <div class="d-flex align-items-center ">
                                 <div class="col-8 ">
-                                    <a href="video-single.jsp" onclick="setTimeout(location.reload.bind(location), 1)">
+                                    <a href="album-single.jsp" onclick="setTimeout(location.reload.bind(location), 1)">
                                         <h6>Battal of Bands</h6>
                                     </a>
                                     <small class="mt-1"><i class="icon-placeholder-3 mr-1 "></i> London Music Hall
@@ -319,7 +319,7 @@ pageEncoding="UTF-8"%>
                         <li class="list-group-item">
                             <div class="d-flex align-items-center ">
                                 <div class="col-8 ">
-                                    <a href="video-single.jsp" onclick="setTimeout(location.reload.bind(location), 1)">
+                                    <a href="album-single.jsp" onclick="setTimeout(location.reload.bind(location), 1)">
                                         <h6>Battal of Bands</h6>
                                     </a>
                                     <small class="mt-1"><i class="icon-placeholder-3 mr-1 "></i> London Music Hall
@@ -336,7 +336,7 @@ pageEncoding="UTF-8"%>
                         <li class="list-group-item">
                             <div class="d-flex align-items-center ">
                                 <div class="col-8 ">
-                                    <a href="video-single.jsp">
+                                    <a href="album-single.jsp">
                                         <h6>Battal of Bands</h6>
                                     </a>
                                     <small class="mt-1"><i class="icon-placeholder-3 mr-1 "></i> London Music Hall
@@ -395,21 +395,15 @@ pageEncoding="UTF-8"%>
             <div class="dropdown-menu p-4 dropdown-menu-right">
                 <div class="row box justify-content-between my-4">
                     <div class="col text-center">
-                        <a class="ajaxifyPage" href="profile.jsp" onclick="setTimeout(location.reload.bind(location), 1)">
+                        <a class="ajaxifyPage" href="obtener_contenido_perfil" onclick="setTimeout(location.reload.bind(location), 1)">
                             <i class="icon-user-4  s-24"></i>
                             <div class="pt-1">Mi perfil</div>
                         </a>
                     </div>
-					<div class="col text-center">
-                        <a class="ajaxifyPage" href="#">
-                            <i class="icon-cog  s-24"></i>
-                            <div class="pt-1">Ajustes cuenta</div>
-                        </a>
-                    </div>
                     <div class="col text-center">
-                        <a class="ajaxifyPage" href="#">
+                        <a class="ajaxifyPage" href="logout">
                             <i class="icon-exit-2  s-24"></i>
-                            <div class="pt-1">Cerrar sesiÃÂ³n</div>
+                            <div class="pt-1">Cerrar sesión</div>
                         </a>
                     </div>
                 </div>
@@ -498,229 +492,87 @@ pageEncoding="UTF-8"%>
                     <h1 class="mb-2 text-primary">Lista de Reproduccion</h1>
                     <p>Todas tus maravillosas listas de reproduccion</p>
                 </div>
+                <div class="contenido-pestanas" style="text-align: center;">
+						<button class="btn btn-abrir-popup-lista icon-plus" id="abrir-listas-reproduccion"  onClick="document.getElementById('overlay-listas-reproduccion').classList.add('active');">Crear Lista de Reproducción</button>
+				</div> 
                 <div class="row has-items-overlay">
-                    <div class="col-lg-3 col-md-4 col-sm-6 my-2">
-                        <figure>
-                            <div class="img-wrapper">
-                                <img src="assets/img/demo/a1.jpg" alt="/">
-                                <div class="img-overlay text-white text-center">
-                                    <a href="album-single.jsp" onclick="setTimeout(location.reload.bind(location), 1)">
-                                        <div class="figcaption mt-3">
-                                            <i class="icon-link s-48"></i>
-                                            <h5 class="mt-5">To Phir Ao</h5>
-                                            <span>Atif Aslam</span>
-                                        </div>
-                                    </a>
-                                </div>
-                                <div class="figure-title text-center p-2">
-                                    <h5>To Phir Ao</h5>
-                                    <span>Atif Aslam</span>
-                                </div>
-                            </div>
-                        </figure>
-                        <div class="contenido-pestanas" style="text-align: center;">
-                            <button class="btn btn-abrir-popup-lista icon-trash-o"></button>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-4 col-sm-6 my-2">
+                	<div class="col-lg-3 col-md-4 col-sm-6 my-2">
                         <figure>
                             <div class="img-wrapper">
                                 <img src="assets/img/demo/a2.jpg" alt="/">
                                 <div class="img-overlay text-white text-center">
-                                    <a href="album-single.jsp" onclick="setTimeout(location.reload.bind(location), 1)">
+                                    <a href="obtener_info_fav" onclick="setTimeout(location.reload.bind(location), 1)">
                                         <div class="figcaption mt-3">
                                             <i class="icon-link s-48"></i>
-                                            <h5 class="mt-5">To Phir Ao</h5>
-                                            <span>Atif Aslam</span>
+                                            <h5 class="mt-5">Mis Favoritos</h5>
+                                            
                                         </div>
                                     </a>
                                 </div>
                                 <div class="figure-title text-center p-2">
-                                    <h5>To Phir Ao</h5>
-                                    <span>Atif Aslam</span>
+                                    <h5>Mis favoritos</h5>
+                                    
                                 </div>
                             </div>
-
-                        </figure>
-                        <div class="contenido-pestanas" style="text-align: center;">
-                            <button class="btn btn-abrir-popup-lista icon-trash-o"></button>
-                        </div>
+                     	</figure>
                     </div>
-                    <div class="col-lg-3 col-md-4 col-sm-6 my-2">
-                        <figure>
-                            <div class="img-wrapper">
-                                <img src="assets/img/demo/a3.jpg" alt="/">
-                                <div class="img-overlay text-white text-center">
-                                    <a href="album-single.jsp" onclick="setTimeout(location.reload.bind(location), 1)">
-                                        <div class="figcaption mt-3">
-                                            <i class="icon-link s-48"></i>
-                                            <h5 class="mt-5">To Phir Ao</h5>
-                                            <span>Atif Aslam</span>
-                                        </div>
-                                    </a>
-                                </div>
-                                <div class="figure-title text-center p-2">
-                                    <h5>To Phir Ao</h5>
-                                    <span>Atif Aslam</span>
-                                </div>
-                            </div>
-
-                        </figure>
-                        <div class="contenido-pestanas" style="text-align: center;">
-                            <button class="btn btn-abrir-popup-lista icon-trash-o"></button>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-4 col-sm-6 my-2">
-                        <figure>
-                            <div class="img-wrapper">
-                                <img src="assets/img/demo/a4.jpg" alt="/">
-                                <div class="img-overlay text-white text-center">
-                                    <a href="album-single.jsp" onclick="setTimeout(location.reload.bind(location), 1)">
-                                        <div class="figcaption mt-3">
-                                            <i class="icon-link s-48"></i>
-                                            <h5 class="mt-5">To Phir Ao</h5>
-                                            <span>Atif Aslam</span>
-                                        </div>
-                                    </a>
-                                </div>
-                                <div class="figure-title text-center p-2">
-                                    <h5>To Phir Ao</h5>
-                                    <span>Atif Aslam</span>
-                                </div>
-                            </div>
-
-                        </figure>
-                        <div class="contenido-pestanas" style="text-align: center;">
-                            <button class="btn btn-abrir-popup-lista icon-trash-o"></button>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-4 col-sm-6 my-2">
-                        <figure>
-                            <div class="img-wrapper">
-                                <img src="assets/img/demo/a5.jpg" alt="/">
-                                <div class="img-overlay text-white text-center">
-                                    <a href="album-single.jsp" onclick="setTimeout(location.reload.bind(location), 1)">
-                                        <div class="figcaption mt-3">
-                                            <i class="icon-link s-48"></i>
-                                            <h5 class="mt-5">To Phir Ao</h5>
-                                            <span>Atif Aslam</span>
-                                        </div>
-                                    </a>
-                                </div>
-                                <div class="figure-title text-center p-2">
-                                    <h5>To Phir Ao</h5>
-                                    <span>Atif Aslam</span>
-                                </div>
-                            </div>
-
-                        </figure>
-                        <div class="contenido-pestanas" style="text-align: center;">
-                            <button class="btn btn-abrir-popup-lista icon-trash-o"></button>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-4 col-sm-6 my-2">
-                        <figure>
-                            <div class="img-wrapper">
-                                <img src="assets/img/demo/a6.jpg" alt="/">
-                                <div class="img-overlay text-white text-center">
-                                    <a href="album-single.jsp" onclick="setTimeout(location.reload.bind(location), 1)">
-                                        <div class="figcaption mt-3">
-                                            <i class="icon-link s-48"></i>
-                                            <h5 class="mt-5">To Phir Ao</h5>
-                                            <span>Atif Aslam</span>
-                                        </div>
-                                    </a>
-                                </div>
-                                <div class="figure-title text-center p-2">
-                                    <h5>To Phir Ao</h5>
-                                    <span>Atif Aslam</span>
-                                </div>
-                            </div>
-
-                        </figure>
-                        <div class="contenido-pestanas" style="text-align: center;">
-                            <button class="btn btn-abrir-popup-lista icon-trash-o"></button>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-4 col-sm-6 my-2">
-                        <figure>
-                            <div class="img-wrapper">
-                                <img src="assets/img/demo/a7.jpg" alt="/">
-                                <div class="img-overlay text-white text-center">
-                                    <a href="album-single.jsp" onclick="setTimeout(location.reload.bind(location), 1)">
-                                        <div class="figcaption mt-3">
-                                            <i class="icon-link s-48"></i>
-                                            <h5 class="mt-5">To Phir Ao</h5>
-                                            <span>Atif Aslam</span>
-                                        </div>
-                                    </a>
-                                </div>
-                                <div class="figure-title text-center p-2">
-                                    <h5>To Phir Ao</h5>
-                                    <span>Atif Aslam</span>
-                                </div>
-                            </div>
-
-                        </figure>
-                        <div class="contenido-pestanas" style="text-align: center;">
-
-                            <button class="btn btn-abrir-popup-lista icon-trash-o"></button>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-4 col-sm-6 my-2">
-                        <figure>
-                            <div class="img-wrapper">
-                                <img src="assets/img/demo/a8.jpg" alt="/">
-                                <div class="img-overlay text-white text-center">
-                                    <a href="album-single.jsp" onclick="setTimeout(location.reload.bind(location), 1)">
-                                        <div class="figcaption mt-3">
-                                            <i class="icon-link s-48"></i>
-                                            <h5 class="mt-5">To Phir Ao</h5>
-                                            <span>Atif Aslam</span>
-                                        </div>
-                                    </a>
-                                </div>
-                                <div class="figure-title text-center p-2">
-                                    <h5>To Phir Ao</h5>
-                                    <span>Atif Aslam</span>
-                                </div>
-                            </div>
-                        </figure>
-                        <div class="contenido-pestanas" style="text-align: center;">
-                            <button class="btn btn-abrir-popup-lista icon-trash-o"></button>
-                        </div>
-                    </div>
+                    <c:forEach var="lista" items="${listas}" >
+							<div class="col-lg-3 col-md-4 col-sm-6 my-2">
+								<figure>
+									<div class="img-wrapper">
+										<img src="assets/img/demo/a1.jpg" alt="/">
+										<div class="img-overlay text-white text-center">
+											<a href="obtener_info_lr?nombre=${lista.getNombre()}" onclick="setTimeout(location.reload.bind(location), 1)">
+												<div class="figcaption mt-3">
+													<i class="icon-link s-48"></i>
+													<h5 class="mt-5">${lista.getNombre()}</h5>
+												</div>
+											</a>
+										</div>
+										<div class="figure-title text-center p-2">
+											<h5>${lista.getNombre()}</h5>
+										</div>
+									</div>
+								</figure>
+							<div class="contenido-pestanas" style="text-align: center;">
+	                            <button class="btn btn-abrir-popup-lista icon-trash-o" 
+	                            onclick="document.getElementById('idLista').value = '${lista.getNombre()}';
+	                            document.getElementById('overlay-borrar-listas-reproduccion').classList.add('active');"></button>
+                       		 </div>
+                    	</div>
+					</c:forEach>      
                 </div>
             </section>
         </div>
-    </div>
+     </div> 
+                    
 
-    <!-- CREAR LISTA DE REPRODUCCIÃÂN -->
+<!-- CREAR LISTA DE REPRODUCCIÓN -->
 <div class="overlay-pop-up" id="overlay-listas-reproduccion">
     <div class="col-md-7 card p-5">
-		<a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-listas-reproduccion" class="btn-cerrar-popup"><i class="icon-close1"></i></a>
-		<form class="form-material" action="#">
+		<a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-listas-reproduccion" class="btn-cerrar-popup-perfil"><i class="icon-close1"></i></a>
+		<form class="form-material" action="crear_lr" method="post">
 			<!-- Input -->
 			<div class="body">
 				<header class="relative nav-sticky card">
-					<h3>CREAR LISTAS DE REPRODUCCIÃÂN</h3>
+					<h3>CREAR LISTAS DE REPRODUCCIÓN</h3>
 				</header>
 				<div class="contenedor-inputs">
-					<h4>AÃÂ±adir imagen</h4>
-					<input type="file" class="btn btn-outline-primary btn-sm  mt-3" name="fileName" required=""/> 
-					<input type="text" placeholder="Nombre" id="nombre-listas-reproduccion" required=""/>
-					<input type="text" placeholder="Descripcion" id="descripcion-listas-reproduccion"/>
+					<h4>Añadir imagen</h4>
+					<!--  <input type="file" class="btn btn-outline-primary btn-sm  mt-3" name="fileName" /> -->
+					<input type="text" name="nombre" placeholder="Nombre" id="nombre-listas-reproduccion" required/>
+					<input type="text" name="descipcion" placeholder="Descripcion" id="descripcion-listas-reproduccion"/>
+					<input type="hidden" name="tipo" value="ListaRep">
 				</div>
 
 				<input type="submit" class="btn btn-outline-primary btn-sm pl-4 pr-4"
-					   value="Crear">
+					   value="Aceptar">
 			</div>
 			<!-- #END# Input -->
 		</form>
 	</div>
 </div>
-<!-- END CREAR LISTA DE REPRODUCCIÃÂN -->
-
+<!-- END CREAR LISTA DE REPRODUCCIÓN -->
 
 
 <!-- AJUSTES CUENTA -->
@@ -777,6 +629,30 @@ pageEncoding="UTF-8"%>
 </div>
 <!-- END AJUSTES CUENTA -->
 
+<!-- BORRAR LISTA DE REPRODUCCIÓN -->	
+	<div class="overlay-pop-up" id="overlay-borrar-listas-reproduccion">	
+	    <div class="col-md-7 card p-5">	
+	        <a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-borrar-listas-reproduccion" class="btn-cerrar-popup-perfil"	
+	        class="btn btn-outline-primary btn-sm pl-4 pr-4"  onclick="document.getElementById('overlay-borrar-listas-reproduccion').classList.remove('active');"><i class="icon-close1"></i></a>	
+			<form class="form-material" action="borrar_lr" method="post">	
+				<!-- Input -->	
+				<div class="body">	
+					<header class="relative nav-sticky card">	
+	                    <h3>¿Estas seguro?</h3>	
+	                    <h5>Vas a borrar esta lista de reproduccion para siempre, no hay vuelta atras</h5>	
+					</header>	
+		
+					<input type="hidden" id="idLista" name="nombre" value="">
+					<input type="hidden" name="tipo" value="ListaRep">	
+					<input type="submit" class="btn btn-outline-primary btn-sm pl-4 pr-4"	
+	                       value="Aceptar">	
+	                <button class="btn btn-outline-primary btn-sm pl-4 pr-4"  onclick="document.getElementById('overlay-borrar-listas-reproduccion').classList.remove('active');">Cerrar</button>	
+				</div>	
+				<!-- #END# Input -->	
+	        </form>	
+		</div>	
+	</div>	
+<!-- END BORRAR LISTA DE REPRODUCCIÓN -->
 
 
 </main><!--@Page Content-->

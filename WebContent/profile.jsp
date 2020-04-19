@@ -103,7 +103,7 @@ pageEncoding="UTF-8"%>
                 </ul>
             </li>
             
-            <li><a class="ajaxifyPage" href="videos.jsp" onclick="setTimeout(location.reload.bind(location), 1)">
+            <li><a class="ajaxifyPage" href="mostrar_lrs" onclick="setTimeout(location.reload.bind(location), 1)">
                     <i class="icon icon-compact-disc-1 s-24"></i> <span>Mis listas de reproduccion</span>
                 </a>
             </li>
@@ -230,7 +230,7 @@ pageEncoding="UTF-8"%>
                         <li class="list-group-item">
                             <div class="d-flex align-items-center ">
                                 <div class="col-8 ">
-                                    <a href="video-single.jsp" onclick="setTimeout(location.reload.bind(location), 1)">
+                                    <a href="album-single.jsp" onclick="setTimeout(location.reload.bind(location), 1)">
                                         <h6>Battal of Bands</h6>
                                     </a>
                                     <small class="mt-1"><i class="icon-placeholder-3 mr-1 "></i> London Music Hall
@@ -247,7 +247,7 @@ pageEncoding="UTF-8"%>
                         <li class="list-group-item">
                             <div class="d-flex align-items-center ">
                                 <div class="col-8 ">
-                                    <a href="video-single.jsp" onclick="setTimeout(location.reload.bind(location), 1)">
+                                    <a href="album-single.jsp" onclick="setTimeout(location.reload.bind(location), 1)">
                                         <h6>Battal of Bands</h6>
                                     </a>
                                     <small class="mt-1"><i class="icon-placeholder-3 mr-1 "></i> London Music Hall
@@ -264,7 +264,7 @@ pageEncoding="UTF-8"%>
                         <li class="list-group-item">
                             <div class="d-flex align-items-center ">
                                 <div class="col-8 ">
-                                    <a href="video-single.jsp" onclick="setTimeout(location.reload.bind(location), 1)">
+                                    <a href="album-single.jsp" onclick="setTimeout(location.reload.bind(location), 1)">
                                         <h6>Battal of Bands</h6>
                                     </a>
                                     <small class="mt-1"><i class="icon-placeholder-3 mr-1 "></i> London Music Hall
@@ -330,7 +330,7 @@ pageEncoding="UTF-8"%>
                                 </a>
                             </div>
                             <div class="col text-center">
-                                <a class="ajaxifyPage" href="#" onclick="setTimeout(location.reload.bind(location), 1)">
+                                <a class="ajaxifyPage" href="logout" onclick="setTimeout(location.reload.bind(location), 1)">
                                     <a href="<%= request.getContextPath()+"/Cerrar_SesionServlet"%>"><i class="icon-exit-2  s-24"></i>
                                     <div class="pt-1">Cerrar sesión</div></a>
                                 </a>
@@ -496,7 +496,7 @@ String descripcion = (String) session.getAttribute("descripcion");
 										<li class="list-group-item my-1">		
 											<c:forEach var="cancion" items="${canciones}">                    
 												<div style="margin-bottom: -1px;" class="cancion">
-													<li class="list-group-item my-1">
+													
 														<div class="d-flex align-items-center">
 															<div class="col-1">
 																<a class="no-ajaxy media-url" href="${cancion.getUrl()}">
@@ -509,16 +509,18 @@ String descripcion = (String) session.getAttribute("descripcion");
 															<span class="ml-auto">${cancion.getGenero()}</span>
 															<a href="#" class="ml-auto"><i class="icon-share-1"></i></a>
 															<div class="ml-auto">
-																<a href="#" class="btn-favorito icon-star active"></a>
+																<a href="anyadir_cancion_fav?idAudio=${cancion.getId()}" class="btn-favorito icon-star active"></a>
 																<a href="${pageContext.request.contextPath}/ir_modificar?id_cancion=${cancion.getId()}" class="btn-icono icon-pencil" onclick="setTimeout(location.reload.bind(location), 1)"></a>
-																<a href="#" class="btn-icono icon-list-1" onclick="document.getElementById('overlay-anadir-listas-reproduccion').classList.add('active');"></a>
+																<a href="#" class="btn-icono icon-list-1" onclick="rellenarCampos('${listaslr.size()}','${cancion.getId()}');
+																document.getElementById('overlay-anadir-listas-reproduccion').classList.add('active');"
+																	></a>
 																<a href="${pageContext.request.contextPath}/eliminar_cancion?id_cancion=${cancion.getId()}" class="btn-icono icon-trash-o" onclick="setTimeout(location.reload.bind(location), 1)"></a>
 															</div>
 														</div>
-													</li>
+													
 												</div>								                
 											</c:forEach>
-											
+										</li>
 										</ul>
 									</div>
 								</div>
@@ -533,172 +535,54 @@ String descripcion = (String) session.getAttribute("descripcion");
 						<button class="btn btn-abrir-popup icon-plus" id="abrir-listas-reproduccion">Crear Lista de Reproducción</button>
 					</div>
 						<div class="row has-items-overlay">
-						<div class="col-lg-3 col-md-4 col-sm-6 my-2">
-							<figure>
-								<div class="img-wrapper">
-									<img src="assets/img/demo/a1.jpg" alt="/">
-									<div class="img-overlay text-white text-center">
-										<a href="album-single.jsp" onclick="setTimeout(location.reload.bind(location), 1)">
-											<div class="figcaption mt-3">
-												<i class="icon-link s-48"></i>
-												<h5 class="mt-5">To Phir Ao</h5>
-												<span>Atif Aslam</span>
-											</div>
-										</a>
-									</div>
-									<div class="figure-title text-center p-2">
-										<h5>To Phir Ao</h5>
-										<span>Atif Aslam</span>
-									</div>
-								</div>
-							</figure>
-						</div>
-						<div class="col-lg-3 col-md-4 col-sm-6 my-2">
-							<figure>
-								<div class="img-wrapper">
-									<img src="assets/img/demo/a2.jpg" alt="/">
-									<div class="img-overlay text-white text-center">
-										<a href="album-single.jsp" onclick="setTimeout(location.reload.bind(location), 1)">
-											<div class="figcaption mt-3">
-												<i class="icon-link s-48"></i>
-												<h5 class="mt-5">To Phir Ao</h5>
-												<span>Atif Aslam</span>
-											</div>
-										</a>
-									</div>
-									<div class="figure-title text-center p-2">
-										<h5>To Phir Ao</h5>
-										<span>Atif Aslam</span>
-									</div>
-								</div>
+							<div class="col-lg-3 col-md-4 col-sm-6 my-2">
+		                        <figure>
+		                            <div class="img-wrapper">
+		                                <img src="assets/img/demo/a2.jpg" alt="/">
+		                                <div class="img-overlay text-white text-center">
+		                                    <a href="album-single.jsp" onclick="setTimeout(location.reload.bind(location), 1)">
+		                                        <div class="figcaption mt-3">
+		                                            <i class="icon-link s-48"></i>
+		                                            <h5 class="mt-5">Mis Favoritos</h5>
+		                                            
+		                                        </div>
+		                                    </a>
+		                                </div>
+		                                <div class="figure-title text-center p-2">
+		                                    <h5>Mis favoritos</h5>
+		                                    
+		                                </div>
+		                            </div>
+		                     	</figure>
+		                    </div>
+						<c:forEach var="listalr" items="${listaslr}">
+							<div class="col-lg-3 col-md-4 col-sm-6 my-2">
+								<figure>
+									<div class="img-wrapper">
 
-							</figure>
-						</div>
-						<div class="col-lg-3 col-md-4 col-sm-6 my-2">
-							<figure>
-								<div class="img-wrapper">
-									<img src="assets/img/demo/a3.jpg" alt="/">
-									<div class="img-overlay text-white text-center">
-										<a href="album-single.jsp" onclick="setTimeout(location.reload.bind(location), 1)">
-											<div class="figcaption mt-3">
-												<i class="icon-link s-48"></i>
-												<h5 class="mt-5">To Phir Ao</h5>
-												<span>Atif Aslam</span>
-											</div>
-										</a>
+										<img src="assets/img/demo/a1.jpg" alt="/">
+										
+										
+										<div class="img-overlay text-white text-center">
+											<a href="obtener_info_lr?nombre=${listalr.getNombre()}" onclick="setTimeout(location.reload.bind(location), 1)">
+												<div class="figcaption mt-3">
+													<i class="icon-link s-48"></i>
+													<h5 class="mt-5">${listalr.getNombre()}</h5>
+												</div>
+											</a>
+										</div>
+										<div class="figure-title text-center p-2">
+											<h5>${listalr.getNombre()}</h5>
+										</div>
 									</div>
-									<div class="figure-title text-center p-2">
-										<h5>To Phir Ao</h5>
-										<span>Atif Aslam</span>
-									</div>
-								</div>
-
-							</figure>
-						</div>
-						<div class="col-lg-3 col-md-4 col-sm-6 my-2">
-							<figure>
-								<div class="img-wrapper">
-									<img src="assets/img/demo/a4.jpg" alt="/">
-									<div class="img-overlay text-white text-center">
-										<a href="album-single.jsp" onclick="setTimeout(location.reload.bind(location), 1)">
-											<div class="figcaption mt-3">
-												<i class="icon-link s-48"></i>
-												<h5 class="mt-5">To Phir Ao</h5>
-												<span>Atif Aslam</span>
-											</div>
-										</a>
-									</div>
-									<div class="figure-title text-center p-2">
-										<h5>To Phir Ao</h5>
-										<span>Atif Aslam</span>
-									</div>
-								</div>
-
-							</figure>
-						</div>
-						<div class="col-lg-3 col-md-4 col-sm-6 my-2">
-							<figure>
-								<div class="img-wrapper">
-									<img src="assets/img/demo/a5.jpg" alt="/">
-									<div class="img-overlay text-white text-center">
-										<a href="album-single.jsp" onclick="setTimeout(location.reload.bind(location), 1)">
-											<div class="figcaption mt-3">
-												<i class="icon-link s-48"></i>
-												<h5 class="mt-5">To Phir Ao</h5>
-												<span>Atif Aslam</span>
-											</div>
-										</a>
-									</div>
-									<div class="figure-title text-center p-2">
-										<h5>To Phir Ao</h5>
-										<span>Atif Aslam</span>
-									</div>
-								</div>
-
-							</figure>
-						</div>
-						<div class="col-lg-3 col-md-4 col-sm-6 my-2">
-							<figure>
-								<div class="img-wrapper">
-									<img src="assets/img/demo/a6.jpg" alt="/">
-									<div class="img-overlay text-white text-center">
-										<a href="album-single.jsp" onclick="setTimeout(location.reload.bind(location), 1)">
-											<div class="figcaption mt-3">
-												<i class="icon-link s-48"></i>
-												<h5 class="mt-5">To Phir Ao</h5>
-												<span>Atif Aslam</span>
-											</div>
-										</a>
-									</div>
-									<div class="figure-title text-center p-2">
-										<h5>To Phir Ao</h5>
-										<span>Atif Aslam</span>
-									</div>
-								</div>
-
-							</figure>
-						</div>
-						<div class="col-lg-3 col-md-4 col-sm-6 my-2">
-							<figure>
-								<div class="img-wrapper">
-									<img src="assets/img/demo/a7.jpg" alt="/">
-									<div class="img-overlay text-white text-center">
-										<a href="album-single.jsp" onclick="setTimeout(location.reload.bind(location), 1)">
-											<div class="figcaption mt-3">
-												<i class="icon-link s-48"></i>
-												<h5 class="mt-5">To Phir Ao</h5>
-												<span>Atif Aslam</span>
-											</div>
-										</a>
-									</div>
-									<div class="figure-title text-center p-2">
-										<h5>To Phir Ao</h5>
-										<span>Atif Aslam</span>
-									</div>
-								</div>
-
-							</figure>
-						</div>
-						<div class="col-lg-3 col-md-4 col-sm-6 my-2">
-							<figure>
-								<div class="img-wrapper">
-									<img src="assets/img/demo/a8.jpg" alt="/">
-									<div class="img-overlay text-white text-center">
-										<a href="album-single.jsp" onclick="setTimeout(location.reload.bind(location), 1)">
-											<div class="figcaption mt-3">
-												<i class="icon-link s-48"></i>
-												<h5 class="mt-5">To Phir Ao</h5>
-												<span>Atif Aslam</span>
-											</div>
-										</a>
-									</div>
-									<div class="figure-title text-center p-2">
-										<h5>To Phir Ao</h5>
-										<span>Atif Aslam</span>
-									</div>
-								</div>
-							</figure>
-						</div>
+								</figure>
+								<div class="contenido-pestanas" style="text-align: center;">
+		                            <button class="btn btn-abrir-popup-lista icon-trash-o" 
+		                            onclick="document.getElementById('idLista').value = '${listalr.getNombre()}';
+		                            document.getElementById('overlay-borrar-listas-reproduccion').classList.add('active');"></button>
+                       		 </div>
+							</div>
+						</c:forEach>
 					</div>
 				</div>
 				
@@ -1011,7 +895,7 @@ String descripcion = (String) session.getAttribute("descripcion");
 <div class="overlay-pop-up" id="overlay-listas-reproduccion">
     <div class="col-md-7 card p-5">
 		<a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-listas-reproduccion" class="btn-cerrar-popup-perfil"><i class="icon-close1"></i></a>
-		<form class="form-material" action="profile.jsp">
+		<form class="form-material" action="crear_lr" method="post">
 			<!-- Input -->
 			<div class="body">
 				<header class="relative nav-sticky card">
@@ -1019,9 +903,10 @@ String descripcion = (String) session.getAttribute("descripcion");
 				</header>
 				<div class="contenedor-inputs">
 					<h4>Añadir imagen</h4>
-					<input type="file" class="btn btn-outline-primary btn-sm  mt-3" name="fileName" required=""/> 
-					<input type="text" placeholder="Nombre" id="nombre-listas-reproduccion" required=""/>
-					<input type="text" placeholder="Descripcion" id="descripcion-listas-reproduccion"/>
+					<!--  <input type="file" class="btn btn-outline-primary btn-sm  mt-3" name="fileName" /> -->
+					<input type="text" name="nombre" placeholder="Nombre" id="nombre-listas-reproduccion" required/>
+					<input type="text" name="descipcion" placeholder="Descripcion" id="descripcion-listas-reproduccion"/>
+					<input type="hidden" name="tipo" value="ListaRep">
 				</div>
 
 				<input type="submit" class="btn btn-outline-primary btn-sm pl-4 pr-4"
@@ -1032,186 +917,6 @@ String descripcion = (String) session.getAttribute("descripcion");
 	</div>
 </div>
 <!-- END CREAR LISTA DE REPRODUCCIÓN -->
-
-<!-- AÃADIR CANCION A LISTA DE REPRODUCCIÓN -->
-<div class="overlay-pop-up" id="overlay-anadir-listas-reproduccion">
-    <div class="col-md-7 card p-5">
-		<a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-anadir-listas-reproduccion" class="btn-cerrar-popup-perfil"><i class="icon-close1"></i></a>
-		<form class="form-material" action="profile.jsp">
-			<!-- Input -->
-			<div class="body">
-				<div class="row has-items-overlay">
-					<div class="col-lg-3 col-md-4 col-sm-6 my-2">
-						<figure>
-							<div class="img-wrapper">
-								<img src="assets/img/demo/a1.jpg" alt="/">
-								<div class="img-overlay text-white text-center">
-									<a href="#">
-										<div class="figcaption mt-3">
-											<i class="icon-link s-48"></i>
-											<h5 class="mt-5">To Phir Ao</h5>
-											<span>Atif Aslam</span>
-										</div>
-									</a>
-								</div>
-								<div class="figure-title text-center p-2">
-									<h5>To Phir Ao</h5>
-									<span>Atif Aslam</span>
-								</div>
-							</div>
-						</figure>
-					</div>
-					<div class="col-lg-3 col-md-4 col-sm-6 my-2">
-						<figure>
-							<div class="img-wrapper">
-								<img src="assets/img/demo/a2.jpg" alt="/">
-								<div class="img-overlay text-white text-center">
-									<a href="album-single.jsp" onclick="setTimeout(location.reload.bind(location), 1)">
-										<div class="figcaption mt-3">
-											<i class="icon-link s-48"></i>
-											<h5 class="mt-5">To Phir Ao</h5>
-											<span>Atif Aslam</span>
-										</div>
-									</a>
-								</div>
-								<div class="figure-title text-center p-2">
-									<h5>To Phir Ao</h5>
-									<span>Atif Aslam</span>
-								</div>
-							</div>
-
-						</figure>
-					</div>
-					<div class="col-lg-3 col-md-4 col-sm-6 my-2">
-						<figure>
-							<div class="img-wrapper">
-								<img src="assets/img/demo/a3.jpg" alt="/">
-								<div class="img-overlay text-white text-center">
-									<a href="#">
-										<div class="figcaption mt-3">
-											<i class="icon-link s-48"></i>
-											<h5 class="mt-5">To Phir Ao</h5>
-											<span>Atif Aslam</span>
-										</div>
-									</a>
-								</div>
-								<div class="figure-title text-center p-2">
-									<h5>To Phir Ao</h5>
-									<span>Atif Aslam</span>
-								</div>
-							</div>
-
-						</figure>
-					</div>
-					<div class="col-lg-3 col-md-4 col-sm-6 my-2">
-						<figure>
-							<div class="img-wrapper">
-								<img src="assets/img/demo/a4.jpg" alt="/">
-								<div class="img-overlay text-white text-center">
-									<a href="#">
-										<div class="figcaption mt-3">
-											<i class="icon-link s-48"></i>
-											<h5 class="mt-5">To Phir Ao</h5>
-											<span>Atif Aslam</span>
-										</div>
-									</a>
-								</div>
-								<div class="figure-title text-center p-2">
-									<h5>To Phir Ao</h5>
-									<span>Atif Aslam</span>
-								</div>
-							</div>
-
-						</figure>
-					</div>
-					<div class="col-lg-3 col-md-4 col-sm-6 my-2">
-						<figure>
-							<div class="img-wrapper">
-								<img src="assets/img/demo/a5.jpg" alt="/">
-								<div class="img-overlay text-white text-center">
-									<a href="#">
-										<div class="figcaption mt-3">
-											<i class="icon-link s-48"></i>
-											<h5 class="mt-5">To Phir Ao</h5>
-											<span>Atif Aslam</span>
-										</div>
-									</a>
-								</div>
-								<div class="figure-title text-center p-2">
-									<h5>To Phir Ao</h5>
-									<span>Atif Aslam</span>
-								</div>
-							</div>
-
-						</figure>
-					</div>
-					<div class="col-lg-3 col-md-4 col-sm-6 my-2">
-						<figure>
-							<div class="img-wrapper">
-								<img src="assets/img/demo/a6.jpg" alt="/">
-								<div class="img-overlay text-white text-center">
-									<a href="#">
-										<div class="figcaption mt-3">
-											<i class="icon-link s-48"></i>
-											<h5 class="mt-5">To Phir Ao</h5>
-											<span>Atif Aslam</span>
-										</div>
-									</a>
-								</div>
-								<div class="figure-title text-center p-2">
-									<h5>To Phir Ao</h5>
-									<span>Atif Aslam</span>
-								</div>
-							</div>
-
-						</figure>
-					</div>
-					<div class="col-lg-3 col-md-4 col-sm-6 my-2">
-						<figure>
-							<div class="img-wrapper">
-								<img src="assets/img/demo/a7.jpg" alt="/">
-								<div class="img-overlay text-white text-center">
-									<a href="#">
-										<div class="figcaption mt-3">
-											<i class="icon-link s-48"></i>
-											<h5 class="mt-5">To Phir Ao</h5>
-											<span>Atif Aslam</span>
-										</div>
-									</a>
-								</div>
-								<div class="figure-title text-center p-2">
-									<h5>To Phir Ao</h5>
-									<span>Atif Aslam</span>
-								</div>
-							</div>
-
-						</figure>
-					</div>
-					<div class="col-lg-3 col-md-4 col-sm-6 my-2">
-						<figure>
-							<div class="img-wrapper">
-								<img src="assets/img/demo/a8.jpg" alt="/">
-								<div class="img-overlay text-white text-center">
-									<a href="#">
-										<div class="figcaption mt-3">
-											<i class="icon-link s-48"></i>
-											<h5 class="mt-5">To Phir Ao</h5>
-											<span>Atif Aslam</span>
-										</div>
-									</a>
-								</div>
-								<div class="figure-title text-center p-2">
-									<h5>To Phir Ao</h5>
-									<span>Atif Aslam</span>
-								</div>
-							</div>
-						</figure>
-					</div>
-				</div>
-			</div>
-		</form>
-	</div>
-</div>
 
 <!-- EDICION PERFIL -->
 <div class="overlay-pop-up" id="overlay-perfil">
@@ -1319,7 +1024,6 @@ String descripcion = (String) session.getAttribute("descripcion");
 				<input type="submit" class="btn btn-outline-primary btn-sm pl-4 pr-4"
 					   value="Aceptar">
 			</div>
->>>>>>> 622f124c006754d594ef86e265ef63a16da23876
 			<!-- #END# Input -->
 		</form>
 	</div>
@@ -1327,20 +1031,22 @@ String descripcion = (String) session.getAttribute("descripcion");
 <!-- END CAMBIAR FOTO -->
 
 <!-- CREAR LISTA DE REPRODUCCIÓN -->
-<div class="overlay-pop-up" id="overlay-listas-reproduccion">
+<div class="overlay-pop-up" id="overlay-listas-reproduccion">					
     <div class="col-md-7 card p-5">
-		<a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-listas-reproduccion" class="btn-cerrar-popup-perfil"><i class="icon-close1"></i></a>
-		<form class="form-material" action="profile.jsp">
+		<a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-listas-reproduccion" class="btn-cerrar-popup-perfil"
+		onClick="document.getElementById('overlay-listas-reproduccion').classList.remove('active');"><i class="icon-close1"></i></a>
+		<form class="form-material" action="crear_lr" method="post">
 			<!-- Input -->
 			<div class="body">
 				<header class="relative nav-sticky card">
 					<h3>CREAR LISTAS DE REPRODUCCIÓN</h3>
 				</header>
 				<div class="contenedor-inputs">
-					<h4>Añadir imagen</h4>
-					<input type="file" class="btn btn-outline-primary btn-sm  mt-3" name="fileName" required=""/> 
-					<input type="text" placeholder="Nombre" id="nombre-listas-reproduccion" required=""/>
-					<input type="text" placeholder="Descripcion" id="descripcion-listas-reproduccion"/>
+				<!--<h4>Añadir imagen</h4>
+					<input type="file" class="btn btn-outline-primary btn-sm  mt-3" name="fileName" /> -->
+					<input type="text" name="nombre" placeholder="Nombre" id="nombre-listas-reproduccion" required/>
+					<input type="text" name="descipcion" placeholder="Descripcion" id="descripcion-listas-reproduccion"/>
+					<input type="hidden" name="tipo" value="ListaRep">
 				</div>
 
 				<input type="submit" class="btn btn-outline-primary btn-sm pl-4 pr-4"
@@ -1351,186 +1057,6 @@ String descripcion = (String) session.getAttribute("descripcion");
 	</div>
 </div>
 <!-- END CREAR LISTA DE REPRODUCCIÓN -->
-
-<!-- AÃADIR CANCION A LISTA DE REPRODUCCIÓN -->
-<div class="overlay-pop-up" id="overlay-anadir-listas-reproduccion">
-    <div class="col-md-7 card p-5">
-		<a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-anadir-listas-reproduccion" class="btn-cerrar-popup-perfil"><i class="icon-close1"></i></a>
-		<form class="form-material" action="profile.jsp">
-			<!-- Input -->
-			<div class="body">
-				<div class="row has-items-overlay">
-					<div class="col-lg-3 col-md-4 col-sm-6 my-2">
-						<figure>
-							<div class="img-wrapper">
-								<img src="assets/img/demo/a1.jpg" alt="/">
-								<div class="img-overlay text-white text-center">
-									<a href="#">
-										<div class="figcaption mt-3">
-											<i class="icon-link s-48"></i>
-											<h5 class="mt-5">To Phir Ao</h5>
-											<span>Atif Aslam</span>
-										</div>
-									</a>
-								</div>
-								<div class="figure-title text-center p-2">
-									<h5>To Phir Ao</h5>
-									<span>Atif Aslam</span>
-								</div>
-							</div>
-						</figure>
-					</div>
-					<div class="col-lg-3 col-md-4 col-sm-6 my-2">
-						<figure>
-							<div class="img-wrapper">
-								<img src="assets/img/demo/a2.jpg" alt="/">
-								<div class="img-overlay text-white text-center">
-									<a href="album-single.jsp" onclick="setTimeout(location.reload.bind(location), 1)">
-										<div class="figcaption mt-3">
-											<i class="icon-link s-48"></i>
-											<h5 class="mt-5">To Phir Ao</h5>
-											<span>Atif Aslam</span>
-										</div>
-									</a>
-								</div>
-								<div class="figure-title text-center p-2">
-									<h5>To Phir Ao</h5>
-									<span>Atif Aslam</span>
-								</div>
-							</div>
-
-						</figure>
-					</div>
-					<div class="col-lg-3 col-md-4 col-sm-6 my-2">
-						<figure>
-							<div class="img-wrapper">
-								<img src="assets/img/demo/a3.jpg" alt="/">
-								<div class="img-overlay text-white text-center">
-									<a href="#">
-										<div class="figcaption mt-3">
-											<i class="icon-link s-48"></i>
-											<h5 class="mt-5">To Phir Ao</h5>
-											<span>Atif Aslam</span>
-										</div>
-									</a>
-								</div>
-								<div class="figure-title text-center p-2">
-									<h5>To Phir Ao</h5>
-									<span>Atif Aslam</span>
-								</div>
-							</div>
-
-						</figure>
-					</div>
-					<div class="col-lg-3 col-md-4 col-sm-6 my-2">
-						<figure>
-							<div class="img-wrapper">
-								<img src="assets/img/demo/a4.jpg" alt="/">
-								<div class="img-overlay text-white text-center">
-									<a href="#">
-										<div class="figcaption mt-3">
-											<i class="icon-link s-48"></i>
-											<h5 class="mt-5">To Phir Ao</h5>
-											<span>Atif Aslam</span>
-										</div>
-									</a>
-								</div>
-								<div class="figure-title text-center p-2">
-									<h5>To Phir Ao</h5>
-									<span>Atif Aslam</span>
-								</div>
-							</div>
-
-						</figure>
-					</div>
-					<div class="col-lg-3 col-md-4 col-sm-6 my-2">
-						<figure>
-							<div class="img-wrapper">
-								<img src="assets/img/demo/a5.jpg" alt="/">
-								<div class="img-overlay text-white text-center">
-									<a href="#">
-										<div class="figcaption mt-3">
-											<i class="icon-link s-48"></i>
-											<h5 class="mt-5">To Phir Ao</h5>
-											<span>Atif Aslam</span>
-										</div>
-									</a>
-								</div>
-								<div class="figure-title text-center p-2">
-									<h5>To Phir Ao</h5>
-									<span>Atif Aslam</span>
-								</div>
-							</div>
-
-						</figure>
-					</div>
-					<div class="col-lg-3 col-md-4 col-sm-6 my-2">
-						<figure>
-							<div class="img-wrapper">
-								<img src="assets/img/demo/a6.jpg" alt="/">
-								<div class="img-overlay text-white text-center">
-									<a href="#">
-										<div class="figcaption mt-3">
-											<i class="icon-link s-48"></i>
-											<h5 class="mt-5">To Phir Ao</h5>
-											<span>Atif Aslam</span>
-										</div>
-									</a>
-								</div>
-								<div class="figure-title text-center p-2">
-									<h5>To Phir Ao</h5>
-									<span>Atif Aslam</span>
-								</div>
-							</div>
-
-						</figure>
-					</div>
-					<div class="col-lg-3 col-md-4 col-sm-6 my-2">
-						<figure>
-							<div class="img-wrapper">
-								<img src="assets/img/demo/a7.jpg" alt="/">
-								<div class="img-overlay text-white text-center">
-									<a href="#">
-										<div class="figcaption mt-3">
-											<i class="icon-link s-48"></i>
-											<h5 class="mt-5">To Phir Ao</h5>
-											<span>Atif Aslam</span>
-										</div>
-									</a>
-								</div>
-								<div class="figure-title text-center p-2">
-									<h5>To Phir Ao</h5>
-									<span>Atif Aslam</span>
-								</div>
-							</div>
-
-						</figure>
-					</div>
-					<div class="col-lg-3 col-md-4 col-sm-6 my-2">
-						<figure>
-							<div class="img-wrapper">
-								<img src="assets/img/demo/a8.jpg" alt="/">
-								<div class="img-overlay text-white text-center">
-									<a href="#">
-										<div class="figcaption mt-3">
-											<i class="icon-link s-48"></i>
-											<h5 class="mt-5">To Phir Ao</h5>
-											<span>Atif Aslam</span>
-										</div>
-									</a>
-								</div>
-								<div class="figure-title text-center p-2">
-									<h5>To Phir Ao</h5>
-									<span>Atif Aslam</span>
-								</div>
-							</div>
-						</figure>
-					</div>
-				</div>
-			<!-- #END# Input -->
-	</div>
-</div>
-<!-- END EDICION PERFIL -->
 
 
 <!-- AJUSTES CUENTA -->
@@ -1609,214 +1135,41 @@ String descripcion = (String) session.getAttribute("descripcion");
 </div>
 <!-- END CAMBIAR FOTO -->
 
-<!-- CREAR LISTA DE REPRODUCCI�N -->
-<div class="overlay-pop-up" id="overlay-listas-reproduccion">
-    <div class="col-md-7 card p-5">
-		<a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-listas-reproduccion" class="btn-cerrar-popup-perfil"><i class="icon-close1"></i></a>
-		<form class="form-material" action="crear_lr" method="post">
-			<!-- Input -->
-			<div class="body">
-				<header class="relative nav-sticky card">
-					<h3>CREAR LISTAS DE REPRODUCCI�N</h3>
-				</header>
-				<div class="contenedor-inputs">
-					<h4>A�adir imagen</h4>
-					<input type="file" class="btn btn-outline-primary btn-sm  mt-3" name="fileName" required/> 
-					<input type="text" placeholder="Nombre" id="nombre-listas-reproduccion" required/>
-					<input type="text" placeholder="Descripcion" id="descripcion-listas-reproduccion"/>
-				</div>
-
-				<input type="submit" class="btn btn-outline-primary btn-sm pl-4 pr-4"
-					   value="Aceptar">
-			</div>
-			<!-- #END# Input -->
-		</form>
-	</div>
-</div>
-<!-- END CREAR LISTA DE REPRODUCCIӓN -->
 
 <!-- AÑADIR CANCION A LISTA DE REPRODUCCI�N -->
 <div class="overlay-pop-up" id="overlay-anadir-listas-reproduccion">
     <div class="col-md-7 card p-5">
-		<a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-anadir-listas-reproduccion" class="btn-cerrar-popup-perfil"><i class="icon-close1"></i></a>
-		<form class="form-material" action="profile.jsp">
+		<a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-anadir-listas-reproduccion" class="btn-cerrar-popup-perfil"><i class="icon-close1"></i></a>			
 			<!-- Input -->
-			<div class="body">
-				<div class="row has-items-overlay">
-					<div class="col-lg-3 col-md-4 col-sm-6 my-2">
-						<figure>
-							<div class="img-wrapper">
-								<img src="assets/img/demo/a1.jpg" alt="/">
-								<div class="img-overlay text-white text-center">
-									<a href="#">
-										<div class="figcaption mt-3">
-											<i class="icon-link s-48"></i>
-											<h5 class="mt-5">To Phir Ao</h5>
-											<span>Atif Aslam</span>
-										</div>
-									</a>
+				<div class="body">
+					<div class="row has-items-overlay">
+						<c:forEach var="listalr" items="${listaslr}">
+						<div class="col-lg-3 col-md-4 col-sm-6 my-2">
+							<figure>
+								<div class="img-wrapper">
+			
+									<img src="assets/img/demo/a1.jpg" alt="/">
+									
+									<div class="figure-title text-center p-2">
+										<h5>${listalr.getNombre()}</h5>
+									</div>
 								</div>
-								<div class="figure-title text-center p-2">
-									<h5>To Phir Ao</h5>
-									<span>Atif Aslam</span>
-								</div>
-							</div>
-						</figure>
-					</div>
-					<div class="col-lg-3 col-md-4 col-sm-6 my-2">
-						<figure>
-							<div class="img-wrapper">
-								<img src="assets/img/demo/a2.jpg" alt="/">
-								<div class="img-overlay text-white text-center">
-									<a href="album-single.jsp" onclick="setTimeout(location.reload.bind(location), 1)">
-										<div class="figcaption mt-3">
-											<i class="icon-link s-48"></i>
-											<h5 class="mt-5">To Phir Ao</h5>
-											<span>Atif Aslam</span>
-										</div>
-									</a>
-								</div>
-								<div class="figure-title text-center p-2">
-									<h5>To Phir Ao</h5>
-									<span>Atif Aslam</span>
-								</div>
-							</div>
-
-						</figure>
-					</div>
-					<div class="col-lg-3 col-md-4 col-sm-6 my-2">
-						<figure>
-							<div class="img-wrapper">
-								<img src="assets/img/demo/a3.jpg" alt="/">
-								<div class="img-overlay text-white text-center">
-									<a href="#">
-										<div class="figcaption mt-3">
-											<i class="icon-link s-48"></i>
-											<h5 class="mt-5">To Phir Ao</h5>
-											<span>Atif Aslam</span>
-										</div>
-									</a>
-								</div>
-								<div class="figure-title text-center p-2">
-									<h5>To Phir Ao</h5>
-									<span>Atif Aslam</span>
-								</div>
-							</div>
-
-						</figure>
-					</div>
-					<div class="col-lg-3 col-md-4 col-sm-6 my-2">
-						<figure>
-							<div class="img-wrapper">
-								<img src="assets/img/demo/a4.jpg" alt="/">
-								<div class="img-overlay text-white text-center">
-									<a href="#">
-										<div class="figcaption mt-3">
-											<i class="icon-link s-48"></i>
-											<h5 class="mt-5">To Phir Ao</h5>
-											<span>Atif Aslam</span>
-										</div>
-									</a>
-								</div>
-								<div class="figure-title text-center p-2">
-									<h5>To Phir Ao</h5>
-									<span>Atif Aslam</span>
-								</div>
-							</div>
-
-						</figure>
-					</div>
-					<div class="col-lg-3 col-md-4 col-sm-6 my-2">
-						<figure>
-							<div class="img-wrapper">
-								<img src="assets/img/demo/a5.jpg" alt="/">
-								<div class="img-overlay text-white text-center">
-									<a href="#">
-										<div class="figcaption mt-3">
-											<i class="icon-link s-48"></i>
-											<h5 class="mt-5">To Phir Ao</h5>
-											<span>Atif Aslam</span>
-										</div>
-									</a>
-								</div>
-								<div class="figure-title text-center p-2">
-									<h5>To Phir Ao</h5>
-									<span>Atif Aslam</span>
-								</div>
-							</div>
-
-						</figure>
-					</div>
-					<div class="col-lg-3 col-md-4 col-sm-6 my-2">
-						<figure>
-							<div class="img-wrapper">
-								<img src="assets/img/demo/a6.jpg" alt="/">
-								<div class="img-overlay text-white text-center">
-									<a href="#">
-										<div class="figcaption mt-3">
-											<i class="icon-link s-48"></i>
-											<h5 class="mt-5">To Phir Ao</h5>
-											<span>Atif Aslam</span>
-										</div>
-									</a>
-								</div>
-								<div class="figure-title text-center p-2">
-									<h5>To Phir Ao</h5>
-									<span>Atif Aslam</span>
-								</div>
-							</div>
-
-						</figure>
-					</div>
-					<div class="col-lg-3 col-md-4 col-sm-6 my-2">
-						<figure>
-							<div class="img-wrapper">
-								<img src="assets/img/demo/a7.jpg" alt="/">
-								<div class="img-overlay text-white text-center">
-									<a href="#">
-										<div class="figcaption mt-3">
-											<i class="icon-link s-48"></i>
-											<h5 class="mt-5">To Phir Ao</h5>
-											<span>Atif Aslam</span>
-										</div>
-									</a>
-								</div>
-								<div class="figure-title text-center p-2">
-									<h5>To Phir Ao</h5>
-									<span>Atif Aslam</span>
-								</div>
-							</div>
-
-						</figure>
-					</div>
-					<div class="col-lg-3 col-md-4 col-sm-6 my-2">
-						<figure>
-							<div class="img-wrapper">
-								<img src="assets/img/demo/a8.jpg" alt="/">
-								<div class="img-overlay text-white text-center">
-									<a href="#">
-										<div class="figcaption mt-3">
-											<i class="icon-link s-48"></i>
-											<h5 class="mt-5">To Phir Ao</h5>
-											<span>Atif Aslam</span>
-										</div>
-									</a>
-								</div>
-								<div class="figure-title text-center p-2">
-									<h5>To Phir Ao</h5>
-									<span>Atif Aslam</span>
-								</div>
-							</div>
-						</figure>
-					</div>
+							</figure>
+							<form class="form-material" action="anyadir_cancion_lr" method="post">
+								<input type="submit" class="btn btn-outline-primary btn-sm pl-4 pr-4" value="Añadir">
+								<input type="hidden" name="idLista" value="${listalr.getId()}">
+								<input type="hidden" name="idAudio" value="">
+								<input type="hidden" name="nombreLista" value="${listalr.getNombre()}">
+							</form>	
+						</div>
+					</c:forEach>
+				<!-- #END# Input -->
 				</div>
-			<!-- #END# Input -->
-			</div>
-		</form>
+			</div>		
 	</div>
 </div>
 <!-- END AÑADIR CANCION A LISTA DE REPRODUCCI�N -->
-<!-- BORRAR LISTA DE REPRODUCCI�N -->	
+<!-- BORRAR LISTA DE REPRODUCCIÓN -->	
 	<div class="overlay-pop-up" id="overlay-borrar-listas-reproduccion">	
 	    <div class="col-md-7 card p-5">	
 	        <a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-borrar-listas-reproduccion" class="btn-cerrar-popup-perfil"	
@@ -1825,11 +1178,12 @@ String descripcion = (String) session.getAttribute("descripcion");
 				<!-- Input -->	
 				<div class="body">	
 					<header class="relative nav-sticky card">	
-	                    <h3>�Estas seguro?</h3>	
+	                    <h3>¿Estas seguro?</h3>	
 	                    <h5>Vas a borrar esta lista de reproduccion para siempre, no hay vuelta atras</h5>	
 					</header>	
 		
-		
+					<input type="hidden" id="idLista" name="nombre" value="">
+					<input type="hidden" name="tipo" value="ListaRep">	
 					<input type="submit" class="btn btn-outline-primary btn-sm pl-4 pr-4"	
 	                       value="Aceptar">	
 	                <button class="btn btn-outline-primary btn-sm pl-4 pr-4"  onclick="document.getElementById('overlay-borrar-listas-reproduccion').classList.remove('active');">Cerrar</button>	
@@ -1838,7 +1192,7 @@ String descripcion = (String) session.getAttribute("descripcion");
 	        </form>	
 		</div>	
 	</div>	
-<!-- END BORRAR LISTA DE REPRODUCCI�N -->
+<!-- END BORRAR LISTA DE REPRODUCCIÓN -->
 
 </main><!--@Page Content-->
 
@@ -1875,6 +1229,15 @@ String descripcion = (String) session.getAttribute("descripcion");
         };
         var playlist = new AudioPlaylist();
         
+    </script>
+    <script>
+    function rellenarCampos(size,song) {
+    	var i;
+    	for (i=0; i <size; i++){
+    	  	document.getElementsByName("idAudio")[i].value = song;
+    	}
+
+    }
     </script>
 </body>
 

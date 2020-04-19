@@ -62,8 +62,8 @@ public class AndroidGet_AudiosServlet extends HttpServlet {
         respuestaPeticion.put("email", u.getCorreo());
         
         String idUsuario = UsuarioDAO.obtenerId(email);
-        
-        List<Audio> audios =  ListaReproduccionDAO.getAudios(nombrePlaylist, "3", "ListaRep");
+        int usuario = Integer.valueOf(idUsuario);
+        List<Audio> audios =  ListaReproduccionDAO.getAudios(nombrePlaylist, usuario, "ListaRep");
         getServletContext().log("Audios recibidos" + audios); 
         
         String nombresAudio = "";

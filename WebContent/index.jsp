@@ -100,7 +100,7 @@ pageEncoding="UTF-8"%>
                 </ul>
             </li>
             
-            <li><a class="ajaxifyPage" href="videos.jsp" onclick="setTimeout(location.reload.bind(location), 1)">
+            <li><a class="ajaxifyPage" href="mostrar_lrs" onclick="setTimeout(location.reload.bind(location), 1)">
                     <i class="icon icon-compact-disc-1 s-24"></i> <span>Mis listas de reproducción</span>
                 </a>
             </li>
@@ -313,7 +313,7 @@ pageEncoding="UTF-8"%>
                         <li class="list-group-item">
                             <div class="d-flex align-items-center ">
                                 <div class="col-8 ">
-                                    <a href="video-single.jsp" onclick="setTimeout(location.reload.bind(location), 1)">
+                                    <a href="album-single.jsp" onclick="setTimeout(location.reload.bind(location), 1)">
                                         <h6>Battal of Bands</h6>
                                     </a>
                                     <small class="mt-1"><i class="icon-placeholder-3 mr-1 "></i> London Music Hall
@@ -330,7 +330,7 @@ pageEncoding="UTF-8"%>
                         <li class="list-group-item">
                             <div class="d-flex align-items-center ">
                                 <div class="col-8 ">
-                                    <a href="video-single.jsp" onclick="setTimeout(location.reload.bind(location), 1)">
+                                    <a href="album-single.jsp" onclick="setTimeout(location.reload.bind(location), 1)">
                                         <h6>Battal of Bands</h6>
                                     </a>
                                     <small class="mt-1"><i class="icon-placeholder-3 mr-1 "></i> London Music Hall
@@ -347,7 +347,7 @@ pageEncoding="UTF-8"%>
                         <li class="list-group-item">
                             <div class="d-flex align-items-center ">
                                 <div class="col-8 ">
-                                    <a href="video-single.jsp" onclick="setTimeout(location.reload.bind(location), 1)">
+                                    <a href="album-single.jsp" onclick="setTimeout(location.reload.bind(location), 1)">
                                         <h6>Battal of Bands</h6>
                                     </a>
                                     <small class="mt-1"><i class="icon-placeholder-3 mr-1 "></i> London Music Hall
@@ -413,7 +413,7 @@ pageEncoding="UTF-8"%>
 								</a>
 							</div>
 							<div class="col text-center">
-								<a class="ajaxifyPage" href="#" onclick="setTimeout(location.reload.bind(location), 1)">
+								<a class="ajaxifyPage" href="logout" onclick="setTimeout(location.reload.bind(location), 1)">
 									<a href="<%= request.getContextPath()+"/Cerrar_SesionServlet"%>"><i class="icon-exit-2  s-24"></i>
                                     <div class="pt-1">Cerrar sesión</div></a>
 								</a>
@@ -492,7 +492,7 @@ pageEncoding="UTF-8"%>
                     <div class="mb-4">
                         <h4>Tus Listas de reproduccion</h4>
                     </div>
-                    <a href="albums.jsp" onclick="setTimeout(location.reload.bind(location), 1)">View Albums<i class="icon-angle-right ml-3"></i></a>
+                    <a href="mostrar_lrs?tipo=ListaRep" onclick="setTimeout(location.reload.bind(location), 1)">View Albums<i class="icon-angle-right ml-3"></i></a>
                 </div>
                 <div class="lightSlider has-items-overlay playlist"
                      data-item="6"

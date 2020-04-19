@@ -16,13 +16,13 @@ import com.espotify.model.ListaReproduccion;
 /**
  * Servlet implementation Servlet
  */
-public class AnyadirAudio_FavoritosServlet extends HttpServlet {
+public class BorrarAudio_FavoritosServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AnyadirAudio_FavoritosServlet() {
+    public BorrarAudio_FavoritosServlet() {
         super();
     }
 
@@ -36,7 +36,7 @@ public class AnyadirAudio_FavoritosServlet extends HttpServlet {
 		String audio = request.getParameter("idAudio");
 		int idAudio = Integer.valueOf(audio);
 		
-		Boolean anyadida = new FavoritosDAO().anyadirAudio(usuario, idAudio);
+		Boolean anyadida = new FavoritosDAO().quitarAudio(usuario, idAudio);
 		
 		if (anyadida) {
 			log("La cancion se ha añadido correctamente");

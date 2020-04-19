@@ -1,4 +1,3 @@
-
 package com.espotify.controller;
 
 import java.io.IOException;
@@ -10,19 +9,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.espotify.dao.FavoritosDAO;
+import com.espotify.dao.ListaReproduccionDAO;
 import com.espotify.model.ListaReproduccion;
 
 /**
  * Servlet implementation Servlet
  */
-public class AnyadirAudio_FavoritosServlet extends HttpServlet {
+public class BorrarAudio_ListaRepServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AnyadirAudio_FavoritosServlet() {
+    public BorrarAudio_ListaRepServlet() {
         super();
     }
 
@@ -31,22 +30,25 @@ public class AnyadirAudio_FavoritosServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		HttpSession session = request.getSession();
-		int usuario = Integer.valueOf((String) session.getAttribute("id"));
 		String audio = request.getParameter("idAudio");
+		String lista = request.getParameter("idLista");
+		String nombre = request.getParameter("nombreLista");
 		int idAudio = Integer.valueOf(audio);
-		
-		Boolean anyadida = new FavoritosDAO().anyadirAudio(usuario, idAudio);
+		int idLista = Integer.valueOf(lista);
+				
+		Boolean anyadida = new ListaReproduccionDAO().quitarAudio(idAudio, idLista);
 		
 		if (anyadida) {
-			log("La cancion se ha añadido correctamente");
+			log("La cancion se ha borrado correctamente");
 		} else {
-			log("La cancon no se ha podido añadir");
+			log("La cancon no se ha podido borrar");
 		}
-		
+		HttpSession session = request.getSession();
 		session.setAttribute("anyadida?", anyadida);
 		
-		request.getRequestDispatcher("obtener_info_fav").forward(request, response);
+		String redir = "obtener_info_lr?nombre=" + nombre;
+		
+		request.getRequestDispatcher(redir).forward(request, response);
 		//RequestDispatcher dispatcher=request.getRequestDispatcher("audio.jsp");
         //dispatcher.forward(request, response);
 	}

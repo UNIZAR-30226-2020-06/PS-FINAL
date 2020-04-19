@@ -32,17 +32,17 @@ public class Borrar_ListaRepServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		HttpSession session = request.getSession();
-		String usuario = (String) session.getAttribute("id");
+		int usuario = Integer.valueOf((String) session.getAttribute("id"));
 		String nombre = request.getParameter("nombre");
 		String tipo = request.getParameter("tipo");
 		
 		Boolean borrada = new ListaReproduccionDAO().borrar(nombre,usuario,tipo);
 		if(borrada) {
-			String path = request.getContextPath(); // Guarda el path de donde se hace la peticion
+			
 			
 			//RequestDispatcher dispatcher=request.getRequestDispatcher("user.jsp");
 	        //dispatcher.forward(request, response);
-			response.sendRedirect(path); // Vuevle al mismo lugar donde se hace la peticion
+			request.getRequestDispatcher("mostrar_lrs").forward(request, response);
 		}else {
 			//response.sendRedirect("ListaRep.jsp");
 			// Pantalla de error ?¿
