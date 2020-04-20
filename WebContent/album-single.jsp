@@ -543,10 +543,9 @@ pageEncoding="UTF-8"%>
 										<div class="playlist">
 											<ul id="playlist" class="playlist list-group">
 												<div class="cancion">
-													<li class="list-group-item my-1">
 														<c:forEach var="cancion" items="${audios}">                    
 															<div style="margin-bottom: -1px;" class="cancion">
-																
+															<li class="list-group-item my-1">																
 																	<div class="d-flex align-items-center">
 																		<div class="col-1">
 																			<a class="no-ajaxy media-url" href="${cancion.getUrl()}">
@@ -562,10 +561,10 @@ pageEncoding="UTF-8"%>
 																			<a href="${pageContext.request.contextPath}/borrar_cancion_fav?idAudio=${cancion.getId()}" class="btn-icono icon-trash-o" onclick="setTimeout(location.reload.bind(location), 1)"></a>
 																		</div>
 																	</div>
-																
+																</li>
 															</div>								                
 														</c:forEach>
-													</li>
+													
 												</div>
 											</ul>
 										</div>

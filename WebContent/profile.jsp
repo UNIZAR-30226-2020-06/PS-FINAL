@@ -513,9 +513,9 @@ String descripcion = (String) session.getAttribute("descripcion");
 															<span class="ml-auto">${cancion.getGenero()}</span>
 															<a href="#" class="ml-auto"><i class="icon-share-1"></i></a>
 															<div class="ml-auto">
-																<a href="anyadir_cancion_fav?idAudio=${cancion.getId()}" class="btn-favorito icon-star active"></a>
+																<a href="anyadir_cancion_fav?idAudio=${cancion.getId()}" class="btn-favorito icon-star active" onclick="setTimeout(location.reload.bind(location), 1)"></a>
 																<a href="${pageContext.request.contextPath}/ir_modificar?id_cancion=${cancion.getId()}" class="btn-icono icon-pencil" onclick="setTimeout(location.reload.bind(location), 1)"></a>
-																<a href="#" class="btn-icono icon-list-1" onclick="rellenarCampos('${listaslr.size()}','${cancion.getId()}');
+																<a href="#" class="btn-icono icon-list-1" onclick="rellenarCampos('${listaslr.size()}','${cancion.getId()}'");
 																document.getElementById('overlay-anadir-listas-reproduccion').classList.add('active');"
 																	></a>
 																<a href="${pageContext.request.contextPath}/eliminar_cancion?id_cancion=${cancion.getId()}" class="btn-icono icon-trash-o" onclick="setTimeout(location.reload.bind(location), 1)"></a>
