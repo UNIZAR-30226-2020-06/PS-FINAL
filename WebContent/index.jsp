@@ -434,34 +434,39 @@ pageEncoding="UTF-8"%>
         <!--Player-->
         <div id="mediaPlayer" class="player-bar col-lg-8 col-md-5" data-auto="true">
             <div style="height: 50px;width: 150%;" class="row align-items-center grid">
-			<!-- BOTONES ANTERIOR, PAUSE, SIGUIENTE -->
+            <!-- BOTONES ANTERIOR, PAUSE, SIGUIENTE -->
                 <div class="col">
                     <div class="d-flex align-items-center">
-						<button id="shuffleTrack" class="btn btn-link d-none d-sm-block">
+                        <button id="shuffleTrack" class="btn btn-link d-none d-sm-block">
                             <i class="icon-shuffle s-18"></i>
                         </button>
-                        <button id="previousTrack" class="btn btn-link d-none d-sm-block" onclick="playlist.prevTrack();">
-							<i class="icon-back s-18"></i>
+                        <button id="previousTrack" class="btn btn-link d-none d-sm-block">
+                            <i class="icon-back s-18"></i>
                         </button>
-                        <audio src="" class="reproductor" controls id="audioPlayer" >
-							Sorry, your browser doesn't support html5!
-						</audio>
-                        <button id="nextTrack" class="btn btn-link d-none d-sm-block" onclick="playlist.nextTrack();">
+                        <button class=" btn btn-link" id="playPause">
+                            <span id="play" style=""><i class="icon-play s-36"></i></span>
+                            <span id="pause" style="display: none;"><i class="icon-pause s-36 text-primary"></i></span>
+                        </button>
+                        <button id="nextTrack" class="btn btn-link d-none d-sm-block">
                             <i class="icon-next s-18"></i>
                         </button>
-						<button id="loopTrack" class="btn btn-link d-none d-sm-block">
+                        <button class="btn btn-link" onclick="loopAudio();">
                             <i class="icon-repeat s-18"></i>
                         </button>
                     </div>
                 </div>
-				
+                
+                <div class="col-8 d-none d-lg-block">
+                    <div id="waveform"></div>
+                </div>
+                
                 <!-- COLA -->
                 <div class="col d-none d-lg-block">
                     <small class="track-time mr-2 text-primary align-middle"></small>
-                    <a style="position: absolute;top: -5px;right: 50px;" data-toggle="control-sidebar">
+                    <a style="position: absolute;top: -5px;right: -5px;" data-toggle="control-sidebar">
                         <i class="icon icon-menu-3 s-24 align-middle"></i>Cola
                     </a>
-                </div>	
+                </div>  
             </div>
         </div>
         <!--END Player-->
@@ -1221,28 +1226,16 @@ pageEncoding="UTF-8"%>
 <script  src="assets/js/audioPlayer.js"></script>
  <script src="https://code.jquery.com/jquery-2.2.0.js"></script>
     <script>
-        
-        /*
-    Default constructor configuration:
-        autoplay: false,
-        shuffle: false,
-        loop: false,
-        playerId: "audioPlayer",
-        playlistId: "playlist",
-        currentClass: "current-song"
-        
-        
-*/
-        
-        // loads the audio player
-        var config = {
-          autoplay: true, 
-            loop: true,
-            shuffle: true
-        };
-        var playlist = new AudioPlaylist();
-        
-    </script>
+	function loopAudio(){
+		var audio = document.getElementsByTagName("audio")[0];
+		if(audio.loop){
+			audio.loop = false;
+		}else{
+			audio.loop = true;
+		}
+		//audio.load();
+	}
+	</script>
 
 
 </body>

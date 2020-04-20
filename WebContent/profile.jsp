@@ -498,10 +498,9 @@ String descripcion = (String) session.getAttribute("descripcion");
 								<div class="col-md-12">
 									<div class="playlist">
 										<ul id="playlist" class="playlist list-group">
-										<li class="list-group-item my-1">		
 											<c:forEach var="cancion" items="${canciones}">                    
 												<div style="margin-bottom: -1px;" class="cancion">
-													
+													<li class="list-group-item my-1">
 														<div class="d-flex align-items-center">
 															<div class="col-1">
 																<a class="no-ajaxy media-url" href="${cancion.getUrl()}">
@@ -522,13 +521,11 @@ String descripcion = (String) session.getAttribute("descripcion");
 																<a href="${pageContext.request.contextPath}/eliminar_cancion?id_cancion=${cancion.getId()}" class="btn-icono icon-trash-o" onclick="setTimeout(location.reload.bind(location), 1)"></a>
 															</div>
 														</div>
-													
+													</li>
 												</div>								                
 											</c:forEach>
-										</li>
 										</ul>
 									</div>
-
 								</div>
 							</div>
 						</div>
@@ -540,35 +537,30 @@ String descripcion = (String) session.getAttribute("descripcion");
 					<div class="contenido-pestanas">
 						<button class="btn btn-abrir-popup icon-plus" id="abrir-listas-reproduccion">Crear Lista de Reproducción</button>
 					</div>
-						<div class="row has-items-overlay">
-							<div class="col-lg-3 col-md-4 col-sm-6 my-2">
-		                        <figure>
-		                            <div class="img-wrapper">
-		                                <img src="assets/img/demo/a2.jpg" alt="/">
-		                                <div class="img-overlay text-white text-center">
-		                                    <a href="album-single.jsp" onclick="setTimeout(location.reload.bind(location), 1)">
-		                                        <div class="figcaption mt-3">
-		                                            <i class="icon-link s-48"></i>
-		                                            <h5 class="mt-5">Mis Favoritos</h5>
-		                                            
-		                                        </div>
-		                                    </a>
-		                                </div>
-		                                <div class="figure-title text-center p-2">
-		                                    <h5>Mis favoritos</h5>
-		                                    
-		                                </div>
-		                            </div>
-		                     	</figure>
-		                    </div>
+					<div class="row has-items-overlay">
+						<div class="col-lg-3 col-md-4 col-sm-6 my-2">
+	                        <figure>
+	                            <div class="img-wrapper">
+	                                <img src="assets/img/demo/a2.jpg" alt="/">
+	                                <div class="img-overlay text-white text-center">
+	                                    <a href="album-single.jsp" onclick="setTimeout(location.reload.bind(location), 1)">
+	                                        <div class="figcaption mt-3">
+	                                            <i class="icon-link s-48"></i>
+	                                            <h5 class="mt-5">Mis Favoritos</h5>
+	                                        </div>
+	                                    </a>
+	                                </div>
+	                                <div class="figure-title text-center p-2">
+	                                    <h5>Mis favoritos</h5>
+	                                </div>
+	                            </div>
+	                     	</figure>
+	                    </div>
 						<c:forEach var="listalr" items="${listaslr}">
 							<div class="col-lg-3 col-md-4 col-sm-6 my-2">
 								<figure>
 									<div class="img-wrapper">
-
 										<img src="assets/img/demo/a1.jpg" alt="/">
-										
-										
 										<div class="img-overlay text-white text-center">
 											<a href="obtener_info_lr?nombre=${listalr.getNombre()}" onclick="setTimeout(location.reload.bind(location), 1)">
 												<div class="figcaption mt-3">
@@ -586,7 +578,7 @@ String descripcion = (String) session.getAttribute("descripcion");
 		                            <button class="btn btn-abrir-popup-lista icon-trash-o" 
 		                            onclick="document.getElementById('idLista').value = '${listalr.getNombre()}';
 		                            document.getElementById('overlay-borrar-listas-reproduccion').classList.add('active');"></button>
-                       		 </div>
+                       			</div>
 							</div>
 						</c:forEach>
 					</div>
@@ -606,11 +598,10 @@ String descripcion = (String) session.getAttribute("descripcion");
 					 aria-labelledby="w3-tab3">
 					<div class="table-responsive">
 						<table class="table table-hover earning-box">
-						
 							<tbody>
 							<tr class="no-b">
 								<td class="w-10"><span class="round">
-							<img src="assets/img/demo/u1.png" alt="user"></span>
+									<img src="assets/img/demo/u1.png" alt="user"></span>
 								</td>
 								<td>
 									<h6>Sara Kamzoon</h6>
@@ -621,7 +612,7 @@ String descripcion = (String) session.getAttribute("descripcion");
 							</tr>
 							<tr>
 								<td class="w-10"><span class="round">
-							<img src="assets/img/demo/u2.png" alt="user"></span>
+									<img src="assets/img/demo/u2.png" alt="user"></span>
 								</td>
 								<td>
 									<h6>Sara Kamzoon</h6>
@@ -632,7 +623,7 @@ String descripcion = (String) session.getAttribute("descripcion");
 							</tr>
 							<tr>
 								<td class="w-10"><span class="round">
-							<img src="assets/img/demo/u3.png" alt="user"></span>
+									<img src="assets/img/demo/u3.png" alt="user"></span>
 								</td>
 								<td>
 									<h6>Sara Kamzoon</h6>
@@ -643,7 +634,7 @@ String descripcion = (String) session.getAttribute("descripcion");
 							</tr>
 							<tr>
 								<td class="w-10"><span class="round">
-							<img src="assets/img/demo/u4.png" alt="user"></span>
+									<img src="assets/img/demo/u4.png" alt="user"></span>
 								</td>
 								<td>
 									<h6>Sara Kamzoon</h6>
@@ -654,7 +645,7 @@ String descripcion = (String) session.getAttribute("descripcion");
 							</tr>
 							<tr>
 								<td class="w-10"><span class="round">
-							<img src="assets/img/demo/u5.png" alt="user"></span>
+									<img src="assets/img/demo/u5.png" alt="user"></span>
 								</td>
 								<td>
 									<h6>Sara Kamzoon</h6>
@@ -665,7 +656,7 @@ String descripcion = (String) session.getAttribute("descripcion");
 							</tr>
 							<tr>
 								<td class="w-10"><span class="round">
-							<img src="assets/img/demo/u6.png" alt="user"></span>
+									<img src="assets/img/demo/u6.png" alt="user"></span>
 								</td>
 								<td>
 									<h6>Sara Kamzoon</h6>
