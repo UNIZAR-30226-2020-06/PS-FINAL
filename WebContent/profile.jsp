@@ -103,7 +103,7 @@ pageEncoding="UTF-8"%>
                 </ul>
             </li>
             
-            <li><a class="ajaxifyPage" href="mostrar_lrs" onclick="setTimeout(location.reload.bind(location), 1)">
+            <li><a class="ajaxifyPage" href="mostrar_lrs?tipo=ListaRep" onclick="setTimeout(location.reload.bind(location), 1)">
                     <i class="icon icon-compact-disc-1 s-24"></i> <span>Mis listas de reproduccion</span>
                 </a>
             </li>
@@ -543,7 +543,7 @@ String descripcion = (String) session.getAttribute("descripcion");
 	                            <div class="img-wrapper">
 	                                <img src="assets/img/demo/a2.jpg" alt="/">
 	                                <div class="img-overlay text-white text-center">
-	                                    <a href="album-single.jsp" onclick="setTimeout(location.reload.bind(location), 1)">
+	                                    <a href="obtener_info_fav" onclick="setTimeout(location.reload.bind(location), 1)">
 	                                        <div class="figcaption mt-3">
 	                                            <i class="icon-link s-48"></i>
 	                                            <h5 class="mt-5">Mis Favoritos</h5>

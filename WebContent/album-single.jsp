@@ -716,6 +716,8 @@ pageEncoding="UTF-8"%>
 </div>
 <!-- END AÑADIR CANCION A LISTA DE REPRODUCCI�N -->
 
+<%session.setAttribute("fav", 0); %>
+
 </main><!--@Page Content-->
 </div><!--@#app-->
 <!--/#app -->
@@ -723,6 +725,30 @@ pageEncoding="UTF-8"%>
 <script src="assets/js/app.js"></script>
 <script  src="assets/js/audioPlayer.js"></script>
  <script src="https://code.jquery.com/jquery-2.2.0.js"></script>
+    <script>
+        
+        /*
+    Default constructor configuration:
+        autoplay: false,
+        shuffle: false,
+        loop: false,
+        playerId: "audioPlayer",
+        playlistId: "playlist",
+        currentClass: "current-song"
+        
+        
+*/
+        
+        // loads the audio player
+        var config = {
+          autoplay: true, 
+            loop: true,
+            shuffle: true
+        };
+        var playlist = new AudioPlaylist();
+        
+    </script>
+    
     <script>
 	function loopAudio(){
 		var audio = document.getElementsByTagName("audio")[0];
