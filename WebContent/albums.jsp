@@ -561,7 +561,7 @@ pageEncoding="UTF-8"%>
 					<h4>Añadir imagen</h4>
 					<!--  <input type="file" class="btn btn-outline-primary btn-sm  mt-3" name="fileName" /> -->
 					<input type="text" name="nombre" placeholder="Nombre" id="nombre-listas-reproduccion" required/>
-					<input type="text" name="descipcion" placeholder="Descripcion" id="descripcion-listas-reproduccion"/>
+					<input type="text" name="descripcion" placeholder="Descripcion" id="descripcion-listas-reproduccion"/>
 					<input type="hidden" name="tipo" value="ListaRep">
 				</div>
 

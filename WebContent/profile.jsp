@@ -357,25 +357,30 @@ pageEncoding="UTF-8"%>
                         <button id="shuffleTrack" class="btn btn-link d-none d-sm-block">
                             <i class="icon-shuffle s-18"></i>
                         </button>
-                        <button id="previousTrack" class="btn btn-link d-none d-sm-block" onclick="playlist.prevTrack();">
+                        <button id="previousTrack" class="btn btn-link d-none d-sm-block">
                             <i class="icon-back s-18"></i>
                         </button>
-                        <audio src="" class="reproductor" controls id="audioPlayer" >
-                            Sorry, your browser doesn't support html5!
-                        </audio>
-                        <button id="nextTrack" class="btn btn-link d-none d-sm-block" onclick="playlist.nextTrack();">
+                        <button class=" btn btn-link" id="playPause">
+                            <span id="play" style=""><i class="icon-play s-36"></i></span>
+                            <span id="pause" style="display: none;"><i class="icon-pause s-36 text-primary"></i></span>
+                        </button>
+                        <button id="nextTrack" class="btn btn-link d-none d-sm-block">
                             <i class="icon-next s-18"></i>
                         </button>
-                        <button id="loopTrack" class="btn btn-link d-none d-sm-block" onclick="playlist.setLoop(true);">
+                        <button class="btn btn-link" onclick="loopAudio();">
                             <i class="icon-repeat s-18"></i>
                         </button>
                     </div>
                 </div>
                 
+                <div class="col-8 d-none d-lg-block">
+                    <div id="waveform"></div>
+                </div>
+                
                 <!-- COLA -->
                 <div class="col d-none d-lg-block">
                     <small class="track-time mr-2 text-primary align-middle"></small>
-                    <a style="position: absolute;top: -5px;right: 50px;" data-toggle="control-sidebar">
+                    <a style="position: absolute;top: -5px;right: -5px;" data-toggle="control-sidebar">
                         <i class="icon icon-menu-3 s-24 align-middle"></i>Cola
                     </a>
                 </div>  
@@ -523,6 +528,7 @@ String descripcion = (String) session.getAttribute("descripcion");
 										</li>
 										</ul>
 									</div>
+
 								</div>
 							</div>
 						</div>
@@ -758,8 +764,6 @@ String descripcion = (String) session.getAttribute("descripcion");
 <!-- END CABECERA CON LA INFORMACION DEL USUARIO -->
 
 
-</main>
-
 <!-- Bloque de subir cancion datos-->
 <div class="overlay-pop-up" id="overlay-subir-cancion">
     <div class="col-md-7 card p-5">
@@ -779,234 +783,6 @@ String descripcion = (String) session.getAttribute("descripcion");
 <!-- END Bloque de subir cancion datos-->									 
 
 
-<!-- EDICION PERFIL -->
-<div class="overlay-pop-up" id="overlay-perfil">
-    <div class="col-md-7 card p-5">
-			<a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-perfil" class="btn-cerrar-popup-perfil"><i class="icon-close1"></i></a>
-			<header class="relative nav-sticky card">
-				<h3>CAMBIAR INFORMACIÓN DE PERFIL</h3>
-			</header>
-			<form class="form-material" action="modinfo">
-				<!-- Input -->
-				<div class="body">
-					
-					<div class="form-group form-float">
-						<div class="form-line">
-							<input type="text" name="nombre" class="form-control">
-							<label class="form-label">Nombre</label>
-						</div>
-					</div>
-					<input type="submit" class="btn btn-outline-primary btn-sm pl-4 pr-4"
-						   value="Cambiar nombre">
-					<div class="form-group form-float">
-						<div class="form-line">
-							<input type="text" name="descripcion" class="form-control">
-							<label class="form-label">Descripción</label>
-						</div>
-					</div>
-
-					<input type="submit" class="btn btn-outline-primary btn-sm pl-4 pr-4"
-						   value="Cambiar descripción">
-				</div>
-			</form>
-			<!-- #END# Input -->
-	</div>
-</div>
-<!-- END EDICION PERFIL -->
-
-
-<!-- AJUSTES CUENTA -->
-<div class="overlay-pop-up" id="overlay-cuenta">
-    <div class="col-md-7 card p-5">
-			<a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-cuenta" class="btn-cerrar-popup-perfil"><i class="icon-close1"></i></a>
-			<header class="relative nav-sticky card">
-				<h3>CAMBIAR INFORMACIÓN DE LA CUENTA</h3>
-			</header>
-			<form class="form-material" action="modinfo"> <!--QUITAR-->
-				<!-- Input -->
-				<div class="body">
-					
-					<div class="form-group form-float">
-						<div class="form-line">
-							<input type="email" name="email" class="form-control">
-							<label class="form-label">Email</label>
-						</div>
-					</div>
-					<input type="submit" class="btn btn-outline-primary btn-sm pl-4 pr-4"
-						   value="Cambiar email">
-				</div>
-			</form>
-			<form class="form-material" action="modpass"> <!--QUITAR-->
-				<!-- Input -->
-				<div class="body">
-					<div class="form-group form-float">
-						<div class="form-line">
-							<input type="password" name="contrasena1" class="form-control">
-							<label class="form-label">Contraseña actual</label>
-						</div>
-					</div>
-					<div class="form-group form-float">
-						<div class="form-line">
-							<input type="password" name="contrasena2" class="form-control">
-							<label class="form-label">Contraseña nueva</label>
-						</div>
-					</div>
-					<div class="form-group form-float">
-						<div class="form-line">
-							<input type="password" name="contrasena3" class="form-control">
-							<label class="form-label">Confirmar contraseña</label>
-						</div>
-					</div>
-
-					<input type="submit" class="btn btn-outline-primary btn-sm pl-4 pr-4"
-						   value="Cambiar constraseña">
-				</div>
-			</form>
-			<!-- #END# Input -->
-	</div>
-</div>
-<!-- END AJUSTES CUENTA -->
-
-
-<!-- CAMBIAR FOTO -->
-<div class="overlay-pop-up" id="overlay-foto">
-    <div class="col-md-7 card p-5">
-		<a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-foto" class="btn-cerrar-popup-perfil"><i class="icon-close1"></i></a>
-		<form class="form-material" action="modinfo">
-			<!-- Input -->
-			<div class="body">
-				<header class="relative nav-sticky card">
-					<h3>SUBIR FOTO</h3>
-				</header>
-				<div class="contenedor-inputs">
-					<input class="btn btn-outline-primary btn-sm  mt-3" type="file" name="imagen" value=""> 
-				</div>
-
-				<input type="submit" class="btn btn-outline-primary btn-sm pl-4 pr-4"
-					   value="Aceptar">
-			</div>
-			<!-- #END# Input -->
-		</form>
-	</div>
-</div>
-<!-- END CAMBIAR FOTO -->
-
-<!-- CREAR LISTA DE REPRODUCCIÓN -->
-<div class="overlay-pop-up" id="overlay-listas-reproduccion">
-    <div class="col-md-7 card p-5">
-		<a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-listas-reproduccion" class="btn-cerrar-popup-perfil"><i class="icon-close1"></i></a>
-		<form class="form-material" action="crear_lr" method="post">
-			<!-- Input -->
-			<div class="body">
-				<header class="relative nav-sticky card">
-					<h3>CREAR LISTAS DE REPRODUCCIÓN</h3>
-				</header>
-				<div class="contenedor-inputs">
-					<h4>Añadir imagen</h4>
-					<!--  <input type="file" class="btn btn-outline-primary btn-sm  mt-3" name="fileName" /> -->
-					<input type="text" name="nombre" placeholder="Nombre" id="nombre-listas-reproduccion" required/>
-					<input type="text" name="descipcion" placeholder="Descripcion" id="descripcion-listas-reproduccion"/>
-					<input type="hidden" name="tipo" value="ListaRep">
-				</div>
-
-				<input type="submit" class="btn btn-outline-primary btn-sm pl-4 pr-4"
-					   value="Aceptar">
-			</div>
-			<!-- #END# Input -->
-		</form>
-	</div>
-</div>
-<!-- END CREAR LISTA DE REPRODUCCIÓN -->
-
-<!-- EDICION PERFIL -->
-<div class="overlay-pop-up" id="overlay-perfil">
-    <div class="col-md-7 card p-5">
-			<a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-perfil" class="btn-cerrar-popup-perfil"><i class="icon-close1"></i></a>
-			<header class="relative nav-sticky card">
-				<h3>CAMBIAR INFORMACIÓN DE PERFIL</h3>
-			</header>
-			<form class="form-material" action="modinfo">
-				<!-- Input -->
-				<div class="body">
-					
-					<div class="form-group form-float">
-						<div class="form-line">
-							<input type="text" name="nombre" class="form-control">
-							<label class="form-label">Nombre</label>
-						</div>
-					</div>
-					<input type="submit" class="btn btn-outline-primary btn-sm pl-4 pr-4"
-						   value="Cambiar nombre">
-					<div class="form-group form-float">
-						<div class="form-line">
-							<input type="text" name="descripcion" class="form-control">
-							<label class="form-label">Descripción</label>
-						</div>
-					</div>
-
-					<input type="submit" class="btn btn-outline-primary btn-sm pl-4 pr-4"
-						   value="Cambiar descripción">
-				</div>
-			</form>
-			<!-- #END# Input -->
-	</div>
-</div>
-<!-- END EDICION PERFIL -->
-
-
-<!-- AJUSTES CUENTA -->
-<div class="overlay-pop-up" id="overlay-cuenta">
-    <div class="col-md-7 card p-5">
-			<a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-cuenta" class="btn-cerrar-popup-perfil"><i class="icon-close1"></i></a>
-			<header class="relative nav-sticky card">
-				<h3>CAMBIAR INFORMACIÓN DE LA CUENTA</h3>
-			</header>
-			<form class="form-material" action="modinfo"> <!--QUITAR-->
-				<!-- Input -->
-				<div class="body">
-					
-					<div class="form-group form-float">
-						<div class="form-line">
-							<input type="email" name="email" class="form-control">
-							<label class="form-label">Email</label>
-						</div>
-					</div>
-					<input type="submit" class="btn btn-outline-primary btn-sm pl-4 pr-4"
-						   value="Cambiar email">
-				</div>
-			</form>
-			<form class="form-material" action="modpass"> <!--QUITAR-->
-				<!-- Input -->
-				<div class="body">
-					<div class="form-group form-float">
-						<div class="form-line">
-							<input type="password" name="contrasena1" class="form-control">
-							<label class="form-label">Contraseña actual</label>
-						</div>
-					</div>
-					<div class="form-group form-float">
-						<div class="form-line">
-							<input type="password" name="contrasena2" class="form-control">
-							<label class="form-label">Contraseña nueva</label>
-						</div>
-					</div>
-					<div class="form-group form-float">
-						<div class="form-line">
-							<input type="password" name="contrasena3" class="form-control">
-							<label class="form-label">Confirmar contraseña</label>
-						</div>
-					</div>
-
-					<input type="submit" class="btn btn-outline-primary btn-sm pl-4 pr-4"
-						   value="Cambiar constraseña">
-				</div>
-			</form>
-			<!-- #END# Input -->
-	</div>
-</div>
-<!-- END AJUSTES CUENTA -->
-
-
 <!-- CAMBIAR FOTO -->
 <div class="overlay-pop-up" id="overlay-foto">
     <div class="col-md-7 card p-5">
@@ -1028,6 +804,7 @@ String descripcion = (String) session.getAttribute("descripcion");
 		</form>
 	</div>
 </div>
+
 <!-- END CAMBIAR FOTO -->
 
 <!-- CREAR LISTA DE REPRODUCCIÓN -->
@@ -1045,7 +822,7 @@ String descripcion = (String) session.getAttribute("descripcion");
 				<!--<h4>Añadir imagen</h4>
 					<input type="file" class="btn btn-outline-primary btn-sm  mt-3" name="fileName" /> -->
 					<input type="text" name="nombre" placeholder="Nombre" id="nombre-listas-reproduccion" required/>
-					<input type="text" name="descipcion" placeholder="Descripcion" id="descripcion-listas-reproduccion"/>
+					<input type="text" name="descripcion" placeholder="Descripcion" id="descripcion-listas-reproduccion"/>
 					<input type="hidden" name="tipo" value="ListaRep">
 				</div>
 
@@ -1057,84 +834,6 @@ String descripcion = (String) session.getAttribute("descripcion");
 	</div>
 </div>
 <!-- END CREAR LISTA DE REPRODUCCIÓN -->
-
-
-<!-- AJUSTES CUENTA -->
-<div class="overlay-pop-up" id="overlay-cuenta">
-    <div class="col-md-7 card p-5">
-			<a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-cuenta" class="btn-cerrar-popup-perfil"><i class="icon-close1"></i></a>
-			<header class="relative nav-sticky card">
-				<h3>CAMBIAR INFORMACI�N DE LA CUENTA</h3>
-			</header>
-			<form class="form-material" action="modinfo"> <!--QUITAR-->
-				<!-- Input -->
-				<div class="body">
-					
-					<div class="form-group form-float">
-						<div class="form-line">
-							<input type="email" name="email" class="form-control">
-							<label class="form-label">Email</label>
-						</div>
-					</div>
-					<input type="submit" class="btn btn-outline-primary btn-sm pl-4 pr-4"
-						   value="Cambiar email">
-				</div>
-			</form>
-			<form class="form-material" action="modpass"> <!--QUITAR-->
-				<!-- Input -->
-				<div class="body">
-					<div class="form-group form-float">
-						<div class="form-line">
-							<input type="password" name="contrasena1" class="form-control">
-							<label class="form-label">Contrase�a actual</label>
-						</div>
-					</div>
-					<div class="form-group form-float">
-						<div class="form-line">
-							<input type="password" name="contrasena2" class="form-control">
-							<label class="form-label">Contrase�a nueva</label>
-						</div>
-					</div>
-					<div class="form-group form-float">
-						<div class="form-line">
-							<input type="password" name="contrasena3" class="form-control">
-							<label class="form-label">Confirmar contrase�a</label>
-						</div>
-					</div>
-
-					<input type="submit" class="btn btn-outline-primary btn-sm pl-4 pr-4"
-						   value="Cambiar constrase�a">
-				</div>
-			</form>
-			<!-- #END# Input -->
-	</div>
-</div>
-<!-- END AJUSTES CUENTA -->
-
-
-<!-- CAMBIAR FOTO -->
-<div class="overlay-pop-up" id="overlay-foto">
-    <div class="col-md-7 card p-5">
-		<a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-foto" class="btn-cerrar-popup-perfil"><i class="icon-close1"></i></a>
-		<form class="form-material" action="modinfo" method="post" enctype="multipart/form-data">
-			<!-- Input -->
-			<div class="body">
-				<header class="relative nav-sticky card">
-					<h3>SUBIR FOTO</h3>
-				</header>
-				<div class="contenedor-inputs">
-					<input type="file" class="btn btn-outline-primary btn-sm  mt-3" name="imagen" id="imagen" accept="image/jpeg"> 
-				</div>
-
-				<input type="submit" class="btn btn-outline-primary btn-sm pl-4 pr-4"
-					   value="Aceptar">
-			</div>
-			<!-- #END# Input -->
-		</form>
-	</div>
-</div>
-<!-- END CAMBIAR FOTO -->
-
 
 <!-- AÑADIR CANCION A LISTA DE REPRODUCCI�N -->
 <div class="overlay-pop-up" id="overlay-anadir-listas-reproduccion">
@@ -1194,6 +893,120 @@ String descripcion = (String) session.getAttribute("descripcion");
 	</div>	
 <!-- END BORRAR LISTA DE REPRODUCCIÓN -->
 
+
+
+<!-- EDICION PERFIL -->
+<div class="overlay-pop-up" id="overlay-perfil">
+    <div class="col-md-7 card p-5">
+			<a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-perfil" class="btn-cerrar-popup-perfil"><i class="icon-close1"></i></a>
+			<header class="relative nav-sticky card">
+				<h3>CAMBIAR INFORMACIÓN DE PERFIL</h3>
+			</header>
+			<form class="form-material" action="modinfo">
+				<!-- Input -->
+				<div class="body">
+					
+					<div class="form-group form-float">
+						<div class="form-line">
+							<input type="text" name="nombre" class="form-control">
+							<label class="form-label">Nombre</label>
+						</div>
+					</div>
+					<input type="submit" class="btn btn-outline-primary btn-sm pl-4 pr-4"
+						   value="Cambiar nombre">
+					<div class="form-group form-float">
+						<div class="form-line">
+							<input type="text" name="descripcion" class="form-control">
+							<label class="form-label">Descripción</label>
+						</div>
+					</div>
+
+					<input type="submit" class="btn btn-outline-primary btn-sm pl-4 pr-4"
+						   value="Cambiar descripción">
+				</div>
+			</form>
+			<!-- #END# Input -->
+	</div>
+</div>
+<!-- END EDICION PERFIL -->
+
+
+<!-- AJUSTES CUENTA -->
+<div class="overlay-pop-up" id="overlay-cuenta">
+    <div class="col-md-7 card p-5">
+			<a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-cuenta" class="btn-cerrar-popup-perfil"><i class="icon-close1"></i></a>
+			<header class="relative nav-sticky card">
+				<h3>CAMBIAR INFORMACIÓN DE LA CUENTA</h3>
+			</header>
+			<form class="form-material" action="modinfo"> <!--QUITAR-->
+				<!-- Input -->
+				<div class="body">
+					
+					<div class="form-group form-float">
+						<div class="form-line">
+							<input type="email" name="email" class="form-control">
+							<label class="form-label">Email</label>
+						</div>
+					</div>
+					<input type="submit" class="btn btn-outline-primary btn-sm pl-4 pr-4"
+						   value="Cambiar email">
+				</div>
+			</form>
+			<form class="form-material" action="modpass"> <!--QUITAR-->
+				<!-- Input -->
+				<div class="body">
+					<div class="form-group form-float">
+						<div class="form-line">
+							<input type="password" name="contrasena1" class="form-control">
+							<label class="form-label">Contraseña actual</label>
+						</div>
+					</div>
+					<div class="form-group form-float">
+						<div class="form-line">
+							<input type="password" name="contrasena2" class="form-control">
+							<label class="form-label">Contraseña nueva</label>
+						</div>
+					</div>
+					<div class="form-group form-float">
+						<div class="form-line">
+							<input type="password" name="contrasena3" class="form-control">
+							<label class="form-label">Confirmar contraseña</label>
+						</div>
+					</div>
+
+					<input type="submit" class="btn btn-outline-primary btn-sm pl-4 pr-4"
+						   value="Cambiar constrase�a">
+				</div>
+			</form>
+			<!-- #END# Input -->
+	</div>
+</div>
+<!-- END AJUSTES CUENTA -->
+
+
+<!-- CAMBIAR FOTO -->
+<div class="overlay-pop-up" id="overlay-foto">
+    <div class="col-md-7 card p-5">
+		<a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-foto" class="btn-cerrar-popup-perfil"><i class="icon-close1"></i></a>
+		<form class="form-material" action="modinfo" method="post" enctype="multipart/form-data">
+			<!-- Input -->
+			<div class="body">
+				<header class="relative nav-sticky card">
+					<h3>SUBIR FOTO</h3>
+				</header>
+				<div class="contenedor-inputs">
+					<input type="file" class="btn btn-outline-primary btn-sm  mt-3" name="imagen" id="imagen" accept="image/jpeg"> 
+				</div>
+
+				<input type="submit" class="btn btn-outline-primary btn-sm pl-4 pr-4"
+					   value="Aceptar">
+			</div>
+			<!-- #END# Input -->
+		</form>
+	</div>
+</div>
+<!-- END CAMBIAR FOTO -->
+
 </main><!--@Page Content-->
 
 </div><!--@#app-->
@@ -1231,6 +1044,17 @@ String descripcion = (String) session.getAttribute("descripcion");
         
     </script>
     <script>
+	function loopAudio(){
+		var audio = document.getElementsByTagName("audio")[0];
+		if(audio.loop){
+			audio.loop = false;
+		}else{
+			audio.loop = true;
+		}
+		//audio.load();
+	}
+	</script>
+	<script>
     function rellenarCampos(size,song) {
     	var i;
     	for (i=0; i <size; i++){
@@ -1241,5 +1065,5 @@ String descripcion = (String) session.getAttribute("descripcion");
     </script>
 </body>
 
-<!-- Mirrored from xvelopers.com/demos/html/record-light/profile.jsp by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 05 Apr 2020 17:22:10 GMT -->
+
 </html>

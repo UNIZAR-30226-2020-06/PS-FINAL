@@ -33,12 +33,14 @@ public class ListaReproduccionDAO {
 													+ "WHERE lista.id = cont.lista AND cont.audio = audio.id AND audio.genero = genero.id AND audio.usuario = user.id AND "
 													+ "lista.nombre = ? AND lista.usuario = ? AND lista.tipo = ? ORDER BY audio.titulo";
 	private final static String SHOWLISTS_QUERY = "SELECT * FROM Reproductor_musica.ListasRep WHERE usuario = ? AND tipo = ? ORDER BY nombre";
-	private final static String INSERTAUDIO_QUERY = "INSERT INTO Reproductor_musica.Contiene (audio, lista) VALUES (?,?)";
+	private final static String INSERTAUDIO_QUERY =  "INSERT INTO Reproductor_musica.Contiene (audio, lista) VALUES (?,?)";
 	private final static String DELETE_AUDIO_QUERY = "DELETE FROM Reproductor_musica.Contiene WHERE audio = ? AND lista = ?";
-	
+	private final static String GETLIST_ID_QUERY = "SELECT lista.id FROM Reproductor_musica.ListasRep WHERE lista.nombre = ?";
 	private final static String GETNAMES_QUERY = "SELECT nombre FROM Reproductor_musica.ListasRep WHERE usuario = ? AND tipo = ?";
 
+
 	public static boolean crear(int usuario, String nombre, String descripcion, String tipo) {
+
 		
 		try {
 			Connection conn = ConnectionManager.getConnection();
@@ -84,6 +86,52 @@ public class ListaReproduccionDAO {
 			ConnectionManager.releaseConnection(conn);
 			return true;
 			
+		} catch(SQLException se) {
+			System.out.println(se.getMessage());
+			return false;
+		} catch(Exception e) {
+			e.printStackTrace(System.err);
+			return false;
+		}
+	}
+	
+	public static boolean borrarCancionLista(int idCancion, int idLista) {
+		
+		try {
+			Connection conn = ConnectionManager.getConnection();
+			PreparedStatement ps = conn.prepareStatement(DELETE_AUDIO_QUERY);
+			
+			ps.setInt(1, idCancion);
+	        ps.setInt(2, idLista);
+	
+			ps.executeUpdate();
+			
+			ConnectionManager.releaseConnection(conn);
+			return true;
+			
+		} catch(SQLException se) {
+			System.out.println(se.getMessage());
+			return false;
+		} catch(Exception e) {
+			e.printStackTrace(System.err);
+			return false;
+		}
+	}
+	
+	public static boolean quitarAudio(int audio, int lista) {
+
+		try {
+			Connection conn = ConnectionManager.getConnection();
+			PreparedStatement ps = conn.prepareStatement(DELETE_AUDIO_QUERY);
+
+			ps.setInt(1, audio);
+            ps.setInt(2, lista);
+
+			ps.executeUpdate();
+
+			ConnectionManager.releaseConnection(conn);
+			return true;
+
 		} catch(SQLException se) {
 			System.out.println(se.getMessage());
 			return false;
@@ -267,29 +315,6 @@ public class ListaReproduccionDAO {
 			return false;
 		}
 	}
-	
-	public static boolean quitarAudio(int audio, int lista) {
-		
-		try {
-			Connection conn = ConnectionManager.getConnection();
-			PreparedStatement ps = conn.prepareStatement(DELETE_AUDIO_QUERY);
-			
-			ps.setInt(1, audio);
-            ps.setInt(2, lista);
-
-			ps.executeUpdate();
-			
-			ConnectionManager.releaseConnection(conn);
-			return true;
-			
-		} catch(SQLException se) {
-			System.out.println(se.getMessage());
-			return false;
-		} catch(Exception e) {
-			e.printStackTrace(System.err);
-			return false;
-		}
-	}
     
     // Comprueba si el nombre de una lista de usuario esta repetido (invalido) o no (valido)
     private static boolean nombreValido(int usuario, String nombre, String tipo){
@@ -323,6 +348,31 @@ public class ListaReproduccionDAO {
             }
         }
         return true;
+    }
+    
+    public static int obtenerIdLista(String nombre) {
+    	int id = -1;
+		try {
+
+			Connection conn = ConnectionManager.getConnection();
+			PreparedStatement ps = conn.prepareStatement(GETAUDIOS_QUERY);
+            
+			ps.setString(1, nombre);
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()){
+				id = rs.getInt("id");
+			}
+			
+			ConnectionManager.releaseConnection(conn);
+			
+		} catch(SQLException se) {
+			se.printStackTrace();
+		} catch(Exception e) {
+			e.printStackTrace(System.err);
+		}
+		
+		return id;
+    	
     }
     
     // Prubas con la base de datos
