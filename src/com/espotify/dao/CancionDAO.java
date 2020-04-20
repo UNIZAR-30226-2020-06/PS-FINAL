@@ -104,17 +104,18 @@ public class CancionDAO {
 		}	
 	}
 	
-	public boolean modificarCancion(String titulo, int genero, int id){
+	public boolean modificarCancion(String titulo, String genero, int id){
 		Connection conn;
+		int id_genero = obtenerIDGenero(genero);
 		try {
 			conn = ConnectionManager.getConnection();
 			PreparedStatement ps = conn.prepareStatement(UPDATE_QUERY);
 			ps.setString(1, titulo);
-			ps.setInt(2, genero);
+			ps.setInt(2, id_genero);
 			ps.setInt(3, id);
 			System.out.println(titulo);
 			System.out.println(id);
-			System.out.println(genero);
+			System.out.println(id_genero);
 			ps.executeUpdate();
 			
 			ConnectionManager.releaseConnection(conn);
@@ -246,7 +247,7 @@ public class CancionDAO {
 		
 	}
 
-	private int obtenerIdCancion(String titulo) {
+	public int obtenerIdCancion(String titulo) {
 		System.out.println("obtenerIDCancion Entro +++++++++++++++++");
 		Connection conn;
 		try {
