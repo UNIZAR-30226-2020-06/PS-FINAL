@@ -778,7 +778,7 @@ String descripcion = (String) session.getAttribute("descripcion");
 <div class="overlay-pop-up" id="overlay-foto">
     <div class="col-md-7 card p-5">
 		<a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-foto" class="btn-cerrar-popup-perfil"><i class="icon-close1"></i></a>
-		<form class="form-material" action="modinfo" method="post" enctype="multipart/form-data">
+		<form class="form-material" action="modinfo">
 			<!-- Input -->
 			<div class="body">
 				<header class="relative nav-sticky card">
@@ -974,29 +974,6 @@ String descripcion = (String) session.getAttribute("descripcion");
 </div>
 <!-- END AJUSTES CUENTA -->
 
-
-<!-- CAMBIAR FOTO -->
-<div class="overlay-pop-up" id="overlay-foto">
-    <div class="col-md-7 card p-5">
-		<a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-foto" class="btn-cerrar-popup-perfil"><i class="icon-close1"></i></a>
-		<form class="form-material" action="modinfo" method="post" enctype="multipart/form-data">
-			<!-- Input -->
-			<div class="body">
-				<header class="relative nav-sticky card">
-					<h3>SUBIR FOTO</h3>
-				</header>
-				<div class="contenedor-inputs">
-					<input type="file" class="btn btn-outline-primary btn-sm  mt-3" name="imagen" id="imagen" accept="image/jpeg"> 
-				</div>
-
-				<input type="submit" class="btn btn-outline-primary btn-sm pl-4 pr-4"
-					   value="Aceptar">
-			</div>
-			<!-- #END# Input -->
-		</form>
-	</div>
-</div>
-<!-- END CAMBIAR FOTO -->
 
 </main><!--@Page Content-->
 
