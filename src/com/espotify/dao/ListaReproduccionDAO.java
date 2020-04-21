@@ -326,6 +326,41 @@ public class ListaReproduccionDAO {
 		}
 	}
 	
+	public List<ListaReproduccion> showLists(int idUsuario, String tipo) {
+		List<ListaReproduccion> rutas = new ArrayList<ListaReproduccion>();
+		try {
+
+			Connection conn = ConnectionManager.getConnection();
+			PreparedStatement ps = conn.prepareStatement(SHOWLISTS_QUERY);
+   
+	   
+		  
+            
+			ps.setInt(1, idUsuario);
+            ps.setString(2, tipo);
+			
+			ResultSet rs = ps.executeQuery();
+
+			while(rs.next()){
+				ListaReproduccion result = new ListaReproduccion(rs.getString("id"), rs.getString("nombre"), 
+						rs.getString("usuario"), rs.getString("descripcion"), (Blob) rs.getBlob("imagen"), rs.getString("tipo"));
+                rutas.add(result);
+			}
+			
+			ConnectionManager.releaseConnection(conn);
+	  
+			
+		} catch(SQLException se) {
+			se.printStackTrace();
+	
+		} catch(Exception e) {
+			e.printStackTrace(System.err);
+	
+		}
+		
+		return rutas;
+	}
+	
 	public ListaReproduccion getInfoList(String nombre, int usuario, String tipo) {
 		ListaReproduccion result = null;
 		try {
