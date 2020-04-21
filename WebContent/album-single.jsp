@@ -639,32 +639,28 @@ pageEncoding="UTF-8"%>
 									<div class="col-md-12">
 										<div class="playlist">
 											<ul id="playlist" class="playlist list-group">
-												<div class="cancion">
-													<li class="list-group-item my-1">
-														<c:forEach var="cancion" items="${audios}">                    
-															<div style="margin-bottom: -1px;" class="cancion">
-																
-																	<div class="d-flex align-items-center">
-																		<div class="col-1">
-																			<a class="no-ajaxy media-url" href="${cancion.getUrl()}">
-																				<i class="icon-play s-28"></i>
-																			</a>					
-																		</div>
-																		<div class="col-6">
-																			<h6>${cancion.getTitulo()}</h6>${cancion.getGenero()}
-																		</div>
-																		<span class="ml-auto">${cancion.getGenero()}</span>
-																		<a href="#" class="ml-auto"><i class="icon-share-1"></i></a>
-																		<div class="ml-auto">
-																			<a href="anyadir_cancion_fav?idAudio=${cancion.getId()}" class="btn-favorito icon-star active"></a>
-																			<a href="${pageContext.request.contextPath}/borrar_cancion_lr?idAudio=${cancion.getId()}&idLista=${infoLista.getId()}&nombreLista=${infoLista.getNombre()}" class="btn-icono icon-trash-o" onclick="setTimeout(location.reload.bind(location), 1)"></a>
-																		</div>
-																	</div>
-																
-															</div>								                
-														</c:forEach>
-													</li>
-												</div>
+												<c:forEach var="cancion" items="${audios}">                    
+													<div style="margin-bottom: -1px;" class="cancion">
+														<li class="list-group-item my-1">
+															<div class="d-flex align-items-center">
+																<div class="col-1">
+																	<a class="no-ajaxy media-url" href="${cancion.getUrl()}">
+																		<i class="icon-play s-28"></i>
+																	</a>					
+																</div>
+																<div class="col-6">
+																	<h6>${cancion.getTitulo()}</h6>${cancion.getGenero()}
+																</div>
+																<span class="ml-auto">${cancion.getGenero()}</span>
+																<a href="#" class="ml-auto"><i class="icon-share-1"></i></a>
+																<div class="ml-auto">
+																	<a href="anyadir_cancion_fav?idAudio=${cancion.getId()}" class="btn-favorito icon-star active"></a>
+																	<a href="${pageContext.request.contextPath}/borrar_cancion_lr?idAudio=${cancion.getId()}&idLista=${infoLista.getId()}&nombreLista=${infoLista.getNombre()}" class="btn-icono icon-trash-o" onclick="setTimeout(location.reload.bind(location), 1)"></a>
+																</div>
+															</div>
+														</li>
+													</div>								                
+												</c:forEach>
 											</ul>
 										</div>
 									</div>
