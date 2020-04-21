@@ -54,7 +54,8 @@ public class AndroidCrear_ListaRepServlet extends HttpServlet {
         
         
         String idUsuario = UsuarioDAO.obtenerId(email);
-        ListaReproduccionDAO.crear(idUsuario, nombreLista, "", "ListaRep");
+        int usuario = Integer.valueOf(idUsuario);
+        ListaReproduccionDAO.crear(usuario, nombreLista, "", "ListaRep");
         
         
         JSONObject respuestaPeticion = new JSONObject();

@@ -104,7 +104,7 @@ public class CancionDAO {
 		}	
 	}
 	
-	public boolean modificarCancion(String titulo, String genero, int id){
+	public boolean modificarCancion(String titulo, int genero, int id){
 		Connection conn;
 		int id_genero = obtenerIDGenero(genero);
 		try {
@@ -167,13 +167,13 @@ public class CancionDAO {
 		}
 	}
 	
-	private int obtenerIDGenero(String genero) {
+	private int obtenerIDGenero(int genero) {
 		Connection conn;
 		try {
 			conn = ConnectionManager.getConnection();
 			PreparedStatement ps = conn.prepareStatement(GET_ID_GENERO_QUERY);
 			
-			ps.setString(1, genero);
+			ps.setInt(1, genero);
 			
 			ResultSet rs = ps.executeQuery();
 			int id_autor= 0;

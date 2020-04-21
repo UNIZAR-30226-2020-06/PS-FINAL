@@ -35,21 +35,22 @@ public class GetInfo_FavoritosServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		String usuario = request.getParameter("usuario");
-		String aleatorio = request.getParameter("aleatorio");
+		HttpSession session = request.getSession();
+		int usuario = Integer.valueOf((String) session.getAttribute("id"));
+		//String aleatorio = request.getParameter("aleatorio");
 		
 		try{
 			List<Audio> audios = new FavoritosDAO().getAudios(usuario);
 			
-			if (aleatorio.equals("si")) {
-				Collections.shuffle(audios);
-			}
-			
-			HttpSession session = request.getSession();
+			//if (aleatorio.equals("si")) {
+			//	Collections.shuffle(audios);
+			//}
+
 			session.setAttribute("audios", audios);
-				
+			session.setAttribute("fav", 1);
 			//RequestDispatcher dispatcher=request.getRequestDispatcher("favoritos.jsp");
 			//dispatcher.forward(request, response);
+			request.getRequestDispatcher("album-single.jsp").forward(request, response);
 
 		}catch(Throwable theException) {
 			//response.sendRedirect("user.jsp");

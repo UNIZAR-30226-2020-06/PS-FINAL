@@ -32,9 +32,10 @@ public class ModInfo_ListaRepServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+		HttpSession session = request.getSession();
+		int usuario = Integer.valueOf((String) session.getAttribute("id"));
 		String nombreNew = request.getParameter("nombreNew");
 		String nombreOld = request.getParameter("nombreOld");
-		String usuario = request.getParameter("usuario");
 		String descripcion = request.getParameter("descripcion");
 		String imagen = request.getParameter("imagen");
 		String tipo = request.getParameter("tipo");
@@ -45,7 +46,7 @@ public class ModInfo_ListaRepServlet extends HttpServlet {
 				ListaReproduccion infoLista = new ListaReproduccionDAO().getInfoList(nombreNew,usuario,tipo);
 				List<Audio> audios = new ListaReproduccionDAO().getAudios(nombreNew,usuario,tipo);
 
-				HttpSession session = request.getSession();
+				
 				session.setAttribute("infoLista", infoLista);
 				session.setAttribute("audios", audios);
 					

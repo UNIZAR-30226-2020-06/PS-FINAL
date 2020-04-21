@@ -4,7 +4,7 @@
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
     <welcome-file>index.htm</welcome-file>
-    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>inicio.jsp</welcome-file>
     <welcome-file>default.html</welcome-file>
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
@@ -190,9 +190,78 @@
 		<servlet-name>eliminar_cancion</servlet-name>
 		<servlet-class>com.espotify.controller.Eliminar_CancionServlet</servlet-class>
 	</servlet>
+<<<<<<< HEAD
 	<servlet-mapping>
 		<servlet-name>eliminar_cancion</servlet-name>
 		<url-pattern>/eliminar_cancion</url-pattern>
+=======
+	    <servlet-mapping>
+		 	<servlet-name>ir_modificar</servlet-name>
+	       	<url-pattern>/ir_modificar</url-pattern>
+		</servlet-mapping>
+		
+		<servlet>
+		<servlet-name>logout</servlet-name>
+		<servlet-class>com.espotify.controller.Cerrar_SesionServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Usuario_modpass</servlet-name>
+		<url-pattern>/logout</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>anyadir_cancion_lr</servlet-name>
+		<servlet-class>com.espotify.controller.AnyadirAudio_ListaRepServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>anyadir_cancion_lr</servlet-name>
+		<url-pattern>/anyadir_cancion_lr</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>borrar_cancion_lr</servlet-name>
+		<servlet-class>com.espotify.controller.BorrarAudio_ListaRepServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>borrar_cancion_lr</servlet-name>
+		<url-pattern>/borrar_cancion_lr</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>obtener_info_lr</servlet-name>
+		<servlet-class>com.espotify.controller.GetInfo_ListaRepServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>obtener_info_lr</servlet-name>
+		<url-pattern>/obtener_info_lr</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>anyadir_cancion_fav</servlet-name>
+		<servlet-class>com.espotify.controller.AnyadirAudio_FavoritosServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>anyadir_cancion_fav</servlet-name>
+		<url-pattern>/anyadir_cancion_fav</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>borrar_cancion_fav</servlet-name>
+		<servlet-class>com.espotify.controller.BorrarAudio_FavoritosServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>borrar_cancion_fav</servlet-name>
+		<url-pattern>/borrar_cancion_fav</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>obtener_info_fav</servlet-name>
+		<servlet-class>com.espotify.controller.GetInfo_FavoritosServlet</servlet-class>
+	</servlet>								   
+	<servlet-mapping>
+		<servlet-name>obtener_info_fav</servlet-name>
+		<url-pattern>/obtener_info_fav</url-pattern>
+>>>>>>> 306b72ec19609dcd2b397cd51edddad8da5a1507
 	</servlet-mapping>
 	
 	<context-param>
@@ -200,11 +269,15 @@
     <param-value>tmpfiles</param-value>
   </context-param>
   
+<<<<<<< HEAD
   <context-param>
     <param-name>directorio_ficheroTmp</param-name>
     <param-value>tmpfiles</param-value>
   </context-param>
   
   
+=======
+  	
+>>>>>>> 306b72ec19609dcd2b397cd51edddad8da5a1507
   
 </web-app>

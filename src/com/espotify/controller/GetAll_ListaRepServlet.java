@@ -36,8 +36,8 @@ public class GetAll_ListaRepServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		HttpSession session = request.getSession();
-		String usuario = (String) session.getAttribute("id");
-		String tipo = request.getParameter("tipo"); // ?¿?¿?¿?¿?¿
+		int usuario = Integer.valueOf((String) session.getAttribute("id"));
+		String tipo = request.getParameter("tipo");
 		try{
 			List<ListaReproduccion> listas = new ListaReproduccionDAO().showLists(usuario,tipo);
 			
@@ -45,7 +45,7 @@ public class GetAll_ListaRepServlet extends HttpServlet {
 				
 			//RequestDispatcher dispatcher=request.getRequestDispatcher("user.jsp");
 			//dispatcher.forward(request, response);
-			response.sendRedirect("albums.jsp");
+			request.getRequestDispatcher("albums.jsp").forward(request, response);
 
 		}catch(Throwable theException) {
 			//response.sendRedirect("crearListaRep.jsp");

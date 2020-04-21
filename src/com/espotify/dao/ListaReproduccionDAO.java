@@ -38,13 +38,15 @@ public class ListaReproduccionDAO {
 	private final static String GETLIST_ID_QUERY = "SELECT lista.id FROM Reproductor_musica.ListasRep WHERE lista.nombre = ?";
 	private final static String GETNAMES_QUERY = "SELECT nombre FROM Reproductor_musica.ListasRep WHERE usuario = ? AND tipo = ?";
 
-public static boolean crear(String usuario, String nombre, String descripcion, String tipo) {
+
+	public static boolean crear(int usuario, String nombre, String descripcion, String tipo) {
+
 		
 		try {
 			Connection conn = ConnectionManager.getConnection();
 			PreparedStatement ps = conn.prepareStatement(INSERT_QUERY);
 			
-			ps.setString(1, usuario);
+			ps.setInt(1, usuario);
 			ps.setString(2, nombre);
 			ps.setString(3, descripcion);
 			ps.setString(4, "");
@@ -69,16 +71,16 @@ public static boolean crear(String usuario, String nombre, String descripcion, S
 		}
 	}
 	
-	public static boolean borrar(String nombre, String usuario, String tipo) {
+	public static boolean borrar(String nombre, int usuario, String tipo) {
 		
 		try {
 			Connection conn = ConnectionManager.getConnection();
 			PreparedStatement ps = conn.prepareStatement(DELETE_QUERY);
 			
 			ps.setString(1, nombre);
-	        ps.setString(2, usuario);
-	        ps.setString(3, tipo);
-	
+            ps.setInt(2, usuario);
+            ps.setString(3, tipo);
+
 			ps.executeUpdate();
 			
 			ConnectionManager.releaseConnection(conn);
@@ -139,7 +141,7 @@ public static boolean crear(String usuario, String nombre, String descripcion, S
 		}
 	}
 
-	public static boolean cambiar_info(String nombreOld, String nombreNew, String usuario, String descripcion, String imagen, String tipo) {
+	public static boolean cambiar_info(String nombreOld, String nombreNew, int usuario, String descripcion, String imagen, String tipo) {
 	
 		try {
 			Connection conn = ConnectionManager.getConnection();
@@ -152,7 +154,7 @@ public static boolean crear(String usuario, String nombre, String descripcion, S
 				
 				ps.setString(1, nombreNew);
 				ps.setString(2, nombreOld);
-                ps.setString(3, usuario);
+                ps.setInt(3, usuario);
                 ps.setString(4, tipo);
 				ps.executeUpdate();
 				cambioNombre = true;
@@ -168,7 +170,7 @@ public static boolean crear(String usuario, String nombre, String descripcion, S
 				else {
 					ps.setString(2, nombreOld);
 				}
-                ps.setString(3, usuario);
+                ps.setInt(3, usuario);
                 ps.setString(4, tipo);
 				ps.executeUpdate();
 				cambiada = true;
@@ -184,7 +186,7 @@ public static boolean crear(String usuario, String nombre, String descripcion, S
 				else {
 					ps.setString(2, nombreOld);
 				}
-                ps.setString(3, usuario);
+                ps.setInt(3, usuario);
                 ps.setString(4, tipo);
 				ps.executeUpdate();
 				
@@ -204,7 +206,7 @@ public static boolean crear(String usuario, String nombre, String descripcion, S
 		}
 	}
 	
-	public static ListaReproduccion getInfoList(String nombre, String usuario, String tipo) {
+	public ListaReproduccion getInfoList(String nombre, int usuario, String tipo) {
 		ListaReproduccion result = null;
 		try {
 
@@ -212,7 +214,7 @@ public static boolean crear(String usuario, String nombre, String descripcion, S
 			PreparedStatement ps = conn.prepareStatement(GETINFOLIST_QUERY);
             
 			ps.setString(1, nombre);
-            ps.setString(2, usuario);
+            ps.setInt(2, usuario);
             ps.setString(3, tipo);
 			
 			ResultSet rs = ps.executeQuery();
@@ -233,7 +235,7 @@ public static boolean crear(String usuario, String nombre, String descripcion, S
 		return result;
 	}
 
-	public static List<Audio> getAudios(String nombre, String usuario, String tipo) {
+	public static List<Audio> getAudios(String nombre, int usuario, String tipo) {
 		List<Audio> audios = new ArrayList<Audio>();
 		try {
 
@@ -241,7 +243,7 @@ public static boolean crear(String usuario, String nombre, String descripcion, S
 			PreparedStatement ps = conn.prepareStatement(GETAUDIOS_QUERY);
             
 			ps.setString(1, nombre);
-            ps.setString(2, usuario);
+            ps.setInt(2, usuario);
             ps.setString(3, tipo);           
 			ResultSet rs = ps.executeQuery();
 
@@ -262,14 +264,14 @@ public static boolean crear(String usuario, String nombre, String descripcion, S
 		return audios;
 	}
 
-	public static List<ListaReproduccion> showLists(String usuario, String tipo) {
+	public List<ListaReproduccion> showLists(int idUsuario, String tipo) {
 		List<ListaReproduccion> rutas = new ArrayList<ListaReproduccion>();
 		try {
 
 			Connection conn = ConnectionManager.getConnection();
 			PreparedStatement ps = conn.prepareStatement(SHOWLISTS_QUERY);
             
-			ps.setString(1, usuario);
+			ps.setInt(1, idUsuario);
             ps.setString(2, tipo);
 			
 			ResultSet rs = ps.executeQuery();
@@ -291,14 +293,14 @@ public static boolean crear(String usuario, String nombre, String descripcion, S
 		return rutas;
 	}
 	
-	public static boolean anyadirAudio(String idAudio, String idLista) {
+	public static boolean anyadirAudio(int idAudio, int idLista) {
 		
 		try {
 			Connection conn = ConnectionManager.getConnection();
 			PreparedStatement ps = conn.prepareStatement(INSERTAUDIO_QUERY);
 			
-			ps.setString(1, idAudio);
-			ps.setString(2, idLista);            
+			ps.setInt(1, idAudio);
+			ps.setInt(2, idLista);            
             
 			ps.executeUpdate();
 			
@@ -315,14 +317,14 @@ public static boolean crear(String usuario, String nombre, String descripcion, S
 	}
     
     // Comprueba si el nombre de una lista de usuario esta repetido (invalido) o no (valido)
-    private static boolean nombreValido(String usuario, String nombre, String tipo){
+    private static boolean nombreValido(int usuario, String nombre, String tipo){
         List<String> nombres = new ArrayList<String>();
         try {
             
             Connection conn2 = ConnectionManager.getConnection();
             PreparedStatement ps = conn2.prepareStatement(GETNAMES_QUERY);
             
-            ps.setString(1, usuario);
+            ps.setInt(1, usuario);
             ps.setString(2, tipo);
             
             ResultSet rs = ps.executeQuery();

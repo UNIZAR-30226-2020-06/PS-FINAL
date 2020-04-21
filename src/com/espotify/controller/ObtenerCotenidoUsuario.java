@@ -2,6 +2,7 @@ package com.espotify.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,8 +13,10 @@ import javax.servlet.http.HttpSession;
 
 import com.espotify.dao.CancionDAO;
 import com.espotify.dao.GeneroDAO;
+import com.espotify.dao.ListaReproduccionDAO;
 import com.espotify.model.Audio;
 import com.espotify.model.Genero;
+import com.espotify.model.ListaReproduccion;
 import com.mysql.cj.Session;
 
 /**
@@ -41,6 +44,8 @@ public class ObtenerCotenidoUsuario extends HttpServlet {
 		request.setAttribute("canciones", canciones);
 		ArrayList<Genero> generos = new GeneroDAO().obtenerGeneroMusica();
 		request.setAttribute("generos", generos);
+		List<ListaReproduccion> listaslr = new ListaReproduccionDAO().showLists(idUsuario,"ListaRep");
+		request.setAttribute("listaslr", listaslr);
 		request.getRequestDispatcher("profile.jsp").forward(request, response);
 	}
 

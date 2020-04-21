@@ -62,10 +62,15 @@ public class AndroidGet_ProfileServlet extends HttpServlet {
         respuestaPeticion.put("email", u.getCorreo());
         
         String idUsuario = UsuarioDAO.obtenerId(email);
+<<<<<<< HEAD
         
         CancionDAO canciondao = new CancionDAO();
         List<ListaReproduccion> listas = new ListaReproduccionDAO().showLists(idUsuario, "ListaRep");
         List<Audio> audios = canciondao.obtenerCancionesUsuario(Integer.parseInt(idUsuario));
+=======
+        int usuario = Integer.valueOf(idUsuario);
+        List<ListaReproduccion> listas = new ListaReproduccionDAO().showLists(usuario, "ListaRep");
+>>>>>>> 306b72ec19609dcd2b397cd51edddad8da5a1507
         getServletContext().log("Listas recibidas: " + respuestaPeticion.toString()); 
         String listasReproduccion = "";
         String audiosUsuarioTitulo = "";
