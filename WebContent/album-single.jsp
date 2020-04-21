@@ -492,7 +492,7 @@ pageEncoding="UTF-8"%>
 <div class="container-fluid relative animatedParent animateOnce p-lg-5">
 	<div class="container-fluid relative animatedParent animateOnce p-0">
 		<div class="card no-b shadow no-r">
-			<div class="animated fadeInUpShort">
+			<div class="animated">
 				<!--Banner-->
 
 					<div class="has-bottom-gradient">
@@ -589,7 +589,7 @@ pageEncoding="UTF-8"%>
 <div class="container-fluid relative animatedParent animateOnce p-lg-5">
 	<div class="container-fluid relative animatedParent animateOnce p-0">
 		<div class="card no-b shadow no-r">
-			<div class="animated fadeInUpShort">
+			<div class="animated">
 				<!--Banner-->
 
 					<div class="has-bottom-gradient">

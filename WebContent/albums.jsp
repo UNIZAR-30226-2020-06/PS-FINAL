@@ -465,7 +465,7 @@ pageEncoding="UTF-8"%>
 <main id="pageContent" class="page has-sidebar">
 
 <div class="container-fluid relative animatedParent animateOnce">
-        <div class="animated fadeInUpShort p-5 ml-lg-5 mr-lg-5">
+        <div class="animated p-5 ml-lg-5 mr-lg-5">
             <section>
                 <div class="relative mb-5" style="text-align: center;">
                     <h1 class="mb-2 text-primary">Lista de Reproduccion</h1>

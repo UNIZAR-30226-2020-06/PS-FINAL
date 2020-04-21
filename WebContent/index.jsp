@@ -486,7 +486,7 @@ pageEncoding="UTF-8"%>
 <!--CONTENIDO DE EN MEDIO-->
 <main id="pageContent" class="page has-sidebar">
 <div class="container-fluid relative animatedParent animateOnce no-p">
-    <div class="animated fadeInUpShort">
+    <div class="animated">
         <!--Banner Slider-->
        
         <!--@Banner Slider-->
