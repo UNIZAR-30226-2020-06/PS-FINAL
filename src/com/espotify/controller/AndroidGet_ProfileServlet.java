@@ -62,15 +62,10 @@ public class AndroidGet_ProfileServlet extends HttpServlet {
         respuestaPeticion.put("email", u.getCorreo());
         
         String idUsuario = UsuarioDAO.obtenerId(email);
-<<<<<<< HEAD
         
         CancionDAO canciondao = new CancionDAO();
         List<ListaReproduccion> listas = new ListaReproduccionDAO().showLists(idUsuario, "ListaRep");
         List<Audio> audios = canciondao.obtenerCancionesUsuario(Integer.parseInt(idUsuario));
-=======
-        int usuario = Integer.valueOf(idUsuario);
-        List<ListaReproduccion> listas = new ListaReproduccionDAO().showLists(usuario, "ListaRep");
->>>>>>> 306b72ec19609dcd2b397cd51edddad8da5a1507
         getServletContext().log("Listas recibidas: " + respuestaPeticion.toString()); 
         String listasReproduccion = "";
         String audiosUsuarioTitulo = "";
@@ -85,9 +80,17 @@ public class AndroidGet_ProfileServlet extends HttpServlet {
         	audiosUsuarioUrls += audio.getUrl() + "|";
         }
         
-        listasReproduccion = listasReproduccion.substring(0, listasReproduccion.length() - 1);
-        audiosUsuarioTitulo = audiosUsuarioTitulo.substring(0, audiosUsuarioTitulo.length() - 1);
-        audiosUsuarioUrls = audiosUsuarioUrls.substring(0, audiosUsuarioUrls.length() - 1);
+        if (listasReproduccion.equals("")) {
+        	listasReproduccion = listasReproduccion.substring(0, listasReproduccion.length() - 1);
+        }
+        
+        if (audiosUsuarioTitulo.equals("")) {
+        	audiosUsuarioTitulo = audiosUsuarioTitulo.substring(0, audiosUsuarioTitulo.length() - 1);
+        }
+        
+        if (audiosUsuarioUrls.equals("")) {
+        	audiosUsuarioUrls = audiosUsuarioUrls.substring(0, audiosUsuarioUrls.length() - 1);
+        }
         
         respuestaPeticion.put("lista", listasReproduccion);
         respuestaPeticion.put("audiosTitulo", audiosUsuarioTitulo);
