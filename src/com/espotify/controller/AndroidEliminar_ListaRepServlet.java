@@ -53,8 +53,7 @@ public class AndroidEliminar_ListaRepServlet extends HttpServlet {
         String nombreLista = parametrosPeticion.getString("nombrePlaylist");
         
         String idUsuario = UsuarioDAO.obtenerId(email);
-        int usuario = Integer.valueOf(idUsuario);
-        ListaReproduccionDAO.borrar(nombreLista, usuario, "ListaRep");
+        ListaReproduccionDAO.borrar(nombreLista, idUsuario, "ListaRep");
        
         
         // Lanzar JSON

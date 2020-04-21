@@ -50,8 +50,7 @@ public class AndroidCancion_Test extends HttpServlet {
         
         
         String idUsuario = UsuarioDAO.obtenerId(email);
-        int usuario = Integer.valueOf(idUsuario);
-        List<Audio> audios = new FavoritosDAO().getAudios(usuario);
+        List<Audio> audios = new FavoritosDAO().getAudios(idUsuario);
         JSONArray audiosJSON = new JSONArray();
         JSONObject datosAudio;
         
