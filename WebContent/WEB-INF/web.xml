@@ -29,7 +29,106 @@
 		<url-pattern>/validacion_android</url-pattern>
 	</servlet-mapping>
 	
-
+	<servlet>
+		<servlet-name>AndroidGet_ProfileServlet</servlet-name>
+		<servlet-class>com.espotify.controller.AndroidGet_ProfileServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AndroidGet_ProfileServlet</servlet-name>
+		<url-pattern>/perfil_android</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>AndroidCancion_Test</servlet-name>
+		<servlet-class>com.espotify.controller.AndroidCancion_Test</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AndroidCancion_Test</servlet-name>
+		<url-pattern>/prueba_cancion</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>AndroidCrear_ListaRepServlet</servlet-name>
+		<servlet-class>com.espotify.controller.AndroidCrear_ListaRepServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AndroidCrear_ListaRepServlet</servlet-name>
+		<url-pattern>/crear_lista_android</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>AndroidEliminar_ListaRepServlet</servlet-name>
+		<servlet-class>com.espotify.controller.AndroidEliminar_ListaRepServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AndroidEliminar_ListaRepServlet</servlet-name>
+		<url-pattern>/eliminar_lista_android</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>AndroidEliminar_CancionListaRepServlet</servlet-name>
+		<servlet-class>com.espotify.controller.AndroidEliminar_CancionListaRepServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AndroidEliminar_CancionListaRepServlet</servlet-name>
+		<url-pattern>/eliminar_cancionlista_android</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>AndroidGet_AudiosServlet</servlet-name>
+		<servlet-class>com.espotify.controller.AndroidGet_AudiosServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AndroidGet_AudiosServlet</servlet-name>
+		<url-pattern>/obtener_audios_android</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>AndroidGet_RandomAudiosServlet</servlet-name>
+		<servlet-class>com.espotify.controller.AndroidGet_RandomAudiosServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AndroidGet_RandomAudiosServlet</servlet-name>
+		<url-pattern>/obtener_randomaudios_android</url-pattern>
+	</servlet-mapping>
+	
+	
+	<servlet>
+		<servlet-name>AndroidSubir_CancionServlet</servlet-name>
+		<servlet-class>com.espotify.controller.AndroidSubir_CancionServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AndroidSubir_CancionServlet</servlet-name>
+		<url-pattern>/cancion_subir_android</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>AndroidModificar_ListaRepServlet</servlet-name>
+		<servlet-class>com.espotify.controller.AndroidModificar_ListaRepServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AndroidModificar_ListaRepServlet</servlet-name>
+		<url-pattern>/playlist_modificar_android</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>AndroidEliminar_CancionServlet</servlet-name>
+		<servlet-class>com.espotify.controller.AndroidEliminar_CancionServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AndroidEliminar_CancionServlet</servlet-name>
+		<url-pattern>/cancion_eliminar_android</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>AndroidModificar_CancionServlet</servlet-name>
+		<servlet-class>com.espotify.controller.AndroidModificar_CancionServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AndroidModificar_CancionServlet</servlet-name>
+		<url-pattern>/cancion_modificar_android</url-pattern>
+	</servlet-mapping>
+	
 	
 	<servlet>
 		<servlet-name>Usuario_modinfo</servlet-name>
@@ -48,6 +147,15 @@
 	<servlet-mapping>
 		<servlet-name>Usuario_Val</servlet-name>
 		<url-pattern>/validacion</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>AndroidReg_UsuarioServlet</servlet-name>
+		<servlet-class>com.espotify.controller.AndroidReg_UsuarioServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AndroidReg_UsuarioServlet</servlet-name>
+		<url-pattern>/registro_android</url-pattern>
 	</servlet-mapping>
 	
 	
@@ -70,15 +178,6 @@
 	</servlet-mapping>
 	
 	<servlet>
-		<servlet-name>subir_audio</servlet-name>
-		<servlet-class>com.espotify.controller.SubirAudio_Servlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>subir_audio</servlet-name>
-		<url-pattern>/subir_audio</url-pattern>
-	</servlet-mapping>
-	
-	<servlet>
 		<servlet-name>modificar_cancion</servlet-name>
 		<servlet-class>com.espotify.controller.ModificarInfo_CancionServlet</servlet-class>
 	</servlet>
@@ -96,59 +195,6 @@
 		<url-pattern>/eliminar_cancion</url-pattern>
 	</servlet-mapping>
 	
-	<servlet>
-		<servlet-name>crear_lr</servlet-name>
-		<servlet-class>com.espotify.controller.Crear_ListaRepServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>crear_lr</servlet-name>
-		<url-pattern>/crear_lr</url-pattern>
-	</servlet-mapping>
-	
-	<servlet>
-		<servlet-name>borrar_lr</servlet-name>
-		<servlet-class>com.espotify.controller.Borrar_ListaRepServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>borrar_lr</servlet-name>
-		<url-pattern>/borrar_lr</url-pattern>
-	</servlet-mapping>
-	
-	<servlet>
-		<servlet-name>mostrar_lrs</servlet-name>
-		<servlet-class>com.espotify.controller.GetAll_ListaRepServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>mostrar_lrs</servlet-name>
-		<url-pattern>/mostrar_lrs</url-pattern>
-	</servlet-mapping>
-	
-	<servlet>
-		<servlet-name>android_testing</servlet-name>
-		<servlet-class>com.espotify.controller.AndroidTesting</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>android_testing</servlet-name>
-		<url-pattern>/android_testing</url-pattern>
-	</servlet-mapping>
-	
-	<servlet>
-			<servlet-name>obtener_contenido_perfil</servlet-name>
-			<servlet-class>com.espotify.controller.ObtenerCotenidoUsuario</servlet-class>
-	</servlet>
-	<servlet-mapping>
-			<servlet-name>obtener_contenido_perfil</servlet-name>
-			<url-pattern>/obtener_contenido_perfil</url-pattern>
-	</servlet-mapping>
-	<servlet>
-        <servlet-name>ir_modificar</servlet-name>
-	    <servlet-class>com.espotify.controller.IrModificar</servlet-class>
-	</servlet>
-	    <servlet-mapping>
-		 	<servlet-name>ir_modificar</servlet-name>
-	       	<url-pattern>/ir_modificar</url-pattern>
-		</servlet-mapping>
-	
 	<context-param>
     <param-name>directorio_ficheroTmp</param-name>
     <param-value>tmpfiles</param-value>
@@ -160,13 +206,5 @@
   </context-param>
   
   
-  	<servlet>
-		<servlet-name>logout</servlet-name>
-		<servlet-class>com.espotify.controller.Cerrar_SesionServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>Usuario_modpass</servlet-name>
-		<url-pattern>/logout</url-pattern>
-	</servlet-mapping>
   
 </web-app>

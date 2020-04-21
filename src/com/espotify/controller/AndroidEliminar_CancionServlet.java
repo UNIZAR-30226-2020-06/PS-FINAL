@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.util.Collections;
 import java.util.Enumeration;
 import java.util.List;
 
@@ -17,6 +18,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import com.espotify.dao.CancionDAO;
+import com.espotify.dao.FavoritosDAO;
 import com.espotify.dao.JSONAdapter;
 import com.espotify.dao.ListaReproduccionDAO;
 import com.espotify.dao.UsuarioDAO;
@@ -25,16 +28,16 @@ import com.espotify.model.ListaReproduccion;
 import com.espotify.model.Usuario;
 
 /**
- * Servlet implementation class AndroidGet_ProfileServlet
+ * Servlet implementation class AndroidEliminar_ListaRepServlet
  */
-@WebServlet("/AndroidGet_AudiosServlet")
-public class AndroidGet_AudiosServlet extends HttpServlet {
+@WebServlet("/AndroidEliminar_CancionServlet")
+public class AndroidEliminar_CancionServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AndroidGet_AudiosServlet() {
+    public AndroidEliminar_CancionServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -43,44 +46,27 @@ public class AndroidGet_AudiosServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		
         JSONObject parametrosPeticion = JSONAdapter.parsarJSON(request);
-        getServletContext().log("JSON Object: " + parametrosPeticion);
+        getServletContext().log("PETICION RECIBIDA [DELETE_SONG]: " + parametrosPeticion); 
         
         String email = parametrosPeticion.getString("email");
-        String nombrePlaylist = parametrosPeticion.getString("nombrePlaylist");
-
-        JSONObject respuestaPeticion = new JSONObject();
-        
-        response.setContentType("application/json");
-        response.setCharacterEncoding("utf-8");
-        PrintWriter out = response.getWriter();
-        
-        Usuario u = new UsuarioDAO().obtenerInfo(email);
-        respuestaPeticion.put("nombreUsuario", u.getNombre());
-        respuestaPeticion.put("descripcion", u.getDescripcion());
-        respuestaPeticion.put("email", u.getCorreo());
+        String nombreCancion = parametrosPeticion.getString("nombreCancion");
         
         String idUsuario = UsuarioDAO.obtenerId(email);
+        CancionDAO canciondao = new CancionDAO();
         
-        List<Audio> audios =  ListaReproduccionDAO.getAudios(nombrePlaylist, "3", "ListaRep");
-        getServletContext().log("Audios recibidos" + audios); 
-        
-        String nombresAudio = "";
-        String urlsAudio = "";
-        
-        for(Audio audio : audios) {
-        	nombresAudio += audio.getTitulo() + "|";
-        	urlsAudio += audio.getUrl() + "|";
+        JSONObject respuestaPeticion = new JSONObject();
+        int idCancion = canciondao.obtenerIdCancion(nombreCancion);
+        if(canciondao.borrarCancion(idCancion)) {
+        	respuestaPeticion.put("estado", "ok");
+        } else {
+        	respuestaPeticion.put("estado", "fail");
         }
         
-        nombresAudio = nombresAudio.substring(0, nombresAudio.length() - 1);
-        
-        respuestaPeticion.put("nombresAudio", nombresAudio);
-        respuestaPeticion.put("urlsAudio", urlsAudio);
-        
-        
-        // finally output the json string       
+        PrintWriter out = response.getWriter();
+        response.setContentType("application/json");
+        response.setCharacterEncoding("utf-8");
         out.print(respuestaPeticion.toString());
 	}
 
