@@ -38,15 +38,13 @@ public class ListaReproduccionDAO {
 	private final static String GETLIST_ID_QUERY = "SELECT lista.id FROM Reproductor_musica.ListasRep WHERE lista.nombre = ?";
 	private final static String GETNAMES_QUERY = "SELECT nombre FROM Reproductor_musica.ListasRep WHERE usuario = ? AND tipo = ?";
 
-
-	public static boolean crear(int usuario, String nombre, String descripcion, String tipo) {
-
+public static boolean crear(String usuario, String nombre, String descripcion, String tipo) {
 		
 		try {
 			Connection conn = ConnectionManager.getConnection();
 			PreparedStatement ps = conn.prepareStatement(INSERT_QUERY);
 			
-			ps.setInt(1, usuario);
+			ps.setString(1, usuario);
 			ps.setString(2, nombre);
 			ps.setString(3, descripcion);
 			ps.setString(4, "");
@@ -71,16 +69,16 @@ public class ListaReproduccionDAO {
 		}
 	}
 	
-	public static boolean borrar(String nombre, int usuario, String tipo) {
+	public static boolean borrar(String nombre, String usuario, String tipo) {
 		
 		try {
 			Connection conn = ConnectionManager.getConnection();
 			PreparedStatement ps = conn.prepareStatement(DELETE_QUERY);
 			
 			ps.setString(1, nombre);
-            ps.setInt(2, usuario);
-            ps.setString(3, tipo);
-
+	        ps.setString(2, usuario);
+	        ps.setString(3, tipo);
+	
 			ps.executeUpdate();
 			
 			ConnectionManager.releaseConnection(conn);
@@ -141,7 +139,7 @@ public class ListaReproduccionDAO {
 		}
 	}
 
-	public static boolean cambiar_info(String nombreOld, String nombreNew, int usuario, String descripcion, String imagen, String tipo) {
+	public static boolean cambiar_info(String nombreOld, String nombreNew, String usuario, String descripcion, String imagen, String tipo) {
 	
 		try {
 			Connection conn = ConnectionManager.getConnection();
@@ -154,7 +152,7 @@ public class ListaReproduccionDAO {
 				
 				ps.setString(1, nombreNew);
 				ps.setString(2, nombreOld);
-                ps.setInt(3, usuario);
+                ps.setString(3, usuario);
                 ps.setString(4, tipo);
 				ps.executeUpdate();
 				cambioNombre = true;
@@ -170,7 +168,7 @@ public class ListaReproduccionDAO {
 				else {
 					ps.setString(2, nombreOld);
 				}
-                ps.setInt(3, usuario);
+                ps.setString(3, usuario);
                 ps.setString(4, tipo);
 				ps.executeUpdate();
 				cambiada = true;
@@ -186,7 +184,7 @@ public class ListaReproduccionDAO {
 				else {
 					ps.setString(2, nombreOld);
 				}
-                ps.setInt(3, usuario);
+                ps.setString(3, usuario);
                 ps.setString(4, tipo);
 				ps.executeUpdate();
 				
@@ -206,7 +204,7 @@ public class ListaReproduccionDAO {
 		}
 	}
 	
-	public ListaReproduccion getInfoList(String nombre, int usuario, String tipo) {
+	public static ListaReproduccion getInfoList(String nombre, String usuario, String tipo) {
 		ListaReproduccion result = null;
 		try {
 
@@ -214,7 +212,7 @@ public class ListaReproduccionDAO {
 			PreparedStatement ps = conn.prepareStatement(GETINFOLIST_QUERY);
             
 			ps.setString(1, nombre);
-            ps.setInt(2, usuario);
+            ps.setString(2, usuario);
             ps.setString(3, tipo);
 			
 			ResultSet rs = ps.executeQuery();
@@ -235,7 +233,7 @@ public class ListaReproduccionDAO {
 		return result;
 	}
 
-	public static List<Audio> getAudios(String nombre, int usuario, String tipo) {
+	public static List<Audio> getAudios(String nombre, String usuario, String tipo) {
 		List<Audio> audios = new ArrayList<Audio>();
 		try {
 
@@ -243,7 +241,7 @@ public class ListaReproduccionDAO {
 			PreparedStatement ps = conn.prepareStatement(GETAUDIOS_QUERY);
             
 			ps.setString(1, nombre);
-            ps.setInt(2, usuario);
+            ps.setString(2, usuario);
             ps.setString(3, tipo);           
 			ResultSet rs = ps.executeQuery();
 
@@ -264,14 +262,14 @@ public class ListaReproduccionDAO {
 		return audios;
 	}
 
-	public List<ListaReproduccion> showLists(int idUsuario, String tipo) {
+	public static List<ListaReproduccion> showLists(String usuario, String tipo) {
 		List<ListaReproduccion> rutas = new ArrayList<ListaReproduccion>();
 		try {
 
 			Connection conn = ConnectionManager.getConnection();
 			PreparedStatement ps = conn.prepareStatement(SHOWLISTS_QUERY);
             
-			ps.setInt(1, idUsuario);
+			ps.setString(1, usuario);
             ps.setString(2, tipo);
 			
 			ResultSet rs = ps.executeQuery();
@@ -293,14 +291,14 @@ public class ListaReproduccionDAO {
 		return rutas;
 	}
 	
-	public static boolean anyadirAudio(int idAudio, int idLista) {
+	public static boolean anyadirAudio(String idAudio, String idLista) {
 		
 		try {
 			Connection conn = ConnectionManager.getConnection();
 			PreparedStatement ps = conn.prepareStatement(INSERTAUDIO_QUERY);
 			
-			ps.setInt(1, idAudio);
-			ps.setInt(2, idLista);            
+			ps.setString(1, idAudio);
+			ps.setString(2, idLista);            
             
 			ps.executeUpdate();
 			
@@ -317,14 +315,14 @@ public class ListaReproduccionDAO {
 	}
     
     // Comprueba si el nombre de una lista de usuario esta repetido (invalido) o no (valido)
-    private static boolean nombreValido(int usuario, String nombre, String tipo){
+    private static boolean nombreValido(String usuario, String nombre, String tipo){
         List<String> nombres = new ArrayList<String>();
         try {
             
             Connection conn2 = ConnectionManager.getConnection();
             PreparedStatement ps = conn2.prepareStatement(GETNAMES_QUERY);
             
-            ps.setInt(1, usuario);
+            ps.setString(1, usuario);
             ps.setString(2, tipo);
             
             ResultSet rs = ps.executeQuery();
