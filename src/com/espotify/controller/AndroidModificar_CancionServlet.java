@@ -57,7 +57,10 @@ public class AndroidModificar_CancionServlet extends HttpServlet {
         
         CancionDAO canciondao = new CancionDAO();
         int idCancion = canciondao.obtenerIdCancion(nombreViejoCancion);
-        boolean cambiado = canciondao.modificarCancion(nombreNuevoCancion, generoNuevoCancion, idCancion);
+        
+        // TODO: GÉNERO!!!!!!!
+        
+        boolean cambiado = canciondao.modificarCancion(nombreNuevoCancion, 1, idCancion);
         
         JSONObject respuestaPeticion = new JSONObject();
         if(cambiado) {

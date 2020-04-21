@@ -107,7 +107,7 @@ public class FavoritosDAO {
  	//public static void main(String[] args) throws SQLException, IOException{
  		
  		//boolean anyadido = anyadirAudio("2","6");
- 		//if (anyadido) System.out.println("AÃ±adido audio a favoritos");
+ 		//if (anyadido) System.out.println("Añadido audio a favoritos");
  		
  		/*List<Audio> la = getAudios("2");
  		for (Audio a : la) {
@@ -118,4 +118,3 @@ public class FavoritosDAO {
  		
  	//}
 }
-

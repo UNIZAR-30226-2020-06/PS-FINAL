@@ -261,6 +261,36 @@ public static boolean crear(String usuario, String nombre, String descripcion, S
 		
 		return audios;
 	}
+	public List<Audio> getAudios(int usuario) {
+		List<Audio> audios = new ArrayList<Audio>();
+		try {
+
+			Connection conn = ConnectionManager.getConnection();
+			PreparedStatement ps = conn.prepareStatement(GETAUDIOS_QUERY);
+            
+            ps.setInt(1, usuario);
+									 
+											 
+			ResultSet rs = ps.executeQuery();
+
+			while(rs.next()){
+				Audio result = new Audio(rs.getString("id"), rs.getString("url"), 
+						rs.getString("titulo"), rs.getString("autor"), rs.getString("genero"));
+                audios.add(result);
+			}
+			
+			ConnectionManager.releaseConnection(conn);
+			
+		} catch(SQLException se) {
+			se.printStackTrace();
+		} catch(Exception e) {
+			e.printStackTrace(System.err);
+		}
+		
+		return audios;
+	}
+	
+	
 
 	public static List<ListaReproduccion> showLists(String usuario, String tipo) {
 		List<ListaReproduccion> rutas = new ArrayList<ListaReproduccion>();
@@ -268,6 +298,9 @@ public static boolean crear(String usuario, String nombre, String descripcion, S
 
 			Connection conn = ConnectionManager.getConnection();
 			PreparedStatement ps = conn.prepareStatement(SHOWLISTS_QUERY);
+   
+						 
+									 
             
 			ps.setString(1, usuario);
             ps.setString(2, tipo);
@@ -281,11 +314,14 @@ public static boolean crear(String usuario, String nombre, String descripcion, S
 			}
 			
 			ConnectionManager.releaseConnection(conn);
+			   
 			
 		} catch(SQLException se) {
 			se.printStackTrace();
+				
 		} catch(Exception e) {
 			e.printStackTrace(System.err);
+				
 		}
 		
 		return rutas;

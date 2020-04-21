@@ -52,7 +52,7 @@ public class GeneroDAO {
 			return nombre;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			System.out.println("Error al obtener el id de la canciÃ³n");
+			System.out.println("Error al obtener el id de la canción");
 			return null;
 		}
 	}
