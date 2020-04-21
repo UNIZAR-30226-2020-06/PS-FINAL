@@ -37,8 +37,41 @@ public class ListaReproduccionDAO {
 	private final static String DELETE_AUDIO_QUERY = "DELETE FROM Reproductor_musica.Contiene WHERE audio = ? AND lista = ?";
 	private final static String GETLIST_ID_QUERY = "SELECT lista.id FROM Reproductor_musica.ListasRep WHERE lista.nombre = ?";
 	private final static String GETNAMES_QUERY = "SELECT nombre FROM Reproductor_musica.ListasRep WHERE usuario = ? AND tipo = ?";
+	
+	public static boolean crear(int usuario, String nombre, String descripcion, String tipo) {
 
-public static boolean crear(String usuario, String nombre, String descripcion, String tipo) {
+		
+		try {
+			Connection conn = ConnectionManager.getConnection();
+			PreparedStatement ps = conn.prepareStatement(INSERT_QUERY);
+			
+			ps.setInt(1, usuario);
+			ps.setString(2, nombre);
+			ps.setString(3, descripcion);
+			ps.setString(4, "");
+			ps.setString(5, tipo);
+            
+            // Asegurar nombre no repetido
+            if (!nombreValido(usuario,nombre,tipo)){
+            	return false;
+            }
+            
+			ps.executeUpdate();
+			
+			ConnectionManager.releaseConnection(conn);
+			return true;
+			
+		} catch(SQLException se) {
+			System.out.println(se.getMessage());
+			return false;
+		} catch(Exception e) {
+			e.printStackTrace(System.err);
+			return false;
+		}
+	}
+	
+	public static boolean crear(String usuario, String nombre, String descripcion, String tipo) {
+
 		
 		try {
 			Connection conn = ConnectionManager.getConnection();
@@ -93,6 +126,30 @@ public static boolean crear(String usuario, String nombre, String descripcion, S
 		}
 	}
 	
+	public static boolean borrar(String nombre, int usuario, String tipo) {
+		
+		try {
+			Connection conn = ConnectionManager.getConnection();
+			PreparedStatement ps = conn.prepareStatement(DELETE_QUERY);
+			
+			ps.setString(1, nombre);
+            ps.setInt(2, usuario);
+            ps.setString(3, tipo);
+
+			ps.executeUpdate();
+			
+			ConnectionManager.releaseConnection(conn);
+			return true;
+			
+		} catch(SQLException se) {
+			System.out.println(se.getMessage());
+			return false;
+		} catch(Exception e) {
+			e.printStackTrace(System.err);
+			return false;
+		}
+	}
+	
 	public static boolean borrarCancionLista(int idCancion, int idLista) {
 		
 		try {
@@ -132,6 +189,71 @@ public static boolean crear(String usuario, String nombre, String descripcion, S
 
 		} catch(SQLException se) {
 			System.out.println(se.getMessage());
+			return false;
+		} catch(Exception e) {
+			e.printStackTrace(System.err);
+			return false;
+		}
+	}
+	
+	public static boolean cambiar_info(String nombreOld, String nombreNew, int usuario, String descripcion, String imagen, String tipo) {
+	
+		try {
+			Connection conn = ConnectionManager.getConnection();
+			PreparedStatement ps;
+			boolean cambioNombre = false;
+			boolean cambiada = false;
+
+			if(nombreNew != null && !nombreNew.equals("") && !nombreNew.equals(nombreOld)) {
+				ps = conn.prepareStatement(UPDATE_NOM_QUERY);
+				
+				ps.setString(1, nombreNew);
+				ps.setString(2, nombreOld);
+                ps.setInt(3, usuario);
+                ps.setString(4, tipo);
+				ps.executeUpdate();
+				cambioNombre = true;
+				cambiada = true;
+			}
+			if(descripcion != null && !descripcion.equals("")) {
+				ps = conn.prepareStatement(UPDATE_DES_QUERY);
+				
+				ps.setString(1, descripcion);
+				if (cambioNombre) {
+					ps.setString(2, nombreNew);
+				}
+				else {
+					ps.setString(2, nombreOld);
+				}
+                ps.setInt(3, usuario);
+                ps.setString(4, tipo);
+				ps.executeUpdate();
+				cambiada = true;
+			}
+			if(imagen != null && !imagen.equals("")) {
+				ps = conn.prepareStatement(UPDATE_IMG_QUERY);
+				FileInputStream imagenBinaria = new FileInputStream(imagen);
+				
+				ps.setBlob(1, imagenBinaria);
+				if (cambioNombre) {
+					ps.setString(2, nombreNew);
+				}
+				else {
+					ps.setString(2, nombreOld);
+				}
+                ps.setInt(3, usuario);
+                ps.setString(4, tipo);
+				ps.executeUpdate();
+				
+				imagenBinaria.close();
+				
+				cambiada = true;
+			}
+			ConnectionManager.releaseConnection(conn);
+			return cambiada;
+			
+		} catch(SQLException se) {
+			se.printStackTrace();
 			return false;
 		} catch(Exception e) {
 			e.printStackTrace(System.err);
@@ -204,6 +326,35 @@ public static boolean crear(String usuario, String nombre, String descripcion, S
 		}
 	}
 	
+	public ListaReproduccion getInfoList(String nombre, int usuario, String tipo) {
+		ListaReproduccion result = null;
+		try {
+
+			Connection conn = ConnectionManager.getConnection();
+			PreparedStatement ps = conn.prepareStatement(GETINFOLIST_QUERY);
+            
+			ps.setString(1, nombre);
+            ps.setInt(2, usuario);
+            ps.setString(3, tipo);
+			
+			ResultSet rs = ps.executeQuery();
+
+			if(rs.first()){
+				result = new ListaReproduccion(rs.getString("id"), rs.getString("nombre"), 
+						rs.getString("usuario"), rs.getString("descripcion"), (Blob) rs.getBlob("imagen"), rs.getString("tipo"));
+			}
+			
+			ConnectionManager.releaseConnection(conn);
+			
+		} catch(SQLException se) {
+			se.printStackTrace();
+		} catch(Exception e) {
+			e.printStackTrace(System.err);
+		}
+		
+		return result;
+	}
+	
 	public static ListaReproduccion getInfoList(String nombre, String usuario, String tipo) {
 		ListaReproduccion result = null;
 		try {
@@ -231,6 +382,35 @@ public static boolean crear(String usuario, String nombre, String descripcion, S
 		}
 		
 		return result;
+	}
+	
+	public static List<Audio> getAudios(String nombre, int usuario, String tipo) {
+		List<Audio> audios = new ArrayList<Audio>();
+		try {
+
+			Connection conn = ConnectionManager.getConnection();
+			PreparedStatement ps = conn.prepareStatement(GETAUDIOS_QUERY);
+            
+			ps.setString(1, nombre);
+            ps.setInt(2, usuario);
+            ps.setString(3, tipo);           
+			ResultSet rs = ps.executeQuery();
+
+			while(rs.next()){
+				Audio result = new Audio(rs.getString("id"), rs.getString("url"), 
+						rs.getString("titulo"), rs.getString("autor"), rs.getString("genero"));
+                audios.add(result);
+			}
+			
+			ConnectionManager.releaseConnection(conn);
+			
+		} catch(SQLException se) {
+			se.printStackTrace();
+		} catch(Exception e) {
+			e.printStackTrace(System.err);
+		}
+		
+		return audios;
 	}
 
 	public static List<Audio> getAudios(String nombre, String usuario, String tipo) {
@@ -349,6 +529,62 @@ public static boolean crear(String usuario, String nombre, String descripcion, S
 			return false;
 		}
 	}
+	
+	public static boolean anyadirAudio(int idAudio, int idLista) {
+		
+		try {
+			Connection conn = ConnectionManager.getConnection();
+			PreparedStatement ps = conn.prepareStatement(INSERTAUDIO_QUERY);
+			
+			ps.setInt(1, idAudio);
+			ps.setInt(2, idLista);            
+            
+			ps.executeUpdate();
+			
+			ConnectionManager.releaseConnection(conn);
+			return true;
+			
+		} catch(SQLException se) {
+			System.out.println(se.getMessage());
+			return false;
+		} catch(Exception e) {
+			e.printStackTrace(System.err);
+			return false;
+		}
+	}
+	
+	private static boolean nombreValido(int usuario, String nombre, String tipo){
+        List<String> nombres = new ArrayList<String>();
+        try {
+            
+            Connection conn2 = ConnectionManager.getConnection();
+            PreparedStatement ps = conn2.prepareStatement(GETNAMES_QUERY);
+            
+            ps.setInt(1, usuario);
+            ps.setString(2, tipo);
+            
+            ResultSet rs = ps.executeQuery();
+            
+            while(rs.next()){
+                String aux = rs.getString("nombre");
+                nombres.add(aux);
+            }
+            
+            ConnectionManager.releaseConnection(conn2);
+            
+        } catch(SQLException se) {
+            se.printStackTrace();
+        } catch(Exception e) {
+            e.printStackTrace(System.err);
+        }
+        
+        for (String n : nombres){
+            if (n.equals(nombre)){
+                return false;
+            }
+        }
+        return true;
+    }
     
     // Comprueba si el nombre de una lista de usuario esta repetido (invalido) o no (valido)
     private static boolean nombreValido(String usuario, String nombre, String tipo){
