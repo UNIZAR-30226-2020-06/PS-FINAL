@@ -100,21 +100,21 @@ public class UsuarioDAO {
 				ps.setString(2, id);
 				ps.executeUpdate();
 			}
-			else if(descripcion != null) {
+			if(descripcion != null) {
 				ps = conn.prepareStatement(UPDATE_DES_QUERY);
 				
 				ps.setString(1, descripcion);
 				ps.setString(2, id);
 				ps.executeUpdate();
 			}
-			else if(email != null && !email.equals("")) {
+			if(email != null && !email.equals("")) {
 				ps = conn.prepareStatement(UPDATE_MAIL_QUERY);
 				
 				ps.setString(1, email);
 				ps.setString(2, id);
 				ps.executeUpdate();
 			}
-			else if(imagen != null && !imagen.equals("")) {
+			if(imagen != null && !imagen.equals("")) {
 				ps = conn.prepareStatement(UPDATE_IMG_QUERY);
 				File fichero = new File(imagen);
 				FileInputStream streamEntrada = new FileInputStream(fichero);

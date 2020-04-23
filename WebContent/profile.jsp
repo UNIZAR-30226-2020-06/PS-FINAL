@@ -401,6 +401,7 @@ pageEncoding="UTF-8"%>
 <% 
 String nombre = (String) session.getAttribute("nombre");
 String descripcion = (String) session.getAttribute("descripcion");
+String email = (String) session.getAttribute("email");
 //String imagen = (String) session.getAttribute("imagen");
 %>
 <!-- END Obtener datos usuario -->
@@ -899,21 +900,20 @@ String descripcion = (String) session.getAttribute("descripcion");
 					
 					<div class="form-group form-float">
 						<div class="form-line">
-							<input type="text" name="nombre" class="form-control">
+							<input type="text" name="nombre" class="form-control" value="<%=nombre%>">
 							<label class="form-label">Nombre</label>
 						</div>
 					</div>
-					<input type="submit" class="btn btn-outline-primary btn-sm pl-4 pr-4"
-						   value="Cambiar nombre">
+
 					<div class="form-group form-float">
 						<div class="form-line">
-							<input type="text" name="descripcion" class="form-control">
+							<input type="text" name="descripcion" class="form-control" value="<%=descripcion%>">
 							<label class="form-label">Descripción</label>
 						</div>
 					</div>
 
 					<input type="submit" class="btn btn-outline-primary btn-sm pl-4 pr-4"
-						   value="Cambiar descripción">
+						   value="Cambiar información">
 				</div>
 			</form>
 			<!-- #END# Input -->
@@ -935,7 +935,7 @@ String descripcion = (String) session.getAttribute("descripcion");
 					
 					<div class="form-group form-float">
 						<div class="form-line">
-							<input type="email" name="email" class="form-control">
+							<input type="email" name="email" class="form-control" value="<%=email%>">
 							<label class="form-label">Email</label>
 						</div>
 					</div>
@@ -966,7 +966,7 @@ String descripcion = (String) session.getAttribute("descripcion");
 					</div>
 
 					<input type="submit" class="btn btn-outline-primary btn-sm pl-4 pr-4"
-						   value="Cambiar constrase�a">
+						   value="Cambiar constraseña">
 				</div>
 			</form>
 			<!-- #END# Input -->

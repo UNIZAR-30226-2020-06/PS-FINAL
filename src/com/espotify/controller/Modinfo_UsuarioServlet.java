@@ -54,10 +54,12 @@ public class Modinfo_UsuarioServlet extends HttpServlet {
 			}
 			
 			//request.getRequestDispatcher("usuario.jsp").forward(request, response);
-			response.sendRedirect("profile.jsp?ok=");
+			//response.sendRedirect("profile.jsp?ok=");
+			request.getRequestDispatcher("/obtener_contenido_perfil").forward(request, response);
 		}
 		else {
-			response.sendRedirect("profile.jsp?error1=");
+			//response.sendRedirect("profile.jsp?error1=");
+			request.getRequestDispatcher("/obtener_contenido_perfil").forward(request, response);
 		}
 	}
 
