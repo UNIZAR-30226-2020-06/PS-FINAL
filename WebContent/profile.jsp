@@ -24,7 +24,7 @@ pageEncoding="UTF-8"%>
     <link rel="stylesheet" href="assets/css/app.css">
 </head>
 
-<!-- END PESTAÃA -->
+<!-- END PESTAÑA -->
 
 <body background="assets/img/fondo3.png" style="background-size: cover;background-repeat: no-repeat; background-position: center center;background-attachment: fixed;" class="sidebar-mini sidebar-collapse sidebar-expanded-on-hover has-preloader" style="display: none;">
 <!-- Pre loader
@@ -287,6 +287,9 @@ pageEncoding="UTF-8"%>
 </div>
 <!-- END BUSCADOR (LUPA) -->
 
+<%
+String hayfoto = (String) session.getAttribute("hayfoto");
+%>
 
 <!-- BARRA DE ARRIBA FIJA -->
 <nav class="navbar-wrapper shadow">
@@ -317,7 +320,11 @@ pageEncoding="UTF-8"%>
                 <li class="dropdown custom-dropdown user user-menu ">
                     <a href="#" class="nav-link" data-toggle="dropdown">
                         <figure class="avatar">
-                            <img src="assets/img/demo/u7.png" alt="">
+                            <%if (hayfoto!=null){ %>
+	                    	<img src="${pageContext.request.contextPath}/cargar_imagen">
+	                    	<%} else {%>
+	                    	<img src="assets/img/fondo1.jpg">
+	                    	<%} %>
                         </figure>
                         <i class="icon-more_vert "></i>
                     </a>
@@ -402,7 +409,6 @@ pageEncoding="UTF-8"%>
 String nombre = (String) session.getAttribute("nombre");
 String descripcion = (String) session.getAttribute("descripcion");
 String email = (String) session.getAttribute("email");
-//String imagen = (String) session.getAttribute("imagen");
 %>
 <!-- END Obtener datos usuario -->
 
@@ -419,7 +425,11 @@ String email = (String) session.getAttribute("email");
                 <div class="text-center p-5 mt-5">
 					
                     <figure style="width: 130px;height: 130px;width-max: 50%;" class="avatar avatar-xl">
-                    	<img src="assets/img/demo/u7.jpg" alt="">
+                    	<%if (hayfoto!=null){ %>
+                    	<img src="${pageContext.request.contextPath}/cargar_imagen">
+                    	<%} else {%>
+                    	<img src="assets/img/fondo1.jpg">
+                    	<%} %>
                     </figure>
                     <div>
                         <h4 class="p-t-10"><%=nombre%></h4>
@@ -536,7 +546,7 @@ String email = (String) session.getAttribute("email");
 				<div class="tab-pane fade show text-center p-5" id="w3-tab2" role="tabpanel"
 					 aria-labelledby="w3-tab2">
 					<div class="contenido-pestanas">
-						<button class="btn btn-abrir-popup icon-plus" id="abrir-listas-reproduccion">Crear Lista de Reproducción</button>
+						<button class="btn btn-abrir-popup icon-plus" id="abrir-listas-reproduccion"> Crear Lista de Reproducción</button>
 					</div>
 					<div class="row has-items-overlay">
 						<div class="col-lg-3 col-md-4 col-sm-6 my-2">
@@ -786,7 +796,7 @@ String email = (String) session.getAttribute("email");
 					<h3>SUBIR FOTO</h3>
 				</header>
 				<div class="contenedor-inputs">
-					<input type="file" class="btn btn-outline-primary btn-sm  mt-3" name="imagen" id="imagen" accept="image/jpeg"> 
+					<input type="file" class="btn btn-outline-primary btn-sm  mt-3" name="imagen" accept="image/jpeg"> 
 				</div>
 
 				<input type="submit" class="btn btn-outline-primary btn-sm pl-4 pr-4"
@@ -969,6 +979,7 @@ String email = (String) session.getAttribute("email");
 						   value="Cambiar constraseña">
 				</div>
 			</form>
+			<a href="" style="color: red;" onclick="darbaja()">Eliminar cuenta</a>
 			<!-- #END# Input -->
 	</div>
 </div>
@@ -988,6 +999,14 @@ String email = (String) session.getAttribute("email");
 <script  src="assets/js/cambiarPestanaPerfil.js"></script>
 <script  src="assets/js/audioPlayer.js"></script>
  <script src="https://code.jquery.com/jquery-2.2.0.js"></script>
+ <script>
+		function darbaja(){
+			if (confirm("¿Estás seguro que quieres eliminar tu cuenta?\nEsta operación es irreversible. Todos tus datos y canciones se perderán.")){
+					// eliminar usuario
+				document.location.href="nombre_servlet";
+			}
+		}
+	</script>
     <script>
         
         /*

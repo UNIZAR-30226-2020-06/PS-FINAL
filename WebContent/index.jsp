@@ -370,6 +370,9 @@ pageEncoding="UTF-8"%>
 </div>
 <!-- ACABA BUSCADOR (LUPA) -->
 
+<%
+String hayfoto = (String) session.getAttribute("hayfoto");
+%>
 
 <!-- BARRA DE ARRIBA FIJA -->
 <nav class="navbar-wrapper shadow">
@@ -400,7 +403,11 @@ pageEncoding="UTF-8"%>
 				<li class="dropdown custom-dropdown user user-menu ">
 					<a href="#" class="nav-link" data-toggle="dropdown">
 						<figure class="avatar">
-							<img src="assets/img/demo/u7.png" alt="">
+							<%if (hayfoto!=null){ %>
+	                    	<img src="${pageContext.request.contextPath}/cargar_imagen">
+	                    	<%} else {%>
+	                    	<img src="assets/img/fondo1.jpg">
+	                    	<%} %>
 						</figure>
 						<i class="icon-more_vert "></i>
 					</a>

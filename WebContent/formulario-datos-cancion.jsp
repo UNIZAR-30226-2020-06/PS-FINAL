@@ -517,7 +517,7 @@ request.setAttribute("ruta", (String) request.getAttribute("ruta"));
 					<div class="p5 b-b">
 						<input type="hidden" value="${id_cancion}" name="id">
 						<input type="hidden" value="${ruta}" name="ruta">
-						<input type="text" name="titulo" class="formulario-subir-cancion" placeholder="TÃ­tulo CanciÃ³n" required=""/>
+						<input type="text" name="titulo" class="formulario-subir-cancion" placeholder="Título de la canción" required=""/>
 						<select name="genero">
 						   <c:forEach var="genero" items="${generos}">
 						   		<option value="${genero.getId()}">${genero.getNombre()}</option>
