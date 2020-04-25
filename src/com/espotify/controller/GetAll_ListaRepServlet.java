@@ -45,7 +45,7 @@ public class GetAll_ListaRepServlet extends HttpServlet {
 				
 			//RequestDispatcher dispatcher=request.getRequestDispatcher("user.jsp");
 			//dispatcher.forward(request, response);
-			request.getRequestDispatcher("albums.jsp").forward(request, response);
+			request.getRequestDispatcher("listas_rep.jsp").forward(request, response);
 
 		}catch(Throwable theException) {
 			//response.sendRedirect("crearListaRep.jsp");

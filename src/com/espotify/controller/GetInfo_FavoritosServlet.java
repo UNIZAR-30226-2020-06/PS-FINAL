@@ -50,7 +50,7 @@ public class GetInfo_FavoritosServlet extends HttpServlet {
 			session.setAttribute("fav", 1);
 			//RequestDispatcher dispatcher=request.getRequestDispatcher("favoritos.jsp");
 			//dispatcher.forward(request, response);
-			request.getRequestDispatcher("album-single.jsp").forward(request, response);
+			request.getRequestDispatcher("lista_rep-single.jsp").forward(request, response);
 
 		}catch(Throwable theException) {
 			//response.sendRedirect("user.jsp");
