@@ -42,7 +42,9 @@ public class Val_UsuarioServlet extends HttpServlet {
 			session.setAttribute("nombre", u.getNombre());
 			session.setAttribute("email", u.getCorreo());
 			session.setAttribute("descripcion", u.getDescripcion());
-			session.setAttribute("imagen", u.getImagen()); // Imagen en formato Blob (binario)
+			session.setAttribute("imagen", u.getImagen());
+			if(u.getImagen()!=null) session.setAttribute("hayfoto", "si");
+			else session.setAttribute("hayfoto", null);
 			
 			//request.getRequestDispatcher( "index_in.jsp" ).forward( request, response );
 			response.sendRedirect("index.jsp");

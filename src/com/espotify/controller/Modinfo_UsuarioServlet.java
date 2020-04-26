@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.io.IOUtils;
+
 import com.espotify.dao.UsuarioDAO;
 
 /**
@@ -49,15 +51,19 @@ public class Modinfo_UsuarioServlet extends HttpServlet {
 			if(descripcion != null) session.setAttribute("descripcion", descripcion);
 			if(imagen != null && !imagen.equals("")) {
 				FileInputStream imagenBinaria = new FileInputStream(imagen);
-				session.setAttribute("imagen", imagenBinaria); // Se pasa la imagen como un Blob
+				byte[] bytes = IOUtils.toByteArray(imagenBinaria);
+				session.setAttribute("imagen", bytes); // Se pasa la imagen como un Blob
+				session.setAttribute("hayfoto", "si");
 				imagenBinaria.close();
 			}
 			
 			//request.getRequestDispatcher("usuario.jsp").forward(request, response);
-			response.sendRedirect("profile.jsp?ok=");
+			//response.sendRedirect("profile.jsp?ok=");
+			request.getRequestDispatcher("/obtener_contenido_perfil").forward(request, response);
 		}
 		else {
-			response.sendRedirect("profile.jsp?error1=");
+			//response.sendRedirect("profile.jsp?error1=");
+			request.getRequestDispatcher("/obtener_contenido_perfil").forward(request, response);
 		}
 	}
 

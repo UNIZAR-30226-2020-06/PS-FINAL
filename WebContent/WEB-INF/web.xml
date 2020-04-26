@@ -157,6 +157,17 @@
 	</servlet-mapping>
 	
 	
+	
+	<servlet>
+		<servlet-name>Imagen_Servlet</servlet-name>
+		<servlet-class>com.espotify.controller.Imagen_Servlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Imagen_Servlet</servlet-name>
+		<url-pattern>/cargar_imagen</url-pattern>
+	</servlet-mapping>
+	
+	
 	<servlet>
 		<servlet-name>Usuario_Val</servlet-name>
 		<servlet-class>com.espotify.controller.Val_UsuarioServlet</servlet-class>

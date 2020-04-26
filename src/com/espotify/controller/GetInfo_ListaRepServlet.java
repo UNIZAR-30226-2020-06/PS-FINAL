@@ -54,7 +54,7 @@ public class GetInfo_ListaRepServlet extends HttpServlet {
 			session.setAttribute("infoLista", infoLista);
 			session.setAttribute("audios", audios);
 				
-			request.getRequestDispatcher("album-single.jsp").forward(request, response);
+			request.getRequestDispatcher("lista_rep-single.jsp").forward(request, response);
 			//RequestDispatcher dispatcher=request.getRequestDispatcher("user.jsp");
 			//dispatcher.forward(request, response);
 

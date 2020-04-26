@@ -24,7 +24,7 @@ pageEncoding="UTF-8"%>
     <link rel="stylesheet" href="assets/css/app.css">
 </head>
 
-<!-- END PESTAÃA -->
+<!-- END PESTAÑA -->
 
 <body background="assets/img/fondo3.png" style="background-size: cover;background-repeat: no-repeat; background-position: center center;background-attachment: fixed;" class="sidebar-mini sidebar-collapse sidebar-expanded-on-hover has-preloader" style="display: none;">
 <!-- Pre loader
@@ -116,14 +116,6 @@ pageEncoding="UTF-8"%>
     </div>
 </aside>
 <!-- END MENU DE LA IZQUIERDA-->
-
-<!-- MENU DONDE ESTAN LAS CANCIONES EN LA COLA (DERECHA) -->
-
-
-<!-- Add the sidebar's background. This div must be placed
-         immediately after the control sidebar -->
-<div class="control-sidebar-bg shadow  fixed"></div>
-<!-- END MENU DONDE ESTAN LAS CANCIONES EN LA COLA (DERECHA) -->
 
 
 <!-- ALGO RANDOM DE LA PARTE DERECHA -->									
@@ -287,6 +279,9 @@ pageEncoding="UTF-8"%>
 </div>
 <!-- END BUSCADOR (LUPA) -->
 
+<%
+String hayfoto = (String) session.getAttribute("hayfoto");
+%>
 
 <!-- BARRA DE ARRIBA FIJA -->
 <nav class="navbar-wrapper shadow">
@@ -317,7 +312,11 @@ pageEncoding="UTF-8"%>
                 <li class="dropdown custom-dropdown user user-menu ">
                     <a href="#" class="nav-link" data-toggle="dropdown">
                         <figure class="avatar">
-                            <img src="assets/img/demo/u7.png" alt="">
+                            <%if (hayfoto!=null){ %>
+	                    	<img src="${pageContext.request.contextPath}/cargar_imagen">
+	                    	<%} else {%>
+	                    	<img src="assets/img/fondo1.jpg">
+	                    	<%} %>
                         </figure>
                         <i class="icon-more_vert "></i>
                     </a>
@@ -350,7 +349,7 @@ pageEncoding="UTF-8"%>
     <div class="navbar navbar-expand player-header justify-content-between  bd-navbar">
         <!--Player-->
         <div id="mediaPlayer" class="player-bar col-lg-8 col-md-5" data-auto="true">
-            <div style="height: 50px;width: 150%;" class="row align-items-center grid">
+            <div style="height: 50px;width: 157%;" class="row align-items-center grid">
             <!-- BOTONES ANTERIOR, PAUSE, SIGUIENTE -->
                 <div class="col">
                     <div class="d-flex align-items-center">
@@ -377,13 +376,20 @@ pageEncoding="UTF-8"%>
                     <div id="waveform"></div>
                 </div>
                 
-                <!-- COLA -->
+                <!-- TIEMPO -->
                 <div class="col d-none d-lg-block">
                     <small class="track-time mr-2 text-primary align-middle"></small>
-                    <a style="position: absolute;top: -5px;right: -5px;" data-toggle="control-sidebar">
-                        <i class="icon icon-menu-3 s-24 align-middle"></i>Cola
-                    </a>
-                </div>  
+                </div> 
+                
+                <button class="btn btn-link d-none d-sm-block" style="position: fixed;right: 78px;" onclick="muteVol();">
+                    <i class="icon-mute s-18"></i>
+                </button>
+                <button class="btn btn-link d-none d-sm-block" style="position: fixed;right: 49px;" onclick="bajarVol();">
+                    <i class="icon-volume-down s-18"></i>
+                </button>
+                <button class="btn btn-link d-none d-sm-block" style="position: fixed;right: 14px;" onclick="subirVol();">
+                    <i class="icon-volume-up s-18"></i>
+                </button>
             </div>
         </div>
         <!--END Player-->
@@ -401,7 +407,7 @@ pageEncoding="UTF-8"%>
 <% 
 String nombre = (String) session.getAttribute("nombre");
 String descripcion = (String) session.getAttribute("descripcion");
-//String imagen = (String) session.getAttribute("imagen");
+String email = (String) session.getAttribute("email");
 %>
 <!-- END Obtener datos usuario -->
 
@@ -418,7 +424,11 @@ String descripcion = (String) session.getAttribute("descripcion");
                 <div class="text-center p-5 mt-5">
 					
                     <figure style="width: 130px;height: 130px;width-max: 50%;" class="avatar avatar-xl">
-                    	<img src="assets/img/demo/u7.jpg" alt="">
+                    	<%if (hayfoto!=null){ %>
+                    	<img src="${pageContext.request.contextPath}/cargar_imagen">
+                    	<%} else {%>
+                    	<img src="assets/img/fondo1.jpg">
+                    	<%} %>
                     </figure>
                     <div>
                         <h4 class="p-t-10"><%=nombre%></h4>
@@ -535,7 +545,7 @@ String descripcion = (String) session.getAttribute("descripcion");
 				<div class="tab-pane fade show text-center p-5" id="w3-tab2" role="tabpanel"
 					 aria-labelledby="w3-tab2">
 					<div class="contenido-pestanas">
-						<button class="btn btn-abrir-popup icon-plus" id="abrir-listas-reproduccion">Crear Lista de Reproducción</button>
+						<button class="btn btn-abrir-popup icon-plus" id="abrir-listas-reproduccion"> Crear Lista de Reproducción</button>
 					</div>
 					<div class="row has-items-overlay">
 						<div class="col-lg-3 col-md-4 col-sm-6 my-2">
@@ -785,7 +795,7 @@ String descripcion = (String) session.getAttribute("descripcion");
 					<h3>SUBIR FOTO</h3>
 				</header>
 				<div class="contenedor-inputs">
-					<input type="file" class="btn btn-outline-primary btn-sm  mt-3" name="imagen" id="imagen" accept="image/jpeg"> 
+					<input type="file" class="btn btn-outline-primary btn-sm  mt-3" name="imagen" accept="image/jpeg"> 
 				</div>
 
 				<input type="submit" class="btn btn-outline-primary btn-sm pl-4 pr-4"
@@ -899,21 +909,20 @@ String descripcion = (String) session.getAttribute("descripcion");
 					
 					<div class="form-group form-float">
 						<div class="form-line">
-							<input type="text" name="nombre" class="form-control">
+							<input type="text" name="nombre" class="form-control" value="<%=nombre%>">
 							<label class="form-label">Nombre</label>
 						</div>
 					</div>
-					<input type="submit" class="btn btn-outline-primary btn-sm pl-4 pr-4"
-						   value="Cambiar nombre">
+
 					<div class="form-group form-float">
 						<div class="form-line">
-							<input type="text" name="descripcion" class="form-control">
+							<input type="text" name="descripcion" class="form-control" value="<%=descripcion%>">
 							<label class="form-label">Descripción</label>
 						</div>
 					</div>
 
 					<input type="submit" class="btn btn-outline-primary btn-sm pl-4 pr-4"
-						   value="Cambiar descripción">
+						   value="Cambiar información">
 				</div>
 			</form>
 			<!-- #END# Input -->
@@ -935,7 +944,7 @@ String descripcion = (String) session.getAttribute("descripcion");
 					
 					<div class="form-group form-float">
 						<div class="form-line">
-							<input type="email" name="email" class="form-control">
+							<input type="email" name="email" class="form-control" value="<%=email%>">
 							<label class="form-label">Email</label>
 						</div>
 					</div>
@@ -966,9 +975,10 @@ String descripcion = (String) session.getAttribute("descripcion");
 					</div>
 
 					<input type="submit" class="btn btn-outline-primary btn-sm pl-4 pr-4"
-						   value="Cambiar constrase�a">
+						   value="Cambiar constraseña">
 				</div>
 			</form>
+			<a href="" style="color: red;" onclick="darbaja()">Eliminar cuenta</a>
 			<!-- #END# Input -->
 	</div>
 </div>
@@ -988,6 +998,14 @@ String descripcion = (String) session.getAttribute("descripcion");
 <script  src="assets/js/cambiarPestanaPerfil.js"></script>
 <script  src="assets/js/audioPlayer.js"></script>
  <script src="https://code.jquery.com/jquery-2.2.0.js"></script>
+ <script>
+		function darbaja(){
+			if (confirm("¿Estás seguro que quieres eliminar tu cuenta?\nEsta operación es irreversible. Todos tus datos y canciones se perderán.")){
+					// eliminar usuario
+				document.location.href="nombre_servlet";
+			}
+		}
+	</script>
     <script>
         
         /*
@@ -1020,6 +1038,25 @@ String descripcion = (String) session.getAttribute("descripcion");
 			audio.loop = true;
 		}
 		//audio.load();
+	}
+	
+	function subirVol(){
+		var audio = document.getElementsByTagName("audio")[0];
+		audio.volume+=0.1;
+	}
+	
+	function bajarVol(){
+		var audio = document.getElementsByTagName("audio")[0];
+		audio.volume-=0.1;
+	}
+	
+	function muteVol(){
+		var audio = document.getElementsByTagName("audio")[0];
+		if(audio.muted){
+			audio.muted = false;
+		}else{
+			audio.muted = true;
+		}
 	}
 	</script>
 	<script>
