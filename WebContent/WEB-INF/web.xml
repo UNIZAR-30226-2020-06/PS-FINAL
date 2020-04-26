@@ -139,6 +139,15 @@
 	</servlet-mapping>
 	
 	<servlet>
+		<servlet-name>AndroidModificar_UsuarioServlet</servlet-name>
+		<servlet-class>com.espotify.controller.AndroidModificar_UsuarioServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AndroidModificar_UsuarioServlet</servlet-name>
+		<url-pattern>/modificar_usuario_android</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
 		<servlet-name>Usuario_modinfo</servlet-name>
 		<servlet-class>com.espotify.controller.Modinfo_UsuarioServlet</servlet-class>
 	</servlet>

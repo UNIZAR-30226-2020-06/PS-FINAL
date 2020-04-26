@@ -80,17 +80,9 @@ public class AndroidGet_ProfileServlet extends HttpServlet {
         	audiosUsuarioUrls += audio.getUrl() + "|";
         }
         
-        if (listasReproduccion.equals("")) {
-        	listasReproduccion = listasReproduccion.substring(0, listasReproduccion.length() - 1);
-        }
-        
-        if (audiosUsuarioTitulo.equals("")) {
-        	audiosUsuarioTitulo = audiosUsuarioTitulo.substring(0, audiosUsuarioTitulo.length() - 1);
-        }
-        
-        if (audiosUsuarioUrls.equals("")) {
-        	audiosUsuarioUrls = audiosUsuarioUrls.substring(0, audiosUsuarioUrls.length() - 1);
-        }
+    	listasReproduccion = listasReproduccion.substring(0, listasReproduccion.length() - 1);
+    	audiosUsuarioTitulo = audiosUsuarioTitulo.substring(0, audiosUsuarioTitulo.length() - 1);
+    	audiosUsuarioUrls = audiosUsuarioUrls.substring(0, audiosUsuarioUrls.length() - 1);
         
         respuestaPeticion.put("lista", listasReproduccion);
         respuestaPeticion.put("audiosTitulo", audiosUsuarioTitulo);
