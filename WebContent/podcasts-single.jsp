@@ -106,7 +106,7 @@ pageEncoding="UTF-8"%>
                 </a>
             </li>
             
-            <li><a class="ajaxifyPage" href="blog.jsp" onclick="setTimeout(location.reload.bind(location), 1)">
+            <li><a class="ajaxifyPage" href="podcasts.jsp" onclick="setTimeout(location.reload.bind(location), 1)">
                     <i class="icon icon-headphones s-24"></i> <span>Mis podcasts</span>
                 </a>
             </li>
@@ -412,102 +412,6 @@ pageEncoding="UTF-8"%>
 -->
 </nav>
 
-<c:choose>
-<c:when test="${fav=='1'}" >
-<!-- LISTA DE FAVORITOS-->
-
-<!--Page Content-->
-<main id="pageContent" class="page has-sidebar">
-<div class="container-fluid relative animatedParent animateOnce p-lg-5">
-	<div class="container-fluid relative animatedParent animateOnce p-0">
-		<div class="card no-b shadow no-r">
-			<div class="animated">
-				<!--Banner-->
-
-					<div class="has-bottom-gradient">
-						<div class="row pt-5 ml-lg-5 mr-lg-5">
-							<div class="col-md-10 offset-1">
-								<div class="row my-5 pt-5">
-									<div class="col-md-3">
-										<img src="assets/img/demo/a2.jpg" alt="/">
-									</div>
-									<div class="col-md-9">
-										<div class="d-md-flex align-items-center justify-content-between">
-											<h1 class="my-3 text-orange">Mis Favoritos</h1>
-											<div class="ml-auto mb-2">
-												<a href="#" class="snackbar ml-3" data-text="You like this song"
-												   data-pos="top-right"
-												   data-showAction="true"
-												   data-actionText="ok"
-												   data-actionTextColor="#fff"
-												   data-backgroundColor="#0c101b"><i class="icon-heart s-24"></i></a>
-												<a href="#" class="snackbar ml-3" data-text="Thanks for sharing"
-												   data-pos="top-right"
-												   data-showAction="true"
-												   data-actionText="ok"
-												   data-actionTextColor="#fff"
-												   data-backgroundColor="#0c101b"><i class="icon-share-1 s-24"></i></a>
-											</div>
-										</div>
-
-										<div class="text-orange my-2">
-											<p>Todas tus canciones favoritas en una playlist única</p>
-										</div>
-
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</section>
-				<!--@Banner-->
-
-				<div class="p-3 p-lg-5">
-					<!--New Releases-->
-					<section>
-						<div class="row">
-							<div class="col-lg-10 offset-lg-1">
-								<div class="row">
-									<div class="col-md-12">
-										<div class="playlist">
-											<ul id="playlist" class="playlist list-group">
-												<c:forEach var="cancion" items="${audios}">                    
-													<div style="margin-bottom: -1px;" class="cancion">
-														<li class="list-group-item my-1">																
-															<div class="d-flex align-items-center">
-																<div class="col-1">
-																	<a class="no-ajaxy media-url" href="${cancion.getUrl()}">
-																		<i class="icon-play s-28"></i>
-																	</a>					
-																</div>
-																<div class="col-6">
-																	<h6>${cancion.getTitulo()}</h6>${cancion.getGenero()}
-																</div>
-																<span class="ml-auto">${cancion.getGenero()}</span>
-																<a href="#" class="ml-auto"><i class="icon-share-1"></i></a>
-																<div class="ml-auto">
-																	<a href="${pageContext.request.contextPath}/borrar_cancion_fav?idAudio=${cancion.getId()}" class="btn-icono icon-trash-o" onclick="setTimeout(location.reload.bind(location), 1)"></a>
-																</div>
-															</div>
-														</li>
-													</div>								                
-												</c:forEach>
-											</ul>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</section>
-					<!--@New Releases-->
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-</c:when>
-<c:otherwise>
-<!-- LISTAS DE REPRODUCCION -->
 
 <!--Page Content-->
 <div class="container-fluid relative animatedParent animateOnce p-lg-5">
@@ -600,41 +504,7 @@ pageEncoding="UTF-8"%>
 		</div>
 	</div>
 </div>
-</c:otherwise>
-</c:choose>
-<!-- AÑADIR CANCION A LISTA DE REPRODUCCI�N -->
-<div class="overlay-pop-up" id="overlay-anadir-listas-reproduccion">
-    <div class="col-md-7 card p-5">
-		<a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-anadir-listas-reproduccion" class="btn-cerrar-popup-perfil"><i class="icon-close1"></i></a>			
-			<!-- Input -->
-				<div class="body">
-					<div class="row has-items-overlay">
-						<c:forEach var="listalr" items="${listaslr}">
-						<div class="col-lg-3 col-md-4 col-sm-6 my-2">
-							<figure>
-								<div class="img-wrapper">
-			
-									<img src="assets/img/demo/a1.jpg" alt="/">
-									
-									<div class="figure-title text-center p-2">
-										<h5>${listalr.getNombre()}</h5>
-									</div>
-								</div>
-							</figure>
-							<form class="form-material" action="anyadir_cancion_lr" method="post">
-								<input type="submit" class="btn btn-outline-primary btn-sm pl-4 pr-4" value="Añadir">
-								<input type="hidden" name="idLista" value="${listalr.getId()}">
-								<input type="hidden" name="idAudio" value="">
-								<input type="hidden" name="nombreLista" value="${listalr.getNombre()}">
-							</form>	
-						</div>
-					</c:forEach>
-				<!-- #END# Input -->
-				</div>
-			</div>		
-	</div>
-</div>
-<!-- END AÑADIR CANCION A LISTA DE REPRODUCCI�N -->
+
 
 <%session.setAttribute("fav", 0); %>
 

@@ -1,7 +1,21 @@
-%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@page import="java.util.ArrayList"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%><!DOCTYPE html>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<!DOCTYPE html>
 <html lang="zxx">
+
+<!--  
+########################################################################
+############### BASE DE TODAS LAS PAGINAS    ###########################
+########################################################################
+-->
+
+<!-- RECOGIDA DATOS -->
+<%
+String nombre = (String) session.getAttribute("nombre");
+%>
+
 
 <!-- NOMBRE DE LA PESTAÃA -->
 <head>
@@ -10,17 +24,17 @@ pageEncoding="UTF-8"%>
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="icon" href="assets/img/basic/logo.ico" type="image/x-icon">
-    <title>Espotify - Mis Listas</title>
+    <title>Espotify</title>
     <!-- CSS -->
     <link rel="stylesheet" href="assets/css/app.css">
 </head>
 
-<body background="assets/img/fondo.png" style="background-size: cover;background-repeat: no-repeat; background-position: center center;background-attachment: fixed;" class="sidebar-mini sidebar-collapse sidebar-expanded-on-hover has-preloader" style="display: none;">
+<body background="assets/img/fondo3.png" style="background-size: cover;background-repeat: no-repeat; background-position: center center;background-attachment: fixed;" class="sidebar-mini sidebar-collapse sidebar-expanded-on-hover has-preloader" style="display: none;">
 <!-- Pre loader
   To disable preloader remove 'has-preloader' from body
  -->
 
- <div id="loader" class="loader">
+<div id="loader" class="loader">
     <div class="loader-container">
         <div class="preloader-wrapper big active">
             <div class="spinner-layer spinner-blue">
@@ -80,23 +94,23 @@ pageEncoding="UTF-8"%>
             
             <li class="menu-item-has-children">
                 <a href="#">
-                    <i class="icon icon-layers s-24"></i> <span>Categor�as</span>
+                    <i class="icon icon-layers s-24"></i> <span>Categorías</span>
                     <i class=" icon-angle-left  pull-right"></i>
                 </a>
                 <ul class="sub-menu">
-					<c:forEach var="genero" items="${generos}">                    
-						<li><a href="page-blank.jsp" onclick="setTimeout(location.reload.bind(location), 1)">${genero.getNombre()}</a></li>
+					<c:forEach var="genero1" items="${generos}">                    
+						<li><a href="page-blank.jsp" onclick="setTimeout(location.reload.bind(location), 1)">${genero1.getNombre()}</a></li>
 	                </c:forEach>
 
                 </ul>
             </li>
             
-            <li><a class="ajaxifyPage" href="mostrar_lrs?tipo=ListaRep" onclick="setTimeout(location.reload.bind(location), 1)">
-                    <i class="icon icon-compact-disc-1 s-24"></i> <span>Mis Podcasts</span>
+            <li><a class="ajaxifyPage" href="videos.jsp" onclick="setTimeout(location.reload.bind(location), 1)">
+                    <i class="icon icon-compact-disc-1 s-24"></i> <span>Mis listas de reproduccion</span>
                 </a>
             </li>
             
-            <li><a class="ajaxifyPage" href="blog.jsp" onclick="setTimeout(location.reload.bind(location), 1)">
+            <li><a class="ajaxifyPage" href="podcasts.jsp" onclick="setTimeout(location.reload.bind(location), 1)">
                     <i class="icon icon-headphones s-24"></i> <span>Mis podcasts</span>
                 </a>
             </li>
@@ -116,7 +130,7 @@ pageEncoding="UTF-8"%>
         <div class="p-3">
             <ul id="playlist" class="playlist list-group">
                 <li class="list-group-item my-1">
-                    <a class="no-ajaxy media-url" href="http://34.69.44.48/almacen-mp3/13.mp3" data-wave="http://34.69.44.48/almacen-mp3/13.mp3">
+                    <a class="no-ajaxy media-url" href="assets/media/track1.mp3"  data-wave="assets/media/track1.json">
                         <div class="d-flex justify-content-between align-items-center">
                             <i class="icon-play s-28"></i>
                             <figure class="avatar-md float-left mr-3 mt-1">
@@ -200,6 +214,7 @@ pageEncoding="UTF-8"%>
 <div class="control-sidebar-bg shadow  fixed"></div>
 <!-- ACABA MENU DERECHA -->
 
+
 <svg class="d-none">
     <defs>
         <symbol id="icon-cross" viewBox="0 0 24 24">
@@ -210,6 +225,8 @@ pageEncoding="UTF-8"%>
         </symbol>
     </defs>
 </svg>
+
+<!-- BUSCADOR (LUPA) -->
 <div class="searchOverlay page">
     <button
             id="btn-searchOverlay-close"
@@ -301,7 +318,7 @@ pageEncoding="UTF-8"%>
                         <li class="list-group-item">
                             <div class="d-flex align-items-center ">
                                 <div class="col-8 ">
-                                    <a href="podcasts-single.jsp" onclick="setTimeout(location.reload.bind(location), 1)">
+                                    <a href="video-single.jsp" onclick="setTimeout(location.reload.bind(location), 1)">
                                         <h6>Battal of Bands</h6>
                                     </a>
                                     <small class="mt-1"><i class="icon-placeholder-3 mr-1 "></i> London Music Hall
@@ -318,7 +335,7 @@ pageEncoding="UTF-8"%>
                         <li class="list-group-item">
                             <div class="d-flex align-items-center ">
                                 <div class="col-8 ">
-                                    <a href="album-single.jsp" onclick="setTimeout(location.reload.bind(location), 1)">
+                                    <a href="video-single.jsp" onclick="setTimeout(location.reload.bind(location), 1)">
                                         <h6>Battal of Bands</h6>
                                     </a>
                                     <small class="mt-1"><i class="icon-placeholder-3 mr-1 "></i> London Music Hall
@@ -335,7 +352,7 @@ pageEncoding="UTF-8"%>
                         <li class="list-group-item">
                             <div class="d-flex align-items-center ">
                                 <div class="col-8 ">
-                                    <a href="album-single.jsp">
+                                    <a href="video-single.jsp" onclick="setTimeout(location.reload.bind(location), 1)">
                                         <h6>Battal of Bands</h6>
                                     </a>
                                     <small class="mt-1"><i class="icon-placeholder-3 mr-1 "></i> London Music Hall
@@ -356,6 +373,7 @@ pageEncoding="UTF-8"%>
         </div>
     </div>
 </div>
+<!-- ACABA BUSCADOR (LUPA) -->
 
 
 <!-- BARRA DE ARRIBA FIJA -->
@@ -373,47 +391,54 @@ pageEncoding="UTF-8"%>
         </div>
         
         <!--Top Menu Start -->
-<div class="navbar-custom-menu">
-    <ul class="nav navbar-nav">
+        <div class="navbar-custom-menu">
+            <ul class="nav navbar-nav">
 
-        <!-- Right Sidebar Toggle Button -->
-        <li class="searchOverlay-wrap">
-            <a href="#" id="btn-searchOverlay" class="nav-link mr-3 btn--searchOverlay no-ajaxy">
-                <i class="icon icon-search s-24"></i>
-            </a>
+                <!-- Right Sidebar Toggle Button -->
+                <li class="searchOverlay-wrap">
+                    <a href="#" id="btn-searchOverlay" class="nav-link mr-3 btn--searchOverlay no-ajaxy">
+                        <i class="icon icon-search s-24"></i>
+                    </a>
 
-        </li>
-        <!-- User Account-->
-        <li class="dropdown custom-dropdown user user-menu ">
-            <a href="#" class="nav-link" data-toggle="dropdown">
-                <figure class="avatar">
-                    <img src="assets/img/demo/u7.png" alt="">
-                </figure>
-                <i class="icon-more_vert "></i>
-            </a>
-            <div class="dropdown-menu p-4 dropdown-menu-right">
-                <div class="row box justify-content-between my-4">
-                    <div class="col text-center">
-                        <a class="ajaxifyPage" href="obtener_contenido_perfil" onclick="setTimeout(location.reload.bind(location), 1)">
-                            <i class="icon-user-4  s-24"></i>
-                            <div class="pt-1">Mi perfil</div>
-                        </a>
+                </li>
+                <!-- User Account-->
+                <li class="dropdown custom-dropdown user user-menu ">
+                    <a href="#" class="nav-link" data-toggle="dropdown">
+                        <figure class="avatar">
+                            <img src="assets/img/demo/u7.png" alt="">
+                        </figure>
+                        <i class="icon-more_vert "></i>
+                    </a>
+                    <div class="dropdown-menu p-4 dropdown-menu-right">
+                        <div class="row box justify-content-between my-4">
+                            <div class="col text-center">
+                                <a class="ajaxifyPage" href="profile.jsp" onclick="setTimeout(location.reload.bind(location), 1)">
+                                    <i class="icon-user-4  s-24"></i>
+                                    <div class="pt-1">Mi perfil</div>
+                                </a>
+                            </div>
+                            <div class="col text-center">
+                                <a class="ajaxifyPage" href="#" onclick="setTimeout(location.reload.bind(location), 1)">
+                                    <i class="icon-cog  s-24"></i>
+                                    <div class="pt-1">Ajustes cuenta</div>
+                                </a>
+                            </div>
+                            <div class="col text-center">
+								<a class="ajaxifyPage" href="logout" onclick="setTimeout(location.reload.bind(location), 1)">
+									<a href="<%= request.getContextPath()+"/Cerrar_SesionServlet"%>"><i class="icon-exit-2  s-24"></i>
+                                    <div class="pt-1">Cerrar sesión</div></a>
+								</a>
+							</div>
+                        </div>
                     </div>
-                    <div class="col text-center">
-                        <a class="ajaxifyPage" href="logout" onclick="setTimeout(location.reload.bind(location), 1)">
-                            <a href="<%= request.getContextPath()+"/Cerrar_SesionServlet"%>"><i class="icon-exit-2  s-24"></i>
-                            <div class="pt-1">Cerrar sesi�n</div></a>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </li>
-    </ul>
-</div>
+                </li>
+            </ul>
+        </div>
     </div>
-
 </nav>
 <!-- ACABA BARRA DE ARRIBA FIJA -->
+
+
 <!-- BARRA DE ABAJO FIJA-->
 <nav class="navbar-wrapper navbar-bottom-fixed shadow">
     <div class="navbar navbar-expand player-header justify-content-between  bd-navbar">
@@ -457,170 +482,71 @@ pageEncoding="UTF-8"%>
         </div>
         <!--END Player-->
     </div>
-
 </nav>
 <!-- ACABA BARRA DE ABAJO -->
 
+<!--  
+########################################################################
+############### ACABA BASE DE TODAS LAS PAGINAS    #####################
+########################################################################
+-->
+<!--Page Content-->
 <main id="pageContent" class="page has-sidebar">
-
-<div class="container-fluid relative animatedParent animateOnce">
-        <div class="animated p-5 ml-lg-5 mr-lg-5">
-            <section>
-                <div class="relative mb-5" style="text-align: center;">
-                    <h1 class="mb-2 text-primary">Podcast</h1>
-                    <p>Todas tus Podcasts</p>
+<div class="container-fluid relative animatedParent animateOnce p-lg-5">
+    <div class="card no-b shadow no-r">
+        <div class="row no-gutters">
+            <div class="col-md-4 b-r">
+                <div class="text-center p-5 mt-5">
+                    <figure class="avatar avatar-xl">
+                        <img src="assets/img/demo/u7.jpg" alt=""></figure>
+                    <div>
+                        <h4 class="p-t-10"><%=nombre %></h4>
+                    </div>
                 </div>
-                <div class="contenido-pestanas" style="text-align: center;">
-						<button class="btn btn-abrir-popup-lista icon-plus" id="abrir-podcast"  onClick="document.getElementById('overlay-podcast').classList.add('active');">Crear Podcast</button>
-				</div> 
-                <div class="row has-items-overlay">
-                    <c:forEach var="lista" items="${listas}" >
-							<div class="col-lg-3 col-md-4 col-sm-6 my-2">
-								<figure>
-									<div class="img-wrapper">
-										<img src="assets/img/demo/a1.jpg" alt="/">
-										<div class="img-overlay text-white text-center">
-										<!--href="obtener_info_lr?nombre=${lista.getNombre()}"-->
-											<a 	 href="podcasts-single.jsp" onclick="setTimeout(location.reload.bind(location), 1)">
-												<div class="figcaption mt-3">
-													<i class="icon-link s-48"></i>
-													<h5 class="mt-5">${lista.getNombre()}</h5>
-												</div>
-											</a>
-										</div>
-										<div class="figure-title text-center p-2">
-											<h5>${lista.getNombre()}</h5>
-										</div>
-									</div>
-								</figure>
-							<div class="contenido-pestanas" style="text-align: center;">
-	                            <button class="btn btn-abrir-popup-lista icon-trash-o" 
-	                            onclick="document.getElementById('idLista').value = '${lista.getNombre()}';
-	                            document.getElementById('overlay-borrar-listas-reproduccion').classList.add('active');"></button>
-                       		 </div>
-                    	</div>
-					</c:forEach>      
-                </div>
-            </section>
-        </div>
-     </div> 
-                    
-
-<!-- CREAR PODCAST-->
-<div class="overlay-pop-up" id="overlay-podcast">
-    <div class="col-md-7 card p-5">
-		<a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-podcast" class="btn-cerrar-popup-perfil" onClick="document.getElementById('overlay-podcast').classList.remove('active');"><i class="icon-close1"></i></a>
-		<form class="form-material" action="crear_lr" method="post">
-			<!-- Input -->
-			<div class="body">
-				<header class="relative nav-sticky card">
-					<h3>CREAR PODCAST</h3>
-				</header>
-				<div class="contenedor-inputs">
-					<h4>A�adir imagen</h4>
-					<!--  <input type="file" class="btn btn-outline-primary btn-sm  mt-3" name="fileName" /> -->
-					<input type="text" name="nombre" placeholder="Nombre" id="nombre-listas-reproduccion" required/>
-					<input type="text" name="descripcion" placeholder="Descripcion" id="descripcion-listas-reproduccion"/>
-					<input type="hidden" name="tipo" value="ListaRep">
-				</div>
-
-				<input type="submit" class="btn btn-outline-primary btn-sm pl-4 pr-4"
-					   value="Aceptar">
+            </div>
+            
+            <!-- MODIFICAR INFORMACION -->
+            <div class="text-center p-5 mt-5">
+            	<form>
+	                <div class="text-center p-5 mt-5">
+						<div class="p5 b-b">
+							<input type="text" name="nombre" class="formulario-subir-cancion" placeholder="Nombre de la transmisión" required=""/>
+							<input type="text" name="descripcion" class="formulario-subir-cancion" placeholder="Descripcion" required=""/>
+						</div>
+						<div="p-4">
+							<input type="submit" class="btn btn-outline-primary btn-sm  mt-3" value="MODIFICAR INFORMACIÓN">
+							<input type="submit" class="btn btn-outline-primary btn-sm  mt-3" value="FINALIZAR TRANSMISIÓN">
+						</div>
+					</div>
+				</form>
 			</div>
-			<!-- #END# Input -->
-		</form>
-	</div>
-</div>
-<!-- END CREAR LISTA DE REPRODUCCIӓN -->
-
-
-<!-- AJUSTES CUENTA -->
-<div class="overlay-pop-up" id="overlay-cuenta">
-    <div class="col-md-7 card p-5">
-		<form class="form-material" action="#">
-			<a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-cuenta" class="btn-cerrar-popup-perfil"><i class="icon-close1"></i></a>
-			<header class="relative nav-sticky card">
-				<h3>CAMBIAR INFORMACIÃN DE LA CUENTA</h3>
-			</header>
-			<form class="form-material" action="#"> <!--QUITAR-->
-				<!-- Input -->
-				<div class="body">
-					
-					<div class="form-group form-float">
-						<div class="form-line">
-							<input type="email" name="email" class="form-control">
-							<label class="form-label">Email</label>
-						</div>
+			<!-- END MODIFICAR INFORMACION -->
+			
+            <!-- COMENTARIOS -->
+			<div class="text-center p-5 mt-5">
+				<div class="p5 b-b">
+					<div class="playlist">
+						<textarea class="formulario-subir-cancion" >COMENTARIO</textarea>
 					</div>
-					<input type="submit" class="btn btn-outline-primary btn-sm pl-4 pr-4"
-						   value="Cambiar email">
+					<div class="playlist">
+						<textarea class="formulario-subir-cancion" >COMENTARIO</textarea>
+					</div>
+					<div class="playlist">
+						<textarea class="formulario-subir-cancion" >COMENTARIO</textarea>
+					</div>
 				</div>
-			</form>
-			<form class="form-material" action="#"> <!--QUITAR-->
-				<!-- Input -->
-				<div class="body">
-					<div class="form-group form-float">
-						<div class="form-line">
-							<input type="password" name="contrasena" class="form-control">
-							<label class="form-label">ContraseÃ±a actual</label>
-						</div>
-					</div>
-					<div class="form-group form-float">
-						<div class="form-line">
-							<input type="password" name="contrasena" class="form-control">
-							<label class="form-label">ContraseÃ±a nueva</label>
-						</div>
-					</div>
-					<div class="form-group form-float">
-						<div class="form-line">
-							<input type="password" name="password" class="form-control">
-							<label class="form-label">Confirmar contraseÃ±a</label>
-						</div>
-					</div>
+			</div>
+			<!-- COMENTARIOS -->
+        </div>
+    </div>
 
-					<input type="submit" class="btn btn-outline-primary btn-sm pl-4 pr-4"
-						   value="Cambiar constraseÃ±a">
-				</div>
-			</form>
-			<!-- #END# Input -->
-		</form>
-	</div>
 </div>
-<!-- END AJUSTES CUENTA -->
-
-<!-- BORRAR PODCAST -->	
-	<div class="overlay-pop-up" id="overlay-borrar-listas-reproduccion">	
-	    <div class="col-md-7 card p-5">	
-	        <a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-borrar-listas-reproduccion" class="btn-cerrar-popup-perfil"	
-	        class="btn btn-outline-primary btn-sm pl-4 pr-4"  onclick="document.getElementById('overlay-borrar-listas-reproduccion').classList.remove('active');"><i class="icon-close1"></i></a>	
-			<form class="form-material" action="borrar_lr" method="post">	
-				<!-- Input -->	
-				<div class="body">	
-					<header class="relative nav-sticky card">	
-	                    <h3>�Estas seguro?</h3>	
-	                    <h5>Vas a borrar esta Podcast para siempre, no hay vuelta atras</h5>	
-					</header>	
-		
-					<input type="hidden" id="idLista" name="nombre" value="">
-					<input type="hidden" name="tipo" value="ListaRep">	
-					<input type="submit" class="btn btn-outline-primary btn-sm pl-4 pr-4"	
-	                       value="Aceptar">	
-	                <button class="btn btn-outline-primary btn-sm pl-4 pr-4"  onclick="document.getElementById('overlay-borrar-listas-reproduccion').classList.remove('active');">Cerrar</button>	
-				</div>	
-				<!-- #END# Input -->	
-	        </form>	
-		</div>	
-	</div>	
-<!-- END BORRAR PODCAST -->
-
 
 </main><!--@Page Content-->
 </div><!--@#app-->
 <!--/#app -->
 <script src="https://maps.googleapis.com/maps/api/js?&amp;key=AIzaSyC3YkZNNySdyR87o83QEHWglHfHD_PZqiw&amp;libraries=places"></script>
 <script src="assets/js/app.js"></script>
-<script  src="assets/js/mostrar-popup.js"></script>
-<script  src="assets/js/cambiarPestanaPerfil.js"></script>
 <script  src="assets/js/audioPlayer.js"></script>
  <script src="https://code.jquery.com/jquery-2.2.0.js"></script>
     <script>
@@ -634,5 +560,6 @@ pageEncoding="UTF-8"%>
 		//audio.load();
 	}
 	</script>
+
 </body>
 </html>

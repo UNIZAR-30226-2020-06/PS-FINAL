@@ -1,6 +1,10 @@
 var btnAbrirCancion = document.getElementById('abrir-popup'),
 	overlayCancion = document.getElementById('overlay-subir-cancion'),
 	btnCerrarCancion = document.getElementById('btn-cerrar-subir-cancion');
+
+var btnAbrirCapitulo = document.getElementById('abrir-popup-capitulo'),
+	overlayCapitulo = document.getElementById('overlay-subir-capitulo'),
+	btnCerrarCapitulo = document.getElementById('btn-cerrar-subir-capitulo');
 	
 var btnAbrirPerfil = document.getElementById('abrir-popup-perfil'),
 	overlayPerfil = document.getElementById('overlay-perfil');
@@ -21,6 +25,10 @@ var btnAbrirCrearLR = document.getElementById('abrir-listas-reproduccion'),
 var overlayAnadirLR = document.getElementById('overlay-anadir-listas-reproduccion'),
 	btnCerrarAnadirLR = document.getElementById('btn-cerrar-anadir-listas-reproduccion');
 
+var overlayAnadirP = document.getElementById('overlay-anadir-podcast'),
+	btnCerrarAnadirP = document.getElementById('btn-cerrar-anadir-podcast');
+
+
 var overlayBorrarLR = document.getElementById('overlay-borrar-listas-reproduccion'),
 	btnCerrarBorrarLR = document.getElementById('btn-cerrar-borrar-listas-reproduccion');
 
@@ -38,6 +46,14 @@ btnAbrirCancion.addEventListener('click', function(){
 
 btnCerrarCancion.addEventListener('click', function(){
 	overlayCancion.classList.remove('active');
+});
+
+btnAbrirCapitulo.addEventListener('click', function(){
+	overlayCapitulo.classList.add('active');
+});
+
+btnCerrarCapitulo.addEventListener('click', function(){
+	overlayCapitulo.classList.remove('active');
 });
 
 btnAbrirCuenta.addEventListener('click', function(){
@@ -68,6 +84,10 @@ btnCerrarCrearLR.addEventListener('click', function(){
 
 btnCerrarAnadirLR.addEventListener('click', function(){
 	overlayAnadirLR.classList.remove('active');
+});
+
+btnCerrarAnadirP.addEventListener('click', function(){
+	overlayAnadirP.classList.remove('active');
 });
 
 btnCerrarBorrarLR.addEventListener('click', function(){
