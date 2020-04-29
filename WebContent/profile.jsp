@@ -121,14 +121,6 @@ pageEncoding="UTF-8"%>
 </aside>
 <!-- END MENU DE LA IZQUIERDA-->
 
-<!-- MENU DONDE ESTAN LAS CANCIONES EN LA COLA (DERECHA) -->
-
-
-<!-- Add the sidebar's background. This div must be placed
-         immediately after the control sidebar -->
-<div class="control-sidebar-bg shadow  fixed"></div>
-<!-- END MENU DONDE ESTAN LAS CANCIONES EN LA COLA (DERECHA) -->
-
 
 <!-- ALGO RANDOM DE LA PARTE DERECHA -->									
 <svg class="d-none">
@@ -361,7 +353,7 @@ String hayfoto = (String) session.getAttribute("hayfoto");
     <div class="navbar navbar-expand player-header justify-content-between  bd-navbar">
         <!--Player-->
         <div id="mediaPlayer" class="player-bar col-lg-8 col-md-5" data-auto="true">
-            <div style="height: 50px;width: 150%;" class="row align-items-center grid">
+            <div style="height: 50px;width: 157%;" class="row align-items-center grid">
             <!-- BOTONES ANTERIOR, PAUSE, SIGUIENTE -->
                 <div class="col">
                     <div class="d-flex align-items-center">
@@ -388,13 +380,20 @@ String hayfoto = (String) session.getAttribute("hayfoto");
                     <div id="waveform"></div>
                 </div>
                 
-                <!-- COLA -->
+                <!-- TIEMPO -->
                 <div class="col d-none d-lg-block">
                     <small class="track-time mr-2 text-primary align-middle"></small>
-                    <a style="position: absolute;top: -5px;right: -5px;" data-toggle="control-sidebar">
-                        <i class="icon icon-menu-3 s-24 align-middle"></i>Cola
-                    </a>
-                </div>  
+                </div> 
+                
+                <button class="btn btn-link d-none d-sm-block" style="position: fixed;right: 78px;" onclick="muteVol();">
+                    <i class="icon-mute s-18"></i>
+                </button>
+                <button class="btn btn-link d-none d-sm-block" style="position: fixed;right: 49px;" onclick="bajarVol();">
+                    <i class="icon-volume-down s-18"></i>
+                </button>
+                <button class="btn btn-link d-none d-sm-block" style="position: fixed;right: 14px;" onclick="subirVol();">
+                    <i class="icon-volume-up s-18"></i>
+                </button>
             </div>
         </div>
         <!--END Player-->
@@ -1043,6 +1042,25 @@ String email = (String) session.getAttribute("email");
 			audio.loop = true;
 		}
 		//audio.load();
+	}
+	
+	function subirVol(){
+		var audio = document.getElementsByTagName("audio")[0];
+		audio.volume+=0.1;
+	}
+	
+	function bajarVol(){
+		var audio = document.getElementsByTagName("audio")[0];
+		audio.volume-=0.1;
+	}
+	
+	function muteVol(){
+		var audio = document.getElementsByTagName("audio")[0];
+		if(audio.muted){
+			audio.muted = false;
+		}else{
+			audio.muted = true;
+		}
 	}
 	</script>
 	<script>
