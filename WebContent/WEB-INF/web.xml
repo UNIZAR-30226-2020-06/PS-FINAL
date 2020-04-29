@@ -321,6 +321,24 @@
 		<url-pattern>/obtener_info_fav</url-pattern>
 	</servlet-mapping>
 	
+	<servlet>
+		<servlet-name>modlr</servlet-name>
+		<servlet-class>com.espotify.controller.ModInfo_ListaRepServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>modlr</servlet-name>
+		<url-pattern>/modlr</url-pattern>
+	</servlet-mapping>	
+	
+	<servlet>
+		<servlet-name>Inicio</servlet-name>
+		<servlet-class>com.espotify.controller.GetInfo_IndexServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Inicio</servlet-name>
+		<url-pattern>/Inicio</url-pattern>
+	</servlet-mapping>	
+	
 	<context-param>
     <param-name>directorio_ficheroTmp</param-name>
     <param-value>tmpfiles</param-value>

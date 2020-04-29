@@ -110,6 +110,10 @@ pageEncoding="UTF-8"%>
                     <i class="icon icon-headphones s-24"></i> <span>Mis podcasts</span>
                 </a>
             </li>
+            <li><a class="ajaxifyPage" href="obtener_info_fav" onclick="setTimeout(locaton.reload.bind(location), 1)">
+            		<i class="icon icon-star s-24"></i> <span>Mis favoritos</span>
+            	</a>
+            </li>
         </ul>
     </div>
 </aside>

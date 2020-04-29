@@ -139,7 +139,7 @@ pageEncoding="UTF-8"%>
                             </form>
                         </div>
                         <div style="position: relative;top: -420px;" class="col-md-5  p-5">
-                            <h1 style="color: #09090999" class="mt-3 font-weight-lighter"><strong>No tienes una cuenta todavía?</h1>
+                            <h1 style="color: #09090999" class="mt-3 font-weight-lighter"><strong>¿No tienes una cuenta todavía?</h1>
 
                             <div style="color: #000000c2;" class="pt-3 mb-5">
                                 <p><strong>Regístrate gratis para disfrutar de la mejor música.</p>

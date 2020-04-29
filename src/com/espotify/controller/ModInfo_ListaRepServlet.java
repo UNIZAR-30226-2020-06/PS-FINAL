@@ -37,8 +37,8 @@ public class ModInfo_ListaRepServlet extends HttpServlet {
 		String nombreNew = request.getParameter("nombreNew");
 		String nombreOld = request.getParameter("nombreOld");
 		String descripcion = request.getParameter("descripcion");
-		String imagen = request.getParameter("imagen");
-		String tipo = request.getParameter("tipo");
+		String imagen = "";
+		String tipo = "ListaRep";
 		
 		Boolean cambiada = new ListaReproduccionDAO().cambiar_info(nombreOld,nombreNew,usuario,descripcion,imagen,tipo);
 		if(cambiada) {
@@ -56,9 +56,8 @@ public class ModInfo_ListaRepServlet extends HttpServlet {
 			}catch(Throwable theException) {
 				//response.sendRedirect("modifListaRep.jsp");
 			}
-		}else {
-			//response.sendRedirect("modifListaRep.jsp");
 		}
+		request.getRequestDispatcher("lista_rep-single.jsp").forward(request, response);
 	}
 
 	/**
