@@ -12,7 +12,7 @@ pageEncoding="UTF-8"%>
 ########################################################################
 -->
 
-<!-- NOMBRE DE LA PESTAÃÂA -->
+<!-- NOMBRE DE LA PESTAÑA -->
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -82,7 +82,7 @@ pageEncoding="UTF-8"%>
 <aside class="main-sidebar fixed offcanvas shadow" data-toggle='offcanvas'>
     <div class="sidebar">
         <ul class="sidebar-menu">
-            <li><a class="ajaxifyPage active" href="Inicio" onclick="setTimeout(location.reload.bind(location), 1)">
+            <li><a class="ajaxifyPage active" href="Inicio" >
                     <i class="icon icon-home-1 s-24"></i> <span>Inicio</span>
                 </a>
             </li>
@@ -94,22 +94,22 @@ pageEncoding="UTF-8"%>
                 </a>
                 <ul class="sub-menu">
 					<c:forEach var="genero" items="${generos}">                    
-						<li><a href="page-blank.jsp" onclick="setTimeout(location.reload.bind(location), 1)">${genero.getNombre()}</a></li>
+						<li><a href="page-blank.jsp" >${genero.getNombre()}</a></li>
 	                </c:forEach>
 
                 </ul>
             </li>
             
-            <li><a class="ajaxifyPage" href="mostrar_lrs?tipo=ListaRep" onclick="setTimeout(location.reload.bind(location), 1)">
+            <li><a class="ajaxifyPage" href="mostrar_lrs?tipo=ListaRep" >
                     <i class="icon icon-compact-disc-1 s-24"></i> <span>Mis listas de reproducción</span>
                 </a>
             </li>
             
-            <li><a class="ajaxifyPage" href="podcasts.jsp" onclick="setTimeout(location.reload.bind(location), 1)">
+            <li><a class="ajaxifyPage" href="podcasts.jsp" >
                     <i class="icon icon-headphones s-24"></i> <span>Mis podcasts</span>
                 </a>
             </li>
-            <li><a class="ajaxifyPage" href="obtener_info_fav" onclick="setTimeout(location.reload.bind(location), 1)">
+            <li><a class="ajaxifyPage" href="obtener_info_fav" >
             		<i class="icon icon-star s-24"></i> <span>Mis favoritos</span>
             	</a>
             </li>
@@ -117,101 +117,6 @@ pageEncoding="UTF-8"%>
     </div>
 </aside>
 <!-- ACABA MENU DE LA IZQUIERDA-->
-
-<!-- MENU DONDE ESTAN LAS CANCIONES EN LA COLA (DERECHA) -->
-<aside class="control-sidebar fixed ">
-    <div class="slimScroll">
-        <div class="sidebar-header">
-            <h4>PlayList</h4>
-            <p>Awesome Collection for you</p>
-            <a href="#" data-toggle="control-sidebar" class="paper-nav-toggle  active"><i></i></a>
-        </div>
-        <div class="p-3">
-            <ul id="playlist" class="playlist list-group">
-                <li class="list-group-item my-1">
-                    <a class="no-ajaxy media-url" href="https://espotify.ddns.net/almacen-mp3/23.mp3"  data-wave="assets/media/track1.json">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <i class="icon-play s-28"></i>
-                            <figure class="avatar-md float-left mr-3 mt-1">
-                                <img class="r-5" src="assets/img/demo/a1.jpg" alt="">
-                            </figure>
-                            <div>
-                                <h6>alexander Pierce</h6>Atif Aslam
-                            </div>
-                            <span class="badge badge-primary badge-pill"> 5:03</span>
-                        </div>
-                    </a>
-                </li>
-                <li class="list-group-item my-1">
-                    <a class="no-ajaxy media-url" href="assets/media/track2.mp3" data-wave="assets/media/track2.json">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <i class="icon-play s-28"></i>
-                            <figure class="avatar-md float-left mr-3 mt-1">
-                                <img class="r-5" src="assets/img/demo/a2.jpg" alt="">
-                            </figure>
-                            <div>
-                                <h6>alexander Pierce</h6>Atif Aslam
-                            </div>
-                            <span class="badge badge-primary badge-pill"> 5:03</span>
-                        </div>
-                    </a>
-                </li>
-                <li class="list-group-item my-1">
-                    <a class="no-ajaxy media-url" href="assets/media/track3.mp3" data-wave="assets/media/track3.json">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <i class="icon-play s-28"></i>
-                            <figure class="avatar-md float-left mr-3 mt-1">
-                                <img class="r-5" src="assets/img/demo/a4.jpg" alt="">
-                            </figure>
-                            <div>
-                                <h6>alexander Pierce</h6>Atif Aslam
-                            </div>
-                            <span class="badge badge-primary badge-pill"> 5:03</span>
-                        </div>
-                    </a>
-                </li>
-
-                <li class="list-group-item my-1">
-                    <a class="no-ajaxy media-url" href="assets/media/track1.mp3"  data-wave="assets/media/track1.json">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <i class="icon-play s-28"></i>
-                            <figure class="avatar-md float-left mr-3 mt-1">
-                                <img class="r-5" src="assets/img/demo/a5.jpg" alt="">
-                            </figure>
-                            <div>
-                                <h6>alexander Pierce</h6>Atif Aslam
-                            </div>
-                            <span class="badge badge-primary badge-pill"> 5:03</span>
-                        </div>
-                    </a>
-                </li>
-
-                <li class="list-group-item my-1">
-                    <a class="no-ajaxy media-url" href="assets/media/track2.mp3" data-wave="assets/media/track2.json">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <i class="icon-play s-28"></i>
-                            <figure class="avatar-md float-left mr-3 mt-1">
-                                <img class="r-5" src="assets/img/demo/a6.jpg" alt="">
-                            </figure>
-                            <div>
-                                <h6>alexander Pierce</h6>Atif Aslam
-                            </div>
-                            <span class="badge badge-primary badge-pill"> 5:03</span>
-                        </div>
-                    </a>
-                </li>
-
-
-            </ul>
-
-        </div>
-    </div>
-</aside>
-
-<!-- Add the sidebar's background. This div must be placed
-         immediately after the control sidebar -->
-<div class="control-sidebar-bg shadow  fixed"></div>
-<!-- ACABA MENU DERECHA -->
 
 
 <svg class="d-none">
@@ -317,7 +222,7 @@ pageEncoding="UTF-8"%>
                         <li class="list-group-item">
                             <div class="d-flex align-items-center ">
                                 <div class="col-8 ">
-                                    <a href="album-single.jsp" onclick="setTimeout(location.reload.bind(location), 1)">
+                                    <a href="album-single.jsp" >
                                         <h6>Battal of Bands</h6>
                                     </a>
                                     <small class="mt-1"><i class="icon-placeholder-3 mr-1 "></i> London Music Hall
@@ -334,7 +239,7 @@ pageEncoding="UTF-8"%>
                         <li class="list-group-item">
                             <div class="d-flex align-items-center ">
                                 <div class="col-8 ">
-                                    <a href="album-single.jsp" onclick="setTimeout(location.reload.bind(location), 1)">
+                                    <a href="album-single.jsp" >
                                         <h6>Battal of Bands</h6>
                                     </a>
                                     <small class="mt-1"><i class="icon-placeholder-3 mr-1 "></i> London Music Hall
@@ -351,7 +256,7 @@ pageEncoding="UTF-8"%>
                         <li class="list-group-item">
                             <div class="d-flex align-items-center ">
                                 <div class="col-8 ">
-                                    <a href="album-single.jsp" onclick="setTimeout(location.reload.bind(location), 1)">
+                                    <a href="album-single.jsp" >
                                         <h6>Battal of Bands</h6>
                                     </a>
                                     <small class="mt-1"><i class="icon-placeholder-3 mr-1 "></i> London Music Hall
@@ -385,9 +290,9 @@ String hayfoto = (String) session.getAttribute("hayfoto");
             <a href="#" data-toggle="push-menu" class="paper-nav-toggle pp-nav-toggle ml-2 mr-2">
                 <i></i>
             </a>
-            <a class="navbar-brand d-none d-lg-block" href="Inicio" onclick="setTimeout(location.reload.bind(location), 1)">
+            <a class="navbar-brand d-none d-lg-block" href="Inicio" >
                 <div class="d-flex align-items-center s-14 l-s-2">
-                    <a style="position: absolute;width: 12%;" href="Inicio" onclick="setTimeout(location.reload.bind(location), 1)"><img  src="assets/img/logo.png"></a>
+                    <a style="position: absolute;width: 12%;" href="Inicio" ><img  src="assets/img/logo.png"></a>
                 </div>
             </a>
         </div>
@@ -418,13 +323,13 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 					<div class="dropdown-menu p-4 dropdown-menu-right">
 						<div class="row box justify-content-between my-4">
 							<div class="col text-center">
-								<a class="ajaxifyPage" href="obtener_contenido_perfil" onclick="setTimeout(location.reload.bind(location), 1)">
+								<a class="ajaxifyPage" href="obtener_contenido_perfil" >
 									<i class="icon-user-4  s-24"></i>
 									<div class="pt-1">Mi perfil</div>
 								</a>
 							</div>
 							<div class="col text-center">
-								<a class="ajaxifyPage" href="logout" onclick="setTimeout(location.reload.bind(location), 1)">
+								<a class="ajaxifyPage" href="logout" >
 									<a href="<%= request.getContextPath()+"/Cerrar_SesionServlet"%>"><i class="icon-exit-2  s-24"></i>
                                     <div class="pt-1">Cerrar sesión</div></a>
 								</a>
@@ -438,13 +343,12 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 </nav>
 <!-- ACABA BARRA DE ARRIBA FIJA -->
 
-
 <!-- BARRA DE ABAJO FIJA-->
 <nav class="navbar-wrapper navbar-bottom-fixed shadow">
     <div class="navbar navbar-expand player-header justify-content-between  bd-navbar">
         <!--Player-->
         <div id="mediaPlayer" class="player-bar col-lg-8 col-md-5" data-auto="true">
-            <div style="height: 50px;width: 150%;" class="row align-items-center grid">
+            <div style="height: 50px;width: 157%;" class="row align-items-center grid">
             <!-- BOTONES ANTERIOR, PAUSE, SIGUIENTE -->
                 <div class="col">
                     <div class="d-flex align-items-center">
@@ -471,13 +375,20 @@ String hayfoto = (String) session.getAttribute("hayfoto");
                     <div id="waveform"></div>
                 </div>
                 
-                <!-- COLA -->
+                <!-- TIEMPO -->
                 <div class="col d-none d-lg-block">
                     <small class="track-time mr-2 text-primary align-middle"></small>
-                    <a style="position: absolute;top: -5px;right: -5px;" data-toggle="control-sidebar">
-                        <i class="icon icon-menu-3 s-24 align-middle"></i>Cola
-                    </a>
-                </div>  
+                </div> 
+                
+                <button class="btn btn-link d-none d-sm-block" style="position: fixed;right: 78px;" onclick="muteVol();">
+                    <i class="icon-mute s-18"></i>
+                </button>
+                <button class="btn btn-link d-none d-sm-block" style="position: fixed;right: 49px;" onclick="bajarVol();">
+                    <i class="icon-volume-down s-18"></i>
+                </button>
+                <button class="btn btn-link d-none d-sm-block" style="position: fixed;right: 14px;" onclick="subirVol();">
+                    <i class="icon-volume-up s-18"></i>
+                </button>
             </div>
         </div>
         <!--END Player-->
@@ -494,7 +405,7 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 
 
 
-<!--CONTENIDO DE EN MEDIO-->
+<!--CONTENIDO NO AJAX-->
 <main id="pageContent" class="page has-sidebar">
 <div class="container-fluid relative animatedParent animateOnce no-p">
     <div class="animated">
@@ -509,7 +420,7 @@ String hayfoto = (String) session.getAttribute("hayfoto");
                         <h2>Tus Listas de reproduccion</h4>
                     </div>
                     <a style="color: black;" 
-                    href="mostrar_lrs?tipo=ListaRep" onclick="setTimeout(location.reload.bind(location), 1)">Ver más
+                    href="mostrar_lrs?tipo=ListaRep" >Ver más
                     	<i class="icon-angle-right ml-3"></i>
                     </a>
                 </div>
@@ -520,7 +431,7 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 									<div class="img-wrapper">
 										<img src="assets/img/demo/a1.jpg" alt="/">
 										<div class="img-overlay text-white text-center">
-											<a href="obtener_info_lr?nombre=${lista.getNombre()}" onclick="setTimeout(location.reload.bind(location), 1)">
+											<a href="obtener_info_lr?nombre=${lista.getNombre()}" >
 												<div class="figcaption mt-3">
 													<i class="icon-link s-48"></i>
 													<h5 class="mt-5">${lista.getNombre()}</h5>
@@ -545,7 +456,7 @@ String hayfoto = (String) session.getAttribute("hayfoto");
                         <h2>Tus Canciones favoritas</h4>
                     </div>
                     <a style="color: black;" 
-                    href="obtener_info_fav" onclick="setTimeout(location.reload.bind(location), 1)">Ver más
+                    href="obtener_info_fav" >Ver más
                     	<i class="icon-angle-right ml-3"></i>
                     </a>
                 </div>
@@ -573,7 +484,7 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 																<span class="ml-auto">${cancion.getGenero()}</span>
 																<a href="#" class="ml-auto"><i class="icon-share-1"></i></a>
 																<div class="ml-auto">
-																	<a href="${pageContext.request.contextPath}/borrar_cancion_fav?idAudio=${cancion.getId()}" class="btn-icono icon-trash-o" onclick="setTimeout(location.reload.bind(location), 1)"></a>
+																	<a href="${pageContext.request.contextPath}/borrar_cancion_fav?idAudio=${cancion.getId()}" class="btn-icono icon-trash-o" ></a>
 																</div>
 															</div>
 														</li>
@@ -620,7 +531,7 @@ String hayfoto = (String) session.getAttribute("hayfoto");
                                                 </a>
                                             </li>
                                             <li class="list-inline-item">
-                                                <a href="album-single.jsp" onclick="setTimeout(location.reload.bind(location), 1)"><i
+                                                <a href="album-single.jsp" ><i
                                                         class="icon-more s-18 pt-3"></i></a></li>
                                         </ul>
                                         <div class="text-center mt-5">
@@ -658,7 +569,7 @@ String hayfoto = (String) session.getAttribute("hayfoto");
                                                 </a>
                                             </li>
                                             <li class="list-inline-item">
-                                                <a href="album-single.jsp" onclick="setTimeout(location.reload.bind(location), 1)"><i
+                                                <a href="album-single.jsp" ><i
                                                         class="icon-more s-18 pt-3"></i></a></li>
                                         </ul>
                                         <div class="text-center mt-5">
@@ -696,7 +607,7 @@ String hayfoto = (String) session.getAttribute("hayfoto");
                                                 </a>
                                             </li>
                                             <li class="list-inline-item">
-                                                <a href="album-single.jsp" onclick="setTimeout(location.reload.bind(location), 1)"><i
+                                                <a href="album-single.jsp" ><i
                                                         class="icon-more s-18 pt-3"></i></a></li>
                                         </ul>
                                         <div class="text-center mt-5">
@@ -734,7 +645,7 @@ String hayfoto = (String) session.getAttribute("hayfoto");
                                                 </a>
                                             </li>
                                             <li class="list-inline-item">
-                                                <a href="album-single.jsp" onclick="setTimeout(location.reload.bind(location), 1)"><i
+                                                <a href="album-single.jsp" ><i
                                                         class="icon-more s-18 pt-3"></i></a></li>
                                         </ul>
                                         <div class="text-center mt-5">
@@ -772,7 +683,7 @@ String hayfoto = (String) session.getAttribute("hayfoto");
                                                 </a>
                                             </li>
                                             <li class="list-inline-item">
-                                                <a href="album-single.jsp" onclick="setTimeout(location.reload.bind(location), 1)"><i
+                                                <a href="album-single.jsp" ><i
                                                         class="icon-more s-18 pt-3"></i></a></li>
                                         </ul>
                                         <div class="text-center mt-5">
@@ -810,7 +721,7 @@ String hayfoto = (String) session.getAttribute("hayfoto");
                                                 </a>
                                             </li>
                                             <li class="list-inline-item">
-                                                <a href="album-single.jsp" onclick="setTimeout(location.reload.bind(location), 1)"><i
+                                                <a href="album-single.jsp" ><i
                                                         class="icon-more s-18 pt-3"></i></a></li>
                                         </ul>
                                         <div class="text-center mt-5">
@@ -848,7 +759,7 @@ String hayfoto = (String) session.getAttribute("hayfoto");
                                                 </a>
                                             </li>
                                             <li class="list-inline-item">
-                                                <a href="album-single.jsp" onclick="setTimeout(location.reload.bind(location), 1)"><i
+                                                <a href="album-single.jsp" ><i
                                                         class="icon-more s-18 pt-3"></i></a></li>
                                         </ul>
                                         <div class="text-center mt-5">
@@ -1330,36 +1241,73 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 		</div>	
 	</div>	
 <!-- END BORRAR LISTA DE REPRODUCCIÓN -->
+
+<% 
+String email = (String) session.getAttribute("email");
+%>
+
+<!-- AJUSTES CUENTA -->
+<div class="overlay-pop-up" id="overlay-cuenta">
+    <div class="col-md-7 card p-5">
+			<a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-cuenta" class="btn-cerrar-popup-perfil"><i class="icon-close1"></i></a>
+			<header class="relative nav-sticky card">
+				<h3>CAMBIAR INFORMACIÓN DE LA CUENTA</h3>
+			</header>
+			<form  action="modinfo"> <!--QUITAR-->
+				<!-- Input -->
+				<div class="body">
+					
+					<div class="form-group form-float">
+						<div class="form-line">
+							<input type="email" name="email" class="form-control" value="<%=email%>">
+							<label class="form-label">Email</label>
+						</div>
+					</div>
+					<input type="submit" class="btn btn-outline-primary btn-sm pl-4 pr-4"
+						   value="Cambiar email">
+				</div>
+			</form>
+			<form  action="modpass"> <!--QUITAR-->
+				<!-- Input -->
+				<div class="body">
+					<div class="form-group form-float">
+						<div class="form-line">
+							<input type="password" name="contrasena1" class="form-control">
+							<label class="form-label">Contraseña actual</label>
+						</div>
+					</div>
+					<div class="form-group form-float">
+						<div class="form-line">
+							<input type="password" name="contrasena2" class="form-control">
+							<label class="form-label">Contraseña nueva</label>
+						</div>
+					</div>
+					<div class="form-group form-float">
+						<div class="form-line">
+							<input type="password" name="contrasena3" class="form-control">
+							<label class="form-label">Confirmar contraseña</label>
+						</div>
+					</div>
+
+					<input type="submit" class="btn btn-outline-primary btn-sm pl-4 pr-4"
+						   value="Cambiar constraseña">
+				</div>
+			</form>
+			<a href="" style="color: red;" onclick="darbaja()">Eliminar cuenta</a>
+			<!-- #END# Input -->
+	</div>
+</div>
+<!-- END AJUSTES CUENTA -->
+
+
 </main><!--@Page Content-->
 </div><!--@#app-->
+
+
 <!--/#app -->
 <script src="https://maps.googleapis.com/maps/api/js?&amp;key=AIzaSyC3YkZNNySdyR87o83QEHWglHfHD_PZqiw&amp;libraries=places"></script>
 <script src="assets/js/app.js"></script>
-<script  src="assets/js/audioPlayer.js"></script>
- <script src="https://code.jquery.com/jquery-2.2.0.js"></script>
-  <script>
-        
-        /*
-    Default constructor configuration:
-        autoplay: false,
-        shuffle: false,
-        loop: false,
-        playerId: "audioPlayer",
-        playlistId: "playlist",
-        currentClass: "current-song"
-        
-        
-*/
-        
-        // loads the audio player
-        var config = {
-          autoplay: true, 
-            loop: true,
-            shuffle: true
-        };
-        var playlist = new AudioPlaylist();
-        
-    </script>
+<script  src="assets/js/mostrar-popup.js"></script>
     <script>
 	function loopAudio(){
 		var audio = document.getElementsByTagName("audio")[0];
@@ -1369,6 +1317,25 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 			audio.loop = true;
 		}
 		//audio.load();
+	}
+	
+	function subirVol(){
+		var audio = document.getElementsByTagName("audio")[0];
+		audio.volume+=0.1;
+	}
+	
+	function bajarVol(){
+		var audio = document.getElementsByTagName("audio")[0];
+		audio.volume-=0.1;
+	}
+	
+	function muteVol(){
+		var audio = document.getElementsByTagName("audio")[0];
+		if(audio.muted){
+			audio.muted = false;
+		}else{
+			audio.muted = true;
+		}
 	}
 	</script>
 	<script>
@@ -1384,6 +1351,4 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 
 </body>
 
-<!-- Mirrored from xvelopers.com/demos/html/record-light/index.jsp by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 05 Apr 2020 17:21:40 GMT -->
->>>>>>> branch 'master' of https://github.com/UNIZAR-30226-2020-06/PS-FINAL.git
 </html>
