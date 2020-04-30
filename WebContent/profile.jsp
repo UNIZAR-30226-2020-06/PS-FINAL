@@ -1054,8 +1054,7 @@ String email = (String) session.getAttribute("email");
 					<input type="hidden" name="tipo" value="ListaRep">	
 					<input type="submit" class="btn btn-outline-primary btn-sm pl-4 pr-4"	
 	                       value="Aceptar">	
-	                <button class="btn btn-outline-primary btn-sm pl-4 pr-4"  onclick="document.getElementById('overlay-borrar-listas-reproduccion').classList.remove('active');">Cerrar</button>	
-				</div>	
+	                
 				<!-- #END# Input -->	
 	        </form>	
 		</div>	

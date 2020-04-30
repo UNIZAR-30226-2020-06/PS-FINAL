@@ -1323,8 +1323,7 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 					<input type="hidden" id="idLista" name="nombre" value="">
 					<input type="hidden" name="tipo" value="ListaRep">	
 					<input type="submit" class="btn btn-outline-primary btn-sm pl-4 pr-4"	
-	                       value="Aceptar">	
-	                <button class="btn btn-outline-primary btn-sm pl-4 pr-4"  onclick="document.getElementById('overlay-borrar-listas-reproduccion').classList.remove('active');">Cerrar</button>	
+	                       value="Aceptar">		
 				</div>	
 				<!-- #END# Input -->	
 	        </form>	

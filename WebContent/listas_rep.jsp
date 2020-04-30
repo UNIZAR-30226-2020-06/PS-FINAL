@@ -97,7 +97,7 @@ pageEncoding="UTF-8"%>
                 </a>
             </li>
             
-            <li><a class="ajaxifyPage" href="blog.jsp" onclick="setTimeout(location.reload.bind(location), 1)">
+            <li><a class="ajaxifyPage" href="podcasts.jsp" onclick="setTimeout(location.reload.bind(location), 1)">
                     <i class="icon icon-headphones s-24"></i> <span>Mis podcasts</span>
                 </a>
             </li>
@@ -628,8 +628,7 @@ pageEncoding="UTF-8"%>
 					<input type="hidden" id="idLista" name="nombre" value="">
 					<input type="hidden" name="tipo" value="ListaRep">	
 					<input type="submit" class="btn btn-outline-primary btn-sm pl-4 pr-4"	
-	                       value="Aceptar">	
-	                <button class="btn btn-outline-primary btn-sm pl-4 pr-4"  onclick="document.getElementById('overlay-borrar-listas-reproduccion').classList.remove('active');">Cerrar</button>	
+	                       value="Aceptar">		
 				</div>	
 				<!-- #END# Input -->	
 	        </form>	
