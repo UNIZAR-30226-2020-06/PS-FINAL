@@ -85,7 +85,7 @@ pageEncoding="UTF-8"%>
 <aside class="main-sidebar fixed offcanvas shadow" data-toggle='offcanvas'>
     <div class="sidebar">
         <ul class="sidebar-menu">
-            <li><a class="ajaxifyPage active" href="index.jsp" onclick="setTimeout(location.reload.bind(location), 1)">
+            <li><a class="ajaxifyPage active" href="Inicio" onclick="setTimeout(location.reload.bind(location), 1)">
                     <i class="icon icon-home-1 s-24"></i> <span>Inicio</span>
                 </a>
             </li>
@@ -108,9 +108,13 @@ pageEncoding="UTF-8"%>
                 </a>
             </li>
             
-            <li><a class="ajaxifyPage" href="blog.jsp" onclick="setTimeout(location.reload.bind(location), 1)">
+            <li><a class="ajaxifyPage" href="podcasts.jsp" onclick="setTimeout(location.reload.bind(location), 1)">
                     <i class="icon icon-headphones s-24"></i> <span>Mis podcasts</span>
                 </a>
+            </li>
+            <li><a class="ajaxifyPage" href="obtener_info_fav" onclick="setTimeout(locaton.reload.bind(location), 1)">
+            		<i class="icon icon-star s-24"></i> <span>Mis favoritos</span>
+            	</a>
             </li>
         </ul>
     </div>
@@ -290,9 +294,9 @@ String hayfoto = (String) session.getAttribute("hayfoto");
             <a href="#" data-toggle="push-menu" class="paper-nav-toggle pp-nav-toggle ml-2 mr-2">
                 <i></i>
             </a>
-            <a class="navbar-brand d-none d-lg-block" href="index.jsp" onclick="setTimeout(location.reload.bind(location), 1)">
+            <a class="navbar-brand d-none d-lg-block" href="Inicio" onclick="setTimeout(location.reload.bind(location), 1)">
                 <div class="d-flex align-items-center s-14 l-s-2">
-                    <a style="position: absolute;width: 12%;" href="index.jsp" onclick="setTimeout(location.reload.bind(location), 1)"><img  src="assets/img/logo.png"></a>
+                    <a style="position: absolute;width: 12%;" href="Inicio" onclick="setTimeout(location.reload.bind(location), 1)"><img  src="assets/img/logo.png"></a>
                 </div>
             </a>
         </div>
@@ -479,14 +483,18 @@ String email = (String) session.getAttribute("email");
 						</li>
 						<li class="nav-item">
 							<a class="nav-link r-20" id="w3--tab3" data-toggle="tab" href="#w3-tab3"
-							   role="tab" aria-controls="tab2" aria-selected="false">Mis podcasts</a>
+							   role="tab" aria-controls="tab2" aria-selected="false">Capitulos Podcast</a>
 						</li>
 						<li class="nav-item">
 							<a class="nav-link r-20" id="w3--tab4" data-toggle="tab" href="#w3-tab4"
-							   role="tab" aria-controls="tab3" aria-selected="false">Seguidores</a>
+							   role="tab" aria-controls="tab2" aria-selected="false">Podcasts</a>
 						</li>
 						<li class="nav-item">
 							<a class="nav-link r-20" id="w3--tab5" data-toggle="tab" href="#w3-tab5"
+							   role="tab" aria-controls="tab3" aria-selected="false">Seguidores</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link r-20" id="w3--tab6" data-toggle="tab" href="#w3-tab6"
 							   role="tab" aria-controls="tab3" aria-selected="false">Siguiendo</a>
 						</li>
 					</ul>
@@ -541,6 +549,8 @@ String email = (String) session.getAttribute("email");
 						</div>
 					</div>
 				</div>
+				<!-- END CANCIONES -->
+				
 				<!--LISTAS REPRODUCCIÓN-->
 				<div class="tab-pane fade show text-center p-5" id="w3-tab2" role="tabpanel"
 					 aria-labelledby="w3-tab2">
@@ -593,19 +603,94 @@ String email = (String) session.getAttribute("email");
 						</c:forEach>
 					</div>
 				</div>
+				<!-- END LISTAS REPRODUCCION -->
 				
-				<!--MIS PODCAST-->
-				<div class="tab-pane fade text-center p-5" id="w3-tab3" role="tabpanel"
-					 aria-labelledby="w3-tab2">
-					<h4 class="card-title">Tab 2</h4>
-					<p class="card-text">With supporting text below as a natural lead-in to additional
-						content.</p>
-					<a href="#" class="btn btn-primary">Go somewhere</a>
+				<!-- CAPITULOS PODCAST -->
+				<div class="tab-pane fade show text-center p-5" id="w3-tab3" role="tabpanel"
+					 aria-labelledby="w3-tab3">
+					<div class="contenido-pestanas">
+						<button class="btn btn-abrir-popup icon-plus" id="abrir-popup-capitulo"> Subir capítulo</button>
+					</div>
+					<div class="row">
+						<div class="col-lg-10 offset-lg-1">
+							<div class="row">
+								<div class="col-md-12">
+									<div class="playlist">
+										<ul id="playlist" class="playlist list-group">
+											<c:forEach var="cancion" items="${canciones}">                    
+												<div style="margin-bottom: -1px;" class="cancion">
+													<li class="list-group-item my-1">
+														<div class="d-flex align-items-center">
+															<div class="col-1">
+																<a class="no-ajaxy media-url" href="${cancion.getUrl()}">
+																	<i class="icon-play s-28"></i>
+																</a>					
+															</div>
+															<div class="col-6">
+																<h6>${cancion.getTitulo()}</h6>${genero.getNombre()}
+															</div>
+															<span class="ml-auto">${cancion.getGenero()}</span>
+															<a href="#" class="ml-auto"><i class="icon-share-1"></i></a>
+															<div class="ml-auto">
+																<a href="anyadir_cancion_fav?idAudio=${cancion.getId()}" class="btn-favorito icon-star active" onclick="setTimeout(location.reload.bind(location), 1)"></a>
+																<a href="${pageContext.request.contextPath}/ir_modificar?id_cancion=${cancion.getId()}" class="btn-icono icon-pencil" onclick="setTimeout(location.reload.bind(location), 1)"></a>
+																<a href="#" class="btn-icono icon-list-1" onclick="rellenarCampos('${listaslr.size()}','${cancion.getId()}');
+																document.getElementById('overlay-anadir-podcast).classList.add('active')";
+																	></a>
+																<a href="${pageContext.request.contextPath}/eliminar_cancion?id_cancion=${cancion.getId()}" class="btn-icono icon-trash-o" onclick="setTimeout(location.reload.bind(location), 1)"></a>
+															</div>
+														</div>
+													</li>
+												</div>								                
+											</c:forEach>
+										</ul>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
+				<!-- END CAÎTULOS PODCAST -->
+				
+				<!-- PODCAST-->
+				<div class="tab-pane fade show text-center p-5" id="w3-tab4" role="tabpanel"
+					 aria-labelledby="w3-tab4">
+					<div class="contenido-pestanas">
+						<button class="btn btn-abrir-popup icon-plus" id="abrir-podcast" onClick="document.getElementById('overlay-podcast').classList.add('active');"> Crear Podcast </button>
+					</div>
+					<div class="row has-items-overlay">
+						<c:forEach var="listalr" items="${listaslr}">
+							<div class="col-lg-3 col-md-4 col-sm-6 my-2">
+								<figure>
+									<div class="img-wrapper">
+										<img src="assets/img/demo/a1.jpg" alt="/">
+										<div class="img-overlay text-white text-center">
+											<a href="obtener_info_lr?nombre=${listalr.getNombre()}" onclick="setTimeout(location.reload.bind(location), 1)">
+												<div class="figcaption mt-3">
+													<i class="icon-link s-48"></i>
+													<h5 class="mt-5">${listalr.getNombre()}</h5>
+												</div>
+											</a>
+										</div>
+										<div class="figure-title text-center p-2">
+											<h5>${listalr.getNombre()}</h5>
+										</div>
+									</div>
+								</figure>
+								<div class="contenido-pestanas" style="text-align: center;">
+		                            <button class="btn btn-abrir-popup-lista icon-trash-o" 
+		                            onclick="document.getElementById('idLista').value = '${listalr.getNombre()}';
+		                            document.getElementById('overlay-borrar-listas-reproduccion').classList.add('active');"></button>
+                       			</div>
+							</div>
+						</c:forEach>
+					</div>
+				</div>
+				<!-- END  PODCAST -->
 				
 				<!---SEGUIDORES-->
-				<div class="tab-pane fade text-center p-5" id="w3-tab4" role="tabpanel"
-					 aria-labelledby="w3-tab3">
+				<div class="tab-pane fade text-center p-5" id="w3-tab5" role="tabpanel"
+					 aria-labelledby="w3-tab5">
 					<div class="table-responsive">
 						<table class="table table-hover earning-box">
 							<tbody>
@@ -679,10 +764,11 @@ String email = (String) session.getAttribute("email");
 						</table>
 					</div>
 				</div>
+				<!-- END SEGUIDORES -->
 				
 				<!--SIGUIENDO-->
-				<div class="tab-pane fade text-center p-5" id="w3-tab5" role="tabpanel"
-					 aria-labelledby="w3-tab4">
+				<div class="tab-pane fade text-center p-5" id="w3-tab6" role="tabpanel"
+					 aria-labelledby="w3-tab6">
 					<div class="table-responsive">
 						<table class="table table-hover earning-box">
 
@@ -757,6 +843,7 @@ String email = (String) session.getAttribute("email");
 						</table>
 					</div>
 				</div>
+				<!-- END SIGUIENDO -->
 			</div>
 		</div>
 	</div>
@@ -765,7 +852,7 @@ String email = (String) session.getAttribute("email");
 <!-- END CABECERA CON LA INFORMACION DEL USUARIO -->
 
 
-<!-- Bloque de subir cancion datos-->
+<!-- Bloque de subir cancion-->
 <div class="overlay-pop-up" id="overlay-subir-cancion">
     <div class="col-md-7 card p-5">
 		<form class="form-material" action="subir_audio" method="post" enctype="multipart/form-data">
@@ -781,7 +868,25 @@ String email = (String) session.getAttribute("email");
 		</form>
 	</div>
 </div>
-<!-- END Bloque de subir cancion datos-->									 
+<!-- END Bloque de subir cancion-->		
+
+<!-- Bloque de subir capitulo-->
+<div class="overlay-pop-up" id="overlay-subir-capitulo">
+    <div class="col-md-7 card p-5">
+		<form class="form-material" action="subir_audio" method="post" enctype="multipart/form-data">
+			<a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-subir-capitulo" class="btn-cerrar-popup-perfil"><i class="icon-close1"></i></a>
+			<header class="relative nav-sticky card">
+					<h3>SUBIR CAPITULO DE  PODCAST</h3>
+					<h5>Paso 1: subir el fichero .mp3 del capitulo podcast</h5>
+			</header>
+			<div class="contenedor-inputs">
+				<input type="file" class="btn btn-outline-primary btn-sm  mt-3" name="fileName"> 
+			</div>
+			<input type="submit" class="btn btn-outline-primary btn-sm  mt-3" value="Continuar">
+		</form>
+	</div>
+</div>
+<!-- END Bloque de subir capitulo-->									 
 
 
 <!-- CAMBIAR FOTO -->
@@ -836,6 +941,34 @@ String email = (String) session.getAttribute("email");
 </div>
 <!-- END CREAR LISTA DE REPRODUCCIÓN -->
 
+<!-- CREAR PODCAST -->
+<div class="overlay-pop-up" id="overlay-podcast">					
+    <div class="col-md-7 card p-5">
+		<a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-podcast" class="btn-cerrar-popup-perfil"
+		onClick="document.getElementById('overlay-podcast').classList.remove('active');"><i class="icon-close1"></i></a>
+		<form class="form-material" action="crear_lr" method="post">
+			<!-- Input -->
+			<div class="body">
+				<header class="relative nav-sticky card">
+					<h3>CREAR PODCAST</h3>
+				</header>
+				<div class="contenedor-inputs">
+				<!--<h4>Añadir imagen</h4>
+					<input type="file" class="btn btn-outline-primary btn-sm  mt-3" name="fileName" /> -->
+					<input type="text" name="nombre" placeholder="Nombre" id="nombre-listas-reproduccion" required/>
+					<input type="text" name="descripcion" placeholder="Descripcion" id="descripcion-listas-reproduccion"/>
+					<input type="hidden" name="tipo" value="ListaRep">
+				</div>
+
+				<input type="submit" class="btn btn-outline-primary btn-sm pl-4 pr-4"
+					   value="Aceptar">
+			</div>
+			<!-- #END# Input -->
+		</form>
+	</div>
+</div>
+<!-- END CREAR PODCAST -->
+
 <!-- AÑADIR CANCION A LISTA DE REPRODUCCI�N -->
 <div class="overlay-pop-up" id="overlay-anadir-listas-reproduccion">
     <div class="col-md-7 card p-5">
@@ -869,6 +1002,41 @@ String email = (String) session.getAttribute("email");
 	</div>
 </div>
 <!-- END AÑADIR CANCION A LISTA DE REPRODUCCI�N -->
+
+<!-- AÑADIR CAPITULO A PODCAST -->
+<div class="overlay-pop-up" id="overlay-anadir-podcast">
+    <div class="col-md-7 card p-5">
+		<a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-anadir-podcast" class="btn-cerrar-popup-perfil"><i class="icon-close1"></i></a>			
+			<!-- Input -->
+				<div class="body">
+					<div class="row has-items-overlay">
+						<c:forEach var="listalr" items="${listaslr}">
+						<div class="col-lg-3 col-md-4 col-sm-6 my-2">
+							<figure>
+								<div class="img-wrapper">
+			
+									<img src="assets/img/demo/a1.jpg" alt="/">
+									
+									<div class="figure-title text-center p-2">
+										<h5>${listalr.getNombre()}</h5>
+									</div>
+								</div>
+							</figure>
+							<form class="form-material" action="anyadir_cancion_lr" method="post">
+								<input type="submit" class="btn btn-outline-primary btn-sm pl-4 pr-4" value="Añadir">
+								<input type="hidden" name="idLista" value="${listalr.getId()}">
+								<input type="hidden" name="idAudio" value="">
+								<input type="hidden" name="nombreLista" value="${listalr.getNombre()}">
+							</form>	
+						</div>
+					</c:forEach>
+				<!-- #END# Input -->
+				</div>
+			</div>		
+	</div>
+</div>
+<!-- END AÑADIR CAPITULO A PODCAST -->
+
 <!-- BORRAR LISTA DE REPRODUCCIÓN -->	
 	<div class="overlay-pop-up" id="overlay-borrar-listas-reproduccion">	
 	    <div class="col-md-7 card p-5">	

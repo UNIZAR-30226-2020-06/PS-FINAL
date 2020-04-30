@@ -83,7 +83,7 @@ pageEncoding="UTF-8"%>
 <aside class="main-sidebar fixed offcanvas shadow" data-toggle='offcanvas'>
     <div class="sidebar">
         <ul class="sidebar-menu">
-            <li><a class="ajaxifyPage active" href="index.jsp" onclick="setTimeout(location.reload.bind(location), 1)">
+            <li><a class="ajaxifyPage active" href="Inicio" onclick="setTimeout(location.reload.bind(location), 1)">
                     <i class="icon icon-home-1 s-24"></i> <span>Inicio</span>
                 </a>
             </li>
@@ -109,6 +109,10 @@ pageEncoding="UTF-8"%>
             <li><a class="ajaxifyPage" href="blog.jsp" onclick="setTimeout(location.reload.bind(location), 1)">
                     <i class="icon icon-headphones s-24"></i> <span>Mis podcasts</span>
                 </a>
+            </li>
+            <li><a class="ajaxifyPage" href="obtener_info_fav" onclick="setTimeout(locaton.reload.bind(location), 1)">
+            		<i class="icon icon-star s-24"></i> <span>Mis favoritos</span>
+            	</a>
             </li>
         </ul>
     </div>
@@ -309,9 +313,9 @@ pageEncoding="UTF-8"%>
             <a href="#" data-toggle="push-menu" class="paper-nav-toggle pp-nav-toggle ml-2 mr-2">
                 <i></i>
             </a>
-            <a class="navbar-brand d-none d-lg-block" href="index.jsp" onclick="setTimeout(location.reload.bind(location), 1)">
+            <a class="navbar-brand d-none d-lg-block" href="Inicio" onclick="setTimeout(location.reload.bind(location), 1)">
                 <div class="d-flex align-items-center s-14 l-s-2">
-                    <a style="position: absolute;width: 12%;" href="index.jsp" onclick="setTimeout(location.reload.bind(location), 1)"><img  src="assets/img/logo.png"></a>
+                    <a style="position: absolute;width: 12%;" href="Inicio" onclick="setTimeout(location.reload.bind(location), 1)"><img  src="assets/img/logo.png"></a>
                 </div>
             </a>
         </div>
@@ -418,9 +422,16 @@ pageEncoding="UTF-8"%>
 
 <!--Page Content-->
 <main id="pageContent" class="page has-sidebar">
-<div class="container-fluid relative animatedParent animateOnce p-lg-5">
-	<div class="container-fluid relative animatedParent animateOnce p-0">
+<div class="container-fluid relative  p-lg-5">
+	<div class="container-fluid relative p-0">
 		<div class="card no-b shadow no-r">
+		<button style="text-align:right;left: 10px;border-color: transparent;color: #fd7e14;background-color: #fd7e1400;" 
+				class="btn btn-abrir-popup-perfil btn-sm  mt-3" 
+				id="abrir-popup-lista"
+				onclick="document.getElementById('overlay-mod-listas-reproduccion').classList.add('active');">
+			<i class="icon-edit  s-24"></i>Editar
+		</button>
+		
 			<div class="animated">
 				<!--Banner-->
 
@@ -459,7 +470,6 @@ pageEncoding="UTF-8"%>
 							</div>
 						</div>
 					</div>
-				</section>
 				<!--@Banner-->
 
 				<div class="p-3 p-lg-5">
@@ -510,16 +520,17 @@ pageEncoding="UTF-8"%>
 <!-- LISTAS DE REPRODUCCION -->
 
 <!--Page Content-->
-<div class="container-fluid relative animatedParent animateOnce p-lg-5">
-	<div class="container-fluid relative animatedParent animateOnce p-0">
+<main id="pageContent" class="page has-sidebar">
+<div class="container-fluid relative p-lg-5">								
+	<div class="container-fluid relative p-0">
 		<div class="card no-b shadow no-r">
-			<div class="animated">
 				<!--Banner-->
 
 					<div class="has-bottom-gradient">
 						<div class="row pt-5 ml-lg-5 mr-lg-5">
 							<div class="col-md-10 offset-1">
 								<div class="row my-5 pt-5">
+
 									<div class="col-md-3">
 										<img src="assets/img/demo/a1.jpg" alt="/">
 									</div>
@@ -539,9 +550,54 @@ pageEncoding="UTF-8"%>
 												   data-actionText="ok"
 												   data-actionTextColor="#fff"
 												   data-backgroundColor="#0c101b"><i class="icon-share-1 s-24"></i></a>
+											    <button style="text-align:right;left: 10px;border-color: transparent;color: #fd7e14;background-color: #fd7e1400;" 
+													class="btn btn-abrir-popupl btn-sm  mt-3" 
+													id="abrir-popup-lista"
+													onclick="document.getElementById('overlay-mod-listas-reproduccion').classList.add('active');">
+													<i class="icon-edit  s-24"></i>Editar
+												</button>
 											</div>
-										</div>
+											<!-- EDICION LISTA DE REPRODUCCION -->
+											<div class="overlay-pop-up" id="overlay-mod-listas-reproduccion">
+											    <div class="col-md-7 card p-5">
+														<a style="position: absolute;top: 20px;right: 30px;" href="#" 
+														class="btn-cerrar-popup-perfil"
+														onclick="document.getElementById('overlay-mod-listas-reproduccion').classList.remove('active');">
+															<i class="icon-close1"></i>
+														</a>
+														<header class="relative nav-sticky card">
+															<h3>CAMBIAR INFORMACIÓN DE LISTA</h3>
+														</header>
+														<form class="form-material" action="modlr" method="post">
+															<!-- Input -->
+															<div class="body">
+																
+																<div class="form-group form-float">
+																	<div class="form-line">
+																		<input type="text" name="nombreNew" class="form-control" value="${infoLista.getNombre()}">
+																		<label class="form-label">Nombre</label>
+																	</div>
+																</div>
+											
+																<div class="form-group form-float">
+																	<div class="form-line">
+																		<input type="text" name="descripcion" class="form-control" value="${infoLista.getDescripcion()}">
+																		<label class="form-label">Descripción</label>
+																	</div>
+																</div>
+																<input type="hidden" name="nombreOld" value="${infoLista.getNombre()}">
+											
+																<input type="submit" class="btn btn-outline-primary btn-sm pl-4 pr-4"
+																	   value="Cambiar información">
+															</div>
+														</form>
+														<!-- #END# Input -->
+												</div>
+											</div>
+											<!-- END EDICION LISTA DE REPRODUCCION -->
 
+										</div>
+									
 										<div class="text-orange my-2">
 											<p>${infoLista.getDescripcion()}</p>
 										</div>
@@ -551,7 +607,6 @@ pageEncoding="UTF-8"%>
 							</div>
 						</div>
 					</div>
-				</section>
 				<!--@Banner-->
 
 				<div class="p-3 p-lg-5">

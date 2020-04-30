@@ -82,7 +82,7 @@ pageEncoding="UTF-8"%>
 <aside class="main-sidebar fixed offcanvas shadow" data-toggle='offcanvas'>
     <div class="sidebar">
         <ul class="sidebar-menu">
-            <li><a class="ajaxifyPage active" href="index.jsp" onclick="setTimeout(location.reload.bind(location), 1)">
+            <li><a class="ajaxifyPage active" href="Inicio" onclick="setTimeout(location.reload.bind(location), 1)">
                     <i class="icon icon-home-1 s-24"></i> <span>Inicio</span>
                 </a>
             </li>
@@ -109,11 +109,10 @@ pageEncoding="UTF-8"%>
                     <i class="icon icon-headphones s-24"></i> <span>Mis podcasts</span>
                 </a>
             </li>
-            <li><a class="ajaxifyPage" href="podcasts-single.jsp" onclick="setTimeout(location.reload.bind(location), 1)">
-                    <i class="icon icon-headphones s-24"></i> <span>Un SOLO podcast</span>
-                </a>
-            </li> 
-            
+            <li><a class="ajaxifyPage" href="obtener_info_fav" onclick="setTimeout(location.reload.bind(location), 1)">
+            		<i class="icon icon-star s-24"></i> <span>Mis favoritos</span>
+            	</a>
+            </li>
         </ul>
     </div>
 </aside>
@@ -386,9 +385,9 @@ String hayfoto = (String) session.getAttribute("hayfoto");
             <a href="#" data-toggle="push-menu" class="paper-nav-toggle pp-nav-toggle ml-2 mr-2">
                 <i></i>
             </a>
-            <a class="navbar-brand d-none d-lg-block" href="index.jsp" onclick="setTimeout(location.reload.bind(location), 1)">
+            <a class="navbar-brand d-none d-lg-block" href="Inicio" onclick="setTimeout(location.reload.bind(location), 1)">
                 <div class="d-flex align-items-center s-14 l-s-2">
-                    <a style="position: absolute;width: 12%;" href="index.jsp" onclick="setTimeout(location.reload.bind(location), 1)"><img  src="assets/img/logo.png"></a>
+                    <a style="position: absolute;width: 12%;" href="Inicio" onclick="setTimeout(location.reload.bind(location), 1)"><img  src="assets/img/logo.png"></a>
                 </div>
             </a>
         </div>
@@ -507,10 +506,88 @@ String hayfoto = (String) session.getAttribute("hayfoto");
             <section class="section">
                 <div class="d-flex relative align-items-center justify-content-between">
                     <div class="mb-4">
-                        <h4>Tus Listas de reproduccion</h4>
+                        <h2>Tus Listas de reproduccion</h4>
                     </div>
-                    <a href="mostrar_lrs?tipo=ListaRep" onclick="setTimeout(location.reload.bind(location), 1)">View Albums<i class="icon-angle-right ml-3"></i></a>
+                    <a style="color: black;" 
+                    href="mostrar_lrs?tipo=ListaRep" onclick="setTimeout(location.reload.bind(location), 1)">Ver más
+                    	<i class="icon-angle-right ml-3"></i>
+                    </a>
                 </div>
+               <div class="row has-items-overlay">
+               		<c:forEach var="lista" items="${listas}" >
+							<div class="col-lg-3 col-md-4 col-sm-6 my-2">
+								<figure>
+									<div class="img-wrapper">
+										<img src="assets/img/demo/a1.jpg" alt="/">
+										<div class="img-overlay text-white text-center">
+											<a href="obtener_info_lr?nombre=${lista.getNombre()}" onclick="setTimeout(location.reload.bind(location), 1)">
+												<div class="figcaption mt-3">
+													<i class="icon-link s-48"></i>
+													<h5 class="mt-5">${lista.getNombre()}</h5>
+												</div>
+											</a>
+										</div>
+										<div class="figure-title text-center p-2">
+											<h5>${lista.getNombre()}</h5>
+										</div>
+									</div>
+								</figure>
+							<div class="contenido-pestanas" style="text-align: center;">
+	                            <button class="btn btn-abrir-popup-lista icon-trash-o" 
+	                            onclick="document.getElementById('idLista').value = '${lista.getNombre()}';
+	                            document.getElementById('overlay-borrar-listas-reproduccion').classList.add('active');"></button>
+                       		 </div>
+                    	</div>
+					</c:forEach>                   
+               </div> 
+               <div class="d-flex relative align-items-center justify-content-between">
+                    <div class="mb-4">
+                        <h2>Tus Canciones favoritas</h4>
+                    </div>
+                    <a style="color: black;" 
+                    href="obtener_info_fav" onclick="setTimeout(location.reload.bind(location), 1)">Ver más
+                    	<i class="icon-angle-right ml-3"></i>
+                    </a>
+                </div>
+               <div class="p-3 p-lg-5">
+					<!--New Releases-->
+					<section>
+						<div class="row">
+							<div class="col-lg-10 offset-lg-1">
+								<div class="row">
+									<div class="col-md-12">
+										<div class="playlist">
+											<ul id="playlist" class="playlist list-group">
+												<c:forEach var="cancion" items="${audios}">                    
+													<div style="margin-bottom: -1px;" class="cancion">
+														<li class="list-group-item my-1">																
+															<div class="d-flex align-items-center">
+																<div class="col-1">
+																	<a class="no-ajaxy media-url" href="${cancion.getUrl()}">
+																		<i class="icon-play s-28"></i>
+																	</a>					
+																</div>
+																<div class="col-6">
+																	<h6>${cancion.getTitulo()}</h6>${cancion.getGenero()}
+																</div>
+																<span class="ml-auto">${cancion.getGenero()}</span>
+																<a href="#" class="ml-auto"><i class="icon-share-1"></i></a>
+																<div class="ml-auto">
+																	<a href="${pageContext.request.contextPath}/borrar_cancion_fav?idAudio=${cancion.getId()}" class="btn-icono icon-trash-o" onclick="setTimeout(location.reload.bind(location), 1)"></a>
+																</div>
+															</div>
+														</li>
+													</div>								                
+												</c:forEach>
+											</ul>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</section>
+					<!--@New Releases-->
+				</div>
                 <div class="lightSlider has-items-overlay playlist"
                      data-item="6"
                      data-item-lg="3"
@@ -1230,6 +1307,30 @@ String hayfoto = (String) session.getAttribute("hayfoto");
         </div>
     </div>
 </div>
+<!-- BORRAR LISTA DE REPRODUCCIÓN -->	
+	<div class="overlay-pop-up" id="overlay-borrar-listas-reproduccion">	
+	    <div class="col-md-7 card p-5">	
+	        <a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-borrar-listas-reproduccion" class="btn-cerrar-popup-perfil"	
+	        class="btn btn-outline-primary btn-sm pl-4 pr-4"  onclick="document.getElementById('overlay-borrar-listas-reproduccion').classList.remove('active');"><i class="icon-close1"></i></a>	
+			<form class="form-material" action="borrar_lr" method="post">	
+				<!-- Input -->	
+				<div class="body">	
+					<header class="relative nav-sticky card">	
+	                    <h3>¿Estas seguro?</h3>	
+	                    <h5>Vas a borrar esta lista de reproduccion para siempre, no hay vuelta atras</h5>	
+					</header>	
+		
+					<input type="hidden" id="idLista" name="nombre" value="">
+					<input type="hidden" name="tipo" value="ListaRep">	
+					<input type="submit" class="btn btn-outline-primary btn-sm pl-4 pr-4"	
+	                       value="Aceptar">	
+	                <button class="btn btn-outline-primary btn-sm pl-4 pr-4"  onclick="document.getElementById('overlay-borrar-listas-reproduccion').classList.remove('active');">Cerrar</button>	
+				</div>	
+				<!-- #END# Input -->	
+	        </form>	
+		</div>	
+	</div>	
+<!-- END BORRAR LISTA DE REPRODUCCIÓN -->
 </main><!--@Page Content-->
 </div><!--@#app-->
 <!--/#app -->
@@ -1237,6 +1338,29 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 <script src="assets/js/app.js"></script>
 <script  src="assets/js/audioPlayer.js"></script>
  <script src="https://code.jquery.com/jquery-2.2.0.js"></script>
+  <script>
+        
+        /*
+    Default constructor configuration:
+        autoplay: false,
+        shuffle: false,
+        loop: false,
+        playerId: "audioPlayer",
+        playlistId: "playlist",
+        currentClass: "current-song"
+        
+        
+*/
+        
+        // loads the audio player
+        var config = {
+          autoplay: true, 
+            loop: true,
+            shuffle: true
+        };
+        var playlist = new AudioPlaylist();
+        
+    </script>
     <script>
 	function loopAudio(){
 		var audio = document.getElementsByTagName("audio")[0];
@@ -1248,6 +1372,15 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 		//audio.load();
 	}
 	</script>
+	<script>
+    function rellenarCampos(size,song) {
+    	var i;
+    	for (i=0; i <size; i++){
+    	  	document.getElementsByName("idAudio")[i].value = song;
+    	}
+
+    }
+    </script>
 
 
 </body>

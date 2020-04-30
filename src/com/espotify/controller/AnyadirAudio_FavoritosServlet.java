@@ -41,7 +41,7 @@ public class AnyadirAudio_FavoritosServlet extends HttpServlet {
 		if (anyadida) {
 			log("La cancion se ha añadido correctamente");
 		} else {
-			log("La cancon no se ha podido añadir");
+			log("La cancion no se ha podido añadir");
 		}
 		
 		session.setAttribute("anyadida?", anyadida);
