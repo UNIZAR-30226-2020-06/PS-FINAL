@@ -85,7 +85,7 @@ pageEncoding="UTF-8"%>
 <aside class="main-sidebar fixed offcanvas shadow" data-toggle='offcanvas'>
     <div class="sidebar">
         <ul class="sidebar-menu">
-            <li><a class="ajaxifyPage active" href="Inicio" onclick="setTimeout(location.reload.bind(location), 1)">
+            <li><a class="ajaxifyPage active" href="Inicio" >
                     <i class="icon icon-home-1 s-24"></i> <span>Inicio</span>
                 </a>
             </li>
@@ -97,18 +97,18 @@ pageEncoding="UTF-8"%>
                 </a>
                 <ul class="sub-menu">
 					<c:forEach var="genero" items="${generos}">                    
-						<li class="list-group-item my-1"><a href="page-blank.jsp" onclick="setTimeout(location.reload.bind(location), 1)">${genero.getNombre()}</a></li>
+						<li class="list-group-item my-1"><a href="page-blank.jsp" >${genero.getNombre()}</a></li>
 	                </c:forEach>
 
                 </ul>
             </li>
             
-            <li><a class="ajaxifyPage" href="mostrar_lrs?tipo=ListaRep" onclick="setTimeout(location.reload.bind(location), 1)">
+            <li><a class="ajaxifyPage" href="mostrar_lrs?tipo=ListaRep" >
                     <i class="icon icon-compact-disc-1 s-24"></i> <span>Mis listas de reproduccion</span>
                 </a>
             </li>
             
-            <li><a class="ajaxifyPage" href="podcasts.jsp" onclick="setTimeout(location.reload.bind(location), 1)">
+            <li><a class="ajaxifyPage" href="podcasts.jsp" >
                     <i class="icon icon-headphones s-24"></i> <span>Mis podcasts</span>
                 </a>
             </li>
@@ -226,7 +226,7 @@ pageEncoding="UTF-8"%>
                         <li class="list-group-item">
                             <div class="d-flex align-items-center ">
                                 <div class="col-8 ">
-                                    <a href="album-single.jsp" onclick="setTimeout(location.reload.bind(location), 1)">
+                                    <a href="album-single.jsp" >
                                         <h6>Battal of Bands</h6>
                                     </a>
                                     <small class="mt-1"><i class="icon-placeholder-3 mr-1 "></i> London Music Hall
@@ -243,7 +243,7 @@ pageEncoding="UTF-8"%>
                         <li class="list-group-item">
                             <div class="d-flex align-items-center ">
                                 <div class="col-8 ">
-                                    <a href="album-single.jsp" onclick="setTimeout(location.reload.bind(location), 1)">
+                                    <a href="album-single.jsp" >
                                         <h6>Battal of Bands</h6>
                                     </a>
                                     <small class="mt-1"><i class="icon-placeholder-3 mr-1 "></i> London Music Hall
@@ -260,7 +260,7 @@ pageEncoding="UTF-8"%>
                         <li class="list-group-item">
                             <div class="d-flex align-items-center ">
                                 <div class="col-8 ">
-                                    <a href="album-single.jsp" onclick="setTimeout(location.reload.bind(location), 1)">
+                                    <a href="album-single.jsp" >
                                         <h6>Battal of Bands</h6>
                                     </a>
                                     <small class="mt-1"><i class="icon-placeholder-3 mr-1 "></i> London Music Hall
@@ -294,9 +294,9 @@ String hayfoto = (String) session.getAttribute("hayfoto");
             <a href="#" data-toggle="push-menu" class="paper-nav-toggle pp-nav-toggle ml-2 mr-2">
                 <i></i>
             </a>
-            <a class="navbar-brand d-none d-lg-block" href="Inicio" onclick="setTimeout(location.reload.bind(location), 1)">
+            <a class="navbar-brand d-none d-lg-block" href="Inicio" >
                 <div class="d-flex align-items-center s-14 l-s-2">
-                    <a style="position: absolute;width: 12%;" href="Inicio" onclick="setTimeout(location.reload.bind(location), 1)"><img  src="assets/img/logo.png"></a>
+                    <a style="position: absolute;width: 12%;" href="Inicio" ><img  src="assets/img/logo.png"></a>
                 </div>
             </a>
         </div>
@@ -326,14 +326,14 @@ String hayfoto = (String) session.getAttribute("hayfoto");
                     </a>
                     <div class="dropdown-menu p-4 dropdown-menu-right">
                         <div class="row box justify-content-between my-4">
+                        	<div class="col text-center">
+								<a class="ajaxifyPage" href="obtener_contenido_perfil" >
+									<i class="icon-user-4  s-24"></i>
+									<div class="pt-1">Mi perfil</div>
+								</a>
+							</div>
                             <div class="col text-center">
-                                <a class="ajaxifyPage" href="#" id="abrir-popup-cuenta">
-                                    <i class="icon-cog  s-24"></i>
-                                    <div class="pt-1">Ajustes cuenta</div>
-                                </a>
-                            </div>
-                            <div class="col text-center">
-                                <a class="ajaxifyPage" href="logout" onclick="setTimeout(location.reload.bind(location), 1)">
+                                <a class="ajaxifyPage" href="logout" >
                                     <a href="<%= request.getContextPath()+"/Cerrar_SesionServlet"%>"><i class="icon-exit-2  s-24"></i>
                                     <div class="pt-1">Cerrar sesión</div></a>
                                 </a>
@@ -415,16 +415,15 @@ String email = (String) session.getAttribute("email");
 %>
 <!-- END Obtener datos usuario -->
 
-<!--CONTENIDO DEL MEDIO-->
+<!--CONTENIDO NO AJAX-->
 <main id="pageContent" class="page has-sidebar">
-
-
 <div class="container-fluid relative animatedParent animateOnce p-lg-5">
 	<!-- CABECERA CON LA INFORMACION DEL USUARIO -->											 
     <div class="card no-b shadow no-r">
         <div class="row no-gutters">
 			<div class="col-md-4 b-r">
 			<button style="position: absolute;left: 10px;border-color: transparent;color: #fd7e14;background-color: #fd7e1400;" class="btn btn-abrir-popup-perfil btn-sm  mt-3" id="abrir-popup-perfil"><i class="icon-edit  s-24"></i>Editar perfil</button>
+			<button style="position: absolute;left: 130px;border-color: transparent;color: #fd7e14;background-color: #fd7e1400;" class="btn btn-abrir-popup-perfil btn-sm  mt-3" id="abrir-popup-cuenta"><i class="icon-cog  s-24"></i>Ajustes</button>
                 <div class="text-center p-5 mt-5">
 					
                     <figure style="width: 130px;height: 130px;width-max: 50%;" class="avatar avatar-xl">
@@ -531,12 +530,12 @@ String email = (String) session.getAttribute("email");
 															<span class="ml-auto">${cancion.getGenero()}</span>
 															<a href="#" class="ml-auto"><i class="icon-share-1"></i></a>
 															<div class="ml-auto">
-																<a href="anyadir_cancion_fav?idAudio=${cancion.getId()}" class="btn-favorito icon-star active" onclick="setTimeout(location.reload.bind(location), 1)"></a>
-																<a href="${pageContext.request.contextPath}/ir_modificar?id_cancion=${cancion.getId()}" class="btn-icono icon-pencil" onclick="setTimeout(location.reload.bind(location), 1)"></a>
+																<a href="anyadir_cancion_fav?idAudio=${cancion.getId()}" class="btn-favorito icon-star active" ></a>
+																<a href="${pageContext.request.contextPath}/ir_modificar?id_cancion=${cancion.getId()}" class="btn-icono icon-pencil" ></a>
 																<a href="#" class="btn-icono icon-list-1" onclick="rellenarCampos('${listaslr.size()}','${cancion.getId()}');
 																document.getElementById('overlay-anadir-listas-reproduccion').classList.add('active')";
 																	></a>
-																<a href="${pageContext.request.contextPath}/eliminar_cancion?id_cancion=${cancion.getId()}" class="btn-icono icon-trash-o" onclick="setTimeout(location.reload.bind(location), 1)"></a>
+																<a href="${pageContext.request.contextPath}/eliminar_cancion?id_cancion=${cancion.getId()}" class="btn-icono icon-trash-o" ></a>
 															</div>
 														</div>
 													</li>
@@ -563,7 +562,7 @@ String email = (String) session.getAttribute("email");
 	                            <div class="img-wrapper">
 	                                <img src="assets/img/demo/a2.jpg" alt="/">
 	                                <div class="img-overlay text-white text-center">
-	                                    <a href="obtener_info_fav" onclick="setTimeout(location.reload.bind(location), 1)">
+	                                    <a href="obtener_info_fav" >
 	                                        <div class="figcaption mt-3">
 	                                            <i class="icon-link s-48"></i>
 	                                            <h5 class="mt-5">Mis Favoritos</h5>
@@ -582,7 +581,7 @@ String email = (String) session.getAttribute("email");
 									<div class="img-wrapper">
 										<img src="assets/img/demo/a1.jpg" alt="/">
 										<div class="img-overlay text-white text-center">
-											<a href="obtener_info_lr?nombre=${listalr.getNombre()}" onclick="setTimeout(location.reload.bind(location), 1)">
+											<a href="obtener_info_lr?nombre=${listalr.getNombre()}" >
 												<div class="figcaption mt-3">
 													<i class="icon-link s-48"></i>
 													<h5 class="mt-5">${listalr.getNombre()}</h5>
@@ -632,12 +631,12 @@ String email = (String) session.getAttribute("email");
 															<span class="ml-auto">${cancion.getGenero()}</span>
 															<a href="#" class="ml-auto"><i class="icon-share-1"></i></a>
 															<div class="ml-auto">
-																<a href="anyadir_cancion_fav?idAudio=${cancion.getId()}" class="btn-favorito icon-star active" onclick="setTimeout(location.reload.bind(location), 1)"></a>
-																<a href="${pageContext.request.contextPath}/ir_modificar?id_cancion=${cancion.getId()}" class="btn-icono icon-pencil" onclick="setTimeout(location.reload.bind(location), 1)"></a>
+																<a href="anyadir_cancion_fav?idAudio=${cancion.getId()}" class="btn-favorito icon-star active" ></a>
+																<a href="${pageContext.request.contextPath}/ir_modificar?id_cancion=${cancion.getId()}" class="btn-icono icon-pencil" ></a>
 																<a href="#" class="btn-icono icon-list-1" onclick="rellenarCampos('${listaslr.size()}','${cancion.getId()}');
 																document.getElementById('overlay-anadir-podcast).classList.add('active')";
 																	></a>
-																<a href="${pageContext.request.contextPath}/eliminar_cancion?id_cancion=${cancion.getId()}" class="btn-icono icon-trash-o" onclick="setTimeout(location.reload.bind(location), 1)"></a>
+																<a href="${pageContext.request.contextPath}/eliminar_cancion?id_cancion=${cancion.getId()}" class="btn-icono icon-trash-o" ></a>
 															</div>
 														</div>
 													</li>
@@ -665,7 +664,7 @@ String email = (String) session.getAttribute("email");
 									<div class="img-wrapper">
 										<img src="assets/img/demo/a1.jpg" alt="/">
 										<div class="img-overlay text-white text-center">
-											<a href="obtener_info_lr?nombre=${listalr.getNombre()}" onclick="setTimeout(location.reload.bind(location), 1)">
+											<a href="obtener_info_lr?nombre=${listalr.getNombre()}" >
 												<div class="figcaption mt-3">
 													<i class="icon-link s-48"></i>
 													<h5 class="mt-5">${listalr.getNombre()}</h5>
@@ -893,7 +892,7 @@ String email = (String) session.getAttribute("email");
 <div class="overlay-pop-up" id="overlay-foto">
     <div class="col-md-7 card p-5">
 		<a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-foto" class="btn-cerrar-popup-perfil"><i class="icon-close1"></i></a>
-		<form class="form-material" action="modinfo">
+		<form class="form-material" action="modinfo" method=POST enctype=multipart/form-data>
 			<!-- Input -->
 			<div class="body">
 				<header class="relative nav-sticky card">
@@ -969,7 +968,7 @@ String email = (String) session.getAttribute("email");
 </div>
 <!-- END CREAR PODCAST -->
 
-<!-- AÑADIR CANCION A LISTA DE REPRODUCCI�N -->
+<!-- AÑADIR CANCION A LISTA DE REPRODUCCIÓN -->
 <div class="overlay-pop-up" id="overlay-anadir-listas-reproduccion">
     <div class="col-md-7 card p-5">
 		<a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-anadir-listas-reproduccion" class="btn-cerrar-popup-perfil"><i class="icon-close1"></i></a>			
@@ -1001,7 +1000,7 @@ String email = (String) session.getAttribute("email");
 			</div>		
 	</div>
 </div>
-<!-- END AÑADIR CANCION A LISTA DE REPRODUCCI�N -->
+<!-- END AÑADIR CANCION A LISTA DE REPRODUCCIÓN -->
 
 <!-- AÑADIR CAPITULO A PODCAST -->
 <div class="overlay-pop-up" id="overlay-anadir-podcast">
@@ -1071,7 +1070,7 @@ String email = (String) session.getAttribute("email");
 			<header class="relative nav-sticky card">
 				<h3>CAMBIAR INFORMACIÓN DE PERFIL</h3>
 			</header>
-			<form class="form-material" action="modinfo">
+			<form  action="modinfo">
 				<!-- Input -->
 				<div class="body">
 					
@@ -1086,6 +1085,13 @@ String email = (String) session.getAttribute("email");
 						<div class="form-line">
 							<input type="text" name="descripcion" class="form-control" value="<%=descripcion%>">
 							<label class="form-label">Descripción</label>
+						</div>
+					</div>
+					
+					<div class="form-group form-float">
+						<div class="form-line">
+							<input type="email" name="email" class="form-control" value="<%=email%>">
+							<label class="form-label">Email</label>
 						</div>
 					</div>
 
@@ -1106,21 +1112,7 @@ String email = (String) session.getAttribute("email");
 			<header class="relative nav-sticky card">
 				<h3>CAMBIAR INFORMACIÓN DE LA CUENTA</h3>
 			</header>
-			<form class="form-material" action="modinfo"> <!--QUITAR-->
-				<!-- Input -->
-				<div class="body">
-					
-					<div class="form-group form-float">
-						<div class="form-line">
-							<input type="email" name="email" class="form-control" value="<%=email%>">
-							<label class="form-label">Email</label>
-						</div>
-					</div>
-					<input type="submit" class="btn btn-outline-primary btn-sm pl-4 pr-4"
-						   value="Cambiar email">
-				</div>
-			</form>
-			<form class="form-material" action="modpass"> <!--QUITAR-->
+			<form  action="modpass"> <!--QUITAR-->
 				<!-- Input -->
 				<div class="body">
 					<div class="form-group form-float">
@@ -1153,19 +1145,10 @@ String email = (String) session.getAttribute("email");
 <!-- END AJUSTES CUENTA -->
 
 
-</main><!--@Page Content-->
-
-</div><!--@#app-->
-
-
-
 <!--/#app -->
 <script src="https://maps.googleapis.com/maps/api/js?&amp;key=AIzaSyC3YkZNNySdyR87o83QEHWglHfHD_PZqiw&amp;libraries=places"></script>
 <script src="assets/js/app.js"></script>
 <script  src="assets/js/mostrar-popup.js"></script>
-<script  src="assets/js/cambiarPestanaPerfil.js"></script>
-<script  src="assets/js/audioPlayer.js"></script>
- <script src="https://code.jquery.com/jquery-2.2.0.js"></script>
  <script>
 		function darbaja(){
 			if (confirm("¿Estás seguro que quieres eliminar tu cuenta?\nEsta operación es irreversible. Todos tus datos y canciones se perderán.")){
@@ -1174,29 +1157,6 @@ String email = (String) session.getAttribute("email");
 			}
 		}
 	</script>
-    <script>
-        
-        /*
-    Default constructor configuration:
-        autoplay: false,
-        shuffle: false,
-        loop: false,
-        playerId: "audioPlayer",
-        playlistId: "playlist",
-        currentClass: "current-song"
-        
-        
-*/
-        
-        // loads the audio player
-        var config = {
-          autoplay: true, 
-            loop: true,
-            shuffle: true
-        };
-        var playlist = new AudioPlaylist();
-        
-    </script>
     <script>
 	function loopAudio(){
 		var audio = document.getElementsByTagName("audio")[0];
@@ -1233,10 +1193,10 @@ String email = (String) session.getAttribute("email");
     	for (i=0; i <size; i++){
     	  	document.getElementsByName("idAudio")[i].value = song;
     	}
-
     }
     </script>
+    
+    </main><!--@Page Content-->
+</div><!--@#app-->
 </body>
-
-
 </html>

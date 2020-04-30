@@ -46,7 +46,7 @@ public class Modinfo_UsuarioServlet extends HttpServlet {
 		
 		if(ok) {
 			// Actualizamos datos de la sesi�n
-			if(nom != null && !nom.equals("")) session.setAttribute("usuario", nom);
+			if(nom != null && !nom.equals("")) session.setAttribute("nombre", nom);
 			if(email != null && !email.equals("")) session.setAttribute("email", email);
 			if(descripcion != null) session.setAttribute("descripcion", descripcion);
 			if(imagen != null && !imagen.equals("")) {

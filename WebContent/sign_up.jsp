@@ -175,5 +175,4 @@ String error2= (String)request.getParameter("error2");
 
 </body>
 
-<!-- Mirrored from xvelopers.com/demos/html/record-light/login.jsp by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 05 Apr 2020 17:22:07 GMT -->
 </html>

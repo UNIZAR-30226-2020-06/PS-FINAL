@@ -98,7 +98,7 @@ pageEncoding="UTF-8"%>
 <div id="primary" class="p-t-b-100 height-full">
     <div class="container">
         <div class="text-center s-14 l-s-2 my-5">
-            <a class="my-5" href="inicio.jsp" onclick="setTimeout(location.reload.bind(location), 1)">
+            <a class="my-5" href="inicio.jsp" >
 				<img style="position: relative;top:-170px;max-width: 40%;" src="assets/img/logo1.png">
 			</a>
         </div>
@@ -113,8 +113,8 @@ pageEncoding="UTF-8"%>
 					<div class="pt-3 mb-5">
 						<p>Vender la empresa.</p>
                     </div>
-					<a href="sign_up.jsp" onclick="setTimeout(location.reload.bind(location), 1)" class="btn btn-primary btn-lg">Regístrate</a>
-					<a href="login.jsp" onclick="setTimeout(location.reload.bind(location), 1)" class="btn btn-primary btn-lg">Iniciar sesión</a>
+					<a href="sign_up.jsp"  class="btn btn-primary btn-lg">Regístrate</a>
+					<a href="login.jsp"  class="btn btn-primary btn-lg">Iniciar sesión</a>
 				</div>
             </div>
         </div>
@@ -129,5 +129,4 @@ pageEncoding="UTF-8"%>
 
 </body>
 
-<!-- Mirrored from xvelopers.com/demos/html/record-light/login.jsp by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 05 Apr 2020 17:22:07 GMT -->
 </html>
