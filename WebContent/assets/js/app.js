@@ -10562,6 +10562,9 @@
 				o = function () {
 					$(".playlist .media-url i").removeClass("icon-pause").addClass("icon-play"), n <= e.length && a((n + 1) % e.length)
 				},
+				y = function (x) {
+					$(".playlist .media-url i").removeClass("icon-pause").addClass("icon-play"), a(x % e.length)
+				},
 				s = function () {
 					$(".playlist .media-url i").removeClass("icon-pause").addClass("icon-play"), n > 0 && a((n - 1) % e.length)
 				};
@@ -10570,6 +10573,14 @@
 			}), prevTrackSelector.on("click", function (t) {
 				t.preventDefault(), s()
 			});
+			
+			var aleatorio = false;
+			shuffleSelector = $("#shuffleTrack");
+			shuffleSelector.on("click", function (t) {
+				if(aleatorio) { aleatorio = false;}
+				else{ aleatorio = true;}
+			});
+			
 			var a = window.setCurrentSong = function (t) {
 				i(t), e[n].classList.remove("active"), n = t, e[n].classList.add("active");
 				var r = e[n].dataset.wave;
@@ -10584,7 +10595,8 @@
 			}), wavesurfer.on("ready", function () {
 				$("#mediaPlayer").data("auto") && wavesurfer.play()
 			}), wavesurfer.on("finish", function () {
-				o()
+				if(!aleatorio){ o(); }
+				else { var number = Math.round(Math.random()*(e.length-1)); y(number); }
 			}), a(n), wavesurfer.on("audioprocess", function () {
 				$(".track-time").text(l(wavesurfer.getCurrentTime()))
 			});
