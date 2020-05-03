@@ -11,36 +11,36 @@ import com.espotify.model.ConnectionManager;
 import com.espotify.model.Audio;
 
 
-public class CancionDAO {
+public class CapituloPodcastDAO {
 	private static String nombreGenero = null;
 	private static String nombreAutor = null;
 	
 	private final static String INSERT_QUERY = "INSERT INTO Reproductor_musica.Audio (titulo, usuario, genero, url) VALUES (?,?,?, ?)";
-	private final static String GET_ID_GENERO_QUERY = "SELECT g.id FROM Reproductor_musica.Genero g WHERE g.nombre = ? AND g.tipo = 'cancion'";
+	private final static String GET_ID_GENERO_QUERY = "SELECT g.id FROM Reproductor_musica.Genero g WHERE g.nombre = ? AND g.tipo = 'capituloPodcast'";
 	private final static String GET_ID_AUTOR_QUERY = "SELECT a.id FROM Reproductor_musica.Usuario a WHERE nombre = ?";
 	private final static String INSERT_URL_QUERY = "UPDATE Reproductor_musica.Audio SET url = ? WHERE id = ?";
 	private final static String DELETE_QUERY = "DELETE FROM Reproductor_musica.Audio WHERE id = ?";
-	private final static String GET_ID_CANCION_QUERY = "SELECT a.id FROM Reproductor_musica.Audio a WHERE titulo = ?";
-	private final static String GET_ID_ULTIMA_CANCION_QUERY = "SELECT a.id FROM Reproductor_musica.Audio a ORDER BY a.id DESC LIMIT 1";
+	private final static String GET_ID_CAPITULO_QUERY = "SELECT a.id FROM Reproductor_musica.Audio a WHERE titulo = ?";
+	private final static String GET_ID_ULTIMO_CAPITULO_QUERY = "SELECT a.id FROM Reproductor_musica.Audio a ORDER BY a.id DESC LIMIT 1";
 	private final static String UPDATE_QUERY = "UPDATE Reproductor_musica.Audio SET titulo = ?, genero = ? WHERE id = ?";
 	private final static String GET_NOMBRE_AUTOR_QUERY = "SELECT a.nombre FROM Reproductor_musica.Usuario a WHERE a.id = ?";
-	private final static String GET_NOMBRE_GENERO_QUERY = "SELECT g.nombre FROM Reproductor_musica.Genero g WHERE g.id = ? AND g.tipo = 'cancion'";
-	private final static String GET_CANCIONES_USUARIO = "SELECT a.id, a.titulo, a.url, a.usuario, a.genero FROM Reproductor_musica.Audio a WHERE a.usuario = ? AND a.genero IN (SELECT g.id FROM Reproductor_musica.Genero g WHERE g.tipo = 'cancion')";
+	private final static String GET_NOMBRE_GENERO_QUERY = "SELECT g.nombre FROM Reproductor_musica.Genero g WHERE g.id = ? AND g.tipo = 'capituloPodcast'";
+	private final static String GET_CAPITULO_USUARIO = "SELECT a.id, a.titulo, a.url, a.usuario, a.genero FROM Reproductor_musica.Audio a WHERE a.usuario = ? AND a.genero IN (SELECT g.id FROM Reproductor_musica.Genero g WHERE g.tipo = 'capituloPodcast')";
 	private final static String GET_TODOS_QUERY = "SELECT * FROM Reproductor_musica.Audio";
 	
-	public int subirCancion(String titulo, int autor, int genero, String ruta) {
-		System.out.println("SubirCancion Entro+++++++++++++++++");
+	public int subirCapituloPodcast(String titulo, int autor, int genero, String ruta) {
+		System.out.println("SubirCapituloPodcast Entro+++++++++++++++++");
 		//int id_autor = obtenerIDAutor(autor);
 		//int id_genero = obtenerIDGenero(genero);
 		//System.out.println(id_genero);
-		if (insertarCancion(titulo, autor, genero, ruta)) {
+		if (insertarCapituloPodcast(titulo, autor, genero, ruta)) {
 			return 1;
 		}
 		return 0;
 	}
 	
 	
-	public List<Audio> obtenerCanciones() {
+	public List<Audio> obtenerCapitulosPodcast() {
 		Connection conn;
 		try {
 			conn = ConnectionManager.getConnection();
@@ -59,7 +59,7 @@ public class CancionDAO {
 			return listaAudios;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			System.out.println("Error al obtener el id de la canción");
+			System.out.println("Error al obtener el id del capitulo");
 			return null;
 		}
 	}
@@ -69,7 +69,7 @@ public class CancionDAO {
 		try {
 			conn = ConnectionManager.getConnection();
 			PreparedStatement ps = conn.prepareStatement(INSERT_URL_QUERY);
-			int id = obtenerUltimaCancion();
+			int id = obtenerUltimoCapituloPodcast();
 			System.out.println(id);
 			ps.setString(1, url);
 			ps.setInt(2, id);
@@ -86,7 +86,7 @@ public class CancionDAO {
 	}
 	
 	
-	public boolean borrarCancion(int id) {
+	public boolean borrarCapituloPodcast(int id) {
 		Connection conn;
 		try {
 			conn = ConnectionManager.getConnection();
@@ -96,15 +96,15 @@ public class CancionDAO {
 			ps.executeUpdate();
 			
 			ConnectionManager.releaseConnection(conn);
-			System.out.println("SE HA BORRADO LA CANCION");
+			System.out.println("SE HA BORRADO EL CAPITULO");
 			return true;
 		} catch (SQLException e) {
-			System.out.println("Error al borrar cancion");
+			System.out.println("Error al borrar capitulo");
 			return false;
 		}	
 	}
 	
-	public boolean modificarCancion(String titulo, int genero, int id){
+	public boolean modificarCapituloPodcast(String titulo, int genero, int id){
 		Connection conn;
 		try {
 			conn = ConnectionManager.getConnection();
@@ -118,17 +118,17 @@ public class CancionDAO {
 			ps.executeUpdate();
 			
 			ConnectionManager.releaseConnection(conn);
-			System.out.println("SE HA MODIFICA LA CANCION");
+			System.out.println("SE HA MODIFICA EL CAPITULO");
 			return true;
 		} catch (SQLException e) {
-			System.out.println("Error al modificar cancion");
+			System.out.println("Error al modificar capitulo");
 			return false;
 		}	
 	}
 	
 	
 	public String obtenerNombreAutor(int id_autor) {
-		System.out.println("obtenerIDCancion Entro +++++++++++++++++");
+		System.out.println("obtenerIDCapitulo Entro +++++++++++++++++");
 		Connection conn;
 		try {
 			conn = ConnectionManager.getConnection();
@@ -142,7 +142,7 @@ public class CancionDAO {
 			return nombre;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			System.out.println("Error al obtener el id de la canción");
+			System.out.println("Error al obtener el id del capitulo");
 			return null;
 		}
 	}
@@ -161,7 +161,7 @@ public class CancionDAO {
 			return nombre;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			System.out.println("Error al obtener el id de la canci�n");
+			System.out.println("Error al obtener el id del capitulo");
 			return null;
 		}
 	}
@@ -187,7 +187,7 @@ public class CancionDAO {
 			return id_autor;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			System.out.println("Error al obtener el id del genero de la canción");
+			System.out.println("Error al obtener el id del genero del capitulo");
 			return 0;
 		}
 	}
@@ -212,14 +212,14 @@ public class CancionDAO {
 			return id_autor;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			System.out.println("Error al obtener el id del autor de la canción");
+			System.out.println("Error al obtener el id del autor del autor");
 			return 0;
 		}
 	}
 
 
-	private boolean insertarCancion(String titulo, int id_autor, int id_genero, String ruta) {
-		System.out.println("insertarCancion Entro +++++++++++++++++");
+	private boolean insertarCapituloPodcast(String titulo, int id_autor, int id_genero, String ruta) {
+		System.out.println("insertarCapituloPodcast Entro +++++++++++++++++");
 		Connection conn;
 
 			try {
@@ -236,7 +236,7 @@ public class CancionDAO {
 				ps.executeUpdate();
 				
 				ConnectionManager.releaseConnection(conn);
-				System.out.println("insertarCancion Salgo +++++++++++++++++");			
+				System.out.println("insertarCapituloPodcast Salgo +++++++++++++++++");			
 				return true;
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
@@ -246,12 +246,12 @@ public class CancionDAO {
 		
 	}
 
-	public int obtenerIdCancion(String titulo) {
-		System.out.println("obtenerIDCancion Entro +++++++++++++++++");
+	public int obtenerIdCapituloPodcast(String titulo) {
+		System.out.println("obtenerIDCapituloPodcast Entro +++++++++++++++++");
 		Connection conn;
 		try {
 			conn = ConnectionManager.getConnection();
-			PreparedStatement ps = conn.prepareStatement(GET_ID_CANCION_QUERY);
+			PreparedStatement ps = conn.prepareStatement(GET_ID_CAPITULO_QUERY);
 			
 			ps.setString(1, titulo);
 			
@@ -263,17 +263,17 @@ public class CancionDAO {
 			return id;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			System.out.println("Error al obtener el id de la ultima canción");
+			System.out.println("Error al obtener el id del ultimo capitulo");
 			return 0;
 		}
 	}
 		
-	private int obtenerUltimaCancion() {
-		System.out.println("obtenerIDCancion Entro +++++++++++++++++");
+	private int obtenerUltimoCapituloPodcast() {
+		System.out.println("obtenerIDCapituloPodcast Entro +++++++++++++++++");
 		Connection conn;
 		try {
 			conn = ConnectionManager.getConnection();
-			PreparedStatement ps = conn.prepareStatement(GET_ID_ULTIMA_CANCION_QUERY);				
+			PreparedStatement ps = conn.prepareStatement(GET_ID_ULTIMO_CAPITULO_QUERY);				
 			ResultSet rs = ps.executeQuery();
 			int id = 0;
 			while(rs.next())
@@ -282,27 +282,27 @@ public class CancionDAO {
 			return id;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			System.out.println("Error al obtener el id de la canción");
+			System.out.println("Error al obtener el id del capitulo");
 			return 0;
 		}
 	}
 	
-	public ArrayList<Audio> obtenerCancionesUsuario(int id_usuario){
-		ArrayList<Audio> canciones = new ArrayList<Audio>();
+	public ArrayList<Audio> obtenerCapitulosPodcastUsuario(int id_usuario){
+		ArrayList<Audio> capitulos = new ArrayList<Audio>();
 		Connection conn;
 		try {
 			conn = ConnectionManager.getConnection();
-			PreparedStatement ps = conn.prepareStatement(GET_CANCIONES_USUARIO);
+			PreparedStatement ps = conn.prepareStatement(GET_CAPITULO_USUARIO);
 			ps.setInt(1, id_usuario);
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()) {
-				canciones.add(new Audio(rs.getString(1), rs.getString(3), rs.getString(2), rs.getString(4), obtenerNombreGenero(Integer.valueOf(rs.getString(5)))));	
+				capitulos.add(new Audio(rs.getString(1), rs.getString(3), rs.getString(2), rs.getString(4), obtenerNombreGenero(Integer.valueOf(rs.getString(5)))));	
 			}
 			ConnectionManager.releaseConnection(conn);
-			return canciones;
+			return capitulos;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			System.out.println("Error al obtener las canciones");
+			System.out.println("Error al obtener los capitulos");
 			return null;
 		}		
 	}

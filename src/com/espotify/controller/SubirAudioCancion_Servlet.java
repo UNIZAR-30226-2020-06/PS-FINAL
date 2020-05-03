@@ -27,8 +27,8 @@ import com.espotify.dao.GeneroDAO;
 import com.espotify.dao.SubirAudioDAO;
 import com.espotify.model.Genero;
 
-@WebServlet("/SubirAudio_Servlet")
-public class SubirAudio_Servlet extends HttpServlet {
+@WebServlet("/SubirAudioCancion_Servlet")
+public class SubirAudioCancion_Servlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final String ALMACEN_PATH = "/var/www/html/almacen-mp3/";
 	private static final String RUTA = "https://espotify.ddns.net/almacen-mp3/";
@@ -93,7 +93,8 @@ public class SubirAudio_Servlet extends HttpServlet {
 			}
 			ArrayList<Genero> generos = new GeneroDAO().obtenerGeneroMusica();
 			request.setAttribute("generos", generos);
-			request.setAttribute("id_cancion", "0");
+			request.setAttribute("id_audio", "0");
+			request.setAttribute("cancion", true);
 			request.getRequestDispatcher("formulario-datos-cancion.jsp").forward(request, response);
 
 		} catch (FileUploadException e) {

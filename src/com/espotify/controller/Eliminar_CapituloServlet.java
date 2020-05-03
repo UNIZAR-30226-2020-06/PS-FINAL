@@ -1,28 +1,25 @@
 package com.espotify.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.espotify.dao.GeneroDAO;
-import com.espotify.model.Genero;
+import com.espotify.dao.CapituloPodcastDAO;
 
 /**
- * Servlet implementation class IrModificar
+ * Servlet implementation class Eliminar_CancionServlet
  */
-@WebServlet("/IrModificar")
-public class IrModificar extends HttpServlet {
+@WebServlet("/Eliminar_CapituloServlet")
+public class Eliminar_CapituloServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public IrModificar() {
+    public Eliminar_CapituloServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,18 +28,14 @@ public class IrModificar extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setAttribute("id_audio", request.getParameter("id_audio"));
-		Boolean cancion = Boolean.valueOf((String)request.getParameter("cancion"));
-		ArrayList<Genero> generos = null;
-		if(cancion) {
-			generos = new GeneroDAO().obtenerGeneroMusica();
-		} else {
-			generos = new GeneroDAO().obtenerGeneroCapitulo();
+		int id_capitulo = Integer.parseInt((String) request.getParameter("id_capitulo"));
+		CapituloPodcastDAO cancion = new CapituloPodcastDAO();
+		if (cancion.borrarCapituloPodcast(id_capitulo)) {
+			System.out.println("Entro");
+			request.getRequestDispatcher("/obtener_contenido_perfil").forward(request, response);
+		}else {
+			System.out.println("Error al eliminar cancion");
 		}
-		request.setAttribute("generos", generos);
-		request.setAttribute("cancion", cancion);
-		System.out.println(request.getParameter("cancion") + "-------------------------");
-		request.getRequestDispatcher("formulario-datos-cancion.jsp").forward(request, response);
 	}
 
 	/**

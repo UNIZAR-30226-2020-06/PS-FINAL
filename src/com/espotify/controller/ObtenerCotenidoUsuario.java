@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.espotify.dao.CancionDAO;
+import com.espotify.dao.CapituloPodcastDAO;
 import com.espotify.dao.GeneroDAO;
 import com.espotify.dao.ListaReproduccionDAO;
 import com.espotify.model.Audio;
@@ -42,6 +43,8 @@ public class ObtenerCotenidoUsuario extends HttpServlet {
 		int idUsuario = Integer.valueOf((String) session.getAttribute("id"));
 		ArrayList<Audio> canciones = new CancionDAO().obtenerCancionesUsuario(idUsuario);
 		request.setAttribute("canciones", canciones);
+		ArrayList<Audio> capitulos = new CapituloPodcastDAO().obtenerCapitulosPodcastUsuario(idUsuario);
+		request.setAttribute("capitulos", capitulos);
 		ArrayList<Genero> generos = new GeneroDAO().obtenerGeneroMusica();
 		request.setAttribute("generos", generos);
 		List<ListaReproduccion> listaslr = new ListaReproduccionDAO().showLists(idUsuario,"ListaRep");
