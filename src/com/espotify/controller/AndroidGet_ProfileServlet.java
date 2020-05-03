@@ -14,7 +14,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.HTTP;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.espotify.dao.CancionDAO;
@@ -44,12 +46,11 @@ public class AndroidGet_ProfileServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		
+		getServletContext().log("--- ~AndroidGet_ProfileServlet~ ---");
+		
         JSONObject parametrosPeticion = JSONAdapter.parsarJSON(request);
-        getServletContext().log("JSON Object: " + parametrosPeticion);
-        
         String email = parametrosPeticion.getString("email");
-        getServletContext().log("EMAIL: " + email);
         JSONObject respuestaPeticion = new JSONObject();
         
         response.setContentType("application/json");
@@ -66,30 +67,43 @@ public class AndroidGet_ProfileServlet extends HttpServlet {
         CancionDAO canciondao = new CancionDAO();
         List<ListaReproduccion> listas = new ListaReproduccionDAO().showLists(idUsuario, "ListaRep");
         List<Audio> audios = canciondao.obtenerCancionesUsuario(Integer.parseInt(idUsuario));
-        getServletContext().log("Listas recibidas: " + respuestaPeticion.toString()); 
+        //getServletContext().log("Listas recibidas: " + respuestaPeticion.toString()); 
         String listasReproduccion = "";
+        String listasDescripcion = "";
         String audiosUsuarioTitulo = "";
         String audiosUsuarioUrls = "";
         
+        boolean tieneListas = false;
+        boolean tieneAudios = false;
+        
         for(ListaReproduccion lista : listas) {
         	listasReproduccion += lista.getNombre() + "|";
+        	listasDescripcion += lista.getDescripcion() + "|";
+        	tieneListas = true;
         }
         
         for (Audio audio : audios) {
         	audiosUsuarioTitulo += audio.getTitulo() + "|";
         	audiosUsuarioUrls += audio.getUrl() + "|";
+        	tieneAudios = true;
         }
         
-    	listasReproduccion = listasReproduccion.substring(0, listasReproduccion.length() - 1);
-    	audiosUsuarioTitulo = audiosUsuarioTitulo.substring(0, audiosUsuarioTitulo.length() - 1);
-    	audiosUsuarioUrls = audiosUsuarioUrls.substring(0, audiosUsuarioUrls.length() - 1);
+        if(tieneListas) {
+        	listasReproduccion = listasReproduccion.substring(0, listasReproduccion.length() - 1);
+        }
         
+    	if (tieneAudios) {
+    		audiosUsuarioTitulo = audiosUsuarioTitulo.substring(0, audiosUsuarioTitulo.length() - 1);
+        	audiosUsuarioUrls = audiosUsuarioUrls.substring(0, audiosUsuarioUrls.length() - 1);
+    	}
+    	
         respuestaPeticion.put("lista", listasReproduccion);
+        respuestaPeticion.put("listaDescripcion", listasDescripcion);
         respuestaPeticion.put("audiosTitulo", audiosUsuarioTitulo);
         respuestaPeticion.put("audiosUrl", audiosUsuarioUrls);
         
-        getServletContext().log("ENVIADO [GETPROFILE]: " + respuestaPeticion.toString()); 
-        // finally output the json string       
+        getServletContext().log("-------------------------------------------");
+        // Lanzar JSON
         out.print(respuestaPeticion.toString());
 	}
 

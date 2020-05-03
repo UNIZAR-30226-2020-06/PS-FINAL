@@ -51,16 +51,14 @@ public class AndroidCrear_ListaRepServlet extends HttpServlet {
         
         String email = parametrosPeticion.getString("email");
         String nombreLista = parametrosPeticion.getString("nombrePlaylist");
-        
+        String descripcion = parametrosPeticion.getString("descripcion");
         
         String idUsuario = UsuarioDAO.obtenerId(email);
-        ListaReproduccionDAO.crear(idUsuario, nombreLista, "", "ListaRep");
-        
+        ListaReproduccionDAO.crear(idUsuario, nombreLista, descripcion, "ListaRep");
         
         JSONObject respuestaPeticion = new JSONObject();
         respuestaPeticion.put("creado", "ok");
         getServletContext().log("ENVIADO [GETPROFILE]: " + respuestaPeticion.toString()); 
-        
         
         // Lanzar JSON
         PrintWriter out = response.getWriter();

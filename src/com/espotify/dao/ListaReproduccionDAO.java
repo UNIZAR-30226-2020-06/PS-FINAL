@@ -35,7 +35,7 @@ public class ListaReproduccionDAO {
 	private final static String SHOWLISTS_QUERY = "SELECT * FROM Reproductor_musica.ListasRep WHERE usuario = ? AND tipo = ? ORDER BY nombre";
 	private final static String INSERTAUDIO_QUERY =  "INSERT INTO Reproductor_musica.Contiene (audio, lista) VALUES (?,?)";
 	private final static String DELETE_AUDIO_QUERY = "DELETE FROM Reproductor_musica.Contiene WHERE audio = ? AND lista = ?";
-	private final static String GETLIST_ID_QUERY = "SELECT lista.id FROM Reproductor_musica.ListasRep WHERE lista.nombre = ?";
+	private final static String GETLIST_ID_QUERY = "SELECT id FROM Reproductor_musica.ListasRep WHERE nombre = ?";
 	private final static String GETNAMES_QUERY = "SELECT nombre FROM Reproductor_musica.ListasRep WHERE usuario = ? AND tipo = ?";
 	
 	public static boolean crear(int usuario, String nombre, String descripcion, String tipo) {
@@ -660,7 +660,7 @@ public class ListaReproduccionDAO {
 		try {
 
 			Connection conn = ConnectionManager.getConnection();
-			PreparedStatement ps = conn.prepareStatement(GETAUDIOS_QUERY);
+			PreparedStatement ps = conn.prepareStatement(GETLIST_ID_QUERY);
             
 			ps.setString(1, nombre);
 			ResultSet rs = ps.executeQuery();

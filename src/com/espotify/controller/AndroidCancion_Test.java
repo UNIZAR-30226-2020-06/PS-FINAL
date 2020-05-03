@@ -54,8 +54,6 @@ public class AndroidCancion_Test extends HttpServlet {
         JSONArray audiosJSON = new JSONArray();
         JSONObject datosAudio;
         
-
-        
         getServletContext().log("ENVIADO [GETPROFILE]: " + respuestaPeticion.toString()); 
         
         // Lanzar JSON

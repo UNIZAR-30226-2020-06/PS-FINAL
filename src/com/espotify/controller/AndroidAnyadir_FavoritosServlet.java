@@ -31,9 +31,6 @@ import com.espotify.model.Usuario;
  */
 @WebServlet("/AndroidAnyadir_FavoritosServlet")
 public class AndroidAnyadir_FavoritosServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-	private static final String PETICION_LOGIN = "login";
-	private static final String PETICION_REGISTRO = "registrar";
        
     /**
      * @see HttpServlet#HttpServlet()
