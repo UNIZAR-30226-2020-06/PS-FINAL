@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.util.Collections;
 import java.util.Enumeration;
 import java.util.List;
 
@@ -18,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import com.espotify.dao.FavoritosDAO;
+import com.espotify.dao.CapituloPodcastDAO;
 import com.espotify.dao.JSONAdapter;
 import com.espotify.dao.ListaReproduccionDAO;
 import com.espotify.dao.UsuarioDAO;
@@ -27,16 +26,16 @@ import com.espotify.model.ListaReproduccion;
 import com.espotify.model.Usuario;
 
 /**
- * Servlet implementation class AndroidEliminar_ListaRepServlet
+ * Servlet implementation class AndroidGet_ProfileServlet
  */
-@WebServlet("/AndroidModificar_ListaRepServlet")
-public class AndroidModificar_ListaRepServlet extends HttpServlet {
+@WebServlet("/AndroidGet_CapitulosPodcastServlet")
+public class AndroidGet_CapitulosPodcastServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AndroidModificar_ListaRepServlet() {
+    public AndroidGet_CapitulosPodcastServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -46,30 +45,49 @@ public class AndroidModificar_ListaRepServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		getServletContext().log("--- ~AndroidGet_CapitulosPodcastServlet~ ---");
         JSONObject parametrosPeticion = JSONAdapter.parsarJSON(request);
-        getServletContext().log("PETICION RECIBIDA [DELETE_PLAYLIST]: " + parametrosPeticion); 
+        getServletContext().log("Parametros: " + parametrosPeticion);
         
-        String email = parametrosPeticion.getString("email");
-        String nombreViejoPlayList = parametrosPeticion.getString("nombrePlaylistViejo");
-        String nombreNuevoPlayList = parametrosPeticion.getString("nombrePlaylistNuevo");
-        String descripcion = parametrosPeticion.getString("descripcion");
-        
-        String idUsuario = UsuarioDAO.obtenerId(email);
-        boolean cambiado = ListaReproduccionDAO.cambiar_info(nombreViejoPlayList, nombreNuevoPlayList, idUsuario, descripcion, null, "ListaRep");
-        
+        String nombrePodcast = parametrosPeticion.getString("podcast");
+
         JSONObject respuestaPeticion = new JSONObject();
-        if(cambiado) {
-        	respuestaPeticion.put("estado", "ok");
-        } else {
-        	respuestaPeticion.put("estado", "fail");
-        }
         
-        // Lanzar JSON
-        
-        PrintWriter out = response.getWriter();
         response.setContentType("application/json");
         response.setCharacterEncoding("utf-8");
+        PrintWriter out = response.getWriter();
+/*
+        CapituloPodcastDAO cpd = new CapituloPodcastDAO();
+        cpd.obtenerCapitulosPodcast()
+        
+        
+        
+        respuestaPeticion.put("nombreUsuario", u.getNombre());
+        respuestaPeticion.put("descripcion", u.getDescripcion());
+        respuestaPeticion.put("email", u.getCorreo());
+        
+        String idUsuario = UsuarioDAO.obtenerId(email);
+        
+        List<Audio> audios =  ListaReproduccionDAO.getAudios(nombrePlaylist, "3", "ListaRep");
+        getServletContext().log("Audios recibidos" + audios); 
+        */
+        String nombresAudio = "";
+        String urlsAudio = "";
+        /*
+        for(Audio audio : audios) {
+        	nombresAudio += audio.getTitulo() + "|";
+        	urlsAudio += audio.getUrl() + "|";
+        }
+        
+        nombresAudio = nombresAudio.substring(0, nombresAudio.length() - 1);
+        
+        respuestaPeticion.put("nombresAudio", nombresAudio);
+        respuestaPeticion.put("urlsAudio", urlsAudio);
+        
+        
+        // finally output the json string       
         out.print(respuestaPeticion.toString());
+        */
 	}
 
 	/**

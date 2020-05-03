@@ -4,7 +4,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.util.Collections;
+import java.sql.Blob;
+import java.sql.SQLException;
 import java.util.Enumeration;
 import java.util.List;
 
@@ -15,10 +16,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.HTTP;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.espotify.dao.FavoritosDAO;
+import com.espotify.dao.CancionDAO;
 import com.espotify.dao.JSONAdapter;
 import com.espotify.dao.ListaReproduccionDAO;
 import com.espotify.dao.UsuarioDAO;
@@ -27,16 +30,16 @@ import com.espotify.model.ListaReproduccion;
 import com.espotify.model.Usuario;
 
 /**
- * Servlet implementation class AndroidEliminar_ListaRepServlet
+ * Servlet implementation class AndroidGet_PodcastServlet
  */
-@WebServlet("/AndroidModificar_ListaRepServlet")
-public class AndroidModificar_ListaRepServlet extends HttpServlet {
+@WebServlet("/AndroidGet_PodcastServlet")
+public class AndroidGet_PodcastServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AndroidModificar_ListaRepServlet() {
+    public AndroidGet_PodcastServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -46,30 +49,39 @@ public class AndroidModificar_ListaRepServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-        JSONObject parametrosPeticion = JSONAdapter.parsarJSON(request);
-        getServletContext().log("PETICION RECIBIDA [DELETE_PLAYLIST]: " + parametrosPeticion); 
+		getServletContext().log("--- ~AndroidGet_PodcastServlet~ ---");
         
-        String email = parametrosPeticion.getString("email");
-        String nombreViejoPlayList = parametrosPeticion.getString("nombrePlaylistViejo");
-        String nombreNuevoPlayList = parametrosPeticion.getString("nombrePlaylistNuevo");
-        String descripcion = parametrosPeticion.getString("descripcion");
+		
+		List<ListaReproduccion> listaPodcasts = ListaReproduccionDAO.showAllLists("podcast");
+		
+        String nombresPodcast = "";
+        String descripcionesPodcast = "";
+       
+        boolean hayPodcasts = false;
         
-        String idUsuario = UsuarioDAO.obtenerId(email);
-        boolean cambiado = ListaReproduccionDAO.cambiar_info(nombreViejoPlayList, nombreNuevoPlayList, idUsuario, descripcion, null, "ListaRep");
-        
-        JSONObject respuestaPeticion = new JSONObject();
-        if(cambiado) {
-        	respuestaPeticion.put("estado", "ok");
-        } else {
-        	respuestaPeticion.put("estado", "fail");
+        for(ListaReproduccion lista : listaPodcasts) {
+        	nombresPodcast += lista.getNombre() + "|";
+        	descripcionesPodcast += lista.getDescripcion() + "|";
+        	hayPodcasts = true;
         }
         
-        // Lanzar JSON
         
+        if(hayPodcasts) {
+        	nombresPodcast = nombresPodcast.substring(0, nombresPodcast.length() - 1);
+        	descripcionesPodcast = descripcionesPodcast.substring(0, descripcionesPodcast.length() - 1);
+        }
+    	
+        JSONObject respuestaPeticion = new JSONObject();
+        respuestaPeticion.put("lista", nombresPodcast);
+        respuestaPeticion.put("listaDescripcion", descripcionesPodcast);
+        
+        // Lanzar JSON
         PrintWriter out = response.getWriter();
         response.setContentType("application/json");
         response.setCharacterEncoding("utf-8");
         out.print(respuestaPeticion.toString());
+        
+        getServletContext().log("-------------------------------------------");
 	}
 
 	/**

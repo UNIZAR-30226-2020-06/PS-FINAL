@@ -46,13 +46,13 @@ public class AndroidModificar_UsuarioServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         JSONObject parametrosPeticion = JSONAdapter.parsarJSON(request);
-        getServletContext().log("_MODIFICAR USUARIO SERVLET_ " + parametrosPeticion);
+        getServletContext().log("--- ~AndroidModificar_UsuarioServlet~ ---");
         
         String nombre = parametrosPeticion.getString("nombre");
         String descripcion = parametrosPeticion.getString("descripcion");
         String email = parametrosPeticion.getString("email");
-        String nuevaContrasenya = parametrosPeticion.getString("nueva_contrasenya");
-        getServletContext().log("EMAIL: " + email);
+        String nuevaContrasenya = parametrosPeticion.getString("contrasenya");
+        getServletContext().log("Parametros: " + parametrosPeticion);
         JSONObject respuestaPeticion = new JSONObject();
         
         response.setContentType("application/json");
@@ -61,10 +61,11 @@ public class AndroidModificar_UsuarioServlet extends HttpServlet {
         
         String idUsuario = UsuarioDAO.obtenerId(email);
         UsuarioDAO.cambiar_info(nombre, descripcion, email, idUsuario, null);
+        UsuarioDAO.cambiar_pass_noverify(nuevaContrasenya, idUsuario);
         
         respuestaPeticion.put("estado", "ok");
         
-        getServletContext().log("ENVIADO _MODIFICAR USUARIO SERVLET_ " + respuestaPeticion.toString()); 
+       
         // finally output the json string       
         out.print(respuestaPeticion.toString());
 	}
