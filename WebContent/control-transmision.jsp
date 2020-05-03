@@ -87,7 +87,7 @@ String nombre = (String) session.getAttribute("nombre");
 <aside class="main-sidebar fixed offcanvas shadow" data-toggle='offcanvas'>
     <div class="sidebar">
         <ul class="sidebar-menu">
-            <li><a class="ajaxifyPage active" href="Inicio" onclick="setTimeout(location.reload.bind(location), 1)">
+            <li><a class="ajaxifyPage active" href="Inicio" >
                     <i class="icon icon-home-1 s-24"></i> <span>Inicio</span>
                 </a>
             </li>
@@ -99,22 +99,23 @@ String nombre = (String) session.getAttribute("nombre");
                 </a>
                 <ul class="sub-menu">
 					<c:forEach var="genero1" items="${generos}">                    
-						<li><a href="page-blank.jsp" onclick="setTimeout(location.reload.bind(location), 1)">${genero1.getNombre()}</a></li>
+						<li><a href="page-blank.jsp" >${genero1.getNombre()}</a></li>
 	                </c:forEach>
 
                 </ul>
             </li>
             
-            <li><a class="ajaxifyPage" href="videos.jsp" onclick="setTimeout(location.reload.bind(location), 1)">
+
+            <li><a class="ajaxifyPage" href="mostrar_lrs?tipo=ListaRep" onclick="setTimeout(location.reload.bind(location), 1)">
                     <i class="icon icon-compact-disc-1 s-24"></i> <span>Mis listas de reproduccion</span>
                 </a>
             </li>
             
-            <li><a class="ajaxifyPage" href="podcasts.jsp" onclick="setTimeout(location.reload.bind(location), 1)">
+            <li><a class="ajaxifyPage" href="podcasts.jsp" >
                     <i class="icon icon-headphones s-24"></i> <span>Mis podcasts</span>
                 </a>
             </li>
-            <li><a class="ajaxifyPage" href="obtener_info_fav" onclick="setTimeout(location.reload.bind(location), 1)">
+            <li><a class="ajaxifyPage" href="obtener_info_fav" >
             		<i class="icon icon-star s-24"></i> <span>Mis favoritos</span>
             	</a>
             </li>
@@ -322,7 +323,7 @@ String nombre = (String) session.getAttribute("nombre");
                         <li class="list-group-item">
                             <div class="d-flex align-items-center ">
                                 <div class="col-8 ">
-                                    <a href="video-single.jsp" onclick="setTimeout(location.reload.bind(location), 1)">
+                                    <a href="video-single.jsp" >
                                         <h6>Battal of Bands</h6>
                                     </a>
                                     <small class="mt-1"><i class="icon-placeholder-3 mr-1 "></i> London Music Hall
@@ -339,7 +340,7 @@ String nombre = (String) session.getAttribute("nombre");
                         <li class="list-group-item">
                             <div class="d-flex align-items-center ">
                                 <div class="col-8 ">
-                                    <a href="video-single.jsp" onclick="setTimeout(location.reload.bind(location), 1)">
+                                    <a href="video-single.jsp" >
                                         <h6>Battal of Bands</h6>
                                     </a>
                                     <small class="mt-1"><i class="icon-placeholder-3 mr-1 "></i> London Music Hall
@@ -356,7 +357,7 @@ String nombre = (String) session.getAttribute("nombre");
                         <li class="list-group-item">
                             <div class="d-flex align-items-center ">
                                 <div class="col-8 ">
-                                    <a href="video-single.jsp" onclick="setTimeout(location.reload.bind(location), 1)">
+                                    <a href="video-single.jsp" >
                                         <h6>Battal of Bands</h6>
                                     </a>
                                     <small class="mt-1"><i class="icon-placeholder-3 mr-1 "></i> London Music Hall
@@ -380,6 +381,10 @@ String nombre = (String) session.getAttribute("nombre");
 <!-- ACABA BUSCADOR (LUPA) -->
 
 
+<%
+String hayfoto = (String) session.getAttribute("hayfoto");
+%>
+
 <!-- BARRA DE ARRIBA FIJA -->
 <nav class="navbar-wrapper shadow">
     <div class="navbar navbar-expand player-header justify-content-between  bd-navbar">
@@ -387,58 +392,56 @@ String nombre = (String) session.getAttribute("nombre");
             <a href="#" data-toggle="push-menu" class="paper-nav-toggle pp-nav-toggle ml-2 mr-2">
                 <i></i>
             </a>
-            <a class="navbar-brand d-none d-lg-block" href="Inicio" onclick="setTimeout(location.reload.bind(location), 1)">
+            <a class="navbar-brand d-none d-lg-block" href="Inicio" >
                 <div class="d-flex align-items-center s-14 l-s-2">
-                    <a style="position: absolute;width: 12%;" href="Inicio" onclick="setTimeout(location.reload.bind(location), 1)"><img  src="assets/img/logo.png"></a>
+                    <a style="position: absolute;width: 12%;" href="Inicio" ><img  src="assets/img/logo.png"></a>
                 </div>
             </a>
         </div>
         
         <!--Top Menu Start -->
-        <div class="navbar-custom-menu">
-            <ul class="nav navbar-nav">
+		<div class="navbar-custom-menu">
+			<ul class="nav navbar-nav">
 
-                <!-- Right Sidebar Toggle Button -->
-                <li class="searchOverlay-wrap">
-                    <a href="#" id="btn-searchOverlay" class="nav-link mr-3 btn--searchOverlay no-ajaxy">
-                        <i class="icon icon-search s-24"></i>
-                    </a>
+				<!-- Right Sidebar Toggle Button -->
+				<li class="searchOverlay-wrap">
+					<a href="#" id="btn-searchOverlay" class="nav-link mr-3 btn--searchOverlay no-ajaxy">
+						<i class="icon icon-search s-24"></i>
+					</a>
 
-                </li>
-                <!-- User Account-->
-                <li class="dropdown custom-dropdown user user-menu ">
-                    <a href="#" class="nav-link" data-toggle="dropdown">
-                        <figure class="avatar">
-                            <img src="assets/img/demo/u7.png" alt="">
-                        </figure>
-                        <i class="icon-more_vert "></i>
-                    </a>
-                    <div class="dropdown-menu p-4 dropdown-menu-right">
-                        <div class="row box justify-content-between my-4">
-                            <div class="col text-center">
-                                <a class="ajaxifyPage" href="profile.jsp" onclick="setTimeout(location.reload.bind(location), 1)">
-                                    <i class="icon-user-4  s-24"></i>
-                                    <div class="pt-1">Mi perfil</div>
-                                </a>
-                            </div>
-                            <div class="col text-center">
-                                <a class="ajaxifyPage" href="#" onclick="setTimeout(location.reload.bind(location), 1)">
-                                    <i class="icon-cog  s-24"></i>
-                                    <div class="pt-1">Ajustes cuenta</div>
-                                </a>
-                            </div>
-                            <div class="col text-center">
-								<a class="ajaxifyPage" href="logout" onclick="setTimeout(location.reload.bind(location), 1)">
+				</li>
+				<!-- User Account-->
+				<li class="dropdown custom-dropdown user user-menu ">
+					<a href="#" class="nav-link" data-toggle="dropdown">
+						<figure class="avatar">
+							<%if (hayfoto!=null){ %>
+	                    	<img src="${pageContext.request.contextPath}/cargar_imagen">
+	                    	<%} else {%>
+	                    	<img src="assets/img/fondo1.jpg">
+	                    	<%} %>
+						</figure>
+						<i class="icon-more_vert "></i>
+					</a>
+					<div class="dropdown-menu p-4 dropdown-menu-right">
+						<div class="row box justify-content-between my-4">
+							<div class="col text-center">
+								<a class="ajaxifyPage" href="obtener_contenido_perfil" >
+									<i class="icon-user-4  s-24"></i>
+									<div class="pt-1">Mi perfil</div>
+								</a>
+							</div>
+							<div class="col text-center">
+								<a class="ajaxifyPage" href="logout" >
 									<a href="<%= request.getContextPath()+"/Cerrar_SesionServlet"%>"><i class="icon-exit-2  s-24"></i>
                                     <div class="pt-1">Cerrar sesión</div></a>
 								</a>
 							</div>
-                        </div>
-                    </div>
-                </li>
-            </ul>
-        </div>
-    </div>
+						</div>
+					</div>
+				</li>
+			</ul>
+		</div>
+	</div>
 </nav>
 <!-- ACABA BARRA DE ARRIBA FIJA -->
 
@@ -448,7 +451,7 @@ String nombre = (String) session.getAttribute("nombre");
     <div class="navbar navbar-expand player-header justify-content-between  bd-navbar">
         <!--Player-->
         <div id="mediaPlayer" class="player-bar col-lg-8 col-md-5" data-auto="true">
-            <div style="height: 50px;width: 150%;" class="row align-items-center grid">
+            <div style="height: 50px;width: 157%;" class="row align-items-center grid">
             <!-- BOTONES ANTERIOR, PAUSE, SIGUIENTE -->
                 <div class="col">
                     <div class="d-flex align-items-center">
@@ -475,13 +478,20 @@ String nombre = (String) session.getAttribute("nombre");
                     <div id="waveform"></div>
                 </div>
                 
-                <!-- COLA -->
+                <!-- TIEMPO -->
                 <div class="col d-none d-lg-block">
                     <small class="track-time mr-2 text-primary align-middle"></small>
-                    <a style="position: absolute;top: -5px;right: -5px;" data-toggle="control-sidebar">
-                        <i class="icon icon-menu-3 s-24 align-middle"></i>Cola
-                    </a>
-                </div>  
+                </div> 
+                
+                <button class="btn btn-link d-none d-sm-block" style="position: fixed;right: 78px;" onclick="muteVol();">
+                    <i class="icon-mute s-18"></i>
+                </button>
+                <button class="btn btn-link d-none d-sm-block" style="position: fixed;right: 49px;" onclick="bajarVol();">
+                    <i class="icon-volume-down s-18"></i>
+                </button>
+                <button class="btn btn-link d-none d-sm-block" style="position: fixed;right: 14px;" onclick="subirVol();">
+                    <i class="icon-volume-up s-18"></i>
+                </button>
             </div>
         </div>
         <!--END Player-->
@@ -551,9 +561,8 @@ String nombre = (String) session.getAttribute("nombre");
 <!--/#app -->
 <script src="https://maps.googleapis.com/maps/api/js?&amp;key=AIzaSyC3YkZNNySdyR87o83QEHWglHfHD_PZqiw&amp;libraries=places"></script>
 <script src="assets/js/app.js"></script>
-<script  src="assets/js/audioPlayer.js"></script>
- <script src="https://code.jquery.com/jquery-2.2.0.js"></script>
-    <script>
+
+<script>
 	function loopAudio(){
 		var audio = document.getElementsByTagName("audio")[0];
 		if(audio.loop){
@@ -562,6 +571,25 @@ String nombre = (String) session.getAttribute("nombre");
 			audio.loop = true;
 		}
 		//audio.load();
+	}
+	
+	function subirVol(){
+		var audio = document.getElementsByTagName("audio")[0];
+		audio.volume+=0.1;
+	}
+	
+	function bajarVol(){
+		var audio = document.getElementsByTagName("audio")[0];
+		audio.volume-=0.1;
+	}
+	
+	function muteVol(){
+		var audio = document.getElementsByTagName("audio")[0];
+		if(audio.muted){
+			audio.muted = false;
+		}else{
+			audio.muted = true;
+		}
 	}
 	</script>
 
