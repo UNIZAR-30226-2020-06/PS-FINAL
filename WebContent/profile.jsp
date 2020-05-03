@@ -531,7 +531,7 @@ String email = (String) session.getAttribute("email");
 															<a href="#" class="ml-auto"><i class="icon-share-1"></i></a>
 															<div class="ml-auto">
 																<a href="anyadir_cancion_fav?idAudio=${cancion.getId()}" class="btn-favorito icon-star active" ></a>
-																<a href="${pageContext.request.contextPath}/ir_modificar?id_cancion=${cancion.getId()}" class="btn-icono icon-pencil" ></a>
+																<a href="${pageContext.request.contextPath}/ir_modificar?id_audio=${cancion.getId()}&cancion=true" class="btn-icono icon-pencil" ></a>
 																<a href="#" class="btn-icono icon-list-1" onclick="rellenarCampos('${listaslr.size()}','${cancion.getId()}');
 																document.getElementById('overlay-anadir-listas-reproduccion').classList.add('active')";
 																	></a>
@@ -615,28 +615,27 @@ String email = (String) session.getAttribute("email");
 							<div class="row">
 								<div class="col-md-12">
 									<div class="playlist">
-										<ul id="playlist" class="playlist list-group">
-											<c:forEach var="cancion" items="${canciones}">                    
+										<ul id="playlistPodcast" class="playlist list-group">
+											<c:forEach var="capitulo" items="${capitulos}">                    
 												<div style="margin-bottom: -1px;" class="cancion">
 													<li class="list-group-item my-1">
 														<div class="d-flex align-items-center">
 															<div class="col-1">
-																<a class="no-ajaxy media-url" href="${cancion.getUrl()}">
+																<a class="no-ajaxy media-url" href="${capitulo.getUrl()}">
 																	<i class="icon-play s-28"></i>
 																</a>					
 															</div>
 															<div class="col-6">
-																<h6>${cancion.getTitulo()}</h6>${genero.getNombre()}
+																<h6>${capitulo.getTitulo()}</h6>${genero.getNombre()}
 															</div>
-															<span class="ml-auto">${cancion.getGenero()}</span>
+															<span class="ml-auto">${capitulo.getGenero()}</span>
 															<a href="#" class="ml-auto"><i class="icon-share-1"></i></a>
 															<div class="ml-auto">
-																<a href="anyadir_cancion_fav?idAudio=${cancion.getId()}" class="btn-favorito icon-star active" ></a>
-																<a href="${pageContext.request.contextPath}/ir_modificar?id_cancion=${cancion.getId()}" class="btn-icono icon-pencil" ></a>
-																<a href="#" class="btn-icono icon-list-1" onclick="rellenarCampos('${listaslr.size()}','${cancion.getId()}');
+																<a href="${pageContext.request.contextPath}/ir_modificar?id_audio=${capitulo.getId()}&cancion=false" class="btn-icono icon-pencil" ></a>
+																<a href="#" class="btn-icono icon-list-1" onclick="rellenarCampos('${listaslr.size()}','${capitulo.getId()}');
 																document.getElementById('overlay-anadir-podcast).classList.add('active')";
 																	></a>
-																<a href="${pageContext.request.contextPath}/eliminar_cancion?id_cancion=${cancion.getId()}" class="btn-icono icon-trash-o" ></a>
+																<a href="${pageContext.request.contextPath}/eliminar_capitulo?id_capitulo=${capitulo.getId()}" class="btn-icono icon-trash-o" ></a>
 															</div>
 														</div>
 													</li>
@@ -854,7 +853,7 @@ String email = (String) session.getAttribute("email");
 <!-- Bloque de subir cancion-->
 <div class="overlay-pop-up" id="overlay-subir-cancion">
     <div class="col-md-7 card p-5">
-		<form class="form-material" action="subir_audio" method="post" enctype="multipart/form-data">
+		<form class="form-material" action="subir_audio_cancion" method="post" enctype="multipart/form-data">
 			<a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-subir-cancion" class="btn-cerrar-popup-perfil"><i class="icon-close1"></i></a>
 			<header class="relative nav-sticky card">
 					<h3>SUBIR CANCIÓN</h3>
@@ -872,7 +871,7 @@ String email = (String) session.getAttribute("email");
 <!-- Bloque de subir capitulo-->
 <div class="overlay-pop-up" id="overlay-subir-capitulo">
     <div class="col-md-7 card p-5">
-		<form class="form-material" action="subir_audio" method="post" enctype="multipart/form-data">
+		<form class="form-material" action="subir_audio_capitulo" method="post" enctype="multipart/form-data">
 			<a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-subir-capitulo" class="btn-cerrar-popup-perfil"><i class="icon-close1"></i></a>
 			<header class="relative nav-sticky card">
 					<h3>SUBIR CAPITULO DE  PODCAST</h3>

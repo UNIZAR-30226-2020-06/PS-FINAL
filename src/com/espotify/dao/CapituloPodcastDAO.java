@@ -129,29 +129,7 @@ public class CapituloPodcastDAO {
 		}	
 	}
 	
-	public boolean modificarCapituloPodcast(String titulo, int genero, int id){
-		Connection conn;
-		int id_genero = obtenerIDGenero(genero);
-		try {
-			conn = ConnectionManager.getConnection();
-			PreparedStatement ps = conn.prepareStatement(UPDATE_QUERY);
-			ps.setString(1, titulo);
-			ps.setInt(2, id_genero);
-			ps.setInt(3, id);
-			System.out.println(titulo);
-			System.out.println(id);
-			System.out.println(id_genero);
-			ps.executeUpdate();
-			
-			ConnectionManager.releaseConnection(conn);
-			System.out.println("SE HA MODIFICA EL CAPITULO");
-			return true;
-		} catch (SQLException e) {
-			System.out.println("Error al modificar capitulo");
-			return false;
-		}	
-	}
-	
+
 	
 	public String obtenerNombreAutor(int id_autor) {
 		System.out.println("obtenerIDCapitulo Entro +++++++++++++++++");

@@ -14,9 +14,12 @@ pageEncoding="UTF-8"%>
 <!-- RECOGIDA DATOS -->
 <%
 String nombre = (String) session.getAttribute("nombre");
-int id_cancion = Integer.parseInt((String) request.getAttribute("id_cancion"));
+Boolean cancion =  (Boolean) request.getAttribute("cancion");
+int id_audio = Integer.parseInt((String) request.getAttribute("id_audio"));
+System.out.println(cancion + "++++++++++++++++++++++++++++++++++++++++++++++");
 request.setAttribute("ruta", (String) request.getAttribute("ruta"));
 %>
+
 
 
 <!-- NOMBRE DE LA PESTAÃA -->
@@ -380,11 +383,10 @@ request.setAttribute("ruta", (String) request.getAttribute("ruta"));
     </div>
 </div>
 <!-- ACABA BUSCADOR (LUPA) -->
+<% String hayfoto = (String) session.getAttribute("hayfoto");  %>
 
 
-<%
-String hayfoto = (String) session.getAttribute("hayfoto");
-%>
+
 
 <!-- BARRA DE ARRIBA FIJA -->
 <nav class="navbar-wrapper shadow">
@@ -415,9 +417,9 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 				<li class="dropdown custom-dropdown user user-menu ">
 					<a href="#" class="nav-link" data-toggle="dropdown">
 						<figure class="avatar">
-							<%if (hayfoto!=null){ %>
+						<%if (hayfoto!=null){ %>
 	                    	<img src="${pageContext.request.contextPath}/cargar_imagen">
-	                    	<%} else {%>
+	                    	<%} else { %>
 	                    	<img src="assets/img/fondo1.jpg">
 	                    	<%} %>
 						</figure>
@@ -519,29 +521,33 @@ String hayfoto = (String) session.getAttribute("hayfoto");
                     </div>
                 </div>
             </div>
-            <%if(id_cancion == 0) { %>
-            <form action="subir_cancion" >
+            <% if(id_audio == 0 && cancion == true) {  %>
+            	<form action="subir_cancion" >
             <% String ruta = (String)request.getAttribute("ruta");
-            } else { 
-            	request.setAttribute("id_cancion", id_cancion);%>
-            <form action="modificar_cancion">
-            <% } %>
-				<div class="text-center p-5 mt-5">
-					<div class="p5 b-b">
-						<input type="hidden" value="${id_cancion}" name="id">
-						<input type="hidden" value="${ruta}" name="ruta">
-						<input type="text" name="titulo" class="formulario-subir-cancion" placeholder="Título de la canción" required=""/>
-						<select name="genero">
-						   <c:forEach var="genero" items="${generos}">
-						   		<option value="${genero.getId()}">${genero.getNombre()}</option>
-						   </c:forEach>
-						</select>
+            } else if (id_audio != 0 && cancion == true){ 
+            	request.setAttribute("id_audio", id_audio);%>
+            	<form action="modificar_cancion">
+            <% } else if (id_audio == 0 && cancion == false){  %>
+            	<form action="subir_capitulo">
+            <% } else if (id_audio != 0 && cancion == false){  %>
+            	<form action="modificar_capitulo">
+            <%} %>
+					<div class="text-center p-5 mt-5">
+						<div class="p5 b-b">
+							<input type="hidden" value="${id_audio}" name="id">
+							<input type="hidden" value="${ruta}" name="ruta">
+							<input type="text" name="titulo" class="formulario-subir-cancion" placeholder="Título de la canción" required=""/>
+							<select name="genero">
+							   <c:forEach var="genero" items="${generos}">
+							   		<option value="${genero.getId()}">${genero.getNombre()}</option>
+							   </c:forEach>
+							</select>
+						</div>
+						<div="p-4">
+							<input type="submit" class="btn btn-outline-primary btn-sm  mt-3" value="Guardar">
+						</div>
 					</div>
-					<div="p-4">
-						<input type="submit" class="btn btn-outline-primary btn-sm  mt-3" value="Guardar">
-					</div>
-				</div>
-			</form>
+				</form>
         </div>
     </div>
 

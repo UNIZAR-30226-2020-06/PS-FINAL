@@ -31,6 +31,7 @@ public class ModificarInfo_CancionServlet extends HttpServlet {
 		System.out.println("ENTRE EN MODIFICAR");
 		String titulo = request.getParameter("titulo");
 		int genero = Integer.valueOf(request.getParameter("genero"));
+		System.out.println(genero + "++++++++++++++++++++++++++++++++++++");
 		int id = Integer.parseInt(request.getParameter("id"));
 		CancionDAO cancion = new CancionDAO();
 		if (cancion.modificarCancion(titulo, genero, id)) {
