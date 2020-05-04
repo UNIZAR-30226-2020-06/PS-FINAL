@@ -50,7 +50,6 @@ public class CapituloPodcastDAO {
 			List<Audio> listaAudios = new ArrayList<>();
 			
 			while(rs.next()) { 
-				System.out.println("params: " + rs.getString(1) + rs.getString(2) + rs.getString(3) + rs.getString(4) + rs.getString(5));
 				a = new Audio(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5));
 				listaAudios.add(a);
 			}
@@ -63,6 +62,32 @@ public class CapituloPodcastDAO {
 			return null;
 		}
 	}
+	
+	
+	public List<Audio> obtenerCapitulosPodcastxd() {
+		Connection conn;
+		try {
+			conn = ConnectionManager.getConnection();
+			PreparedStatement ps = conn.prepareStatement(GET_TODOS_QUERY);				
+			ResultSet rs = ps.executeQuery();
+			Audio a;
+			List<Audio> listaAudios = new ArrayList<>();
+			
+			while(rs.next()) { 
+				a = new Audio(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5));
+				listaAudios.add(a);
+			}
+			ConnectionManager.releaseConnection(conn);
+			
+			return listaAudios;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			System.out.println("Error al obtener el id del capitulo");
+			return null;
+		}
+	}
+	
+	
 	
 	public boolean insertar_url(String url) {
 		Connection conn;
@@ -125,7 +150,7 @@ public class CapituloPodcastDAO {
 			return false;
 		}	
 	}
-	
+
 	
 	public String obtenerNombreAutor(int id_autor) {
 		System.out.println("obtenerIDCapitulo Entro +++++++++++++++++");

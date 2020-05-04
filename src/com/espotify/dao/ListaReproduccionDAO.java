@@ -22,6 +22,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 public class ListaReproduccionDAO {
+	private final static String ATRIBUTO_PODCAST = "Podcast";
 	private final static String INSERT_QUERY = "INSERT INTO Reproductor_musica.ListasRep (usuario, nombre, descripcion, imagen, tipo) VALUES (?,?,?,?,?)";
 	private final static String UPDATE_NOM_QUERY = "UPDATE Reproductor_musica.ListasRep SET nombre=? WHERE nombre = ? AND usuario = ? AND tipo = ?";
 	private final static String UPDATE_DES_QUERY = "UPDATE Reproductor_musica.ListasRep SET descripcion=? WHERE nombre = ? AND usuario = ? AND tipo = ?";
@@ -33,14 +34,14 @@ public class ListaReproduccionDAO {
 													+ "WHERE lista.id = cont.lista AND cont.audio = audio.id AND audio.genero = genero.id AND audio.usuario = user.id AND "
 													+ "lista.nombre = ? AND lista.usuario = ? AND lista.tipo = ? ORDER BY audio.titulo";
 	private final static String SHOWLISTS_QUERY = "SELECT * FROM Reproductor_musica.ListasRep WHERE usuario = ? AND tipo = ? ORDER BY nombre";
+	private final static String SHOW_ALL_LISTS_QUERY = "SELECT * FROM Reproductor_musica.ListasRep WHERE AND tipo = ? ORDER BY nombre";
 	private final static String INSERTAUDIO_QUERY =  "INSERT INTO Reproductor_musica.Contiene (audio, lista) VALUES (?,?)";
 	private final static String DELETE_AUDIO_QUERY = "DELETE FROM Reproductor_musica.Contiene WHERE audio = ? AND lista = ?";
 	private final static String GETLIST_ID_QUERY = "SELECT id FROM Reproductor_musica.ListasRep WHERE nombre = ?";
 	private final static String GETNAMES_QUERY = "SELECT nombre FROM Reproductor_musica.ListasRep WHERE usuario = ? AND tipo = ?";
+	private final static String GETALL_PODCAST = "SELECT * FROM Reproductor_musica.ListasRep WHERE tipo = " + ATRIBUTO_PODCAST;
 	
 	public static boolean crear(int usuario, String nombre, String descripcion, String tipo) {
-
-		
 		try {
 			Connection conn = ConnectionManager.getConnection();
 			PreparedStatement ps = conn.prepareStatement(INSERT_QUERY);
@@ -335,9 +336,6 @@ public class ListaReproduccionDAO {
 
 			Connection conn = ConnectionManager.getConnection();
 			PreparedStatement ps = conn.prepareStatement(SHOWLISTS_QUERY);
-   
-	   
-		  
             
 			ps.setInt(1, idUsuario);
             ps.setString(2, tipo);
@@ -363,6 +361,69 @@ public class ListaReproduccionDAO {
 		
 		return rutas;
 	}
+	
+	public static List<ListaReproduccion> showAllLists(String tipo) {
+		List<ListaReproduccion> rutas = new ArrayList<ListaReproduccion>();
+		try {
+
+			Connection conn = ConnectionManager.getConnection();
+			PreparedStatement ps = conn.prepareStatement(SHOW_ALL_LISTS_QUERY);
+            
+            ps.setString(1, tipo);
+			
+			ResultSet rs = ps.executeQuery();
+
+			while(rs.next()){
+				ListaReproduccion result = new ListaReproduccion(rs.getString("id"), rs.getString("nombre"), 
+						rs.getString("usuario"), rs.getString("descripcion"), (Blob) rs.getBlob("imagen"), rs.getString("tipo"));
+                rutas.add(result);
+			}
+			
+			ConnectionManager.releaseConnection(conn);
+	  
+			
+		} catch(SQLException se) {
+			se.printStackTrace();
+	
+		} catch(Exception e) {
+			e.printStackTrace(System.err);
+	
+		}
+		
+		return rutas;
+	}
+	
+	
+	public List<ListaReproduccion> obtenerTodosPodcast() {
+		List<ListaReproduccion> rutas = new ArrayList<ListaReproduccion>();
+		try {
+
+			Connection conn = ConnectionManager.getConnection();
+			PreparedStatement ps = conn.prepareStatement(GETALL_PODCAST);
+			
+			ResultSet rs = ps.executeQuery();
+
+			while(rs.next()){
+				ListaReproduccion result = new ListaReproduccion(rs.getString("id"), rs.getString("nombre"), 
+						rs.getString("usuario"), rs.getString("descripcion"), (Blob) rs.getBlob("imagen"), rs.getString("tipo"));
+                rutas.add(result);
+			}
+			
+			ConnectionManager.releaseConnection(conn);
+	  
+			
+		} catch(SQLException se) {
+			se.printStackTrace();
+	
+		} catch(Exception e) {
+			e.printStackTrace(System.err);
+	
+		}
+		
+		return rutas;
+	}
+	
+	
 	
 	public ListaReproduccion getInfoList(String nombre, int usuario, String tipo) {
 		ListaReproduccion result = null;

@@ -4,7 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
 
@@ -15,28 +15,32 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.HTTP;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.espotify.dao.FavoritosDAO;
+import com.espotify.dao.CancionDAO;
+import com.espotify.dao.GeneroDAO;
 import com.espotify.dao.JSONAdapter;
 import com.espotify.dao.ListaReproduccionDAO;
 import com.espotify.dao.UsuarioDAO;
 import com.espotify.model.Audio;
+import com.espotify.model.Genero;
 import com.espotify.model.ListaReproduccion;
 import com.espotify.model.Usuario;
 
 /**
- * Servlet implementation class AndroidEliminar_ListaRepServlet
+ * Servlet implementation class AndroidGet_GenerosServlet
  */
-@WebServlet("/AndroidModificar_ListaRepServlet")
-public class AndroidModificar_ListaRepServlet extends HttpServlet {
+@WebServlet("/AndroidGet_GenerosServlet")
+public class AndroidGet_GenerosServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AndroidModificar_ListaRepServlet() {
+    public AndroidGet_GenerosServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -46,29 +50,28 @@ public class AndroidModificar_ListaRepServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		getServletContext().log("--- ~AndroidGet_GenerosServlet~ ---");
+		
         JSONObject parametrosPeticion = JSONAdapter.parsarJSON(request);
-        getServletContext().log("PETICION RECIBIDA [DELETE_PLAYLIST]: " + parametrosPeticion); 
+        getServletContext().log("Parametros: " + parametrosPeticion);
         
-        String email = parametrosPeticion.getString("email");
-        String nombreViejoPlayList = parametrosPeticion.getString("nombrePlaylistViejo");
-        String nombreNuevoPlayList = parametrosPeticion.getString("nombrePlaylistNuevo");
-        String descripcion = parametrosPeticion.getString("descripcion");
+        GeneroDAO gdao = new GeneroDAO();
+        ArrayList<Genero> listaGeneros = gdao.obtenerGeneroMusica();
+        String generos = "";
         
-        String idUsuario = UsuarioDAO.obtenerId(email);
-        boolean cambiado = ListaReproduccionDAO.cambiar_info(nombreViejoPlayList, nombreNuevoPlayList, idUsuario, descripcion, null, "ListaRep");
-        
-        JSONObject respuestaPeticion = new JSONObject();
-        if(cambiado) {
-        	respuestaPeticion.put("estado", "ok");
-        } else {
-        	respuestaPeticion.put("estado", "fail");
+        for(Genero g : listaGeneros) {
+        	generos += g.getNombre() + "|";
+        	
         }
-        
-        // Lanzar JSON
-        
+    	
+        JSONObject respuestaPeticion = new JSONObject();
         PrintWriter out = response.getWriter();
         response.setContentType("application/json");
         response.setCharacterEncoding("utf-8");
+        respuestaPeticion.put("generos", generos);
+        getServletContext().log("Parametros respuesta: " + generos);
+        getServletContext().log("-------------------------------------------");
+        // Lanzar JSON
         out.print(respuestaPeticion.toString());
 	}
 

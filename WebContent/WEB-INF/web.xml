@@ -121,6 +121,25 @@
 	</servlet-mapping>
 	
 	<servlet>
+		<servlet-name>AndroidGet_GenerosServlet</servlet-name>
+		<servlet-class>com.espotify.controller.AndroidGet_GenerosServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AndroidGet_GenerosServlet</servlet-name>
+		<url-pattern>/generos_android</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>AndroidGet_PodcastServlet</servlet-name>
+		<servlet-class>com.espotify.controller.AndroidGet_PodcastServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AndroidGet_PodcastServlet</servlet-name>
+		<url-pattern>/podcasts_android</url-pattern>
+	</servlet-mapping>
+	
+	
+	<servlet>
 		<servlet-name>AndroidModificar_CancionServlet</servlet-name>
 		<servlet-class>com.espotify.controller.AndroidModificar_CancionServlet</servlet-class>
 	</servlet>
@@ -145,6 +164,24 @@
 	<servlet-mapping>
 		<servlet-name>AndroidModificar_UsuarioServlet</servlet-name>
 		<url-pattern>/modificar_usuario_android</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>AndroidSubir_ImagenUsuarioServlet</servlet-name>
+		<servlet-class>com.espotify.controller.AndroidSubir_ImagenUsuarioServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AndroidSubir_ImagenUsuarioServlet</servlet-name>
+		<url-pattern>/imagen_usuario_android</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>AndroidSubir_AudioServlet</servlet-name>
+		<servlet-class>com.espotify.controller.AndroidSubir_AudioServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AndroidSubir_AudioServlet</servlet-name>
+		<url-pattern>/subir_audio_android</url-pattern>
 	</servlet-mapping>
 	
 	<servlet>

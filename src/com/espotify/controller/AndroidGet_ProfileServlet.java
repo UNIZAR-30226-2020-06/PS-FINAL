@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.sql.Blob;
+import java.sql.SQLException;
 import java.util.Enumeration;
 import java.util.List;
 
@@ -50,6 +52,7 @@ public class AndroidGet_ProfileServlet extends HttpServlet {
 		getServletContext().log("--- ~AndroidGet_ProfileServlet~ ---");
 		
         JSONObject parametrosPeticion = JSONAdapter.parsarJSON(request);
+        getServletContext().log("Parametros: " + parametrosPeticion);
         String email = parametrosPeticion.getString("email");
         JSONObject respuestaPeticion = new JSONObject();
         
@@ -57,10 +60,24 @@ public class AndroidGet_ProfileServlet extends HttpServlet {
         response.setCharacterEncoding("utf-8");
         PrintWriter out = response.getWriter();
         
-        Usuario u = new UsuarioDAO().obtenerInfo(email);
+        Usuario u = UsuarioDAO.obtenerInfo(email);
+        
+        Blob imagenBlob = UsuarioDAO.obtenerBlobImagen(email);
+        int blobLength;
+		try {
+			blobLength = (int) imagenBlob.length();
+			byte[] blobAsBytes = imagenBlob.getBytes(1, blobLength);
+			respuestaPeticion.put("imagen", blobAsBytes);
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        
         respuestaPeticion.put("nombreUsuario", u.getNombre());
         respuestaPeticion.put("descripcion", u.getDescripcion());
         respuestaPeticion.put("email", u.getCorreo());
+        
         
         String idUsuario = UsuarioDAO.obtenerId(email);
         
@@ -89,6 +106,7 @@ public class AndroidGet_ProfileServlet extends HttpServlet {
         }
         
         if(tieneListas) {
+        	listasDescripcion = listasDescripcion.substring(0, listasDescripcion.length() - 1);
         	listasReproduccion = listasReproduccion.substring(0, listasReproduccion.length() - 1);
         }
         
@@ -101,7 +119,7 @@ public class AndroidGet_ProfileServlet extends HttpServlet {
         respuestaPeticion.put("listaDescripcion", listasDescripcion);
         respuestaPeticion.put("audiosTitulo", audiosUsuarioTitulo);
         respuestaPeticion.put("audiosUrl", audiosUsuarioUrls);
-        
+       // getServletContext().log(respuestaPeticion.toString());
         getServletContext().log("-------------------------------------------");
         // Lanzar JSON
         out.print(respuestaPeticion.toString());
