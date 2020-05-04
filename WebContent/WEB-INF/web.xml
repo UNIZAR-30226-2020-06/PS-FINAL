@@ -286,6 +286,7 @@
 		<url-pattern>/borrar_lr</url-pattern>
 	</servlet-mapping>
 	
+	
 	<servlet>
 		<servlet-name>mostrar_lrs</servlet-name>
 		<servlet-class>com.espotify.controller.GetAll_ListaRepServlet</servlet-class>
@@ -293,6 +294,15 @@
 	<servlet-mapping>
 		<servlet-name>mostrar_lrs</servlet-name>
 		<url-pattern>/mostrar_lrs</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>mostrar_podcasts</servlet-name>
+		<servlet-class>com.espotify.controller.GetAll_PodcastServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>mostrar_podcasts</servlet-name>
+		<url-pattern>/mostrar_podcasts</url-pattern>
 	</servlet-mapping>
 	
 	<servlet>
@@ -346,6 +356,15 @@
 	<servlet-mapping>
 		<servlet-name>obtener_info_lr</servlet-name>
 		<url-pattern>/obtener_info_lr</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>obtener_info_podcast</servlet-name>
+		<servlet-class>com.espotify.controller.GetInfo_PodcastServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>obtener_info_podcast</servlet-name>
+		<url-pattern>/obtener_info_podcast</url-pattern>
 	</servlet-mapping>
 	
 	<servlet>

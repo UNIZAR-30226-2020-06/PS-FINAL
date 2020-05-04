@@ -127,7 +127,7 @@ public class ListaReproduccionDAO {
 	}
 	
 	public static boolean borrar(String nombre, int usuario, String tipo) {
-		
+		System.out.println("ENTRAREEEEE");
 		try {
 			Connection conn = ConnectionManager.getConnection();
 			PreparedStatement ps = conn.prepareStatement(DELETE_QUERY);
@@ -139,10 +139,12 @@ public class ListaReproduccionDAO {
 			ps.executeUpdate();
 			
 			ConnectionManager.releaseConnection(conn);
+			System.out.println("SALI BN");
 			return true;
 			
 		} catch(SQLException se) {
 			System.out.println(se.getMessage());
+			System.out.println("SALI MAL");
 			return false;
 		} catch(Exception e) {
 			e.printStackTrace(System.err);
@@ -197,7 +199,7 @@ public class ListaReproduccionDAO {
 	}
 	
 	public static boolean cambiar_info(String nombreOld, String nombreNew, int usuario, String descripcion, String imagen, String tipo) {
-	
+		System.out.println("VOY A CAMBIAR INFO");
 		try {
 			Connection conn = ConnectionManager.getConnection();
 			PreparedStatement ps;
@@ -253,6 +255,7 @@ public class ListaReproduccionDAO {
 			return cambiada;
 			
 		} catch(SQLException se) {
+			System.out.println("SQL EXCEPTIONNNNN");
 			se.printStackTrace();
 			return false;
 		} catch(Exception e) {
@@ -679,38 +682,5 @@ public class ListaReproduccionDAO {
 		return id;
     	
     }
-    
-    // Prubas con la base de datos
- 	public static void main(String[] args) throws SQLException, IOException{
- 		
- 		//boolean creada = crear("1","Canciones Edu","lista de reproduccion de edu","ListaRep");
- 		//if (creada) System.out.println("Creada lista rep");
- 		
- 		//boolean borrada = borrar("Canciones Eduardo","1","ListaRep");
- 		//if (borrada) System.out.println("Borrada lista rep");
- 		
- 		//boolean modificada = cambiar_info("Canciones Eduardo","Canciones de Eduardo","1","Nueva Descripcion 2","/Users/davidallozatejero/downloads/imagen.jpg","ListaRep");
- 		//if (modificada) System.out.println("Modif lista rep");
- 		
- 		//ListaReproduccion l = getInfoList("Canciones de Eduardo","1","ListaRep");
- 		//System.out.println(l.getNombre());
- 		//System.out.println(l.getDescripcion());
- 		
- 		/*List<Audio> la = getAudios("Canciones de Eduardo","1","ListaRep");
- 		for (Audio a : la) {
- 			System.out.println(a.getTitulo());
- 	 		System.out.println(a.getGenero());
- 	 		System.out.println(a.getUsuario());
- 		}*/
- 		
- 		/*List<ListaReproduccion> ll = showLists("1","ListaRep");
- 		for (ListaReproduccion l : ll) {
- 			System.out.println(l.getNombre());
- 	 		System.out.println(l.getDescripcion());
- 		}*/
- 		
- 		//boolean anyadido = anyadirAudio("6","13");
- 		//if (anyadido) System.out.println("Añadido audio a lista de rep");
- 	}
 }
 

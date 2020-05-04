@@ -106,7 +106,7 @@ pageEncoding="UTF-8"%>
                 </a>
             </li>
             
-            <li><a class="ajaxifyPage" href="podcasts.jsp" >
+            <li><a class="ajaxifyPage" href="podcasts.jsp" onclick="setTimeout(location.reload.bind(location), 1)">
                     <i class="icon icon-headphones s-24"></i> <span>Mis podcasts</span>
                 </a>
             </li>
@@ -431,24 +431,86 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 -->
 </nav>
 
+<c:choose>
+<c:when test="${fav=='1'}" >
+<!-- LISTA DE FAVORITOS-->
 
 <!--Page Content-->
-<div class="container-fluid relative animatedParent animateOnce p-lg-5">
-	<div class="container-fluid relative animatedParent animateOnce p-0">
+<main id="pageContent" class="page has-sidebar">
+<div class="container-fluid relative  p-lg-5">
+	<div class="container-fluid relative p-0">
 		<div class="card no-b shadow no-r">
-			<div class="animated">
+		<button style="text-align:right;left: 10px;border-color: transparent;color: #fd7e14;background-color: #fd7e1400;" 
+				class="btn btn-abrir-popup-perfil btn-sm  mt-3" 
+				id="abrir-popup-lista"
+				onclick="document.getElementById('overlay-mod-podcast').classList.add('active');">
+			<i class="icon-edit  s-24"></i>Editar
+		</button>
+				<div class="p-3 p-lg-5">
+					<!--New Releases-->
+					<section>
+						<div class="row">
+							<div class="col-lg-10 offset-lg-1">
+								<div class="row">
+									<div class="col-md-12">
+										<div class="playlist">
+											<ul id="playlist" class="playlist list-group">
+												<c:forEach var="capitulo" items="${audios}">                    
+													<div style="margin-bottom: -1px;" class="cancion">
+														<li class="list-group-item my-1">																
+															<div class="d-flex align-items-center">
+																<div class="col-1">
+																	<a class="no-ajaxy media-url" href="${capitulo.getUrl()}">
+																		<i class="icon-play s-28"></i>
+																	</a>					
+																</div>
+																<div class="col-6">
+																	<h6>${capitulo.getTitulo()}</h6>${capitulo.getGenero()}
+																</div>
+																<span class="ml-auto">${capitulo.getGenero()}</span>
+																<a href="#" class="ml-auto"><i class="icon-share-1"></i></a>
+																<div class="ml-auto">
+																	<a href="${pageContext.request.contextPath}/borrar_cancion_fav?idAudio=${cancion.getId()}" class="btn-icono icon-trash-o" ></a>
+																</div>
+															</div>
+														</li>
+													</div>								                
+												</c:forEach>
+											</ul>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</section>
+					<!--@New Releases-->
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</c:when>
+<c:otherwise>
+<!-- PODCAST -->
+
+<!--Page Content-->
+<main id="pageContent" class="page has-sidebar">
+<div class="container-fluid relative p-lg-5">								
+	<div class="container-fluid relative p-0">
+		<div class="card no-b shadow no-r">
 				<!--Banner-->
 
 					<div class="has-bottom-gradient">
 						<div class="row pt-5 ml-lg-5 mr-lg-5">
 							<div class="col-md-10 offset-1">
 								<div class="row my-5 pt-5">
+
 									<div class="col-md-3">
 										<img src="assets/img/demo/a1.jpg" alt="/">
 									</div>
 									<div class="col-md-9">
 										<div class="d-md-flex align-items-center justify-content-between">
-											<h1 class="my-3 text-orange">${infoLista.getNombre()}</h1>
+											<h1 class="my-3 text-orange">${infoPodcast.getNombre()}</h1>
 											<div class="ml-auto mb-2">
 												<a href="#" class="snackbar ml-3" data-text="You like this song"
 												   data-pos="top-right"
@@ -462,11 +524,56 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 												   data-actionText="ok"
 												   data-actionTextColor="#fff"
 												   data-backgroundColor="#0c101b"><i class="icon-share-1 s-24"></i></a>
+											    <button style="text-align:right;left: 10px;border-color: transparent;color: #fd7e14;background-color: #fd7e1400;" 
+													class="btn btn-abrir-popupl btn-sm  mt-3" 
+													id="abrir-popup-lista"
+													onclick="document.getElementById('overlay-mod-podcast').classList.add('active');">
+													<i class="icon-edit  s-24"></i>Editar
+												</button>
 											</div>
-										</div>
+											<!-- EDICION PODCAST -->
+											<div class="overlay-pop-up" id="overlay-mod-podcast">
+											    <div class="col-md-7 card p-5">
+														<a style="position: absolute;top: 20px;right: 30px;" href="#" 
+														class="btn-cerrar-popup-perfil"
+														onclick="document.getElementById('overlay-mod-podcast').classList.remove('active');">
+															<i class="icon-close1"></i>
+														</a>
+														<header class="relative nav-sticky card">
+															<h3>CAMBIAR INFORMACIÓN DE PODCAST</h3>
+														</header>
+														<form  action="modlr" method="post">
+															<!-- Input -->
+															<div class="body">
+																<input type="hidden" name="tipo" value="podcast">
+																<div class="form-group form-float">
+																	<div class="form-line">
+																		<input type="text" name="nombreNew" class="form-control" value="${infoPodcast.getNombre()}">
+																		<label class="form-label">Nombre</label>
+																	</div>
+																</div>
+											
+																<div class="form-group form-float">
+																	<div class="form-line">
+																		<input type="text" name="descripcion" class="form-control" value="${infoPodcast.getDescripcion()}">
+																		<label class="form-label">Descripción</label>
+																	</div>
+																</div>
+																<input type="hidden" name="nombreOld" value="${infoPodcast.getNombre()}">
+											
+																<input type="submit" class="btn btn-outline-primary btn-sm pl-4 pr-4"
+																	   value="Cambiar información">
+															</div>
+														</form>
+														<!-- #END# Input -->
+												</div>
+											</div>
+											<!-- END EDICION PODCAST -->
 
+										</div>
+									
 										<div class="text-orange my-2">
-											<p>${infoLista.getDescripcion()}</p>
+											<p>${infoPodcast.getDescripcion()}</p>
 										</div>
 
 									</div>
@@ -474,7 +581,6 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 							</div>
 						</div>
 					</div>
-				</section>
 				<!--@Banner-->
 
 				<div class="p-3 p-lg-5">
@@ -502,7 +608,7 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 																<a href="#" class="ml-auto"><i class="icon-share-1"></i></a>
 																<div class="ml-auto">
 																	<a href="anyadir_cancion_fav?idAudio=${cancion.getId()}" class="btn-favorito icon-star active"></a>
-																	<a href="${pageContext.request.contextPath}/borrar_cancion_lr?idAudio=${cancion.getId()}&idLista=${infoLista.getId()}&nombreLista=${infoLista.getNombre()}" class="btn-icono icon-trash-o" ></a>
+																	<a href="${pageContext.request.contextPath}/borrar_cancion_lr?idAudio=${cancion.getId()}&idLista=${infoPodcast.getId()}&nombreLista=${infoPodcast.getNombre()}" class="btn-icono icon-trash-o" ></a>
 																</div>
 															</div>
 														</li>
@@ -523,7 +629,41 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 		</div>
 	</div>
 </div>
-
+</c:otherwise>
+</c:choose>
+<!-- AÑADIR CAPITULO A PODCAST -->
+<div class="overlay-pop-up" id="overlay-anadir-listas-reproduccion">
+    <div class="col-md-7 card p-5">
+		<a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-anadir-listas-reproduccion" class="btn-cerrar-popup-perfil"><i class="icon-close1"></i></a>			
+			<!-- Input -->
+				<div class="body">
+					<div class="row has-items-overlay">
+						<c:forEach var="listalr" items="${listaslr}">
+						<div class="col-lg-3 col-md-4 col-sm-6 my-2">
+							<figure>
+								<div class="img-wrapper">
+			
+									<img src="assets/img/demo/a1.jpg" alt="/">
+									
+									<div class="figure-title text-center p-2">
+										<h5>${listalr.getNombre()}</h5>
+									</div>
+								</div>
+							</figure>
+							<form class="form-material" action="anyadir_cancion_lr" method="post">
+								<input type="submit" class="btn btn-outline-primary btn-sm pl-4 pr-4" value="Añadir">
+								<input type="hidden" name="idLista" value="${listalr.getId()}">
+								<input type="hidden" name="idAudio" value="">
+								<input type="hidden" name="nombreLista" value="${listalr.getNombre()}">
+							</form>	
+						</div>
+					</c:forEach>
+				<!-- #END# Input -->
+				</div>
+			</div>		
+	</div>
+</div>
+<!-- END AÑADIR CAPITULO A PODCAST -->
 
 <%session.setAttribute("fav", 0); %>
 

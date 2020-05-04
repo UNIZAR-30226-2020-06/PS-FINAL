@@ -1,7 +1,7 @@
-
 package com.espotify.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,19 +11,22 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.espotify.dao.ListaReproduccionDAO;
+import com.espotify.model.Audio;
 import com.espotify.model.ListaReproduccion;
 
 /**
- * Servlet implementation Servlet
+ * Servlet implementation class GetInfo_PodcastServlet
  */
-public class Crear_ListaRepServlet extends HttpServlet {
+@WebServlet("/GetInfo_PodcastServlet")
+public class GetInfo_PodcastServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Crear_ListaRepServlet() {
+    public GetInfo_PodcastServlet() {
         super();
+        // TODO Auto-generated constructor stub
     }
 
 	/**
@@ -33,27 +36,26 @@ public class Crear_ListaRepServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		int usuario = Integer.valueOf((String) session.getAttribute("id"));
 		String nombre = request.getParameter("nombre");
-		String descripcion = request.getParameter("descripcion");
-		String tipo = request.getParameter("tipo"); //Mirar esto!!!
+		String tipo = "podcast";
+		//String aleatorio = request.getParameter("aleatorio");
 		
-		Boolean creada = new ListaReproduccionDAO().crear(usuario,nombre,descripcion,tipo);
-		if(creada) {
-			/* �feedback?
-			session.setAttribute("nombre", nombre);
-			session.setAttribute("descripcion", descripcion);
-			session.setAttribute("tipo", tipo);
-			*/
-			//RequestDispatcher dispatcher=request.getRequestDispatcher("user.jsp");
-	        //dispatcher.forward(request, response);
-			if(tipo.contentEquals("podcast")) {
-				request.getRequestDispatcher("mostrar_podcasts").forward(request, response);// Vuevle al mismo lugar donde se hace la peticion
-			}else {
-				request.getRequestDispatcher("mostrar_lrs").forward(request, response);// Vuevle al mismo lugar donde se hace la peticion
-			}
+		try{
+			ListaReproduccion infoPodcast = new ListaReproduccionDAO().getInfoList(nombre,usuario,tipo);
+			List<Audio> audios = new ListaReproduccionDAO().getAudios(nombre,usuario,tipo);
 			
-		}else {
+			//if (aleatorio.equals("si")) {
+			//	Collections.shuffle(audios);
+			//}			
+			
+			session.setAttribute("infoPodcast", infoPodcast);
+			session.setAttribute("audios", audios);
+				
+			request.getRequestDispatcher("podcasts-single.jsp").forward(request, response);
+			//RequestDispatcher dispatcher=request.getRequestDispatcher("user.jsp");
+			//dispatcher.forward(request, response);
+
+		}catch(Throwable theException) {
 			//response.sendRedirect("crearListaRep.jsp");
-			System.out.println("ERROR SERVLET CREAR LISTA DE REPRODUCCIÓN");
 		}
 	}
 
@@ -61,9 +63,8 @@ public class Crear_ListaRepServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 
 }
-
-

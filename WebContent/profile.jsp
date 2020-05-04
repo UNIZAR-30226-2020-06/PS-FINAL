@@ -108,7 +108,7 @@ pageEncoding="UTF-8"%>
                 </a>
             </li>
             
-            <li><a class="ajaxifyPage" href="podcasts.jsp" >
+            <li><a class="ajaxifyPage" href="mostrar_podcasts?tipo=podcast" >
                     <i class="icon icon-headphones s-24"></i> <span>Mis podcasts</span>
                 </a>
             </li>
@@ -423,7 +423,7 @@ String email = (String) session.getAttribute("email");
         <div class="row no-gutters">
 			<div class="col-md-4 b-r">
 			<button style="position: absolute;left: 10px;border-color: transparent;color: #fd7e14;background-color: #fd7e1400;" class="btn btn-abrir-popup-perfil btn-sm  mt-3" id="abrir-popup-perfil"><i class="icon-edit  s-24"></i>Editar perfil</button>
-			<button style="position: absolute;left: 130px;border-color: transparent;color: #fd7e14;background-color: #fd7e1400;" class="btn btn-abrir-popup-perfil btn-sm  mt-3" id="abrir-popup-cuenta"><i class="icon-cog  s-24"></i>Ajustes</button>
+			<button style="position: absolute;left: 130px;border-color: transparent;color: #fd7e14;background-color: #fd7e1400;" class="btn btn-abrir-popup-perfil btn-sm  mt-3" id="abrir-popup-cuenta"><i class="icon-cog  s-24"></i>Cambiar contraseña</button>
                 <div class="text-center p-5 mt-5">
 					
                     <figure style="width: 130px;height: 130px;width-max: 50%;" class="avatar avatar-xl">
@@ -532,7 +532,7 @@ String email = (String) session.getAttribute("email");
 															<div class="ml-auto">
 																<a href="anyadir_cancion_fav?idAudio=${cancion.getId()}" class="btn-favorito icon-star active" ></a>
 																<a href="${pageContext.request.contextPath}/ir_modificar?id_audio=${cancion.getId()}&cancion=true" class="btn-icono icon-pencil" ></a>
-																<a href="#" class="btn-icono icon-list-1" onclick="rellenarCampos('${listaslr.size()}','${cancion.getId()}');
+																<a href="#" class="btn-icono icon-list-1" onclick="('${listaslr.size()}','${cancion.getId()}');
 																document.getElementById('overlay-anadir-listas-reproduccion').classList.add('active')";
 																	></a>
 																<a href="${pageContext.request.contextPath}/eliminar_cancion?id_cancion=${cancion.getId()}" class="btn-icono icon-trash-o" ></a>
@@ -632,8 +632,8 @@ String email = (String) session.getAttribute("email");
 															<a href="#" class="ml-auto"><i class="icon-share-1"></i></a>
 															<div class="ml-auto">
 																<a href="${pageContext.request.contextPath}/ir_modificar?id_audio=${capitulo.getId()}&cancion=false" class="btn-icono icon-pencil" ></a>
-																<a href="#" class="btn-icono icon-list-1" onclick="rellenarCampos('${listaslr.size()}','${capitulo.getId()}');
-																document.getElementById('overlay-anadir-podcast).classList.add('active')";
+																<a href="#" class="btn-icono icon-list-1" onclick="rellenarCampos('${podcasts.size()}','${capitulo.getId()}');
+																document.getElementById('overlay-anadir-podcast').classList.add('active')";
 																	></a>
 																<a href="${pageContext.request.contextPath}/eliminar_capitulo?id_capitulo=${capitulo.getId()}" class="btn-icono icon-trash-o" ></a>
 															</div>
@@ -657,28 +657,28 @@ String email = (String) session.getAttribute("email");
 						<button class="btn btn-abrir-popup icon-plus" id="abrir-podcast" onClick="document.getElementById('overlay-podcast').classList.add('active');"> Crear Podcast </button>
 					</div>
 					<div class="row has-items-overlay">
-						<c:forEach var="listalr" items="${listaslr}">
+						<c:forEach var="podcast" items="${podcasts}">
 							<div class="col-lg-3 col-md-4 col-sm-6 my-2">
 								<figure>
 									<div class="img-wrapper">
 										<img src="assets/img/demo/a1.jpg" alt="/">
 										<div class="img-overlay text-white text-center">
-											<a href="obtener_info_lr?nombre=${listalr.getNombre()}" >
+											<a href="obtener_info_podcast?nombre=${podcast.getNombre()}" >
 												<div class="figcaption mt-3">
 													<i class="icon-link s-48"></i>
-													<h5 class="mt-5">${listalr.getNombre()}</h5>
+													<h5 class="mt-5">${podcast.getNombre()}</h5>
 												</div>
 											</a>
 										</div>
 										<div class="figure-title text-center p-2">
-											<h5>${listalr.getNombre()}</h5>
+											<h5>${podcast.getNombre()}</h5>
 										</div>
 									</div>
 								</figure>
 								<div class="contenido-pestanas" style="text-align: center;">
 		                            <button class="btn btn-abrir-popup-lista icon-trash-o" 
-		                            onclick="document.getElementById('idLista').value = '${listalr.getNombre()}';
-		                            document.getElementById('overlay-borrar-listas-reproduccion').classList.add('active');"></button>
+		                            onclick="document.getElementById('idPodcast').value = '${podcast.getNombre()}';
+		                            document.getElementById('overlay-borrar-podcast').classList.add('active');"></button>
                        			</div>
 							</div>
 						</c:forEach>
@@ -955,7 +955,7 @@ String email = (String) session.getAttribute("email");
 					<input type="file" class="btn btn-outline-primary btn-sm  mt-3" name="fileName" /> -->
 					<input type="text" name="nombre" placeholder="Nombre" id="nombre-listas-reproduccion" required/>
 					<input type="text" name="descripcion" placeholder="Descripcion" id="descripcion-listas-reproduccion"/>
-					<input type="hidden" name="tipo" value="ListaRep">
+					<input type="hidden" name="tipo" value="podcast">
 				</div>
 
 				<input type="submit" class="btn btn-outline-primary btn-sm pl-4 pr-4"
@@ -1008,7 +1008,7 @@ String email = (String) session.getAttribute("email");
 			<!-- Input -->
 				<div class="body">
 					<div class="row has-items-overlay">
-						<c:forEach var="listalr" items="${listaslr}">
+						<c:forEach var="podcast" items="${podcasts}">
 						<div class="col-lg-3 col-md-4 col-sm-6 my-2">
 							<figure>
 								<div class="img-wrapper">
@@ -1016,15 +1016,15 @@ String email = (String) session.getAttribute("email");
 									<img src="assets/img/demo/a1.jpg" alt="/">
 									
 									<div class="figure-title text-center p-2">
-										<h5>${listalr.getNombre()}</h5>
+										<h5>${podcast.getNombre()}</h5>
 									</div>
 								</div>
 							</figure>
 							<form class="form-material" action="anyadir_cancion_lr" method="post">
 								<input type="submit" class="btn btn-outline-primary btn-sm pl-4 pr-4" value="Añadir">
-								<input type="hidden" name="idLista" value="${listalr.getId()}">
+								<input type="hidden" name="idLista" value="${podcast.getId()}">
 								<input type="hidden" name="idAudio" value="">
-								<input type="hidden" name="nombreLista" value="${listalr.getNombre()}">
+								<input type="hidden" name="nombreLista" value="${podcast.getNombre()}">
 							</form>	
 						</div>
 					</c:forEach>
@@ -1058,6 +1058,30 @@ String email = (String) session.getAttribute("email");
 		</div>	
 	</div>	
 <!-- END BORRAR LISTA DE REPRODUCCIÓN -->
+
+<!-- BORRAR PODCAST -->	
+	<div class="overlay-pop-up" id="overlay-borrar-podcast">	
+	    <div class="col-md-7 card p-5">	
+	        <a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-borrar-listas-reproduccion" class="btn-cerrar-popup-perfil"	
+	        class="btn btn-outline-primary btn-sm pl-4 pr-4"  onclick="document.getElementById('overlay-borrar-listas-reproduccion').classList.remove('active');"><i class="icon-close1"></i></a>	
+			<form class="form-material" action="borrar_lr" method="post">	
+				<!-- Input -->	
+				<div class="body">	
+					<header class="relative nav-sticky card">	
+	                    <h3>¿Estas seguro?</h3>	
+	                    <h5>Vas a borrar este podcast para siempre, no hay vuelta atras</h5>	
+					</header>	
+		
+					<input type="hidden" id="idPodcast" name="nombre" value="">
+					<input type="hidden" name="tipo" value="podcast">	
+					<input type="submit" class="btn btn-outline-primary btn-sm pl-4 pr-4"	
+	                       value="Aceptar">	
+	                
+				<!-- #END# Input -->	
+	        </form>	
+		</div>	
+	</div>	
+<!-- END BORRAR PODCAST -->
 
 
 

@@ -92,11 +92,11 @@ pageEncoding="UTF-8"%>
             </li>
             
             <li><a class="ajaxifyPage" href="mostrar_lrs?tipo=ListaRep" >
-                    <i class="icon icon-compact-disc-1 s-24"></i> <span>Mis Podcasts</span>
+                    <i class="icon icon-compact-disc-1 s-24"></i> <span>Mis Listas de Reproducción</span>
                 </a>
             </li>
             
-            <li><a class="ajaxifyPage" href="podcasts.jsp" >
+            <li><a class="ajaxifyPage" href="mostrar_podcasts?tipo=podcast" >
                     <i class="icon icon-headphones s-24"></i> <span>Mis podcasts</span>
                 </a>
             </li>
@@ -214,152 +214,7 @@ pageEncoding="UTF-8"%>
         </symbol>
     </defs>
 </svg>
-<div class="searchOverlay page">
-    <button
-            id="btn-searchOverlay-close"
-            class="btn btn--searchOverlay-close"
-            aria-label="Close searchOverlay form"
-    >
-        <svg class="icon icon--cross">
-            <use xlink:href="#icon-cross"></use>
-        </svg>
-    </button>
-    <div class="searchOverlay__inner  searchOverlay__inner--up">
-        <form class="searchOverlay__form" action="https://xvelopers.com/demos/html/record-light/index.jsp">
-            <input
-                    class="searchOverlay__input"
-                    name="searchOverlay"
-                    type="text"
-                    placeholder="Search"
-                    autocomplete="off"
-                    spellcheck="false"
-            />
-            <span class="searchOverlay__info">Hit enter to searchOverlay or ESC to close</span>
-        </form>
-    </div>
-    <div class="searchOverlay__inner searchOverlay__inner--down">
-        <div class="searchOverlay__related">
-            <div class="searchOverlay__suggestion">
-                <div class="card mb-3">
-                    <div class="card-header transparent b-b">
-                        <strong>New Artists</strong>
-                    </div>
-                    <ul class="playlist list-group list-group-flush">
-                        <li class="list-group-item">
-                            <div class="d-flex align-items-center">
-                                <div class="col-10">
-                                    <figure class="avatar avatar-md float-left  mr-3 mt-1">
-                                        <img src="assets/img/demo/u1.jpg" alt="">
-                                    </figure>
-                                    <h6>Zoe Foe</h6>
-                                    <small>5 Albums - 50 Songs</small>
-                                </div>
-                                <a href="#" class="ml-auto"><i class="icon-more"></i></a>
-                            </div>
-                        </li>
-                        <li class="list-group-item">
-                            <div class="d-flex align-items-center">
-                                <div class="col-10">
-                                    <figure class="avatar avatar-md float-left  mr-3 mt-1">
-                                        <img src="assets/img/demo/u2.jpg" alt="">
-                                    </figure>
-                                    <h6>Zoe Foe</h6>
-                                    <small>5 Albums - 50 Songs</small>
-                                </div>
-                                <a href="#" class="ml-auto"><i class="icon-more"></i></a>
-                            </div>
-                        </li>
-                        <li class="list-group-item">
-                            <div class="d-flex align-items-center">
-                                <div class="col-10">
-                                    <figure class="avatar avatar-md float-left  mr-3 mt-1">
-                                        <img src="assets/img/demo/u3.jpg" alt="">
-                                    </figure>
-                                    <h6>Zoe Foe</h6>
-                                    <small>5 Albums - 50 Songs</small>
-                                </div>
-                                <a href="#" class="ml-auto"><i class="icon-more"></i></a>
-                            </div>
-                        </li>
-                        <li class="list-group-item">
-                            <div class="d-flex align-items-center">
-                                <div class="col-10">
-                                    <figure class="avatar avatar-md float-left  mr-3 mt-1">
-                                        <img src="assets/img/demo/u6.jpg" alt="">
-                                    </figure>
-                                    <h6>Zoe Foe</h6>
-                                    <small>5 Albums - 50 Songs</small>
-                                </div>
-                                <a href="#" class="ml-auto"><i class="icon-more"></i></a>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="searchOverlay__suggestion">
-                <div class="card mb-3">
-                    <div class="card-header transparent b-b">
-                        <strong>Events</strong>
-                    </div>
-                    <ul class="playlist list-group list-group-flush">
-                        <li class="list-group-item">
-                            <div class="d-flex align-items-center ">
-                                <div class="col-8 ">
-                                    <a href="podcasts-single.jsp" >
-                                        <h6>Battal of Bands</h6>
-                                    </a>
-                                    <small class="mt-1"><i class="icon-placeholder-3 mr-1 "></i> London Music Hall
-                                    </small>
-                                </div>
-                                <div class="ml-auto">
-                                    <div class="text-lg-center  bg-primary r-10 p-2 text-white primary-bg">
-                                        <div class="s-18">24</div>
-                                        <small>July, 2019</small>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="list-group-item">
-                            <div class="d-flex align-items-center ">
-                                <div class="col-8 ">
-                                    <a href="album-single.jsp" >
-                                        <h6>Battal of Bands</h6>
-                                    </a>
-                                    <small class="mt-1"><i class="icon-placeholder-3 mr-1 "></i> London Music Hall
-                                    </small>
-                                </div>
-                                <div class="ml-auto">
-                                    <div class="text-lg-center  bg-primary r-10 p-2 text-white primary-bg">
-                                        <div class="s-18">08</div>
-                                        <small>July, 2019</small>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="list-group-item">
-                            <div class="d-flex align-items-center ">
-                                <div class="col-8 ">
-                                    <a href="album-single.jsp">
-                                        <h6>Battal of Bands</h6>
-                                    </a>
-                                    <small class="mt-1"><i class="icon-placeholder-3 mr-1 "></i> London Music Hall
-                                    </small>
-                                </div>
-                                <div class="ml-auto">
-                                    <div class="text-lg-center  bg-primary r-10 p-2 text-white primary-bg">
-                                        <div class="s-18">12</div>
-                                        <small>July, 2019</small>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
 
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 
 
 <%
@@ -494,28 +349,28 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 						<button class="btn btn-abrir-popup-lista icon-plus" id="abrir-podcast"  onClick="document.getElementById('overlay-podcast').classList.add('active');">Crear Podcast</button>
 				</div> 
                 <div class="row has-items-overlay">
-                    <c:forEach var="lista" items="${listas}" >
+                    <c:forEach var="podcast" items="${podcasts}" >
 							<div class="col-lg-3 col-md-4 col-sm-6 my-2">
 								<figure>
 									<div class="img-wrapper">
 										<img src="assets/img/demo/a1.jpg" alt="/">
 										<div class="img-overlay text-white text-center">
 										<!--href="obtener_info_lr?nombre=${lista.getNombre()}"-->
-											<a 	 href="podcasts-single.jsp" >
+											<a 	 href="obtener_info_podcast?nombre=${podcast.getNombre()}" >
 												<div class="figcaption mt-3">
 													<i class="icon-link s-48"></i>
-													<h5 class="mt-5">${lista.getNombre()}</h5>
+													<h5 class="mt-5">${podcast.getNombre()}</h5>
 												</div>
 											</a>
 										</div>
 										<div class="figure-title text-center p-2">
-											<h5>${lista.getNombre()}</h5>
+											<h5>${podcast.getNombre()}</h5>
 										</div>
 									</div>
 								</figure>
 							<div class="contenido-pestanas" style="text-align: center;">
 	                            <button class="btn btn-abrir-popup-lista icon-trash-o" 
-	                            onclick="document.getElementById('idLista').value = '${lista.getNombre()}';
+	                            onclick="document.getElementById('idLista').value = '${podcast.getNombre()}';
 	                            document.getElementById('overlay-borrar-listas-reproduccion').classList.add('active');"></button>
                        		 </div>
                     	</div>
@@ -541,7 +396,7 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 					<!--  <input type="file" class="btn btn-outline-primary btn-sm  mt-3" name="fileName" /> -->
 					<input type="text" name="nombre" placeholder="Nombre" id="nombre-listas-reproduccion" required/>
 					<input type="text" name="descripcion" placeholder="Descripcion" id="descripcion-listas-reproduccion"/>
-					<input type="hidden" name="tipo" value="ListaRep">
+					<input type="hidden" name="tipo" value="podcast">
 				</div>
 
 				<input type="submit" class="btn btn-outline-primary btn-sm pl-4 pr-4"
@@ -551,7 +406,7 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 		</form>
 	</div>
 </div>
-<!-- END CREAR LISTA DE REPRODUCCIÓ“N -->
+<!-- END CREAR PODCAST -->
 
 
 <!-- AJUSTES CUENTA -->

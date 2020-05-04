@@ -586,7 +586,7 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 														<form  action="modlr" method="post">
 															<!-- Input -->
 															<div class="body">
-																
+																<input type="hidden" name="tipo" value="ListaRep">
 																<div class="form-group form-float">
 																	<div class="form-line">
 																		<input type="text" name="nombreNew" class="form-control" value="${infoLista.getNombre()}">

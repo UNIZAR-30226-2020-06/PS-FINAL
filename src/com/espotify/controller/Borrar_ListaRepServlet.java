@@ -35,6 +35,7 @@ public class Borrar_ListaRepServlet extends HttpServlet {
 		int usuario = Integer.valueOf((String) session.getAttribute("id"));
 		String nombre = request.getParameter("nombre");
 		String tipo = request.getParameter("tipo");
+		System.out.println(nombre + "++++++++++++++++++++++++++++++++++++");
 		
 		Boolean borrada = new ListaReproduccionDAO().borrar(nombre,usuario,tipo);
 		if(borrada) {
@@ -42,10 +43,14 @@ public class Borrar_ListaRepServlet extends HttpServlet {
 			
 			//RequestDispatcher dispatcher=request.getRequestDispatcher("user.jsp");
 	        //dispatcher.forward(request, response);
-			request.getRequestDispatcher("mostrar_lrs").forward(request, response);
+			if(tipo.contentEquals("podcast")) {
+				request.getRequestDispatcher("mostrar_podcasts").forward(request, response);
+			}else {
+				request.getRequestDispatcher("mostrar_lrs").forward(request, response);
+			}
 		}else {
 			//response.sendRedirect("ListaRep.jsp");
-			// Pantalla de error ?¿
+			// Pantalla de error ?ï¿½
 		}
 	}
 
