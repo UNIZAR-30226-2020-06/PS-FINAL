@@ -106,11 +106,11 @@ pageEncoding="UTF-8"%>
                 </a>
             </li>
             
-            <li><a class="ajaxifyPage" href="podcasts.jsp" onclick="setTimeout(location.reload.bind(location), 1)">
+            <li><a class="ajaxifyPage" href="mostrar_podcasts?tipo=podcasts" >
                     <i class="icon icon-headphones s-24"></i> <span>Mis podcasts</span>
                 </a>
             </li>
-            <li><a class="ajaxifyPage" href="obtener_info_fav" onclick="setTimeout(locaton.reload.bind(location), 1)">
+            <li><a class="ajaxifyPage" href="obtener_info_fav" >
             		<i class="icon icon-star s-24"></i> <span>Mis favoritos</span>
             	</a>
             </li>
@@ -586,7 +586,7 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 														<form  action="modlr" method="post">
 															<!-- Input -->
 															<div class="body">
-																
+																<input type="hidden" name="tipo" value="ListaRep">
 																<div class="form-group form-float">
 																	<div class="form-line">
 																		<input type="text" name="nombreNew" class="form-control" value="${infoLista.getNombre()}">
@@ -649,7 +649,7 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 																<a href="#" class="ml-auto"><i class="icon-share-1"></i></a>
 																<div class="ml-auto">
 																	<a href="anyadir_cancion_fav?idAudio=${cancion.getId()}" class="btn-favorito icon-star active"></a>
-																	<a href="${pageContext.request.contextPath}/borrar_cancion_lr?idAudio=${cancion.getId()}&idLista=${infoLista.getId()}&nombreLista=${infoLista.getNombre()}" class="btn-icono icon-trash-o" ></a>
+																	<a href="${pageContext.request.contextPath}/borrar_cancion_lr?idAudio=${cancion.getId()}&idLista=${infoLista.getId()}&nombreLista=${infoLista.getNombre()}&tipo=ListaRep" class="btn-icono icon-trash-o" ></a>
 																</div>
 															</div>
 														</li>
@@ -696,6 +696,7 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 								<input type="hidden" name="idLista" value="${listalr.getId()}">
 								<input type="hidden" name="idAudio" value="">
 								<input type="hidden" name="nombreLista" value="${listalr.getNombre()}">
+								<input type="hidden" name="tipo" value="ListRep">
 							</form>	
 						</div>
 					</c:forEach>

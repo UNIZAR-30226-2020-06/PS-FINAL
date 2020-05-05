@@ -398,6 +398,7 @@
 		<url-pattern>/borrar_lr</url-pattern>
 	</servlet-mapping>
 	
+	
 	<servlet>
 		<servlet-name>mostrar_lrs</servlet-name>
 		<servlet-class>com.espotify.controller.GetAll_ListaRepServlet</servlet-class>
@@ -405,6 +406,15 @@
 	<servlet-mapping>
 		<servlet-name>mostrar_lrs</servlet-name>
 		<url-pattern>/mostrar_lrs</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>mostrar_podcasts</servlet-name>
+		<servlet-class>com.espotify.controller.GetAll_PodcastServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>mostrar_podcasts</servlet-name>
+		<url-pattern>/mostrar_podcasts</url-pattern>
 	</servlet-mapping>
 	
 	<servlet>
@@ -422,7 +432,34 @@
 	    <servlet-mapping>
 		 	<servlet-name>ir_modificar</servlet-name>
 	       	<url-pattern>/ir_modificar</url-pattern>
-		</servlet-mapping>
+	</servlet-mapping>
+	
+	<servlet>
+        <servlet-name>iniciar_transmision</servlet-name>
+	    <servlet-class>com.espotify.controller.IniciarTransimision_Servlet</servlet-class>
+	</servlet>
+	    <servlet-mapping>
+		 	<servlet-name>iniciar_transmision</servlet-name>
+	       	<url-pattern>/iniciar_transmision</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+        <servlet-name>modificar_transmision</servlet-name>
+	    <servlet-class>com.espotify.controller.ModInfoTransmision_Servlet</servlet-class>
+	</servlet>
+	    <servlet-mapping>
+		 	<servlet-name>modificar_transmision</servlet-name>
+	       	<url-pattern>/modificar_transmision</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+        <servlet-name>finalizar_transmision</servlet-name>
+	    <servlet-class>com.espotify.controller.FinalizarTransmision_Servlet</servlet-class>
+	</servlet>
+	    <servlet-mapping>
+		 	<servlet-name>finalizar_transmision</servlet-name>
+	       	<url-pattern>/finalizar_transmision</url-pattern>
+	</servlet-mapping>
 		
 		<servlet>
 		<servlet-name>logout</servlet-name>
@@ -458,6 +495,15 @@
 	<servlet-mapping>
 		<servlet-name>obtener_info_lr</servlet-name>
 		<url-pattern>/obtener_info_lr</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>obtener_info_podcast</servlet-name>
+		<servlet-class>com.espotify.controller.GetInfo_PodcastServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>obtener_info_podcast</servlet-name>
+		<url-pattern>/obtener_info_podcast</url-pattern>
 	</servlet-mapping>
 	
 	<servlet>

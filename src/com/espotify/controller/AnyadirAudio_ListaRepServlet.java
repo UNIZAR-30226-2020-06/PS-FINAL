@@ -33,6 +33,7 @@ public class AnyadirAudio_ListaRepServlet extends HttpServlet {
 		String audio = request.getParameter("idAudio");
 		String lista = request.getParameter("idLista");
 		String nombre = request.getParameter("nombreLista");
+		String tipo = request.getParameter("tipo");
 		int idAudio = Integer.valueOf(audio);
 		int idLista = Integer.valueOf(lista);
 		
@@ -46,9 +47,12 @@ public class AnyadirAudio_ListaRepServlet extends HttpServlet {
 		
 		HttpSession session = request.getSession();
 		session.setAttribute("anyadida?", anyadida);
-		
-		String redir = "obtener_info_lr?nombre=" + nombre;
-		
+		String redir="";
+		if (tipo == "ListaRep") {
+			redir = "obtener_info_lr?nombre=" + nombre;
+		} else {
+			redir = "obtener_info_podcast?nombre=" +nombre;
+		}
 		log("Donde redirige: " +redir);
 		
 		request.getRequestDispatcher(redir).forward(request, response);

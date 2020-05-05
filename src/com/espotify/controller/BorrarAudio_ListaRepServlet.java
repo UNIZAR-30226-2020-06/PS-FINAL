@@ -33,6 +33,7 @@ public class BorrarAudio_ListaRepServlet extends HttpServlet {
 		String audio = request.getParameter("idAudio");
 		String lista = request.getParameter("idLista");
 		String nombre = request.getParameter("nombreLista");
+		String tipo = request.getParameter("tipo");
 		int idAudio = Integer.valueOf(audio);
 		int idLista = Integer.valueOf(lista);
 				
@@ -45,8 +46,12 @@ public class BorrarAudio_ListaRepServlet extends HttpServlet {
 		}
 		HttpSession session = request.getSession();
 		session.setAttribute("anyadida?", anyadida);
-		
-		String redir = "obtener_info_lr?nombre=" + nombre;
+		String redir;
+		if (tipo.equals("ListaRep")) {
+			redir = "obtener_info_lr?nombre=" + nombre;
+		} else {
+			redir = "obtener_info_podcast?nombre=" +nombre;
+		}
 		
 		request.getRequestDispatcher(redir).forward(request, response);
 		//RequestDispatcher dispatcher=request.getRequestDispatcher("audio.jsp");

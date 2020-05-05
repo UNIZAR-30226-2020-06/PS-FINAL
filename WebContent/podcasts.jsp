@@ -1,16 +1,16 @@
-%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%><!DOCTYPE html>
 <html lang="zxx">
 
-<!-- NOMBRE DE LA PESTAÃA -->
+<!-- NOMBRE DE LA PESTAÃÂA -->
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="icon" href="assets/img/basic/logo.ico" type="image/x-icon">
-    <title>Espotify - Mis Listas</title>
+    <title>Espotify - Mis Podcasts</title>
     <!-- CSS -->
     <link rel="stylesheet" href="assets/css/app.css">
 </head>
@@ -80,7 +80,7 @@ pageEncoding="UTF-8"%>
             
             <li class="menu-item-has-children">
                 <a href="#">
-                    <i class="icon icon-layers s-24"></i> <span>Categor�as</span>
+                    <i class="icon icon-layers s-24"></i> <span>Categorías</span>
                     <i class=" icon-angle-left  pull-right"></i>
                 </a>
                 <ul class="sub-menu">
@@ -92,11 +92,11 @@ pageEncoding="UTF-8"%>
             </li>
             
             <li><a class="ajaxifyPage" href="mostrar_lrs?tipo=ListaRep" >
-                    <i class="icon icon-compact-disc-1 s-24"></i> <span>Mis Podcasts</span>
+                    <i class="icon icon-compact-disc-1 s-24"></i> <span>Mis Listas de Reproducción</span>
                 </a>
             </li>
             
-            <li><a class="ajaxifyPage" href="podcasts.jsp" >
+            <li><a class="ajaxifyPage" href="mostrar_podcasts?tipo=podcast" >
                     <i class="icon icon-headphones s-24"></i> <span>Mis podcasts</span>
                 </a>
             </li>
@@ -214,152 +214,7 @@ pageEncoding="UTF-8"%>
         </symbol>
     </defs>
 </svg>
-<div class="searchOverlay page">
-    <button
-            id="btn-searchOverlay-close"
-            class="btn btn--searchOverlay-close"
-            aria-label="Close searchOverlay form"
-    >
-        <svg class="icon icon--cross">
-            <use xlink:href="#icon-cross"></use>
-        </svg>
-    </button>
-    <div class="searchOverlay__inner  searchOverlay__inner--up">
-        <form class="searchOverlay__form" action="https://xvelopers.com/demos/html/record-light/index.jsp">
-            <input
-                    class="searchOverlay__input"
-                    name="searchOverlay"
-                    type="text"
-                    placeholder="Search"
-                    autocomplete="off"
-                    spellcheck="false"
-            />
-            <span class="searchOverlay__info">Hit enter to searchOverlay or ESC to close</span>
-        </form>
-    </div>
-    <div class="searchOverlay__inner searchOverlay__inner--down">
-        <div class="searchOverlay__related">
-            <div class="searchOverlay__suggestion">
-                <div class="card mb-3">
-                    <div class="card-header transparent b-b">
-                        <strong>New Artists</strong>
-                    </div>
-                    <ul class="playlist list-group list-group-flush">
-                        <li class="list-group-item">
-                            <div class="d-flex align-items-center">
-                                <div class="col-10">
-                                    <figure class="avatar avatar-md float-left  mr-3 mt-1">
-                                        <img src="assets/img/demo/u1.jpg" alt="">
-                                    </figure>
-                                    <h6>Zoe Foe</h6>
-                                    <small>5 Albums - 50 Songs</small>
-                                </div>
-                                <a href="#" class="ml-auto"><i class="icon-more"></i></a>
-                            </div>
-                        </li>
-                        <li class="list-group-item">
-                            <div class="d-flex align-items-center">
-                                <div class="col-10">
-                                    <figure class="avatar avatar-md float-left  mr-3 mt-1">
-                                        <img src="assets/img/demo/u2.jpg" alt="">
-                                    </figure>
-                                    <h6>Zoe Foe</h6>
-                                    <small>5 Albums - 50 Songs</small>
-                                </div>
-                                <a href="#" class="ml-auto"><i class="icon-more"></i></a>
-                            </div>
-                        </li>
-                        <li class="list-group-item">
-                            <div class="d-flex align-items-center">
-                                <div class="col-10">
-                                    <figure class="avatar avatar-md float-left  mr-3 mt-1">
-                                        <img src="assets/img/demo/u3.jpg" alt="">
-                                    </figure>
-                                    <h6>Zoe Foe</h6>
-                                    <small>5 Albums - 50 Songs</small>
-                                </div>
-                                <a href="#" class="ml-auto"><i class="icon-more"></i></a>
-                            </div>
-                        </li>
-                        <li class="list-group-item">
-                            <div class="d-flex align-items-center">
-                                <div class="col-10">
-                                    <figure class="avatar avatar-md float-left  mr-3 mt-1">
-                                        <img src="assets/img/demo/u6.jpg" alt="">
-                                    </figure>
-                                    <h6>Zoe Foe</h6>
-                                    <small>5 Albums - 50 Songs</small>
-                                </div>
-                                <a href="#" class="ml-auto"><i class="icon-more"></i></a>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="searchOverlay__suggestion">
-                <div class="card mb-3">
-                    <div class="card-header transparent b-b">
-                        <strong>Events</strong>
-                    </div>
-                    <ul class="playlist list-group list-group-flush">
-                        <li class="list-group-item">
-                            <div class="d-flex align-items-center ">
-                                <div class="col-8 ">
-                                    <a href="podcasts-single.jsp" >
-                                        <h6>Battal of Bands</h6>
-                                    </a>
-                                    <small class="mt-1"><i class="icon-placeholder-3 mr-1 "></i> London Music Hall
-                                    </small>
-                                </div>
-                                <div class="ml-auto">
-                                    <div class="text-lg-center  bg-primary r-10 p-2 text-white primary-bg">
-                                        <div class="s-18">24</div>
-                                        <small>July, 2019</small>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="list-group-item">
-                            <div class="d-flex align-items-center ">
-                                <div class="col-8 ">
-                                    <a href="album-single.jsp" >
-                                        <h6>Battal of Bands</h6>
-                                    </a>
-                                    <small class="mt-1"><i class="icon-placeholder-3 mr-1 "></i> London Music Hall
-                                    </small>
-                                </div>
-                                <div class="ml-auto">
-                                    <div class="text-lg-center  bg-primary r-10 p-2 text-white primary-bg">
-                                        <div class="s-18">08</div>
-                                        <small>July, 2019</small>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="list-group-item">
-                            <div class="d-flex align-items-center ">
-                                <div class="col-8 ">
-                                    <a href="album-single.jsp">
-                                        <h6>Battal of Bands</h6>
-                                    </a>
-                                    <small class="mt-1"><i class="icon-placeholder-3 mr-1 "></i> London Music Hall
-                                    </small>
-                                </div>
-                                <div class="ml-auto">
-                                    <div class="text-lg-center  bg-primary r-10 p-2 text-white primary-bg">
-                                        <div class="s-18">12</div>
-                                        <small>July, 2019</small>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
 
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 
 
 <%
@@ -414,7 +269,7 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 							<div class="col text-center">
 								<a class="ajaxifyPage" href="logout" >
 									<a href="<%= request.getContextPath()+"/Cerrar_SesionServlet"%>"><i class="icon-exit-2  s-24"></i>
-                                    <div class="pt-1">Cerrar sesi�n</div></a>
+                                    <div class="pt-1">Cerrar sesión</div></a>
 								</a>
 							</div>
 						</div>
@@ -488,34 +343,34 @@ String hayfoto = (String) session.getAttribute("hayfoto");
             <section>
                 <div class="relative mb-5" style="text-align: center;">
                     <h1 class="mb-2 text-primary">Podcast</h1>
-                    <p>Todas tus Podcasts</p>
+                    <p>Todos tus Podcasts</p>
                 </div>
                 <div class="contenido-pestanas" style="text-align: center;">
 						<button class="btn btn-abrir-popup-lista icon-plus" id="abrir-podcast"  onClick="document.getElementById('overlay-podcast').classList.add('active');">Crear Podcast</button>
 				</div> 
                 <div class="row has-items-overlay">
-                    <c:forEach var="lista" items="${listas}" >
+                    <c:forEach var="podcast" items="${podcasts}" >
 							<div class="col-lg-3 col-md-4 col-sm-6 my-2">
 								<figure>
 									<div class="img-wrapper">
-										<img src="assets/img/demo/a1.jpg" alt="/">
+										<img src="assets/img/demo/a3.jpg" alt="/">
 										<div class="img-overlay text-white text-center">
 										<!--href="obtener_info_lr?nombre=${lista.getNombre()}"-->
-											<a 	 href="podcasts-single.jsp" >
+											<a 	 href="obtener_info_podcast?nombre=${podcast.getNombre()}" >
 												<div class="figcaption mt-3">
 													<i class="icon-link s-48"></i>
-													<h5 class="mt-5">${lista.getNombre()}</h5>
+													<h5 class="mt-5">${podcast.getNombre()}</h5>
 												</div>
 											</a>
 										</div>
 										<div class="figure-title text-center p-2">
-											<h5>${lista.getNombre()}</h5>
+											<h5>${podcast.getNombre()}</h5>
 										</div>
 									</div>
 								</figure>
 							<div class="contenido-pestanas" style="text-align: center;">
 	                            <button class="btn btn-abrir-popup-lista icon-trash-o" 
-	                            onclick="document.getElementById('idLista').value = '${lista.getNombre()}';
+	                            onclick="document.getElementById('idLista').value = '${podcast.getNombre()}';
 	                            document.getElementById('overlay-borrar-listas-reproduccion').classList.add('active');"></button>
                        		 </div>
                     	</div>
@@ -537,11 +392,11 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 					<h3>CREAR PODCAST</h3>
 				</header>
 				<div class="contenedor-inputs">
-					<h4>A�adir imagen</h4>
+					<h4>Añadir imagen</h4>
 					<!--  <input type="file" class="btn btn-outline-primary btn-sm  mt-3" name="fileName" /> -->
 					<input type="text" name="nombre" placeholder="Nombre" id="nombre-listas-reproduccion" required/>
 					<input type="text" name="descripcion" placeholder="Descripcion" id="descripcion-listas-reproduccion"/>
-					<input type="hidden" name="tipo" value="ListaRep">
+					<input type="hidden" name="tipo" value="podcast">
 				</div>
 
 				<input type="submit" class="btn btn-outline-primary btn-sm pl-4 pr-4"
@@ -551,62 +406,10 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 		</form>
 	</div>
 </div>
-<!-- END CREAR LISTA DE REPRODUCCIӓN -->
+<!-- END CREAR PODCAST -->
 
 
-<!-- AJUSTES CUENTA -->
-<div class="overlay-pop-up" id="overlay-cuenta">
-    <div class="col-md-7 card p-5">
-		<form class="form-material" action="#">
-			<a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-cuenta" class="btn-cerrar-popup-perfil"><i class="icon-close1"></i></a>
-			<header class="relative nav-sticky card">
-				<h3>CAMBIAR INFORMACIÃN DE LA CUENTA</h3>
-			</header>
-			<form class="form-material" action="#"> <!--QUITAR-->
-				<!-- Input -->
-				<div class="body">
-					
-					<div class="form-group form-float">
-						<div class="form-line">
-							<input type="email" name="email" class="form-control">
-							<label class="form-label">Email</label>
-						</div>
-					</div>
-					<input type="submit" class="btn btn-outline-primary btn-sm pl-4 pr-4"
-						   value="Cambiar email">
-				</div>
-			</form>
-			<form class="form-material" action="#"> <!--QUITAR-->
-				<!-- Input -->
-				<div class="body">
-					<div class="form-group form-float">
-						<div class="form-line">
-							<input type="password" name="contrasena" class="form-control">
-							<label class="form-label">ContraseÃ±a actual</label>
-						</div>
-					</div>
-					<div class="form-group form-float">
-						<div class="form-line">
-							<input type="password" name="contrasena" class="form-control">
-							<label class="form-label">ContraseÃ±a nueva</label>
-						</div>
-					</div>
-					<div class="form-group form-float">
-						<div class="form-line">
-							<input type="password" name="password" class="form-control">
-							<label class="form-label">Confirmar contraseÃ±a</label>
-						</div>
-					</div>
 
-					<input type="submit" class="btn btn-outline-primary btn-sm pl-4 pr-4"
-						   value="Cambiar constraseÃ±a">
-				</div>
-			</form>
-			<!-- #END# Input -->
-		</form>
-	</div>
-</div>
-<!-- END AJUSTES CUENTA -->
 
 <!-- BORRAR PODCAST -->	
 	<div class="overlay-pop-up" id="overlay-borrar-listas-reproduccion">	
@@ -617,12 +420,12 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 				<!-- Input -->	
 				<div class="body">	
 					<header class="relative nav-sticky card">	
-	                    <h3>�Estas seguro?</h3>	
+	                    <h3>¿Estas seguro?</h3>	
 	                    <h5>Vas a borrar esta Podcast para siempre, no hay vuelta atras</h5>	
 					</header>	
 		
 					<input type="hidden" id="idLista" name="nombre" value="">
-					<input type="hidden" name="tipo" value="ListaRep">	
+					<input type="hidden" name="tipo" value="podcast">	
 					<input type="submit" class="btn btn-outline-primary btn-sm pl-4 pr-4"	
 	                       value="Aceptar">	
 	                <button class="btn btn-outline-primary btn-sm pl-4 pr-4"  onclick="document.getElementById('overlay-borrar-listas-reproduccion').classList.remove('active');">Cerrar</button>	

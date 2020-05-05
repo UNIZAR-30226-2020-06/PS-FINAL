@@ -38,16 +38,22 @@ public class Crear_ListaRepServlet extends HttpServlet {
 		
 		Boolean creada = new ListaReproduccionDAO().crear(usuario,nombre,descripcion,tipo);
 		if(creada) {
-			/* ¿feedback?
+			/* ï¿½feedback?
 			session.setAttribute("nombre", nombre);
 			session.setAttribute("descripcion", descripcion);
 			session.setAttribute("tipo", tipo);
 			*/
 			//RequestDispatcher dispatcher=request.getRequestDispatcher("user.jsp");
 	        //dispatcher.forward(request, response);
-			request.getRequestDispatcher("mostrar_lrs").forward(request, response);// Vuevle al mismo lugar donde se hace la peticion
+			if(tipo.contentEquals("podcast")) {
+				request.getRequestDispatcher("mostrar_podcasts").forward(request, response);// Vuevle al mismo lugar donde se hace la peticion
+			}else {
+				request.getRequestDispatcher("mostrar_lrs").forward(request, response);// Vuevle al mismo lugar donde se hace la peticion
+			}
+			
 		}else {
 			//response.sendRedirect("crearListaRep.jsp");
+			System.out.println("ERROR SERVLET CREAR LISTA DE REPRODUCCIÃ“N");
 		}
 	}
 

@@ -31,14 +31,14 @@ public class ModInfo_ListaRepServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		
 		HttpSession session = request.getSession();
 		int usuario = Integer.valueOf((String) session.getAttribute("id"));
 		String nombreNew = request.getParameter("nombreNew");
 		String nombreOld = request.getParameter("nombreOld");
 		String descripcion = request.getParameter("descripcion");
 		String imagen = "";
-		String tipo = "ListaRep";
+		String tipo = request.getParameter("tipo");
 		
 		Boolean cambiada = new ListaReproduccionDAO().cambiar_info(nombreOld,nombreNew,usuario,descripcion,imagen,tipo);
 		if(cambiada) {
@@ -46,18 +46,27 @@ public class ModInfo_ListaRepServlet extends HttpServlet {
 				ListaReproduccion infoLista = new ListaReproduccionDAO().getInfoList(nombreNew,usuario,tipo);
 				List<Audio> audios = new ListaReproduccionDAO().getAudios(nombreNew,usuario,tipo);
 
-				
-				session.setAttribute("infoLista", infoLista);
-				session.setAttribute("audios", audios);
-					
+				if (!audios.isEmpty()) {
+					request.setAttribute("audios", audios);
+				}
 				//RequestDispatcher dispatcher=request.getRequestDispatcher("listaRep.jsp");
 				//dispatcher.forward(request, response);
-
+				if(tipo.equals("podcast")) {
+					System.out.println("ENTRO");
+					log("PODCAST");
+					request.setAttribute("infoPodcast", infoLista);
+					request.getRequestDispatcher("obtener_info_podcast").forward(request, response);
+				} else {
+					log("LISTA");
+					request.setAttribute("infoLista", infoLista);
+					request.getRequestDispatcher("obtener_info_lr").forward(request, response);
+				}
 			}catch(Throwable theException) {
 				//response.sendRedirect("modifListaRep.jsp");
+				System.out.println("ERROR EN SERVLET");
 			}
 		}
-		request.getRequestDispatcher("lista_rep-single.jsp").forward(request, response);
+		
 	}
 
 	/**

@@ -106,12 +106,12 @@ String nombre = (String) session.getAttribute("nombre");
             </li>
             
 
-            <li><a class="ajaxifyPage" href="mostrar_lrs?tipo=ListaRep" onclick="setTimeout(location.reload.bind(location), 1)">
+            <li><a class="ajaxifyPage" href="mostrar_lrs?tipo=ListaRep" >
                     <i class="icon icon-compact-disc-1 s-24"></i> <span>Mis listas de reproduccion</span>
                 </a>
             </li>
             
-            <li><a class="ajaxifyPage" href="podcasts.jsp" >
+            <li><a class="ajaxifyPage" href="mostrar_podcasts?tipo=podcasts" >
                     <i class="icon icon-headphones s-24"></i> <span>Mis podcasts</span>
                 </a>
             </li>
@@ -518,23 +518,28 @@ String hayfoto = (String) session.getAttribute("hayfoto");
                     </div>
                 </div>
             </div>
-            
-            <!-- MODIFICAR INFORMACION -->
+
+		<!-- INFORMACION MODIFICAR Y FINALIZAR -->
             <div class="text-center p-5 mt-5">
-            	<form>
+            	<form action="modificar_transmision">
 	                <div class="text-center p-5 mt-5">
 						<div class="p5 b-b">
-							<input type="text" name="nombre" class="formulario-subir-cancion" placeholder="Nombre de la transmisión" required=""/>
-							<input type="text" name="descripcion" class="formulario-subir-cancion" placeholder="Descripcion" required=""/>
+							<h5>El usuario para la retransmision es: source</h5>
+							<h5>La contraseña para la retransmision es: hackme</h5>
+							<h5>Introduce esta url en tu capturador para poder emitir el sonido en la retransmisión iniciada: </h5>
+							<label  name="url" >${transmision.getUrl() }</label>
+							<input type="hidden" name="idTransmision" value=${ transmision.getId()}>
+							<input type="text" name="nombre" class="formulario-subir-cancion" placeholder="Nombre de la transmisión" value=${ transmision.getNombre()}/>
+							<input type="text" name="descripcion" class="formulario-subir-cancion" placeholder="Descripcion" value=${ transmision.getDescripcion()}/>
 						</div>
 						<div="p-4">
 							<input type="submit" class="btn btn-outline-primary btn-sm  mt-3" value="MODIFICAR INFORMACIÓN">
-							<input type="submit" class="btn btn-outline-primary btn-sm  mt-3" value="FINALIZAR TRANSMISIÓN">
+							<a href="finalizar_transmision?idTransmision=${transmision.getId()}&url=${transmision.getUrl()}" class="btn btn-outline-primary btn-sm  mt-3">FINALIZAR</a>
 						</div>
 					</div>
 				</form>
 			</div>
-			<!-- END MODIFICAR INFORMACION -->
+		<!-- END INFORMACION MODIFICAR Y FINALIZAR -->
 			
             <!-- COMENTARIOS -->
 			<div class="text-center p-5 mt-5">
