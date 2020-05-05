@@ -490,10 +490,14 @@ String email = (String) session.getAttribute("email");
 						</li>
 						<li class="nav-item">
 							<a class="nav-link r-20" id="w3--tab5" data-toggle="tab" href="#w3-tab5"
-							   role="tab" aria-controls="tab3" aria-selected="false">Seguidores</a>
+							   role="tab" aria-controls="tab2" aria-selected="false">Transmisiones</a>
 						</li>
 						<li class="nav-item">
 							<a class="nav-link r-20" id="w3--tab6" data-toggle="tab" href="#w3-tab6"
+							   role="tab" aria-controls="tab3" aria-selected="false">Seguidores</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link r-20" id="w3--tab7" data-toggle="tab" href="#w3-tab7"
 							   role="tab" aria-controls="tab3" aria-selected="false">Siguiendo</a>
 						</li>
 					</ul>
@@ -685,10 +689,17 @@ String email = (String) session.getAttribute("email");
 					</div>
 				</div>
 				<!-- END  PODCAST -->
-				
-				<!---SEGUIDORES-->
-				<div class="tab-pane fade text-center p-5" id="w3-tab5" role="tabpanel"
+				<!-- TRANSMISONES -->
+				<div class="tab-pane fade show text-center p-5" id="w3-tab5" role="tabpanel"
 					 aria-labelledby="w3-tab5">
+					<div class="contenido-pestanas">
+						<button class="btn btn-abrir-popup icon-plus" id="abrir-iniciar-transmision" onClick="document.getElementById('overlay-iniciar-transmision').classList.add('active');"> Iniciar Transmision </button>
+					</div>
+				</div>
+				<!-- END TRANSMISIONES -->
+				<!---SEGUIDORES-->
+				<div class="tab-pane fade text-center p-5" id="w3-tab6" role="tabpanel"
+					 aria-labelledby="w3-tab6">
 					<div class="table-responsive">
 						<table class="table table-hover earning-box">
 							<tbody>
@@ -765,8 +776,8 @@ String email = (String) session.getAttribute("email");
 				<!-- END SEGUIDORES -->
 				
 				<!--SIGUIENDO-->
-				<div class="tab-pane fade text-center p-5" id="w3-tab6" role="tabpanel"
-					 aria-labelledby="w3-tab6">
+				<div class="tab-pane fade text-center p-5" id="w3-tab7" role="tabpanel"
+					 aria-labelledby="w3-tab7">
 					<div class="table-responsive">
 						<table class="table table-hover earning-box">
 
@@ -1083,7 +1094,23 @@ String email = (String) session.getAttribute("email");
 	</div>	
 <!-- END BORRAR PODCAST -->
 
-
+<!-- INICIAR TRANSMISION -->
+<div class="overlay-pop-up" id="overlay-iniciar-transmision">	
+		<div class="col-md-7 card p-5">	
+	        <a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-borrar-listas-reproduccion" class="btn-cerrar-popup-perfil"	
+	        class="btn btn-outline-primary btn-sm pl-4 pr-4"  onclick="document.getElementById('overlay-iniciar-transmision').classList.remove('active');"><i class="icon-close1"></i></a>	
+			<form class="form-material" action="iniciar_transmision" method="post">
+					<div class="p5 b-b">
+						<input type="text" name="nombre" class="formulario-subir-cancion" placeholder="Nombre de la transmisión" required=""/>
+						<input type="text" name="descripcion" class="formulario-subir-cancion" placeholder="Descripcion"/>
+					</div>
+					<div="p-4">
+						<input type="submit" class="btn btn-outline-primary btn-sm  mt-3" value="INICIAR">
+					</div>
+			</form>
+		</div>
+</div>				
+<!-- END INICIAR TRANSMISION -->
 
 <!-- EDICION PERFIL -->
 <div class="overlay-pop-up" id="overlay-perfil">

@@ -357,7 +357,34 @@
 	    <servlet-mapping>
 		 	<servlet-name>ir_modificar</servlet-name>
 	       	<url-pattern>/ir_modificar</url-pattern>
-		</servlet-mapping>
+	</servlet-mapping>
+	
+	<servlet>
+        <servlet-name>iniciar_transmision</servlet-name>
+	    <servlet-class>com.espotify.controller.IniciarTransimision_Servlet</servlet-class>
+	</servlet>
+	    <servlet-mapping>
+		 	<servlet-name>iniciar_transmision</servlet-name>
+	       	<url-pattern>/iniciar_transmision</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+        <servlet-name>modificar_transmision</servlet-name>
+	    <servlet-class>com.espotify.controller.ModInfoTransmision_Servlet</servlet-class>
+	</servlet>
+	    <servlet-mapping>
+		 	<servlet-name>modificar_transmision</servlet-name>
+	       	<url-pattern>/modificar_transmision</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+        <servlet-name>finalizar_transmision</servlet-name>
+	    <servlet-class>com.espotify.controller.FinalizarTransmision_Servlet</servlet-class>
+	</servlet>
+	    <servlet-mapping>
+		 	<servlet-name>finalizar_transmision</servlet-name>
+	       	<url-pattern>/finalizar_transmision</url-pattern>
+	</servlet-mapping>
 		
 		<servlet>
 		<servlet-name>logout</servlet-name>
