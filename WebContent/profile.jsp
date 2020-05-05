@@ -1002,6 +1002,7 @@ String email = (String) session.getAttribute("email");
 								<input type="hidden" name="idLista" value="${listalr.getId()}">
 								<input type="hidden" name="idAudio" value="">
 								<input type="hidden" name="nombreLista" value="${listalr.getNombre()}">
+								<input type="hidden" name="tipo" value="ListRep">
 							</form>	
 						</div>
 					</c:forEach>
@@ -1036,6 +1037,7 @@ String email = (String) session.getAttribute("email");
 								<input type="hidden" name="idLista" value="${podcast.getId()}">
 								<input type="hidden" name="idAudio" value="">
 								<input type="hidden" name="nombreLista" value="${podcast.getNombre()}">
+								<nput type="hidden" name="tipo" value="podcast">
 							</form>	
 						</div>
 					</c:forEach>

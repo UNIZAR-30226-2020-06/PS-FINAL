@@ -46,16 +46,18 @@ public class ModInfo_ListaRepServlet extends HttpServlet {
 				ListaReproduccion infoLista = new ListaReproduccionDAO().getInfoList(nombreNew,usuario,tipo);
 				List<Audio> audios = new ListaReproduccionDAO().getAudios(nombreNew,usuario,tipo);
 
-				
-				request.setAttribute("audios", audios);
-					
+				if (!audios.isEmpty()) {
+					request.setAttribute("audios", audios);
+				}
 				//RequestDispatcher dispatcher=request.getRequestDispatcher("listaRep.jsp");
 				//dispatcher.forward(request, response);
 				if(tipo.equals("podcast")) {
 					System.out.println("ENTRO");
-					request.setAttribute("infoPocast", infoLista);
+					log("PODCAST");
+					request.setAttribute("infoPodcast", infoLista);
 					request.getRequestDispatcher("obtener_info_podcast").forward(request, response);
 				} else {
+					log("LISTA");
 					request.setAttribute("infoLista", infoLista);
 					request.getRequestDispatcher("obtener_info_lr").forward(request, response);
 				}

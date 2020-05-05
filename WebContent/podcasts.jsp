@@ -1,9 +1,9 @@
-%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%><!DOCTYPE html>
 <html lang="zxx">
 
-<!-- NOMBRE DE LA PESTAÃA -->
+<!-- NOMBRE DE LA PESTAÃÂA -->
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -80,7 +80,7 @@ pageEncoding="UTF-8"%>
             
             <li class="menu-item-has-children">
                 <a href="#">
-                    <i class="icon icon-layers s-24"></i> <span>Categor�as</span>
+                    <i class="icon icon-layers s-24"></i> <span>Categorías</span>
                     <i class=" icon-angle-left  pull-right"></i>
                 </a>
                 <ul class="sub-menu">
@@ -92,7 +92,7 @@ pageEncoding="UTF-8"%>
             </li>
             
             <li><a class="ajaxifyPage" href="mostrar_lrs?tipo=ListaRep" >
-                    <i class="icon icon-compact-disc-1 s-24"></i> <span>Mis Listas de Reproducci�n</span>
+                    <i class="icon icon-compact-disc-1 s-24"></i> <span>Mis Listas de Reproducción</span>
                 </a>
             </li>
             
@@ -269,7 +269,7 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 							<div class="col text-center">
 								<a class="ajaxifyPage" href="logout" >
 									<a href="<%= request.getContextPath()+"/Cerrar_SesionServlet"%>"><i class="icon-exit-2  s-24"></i>
-                                    <div class="pt-1">Cerrar sesi�n</div></a>
+                                    <div class="pt-1">Cerrar sesión</div></a>
 								</a>
 							</div>
 						</div>
@@ -353,7 +353,7 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 							<div class="col-lg-3 col-md-4 col-sm-6 my-2">
 								<figure>
 									<div class="img-wrapper">
-										<img src="assets/img/demo/a1.jpg" alt="/">
+										<img src="assets/img/demo/a3.jpg" alt="/">
 										<div class="img-overlay text-white text-center">
 										<!--href="obtener_info_lr?nombre=${lista.getNombre()}"-->
 											<a 	 href="obtener_info_podcast?nombre=${podcast.getNombre()}" >
@@ -392,7 +392,7 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 					<h3>CREAR PODCAST</h3>
 				</header>
 				<div class="contenedor-inputs">
-					<h4>A�adir imagen</h4>
+					<h4>Añadir imagen</h4>
 					<!--  <input type="file" class="btn btn-outline-primary btn-sm  mt-3" name="fileName" /> -->
 					<input type="text" name="nombre" placeholder="Nombre" id="nombre-listas-reproduccion" required/>
 					<input type="text" name="descripcion" placeholder="Descripcion" id="descripcion-listas-reproduccion"/>
@@ -420,7 +420,7 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 				<!-- Input -->	
 				<div class="body">	
 					<header class="relative nav-sticky card">	
-	                    <h3>�Estas seguro?</h3>	
+	                    <h3>¿Estas seguro?</h3>	
 	                    <h5>Vas a borrar esta Podcast para siempre, no hay vuelta atras</h5>	
 					</header>	
 		

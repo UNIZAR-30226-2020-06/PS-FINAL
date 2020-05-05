@@ -431,64 +431,7 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 -->
 </nav>
 
-<c:choose>
-<c:when test="${fav=='1'}" >
-<!-- LISTA DE FAVORITOS-->
 
-<!--Page Content-->
-<main id="pageContent" class="page has-sidebar">
-<div class="container-fluid relative  p-lg-5">
-	<div class="container-fluid relative p-0">
-		<div class="card no-b shadow no-r">
-		<button style="text-align:right;left: 10px;border-color: transparent;color: #fd7e14;background-color: #fd7e1400;" 
-				class="btn btn-abrir-popup-perfil btn-sm  mt-3" 
-				id="abrir-popup-lista"
-				onclick="document.getElementById('overlay-mod-podcast').classList.add('active');">
-			<i class="icon-edit  s-24"></i>Editar
-		</button>
-				<div class="p-3 p-lg-5">
-					<!--New Releases-->
-					<section>
-						<div class="row">
-							<div class="col-lg-10 offset-lg-1">
-								<div class="row">
-									<div class="col-md-12">
-										<div class="playlist">
-											<ul id="playlist" class="playlist list-group">
-												<c:forEach var="capitulo" items="${audios}">                    
-													<div style="margin-bottom: -1px;" class="cancion">
-														<li class="list-group-item my-1">																
-															<div class="d-flex align-items-center">
-																<div class="col-1">
-																	<a class="no-ajaxy media-url" href="${capitulo.getUrl()}">
-																		<i class="icon-play s-28"></i>
-																	</a>					
-																</div>
-																<div class="col-6">
-																	<h6>${capitulo.getTitulo()}</h6>${capitulo.getGenero()}
-																</div>
-																<span class="ml-auto">${capitulo.getGenero()}</span>
-																<a href="#" class="ml-auto"><i class="icon-share-1"></i></a>
-																
-															</div>
-														</li>
-													</div>								                
-												</c:forEach>
-											</ul>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</section>
-					<!--@New Releases-->
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-</c:when>
-<c:otherwise>
 <!-- PODCAST -->
 
 <!--Page Content-->
@@ -605,7 +548,7 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 																<span class="ml-auto">${cancion.getGenero()}</span>
 																<a href="#" class="ml-auto"><i class="icon-share-1"></i></a>
 																<div class="ml-auto">
-																	<a href="${pageContext.request.contextPath}/borrar_cancion_lr?idAudio=${cancion.getId()}&idLista=${infoPodcast.getId()}&nombreLista=${infoPodcast.getNombre()}" class="btn-icono icon-trash-o" ></a>
+																	<a href="${pageContext.request.contextPath}/borrar_cancion_lr?idAudio=${cancion.getId()}&idLista=${infoPodcast.getId()}&nombreLista=${infoPodcast.getNombre()}&tipo=podcast" class="btn-icono icon-trash-o" ></a>
 																</div>
 															</div>
 														</li>
@@ -626,8 +569,7 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 		</div>
 	</div>
 </div>
-</c:otherwise>
-</c:choose>
+
 <!-- AÑADIR CAPITULO A PODCAST -->
 <div class="overlay-pop-up" id="overlay-anadir-listas-reproduccion">
     <div class="col-md-7 card p-5">
@@ -635,7 +577,7 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 			<!-- Input -->
 				<div class="body">
 					<div class="row has-items-overlay">
-						<c:forEach var="listalr" items="${listaslr}">
+						<c:forEach var="listalr" items="${podcasts}">
 						<div class="col-lg-3 col-md-4 col-sm-6 my-2">
 							<figure>
 								<div class="img-wrapper">
@@ -662,7 +604,6 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 </div>
 <!-- END AÑADIR CAPITULO A PODCAST -->
 
-<%session.setAttribute("fav", 0); %>
 
 </main><!--@Page Content-->
 </div><!--@#app-->

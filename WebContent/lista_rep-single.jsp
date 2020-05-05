@@ -649,7 +649,7 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 																<a href="#" class="ml-auto"><i class="icon-share-1"></i></a>
 																<div class="ml-auto">
 																	<a href="anyadir_cancion_fav?idAudio=${cancion.getId()}" class="btn-favorito icon-star active"></a>
-																	<a href="${pageContext.request.contextPath}/borrar_cancion_lr?idAudio=${cancion.getId()}&idLista=${infoLista.getId()}&nombreLista=${infoLista.getNombre()}" class="btn-icono icon-trash-o" ></a>
+																	<a href="${pageContext.request.contextPath}/borrar_cancion_lr?idAudio=${cancion.getId()}&idLista=${infoLista.getId()}&nombreLista=${infoLista.getNombre()}&tipo=ListaRep" class="btn-icono icon-trash-o" ></a>
 																</div>
 															</div>
 														</li>
@@ -696,6 +696,7 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 								<input type="hidden" name="idLista" value="${listalr.getId()}">
 								<input type="hidden" name="idAudio" value="">
 								<input type="hidden" name="nombreLista" value="${listalr.getNombre()}">
+								<input type="hidden" name="tipo" value="ListRep">
 							</form>	
 						</div>
 					</c:forEach>

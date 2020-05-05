@@ -36,12 +36,13 @@ public class GetAll_PodcastServlet extends HttpServlet {
 		int usuario = Integer.valueOf((String) session.getAttribute("id"));
 		String tipo = request.getParameter("tipo");
 		try{
-			List<ListaReproduccion> podcasts = new ListaReproduccionDAO().showLists(usuario,tipo);
+			List<ListaReproduccion> podcasts = new ListaReproduccionDAO().showLists(usuario,"podcast");
 			
 			session.setAttribute("podcasts", podcasts);
 				
 			//RequestDispatcher dispatcher=request.getRequestDispatcher("user.jsp");
 			//dispatcher.forward(request, response);
+			log("HELP HELP HELP HELP");
 			request.getRequestDispatcher("podcasts.jsp").forward(request, response);
 
 		}catch(Throwable theException) {

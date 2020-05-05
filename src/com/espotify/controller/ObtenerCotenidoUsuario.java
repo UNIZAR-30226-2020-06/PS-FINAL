@@ -45,8 +45,6 @@ public class ObtenerCotenidoUsuario extends HttpServlet {
 		request.setAttribute("canciones", canciones);
 		ArrayList<Audio> capitulos = new CapituloPodcastDAO().obtenerCapitulosPodcastUsuario(idUsuario);
 		request.setAttribute("capitulos", capitulos);
-		ArrayList<Genero> generos = new GeneroDAO().obtenerGeneroMusica();
-		request.setAttribute("generos", generos);
 		List<ListaReproduccion> listaslr = new ListaReproduccionDAO().showLists(idUsuario,"ListaRep");
 		request.setAttribute("listaslr", listaslr);
 		List<ListaReproduccion> podcasts = new ListaReproduccionDAO().showLists(idUsuario,"podcast");
