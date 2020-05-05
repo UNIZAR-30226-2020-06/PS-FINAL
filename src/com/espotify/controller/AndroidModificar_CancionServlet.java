@@ -48,7 +48,7 @@ public class AndroidModificar_CancionServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
         JSONObject parametrosPeticion = JSONAdapter.parsarJSON(request);
-        getServletContext().log("PETICION RECIBIDA [DELETE_PLAYLIST]: " + parametrosPeticion); 
+        getServletContext().log("--- ~AndroidModificar_CancionServlet~ ---");
         
         String email = parametrosPeticion.getString("email");
         String nombreViejoCancion = parametrosPeticion.getString("nombreCancionViejo");

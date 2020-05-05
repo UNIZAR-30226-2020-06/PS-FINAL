@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.util.Base64;
 import java.util.Collections;
 import java.util.Enumeration;
 import java.util.List;
@@ -51,9 +52,13 @@ public class AndroidEliminar_ListaRepServlet extends HttpServlet {
         
         String email = parametrosPeticion.getString("email");
         String nombreLista = parametrosPeticion.getString("nombrePlaylist");
+        String imagenCodificada = parametrosPeticion.getString("imagen");
         
         String idUsuario = UsuarioDAO.obtenerId(email);
         ListaReproduccionDAO.borrar(nombreLista, idUsuario, "ListaRep");
+        
+        // TODO: Imágen
+        byte[] imagenDecodificada = Base64.getDecoder().decode(new String(imagenCodificada).getBytes("UTF-8"));
        
         
         // Lanzar JSON

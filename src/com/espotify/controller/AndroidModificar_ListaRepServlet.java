@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.util.Base64;
 import java.util.Collections;
 import java.util.Enumeration;
 import java.util.List;
@@ -47,12 +48,17 @@ public class AndroidModificar_ListaRepServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
         JSONObject parametrosPeticion = JSONAdapter.parsarJSON(request);
-        getServletContext().log("PETICION RECIBIDA [DELETE_PLAYLIST]: " + parametrosPeticion); 
+        getServletContext().log("--- ~AndroidModificar_ListaRepServlet~ ---");
         
         String email = parametrosPeticion.getString("email");
         String nombreViejoPlayList = parametrosPeticion.getString("nombrePlaylistViejo");
         String nombreNuevoPlayList = parametrosPeticion.getString("nombrePlaylistNuevo");
         String descripcion = parametrosPeticion.getString("descripcion");
+        String imagenCodificada = parametrosPeticion.getString("imagen");
+        
+        // TODO: Imágen
+        
+        byte[] imagenDecodificada = Base64.getDecoder().decode(new String(imagenCodificada).getBytes("UTF-8"));
         
         String idUsuario = UsuarioDAO.obtenerId(email);
         boolean cambiado = ListaReproduccionDAO.cambiar_info(nombreViejoPlayList, nombreNuevoPlayList, idUsuario, descripcion, null, "ListaRep");

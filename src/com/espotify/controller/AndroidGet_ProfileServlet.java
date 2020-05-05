@@ -67,7 +67,7 @@ public class AndroidGet_ProfileServlet extends HttpServlet {
 		try {
 			blobLength = (int) imagenBlob.length();
 			byte[] blobAsBytes = imagenBlob.getBytes(1, blobLength);
-			respuestaPeticion.put("imagen", blobAsBytes);
+			//respuestaPeticion.put("imagen", blobAsBytes);
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -84,14 +84,18 @@ public class AndroidGet_ProfileServlet extends HttpServlet {
         CancionDAO canciondao = new CancionDAO();
         List<ListaReproduccion> listas = new ListaReproduccionDAO().showLists(idUsuario, "ListaRep");
         List<Audio> audios = canciondao.obtenerCancionesUsuario(Integer.parseInt(idUsuario));
+        List<ListaReproduccion> pocasts = new ListaReproduccionDAO().showLists(idUsuario, "podcast");
         //getServletContext().log("Listas recibidas: " + respuestaPeticion.toString()); 
         String listasReproduccion = "";
         String listasDescripcion = "";
         String audiosUsuarioTitulo = "";
         String audiosUsuarioUrls = "";
+        String podcasts = "";
+        String podcastsUsuarioDescripcion = "";
         
         boolean tieneListas = false;
         boolean tieneAudios = false;
+        boolean tienePodcasts = false;
         
         for(ListaReproduccion lista : listas) {
         	listasReproduccion += lista.getNombre() + "|";
@@ -105,6 +109,12 @@ public class AndroidGet_ProfileServlet extends HttpServlet {
         	tieneAudios = true;
         }
         
+        for (ListaReproduccion podcast : pocasts) {
+        	podcasts += podcast.getNombre() + "|";
+        	podcastsUsuarioDescripcion += podcast.getDescripcion() + "|";
+        	tienePodcasts = true;
+        }
+        
         if(tieneListas) {
         	listasDescripcion = listasDescripcion.substring(0, listasDescripcion.length() - 1);
         	listasReproduccion = listasReproduccion.substring(0, listasReproduccion.length() - 1);
@@ -115,11 +125,18 @@ public class AndroidGet_ProfileServlet extends HttpServlet {
         	audiosUsuarioUrls = audiosUsuarioUrls.substring(0, audiosUsuarioUrls.length() - 1);
     	}
     	
+    	if (tienePodcasts) {
+    		podcasts = podcasts.substring(0, podcasts.length() - 1);
+    		podcastsUsuarioDescripcion = podcastsUsuarioDescripcion.substring(0, podcastsUsuarioDescripcion.length() - 1);
+    	}
+    	
         respuestaPeticion.put("lista", listasReproduccion);
         respuestaPeticion.put("listaDescripcion", listasDescripcion);
         respuestaPeticion.put("audiosTitulo", audiosUsuarioTitulo);
         respuestaPeticion.put("audiosUrl", audiosUsuarioUrls);
-       // getServletContext().log(respuestaPeticion.toString());
+        respuestaPeticion.put("podcasts", podcasts);
+        respuestaPeticion.put("podcastsDescripcion", podcastsUsuarioDescripcion);
+        getServletContext().log("Respuesta: " + respuestaPeticion.toString());
         getServletContext().log("-------------------------------------------");
         // Lanzar JSON
         out.print(respuestaPeticion.toString());

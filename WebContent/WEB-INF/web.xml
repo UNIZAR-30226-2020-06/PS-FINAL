@@ -130,12 +130,87 @@
 	</servlet-mapping>
 	
 	<servlet>
+		<servlet-name>AndroidGet_GenerosPodcastServlet</servlet-name>
+		<servlet-class>com.espotify.controller.AndroidGet_GenerosPodcastServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AndroidGet_GenerosPodcastServlet</servlet-name>
+		<url-pattern>/generos_podcast_android</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
 		<servlet-name>AndroidGet_PodcastServlet</servlet-name>
 		<servlet-class>com.espotify.controller.AndroidGet_PodcastServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>AndroidGet_PodcastServlet</servlet-name>
 		<url-pattern>/podcasts_android</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>AndroidGet_CapitulosPodcastServlet</servlet-name>
+		<servlet-class>com.espotify.controller.AndroidGet_CapitulosPodcastServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AndroidGet_CapitulosPodcastServlet</servlet-name>
+		<url-pattern>/capitulos_podcast_android</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>AndroidAnyadir_CapitulosPodcastServlet</servlet-name>
+		<servlet-class>com.espotify.controller.AndroidAnyadir_CapitulosPodcastServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AndroidAnyadir_CapitulosPodcastServlet</servlet-name>
+		<url-pattern>/anyadir_capitulo_android</url-pattern>
+	</servlet-mapping>
+	
+	
+	<servlet>
+		<servlet-name>AndroidModificar_CapituloServlet</servlet-name>
+		<servlet-class>com.espotify.controller.AndroidModificar_CapituloServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AndroidModificar_CapituloServlet</servlet-name>
+		<url-pattern>/modificar_capitulo_android</url-pattern>
+	</servlet-mapping>
+	
+	
+	<servlet>
+		<servlet-name>AndroidEliminar_CapituloPodcastServlet</servlet-name>
+		<servlet-class>com.espotify.controller.AndroidEliminar_CapituloPodcastServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AndroidEliminar_CapituloPodcastServlet</servlet-name>
+		<url-pattern>/eliminar_capitulo_android</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>AndroidEliminar_PodcastServlet</servlet-name>
+		<servlet-class>com.espotify.controller.AndroidEliminar_PodcastServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AndroidEliminar_PodcastServlet</servlet-name>
+		<url-pattern>/eliminar_podcast_android</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>AndroidCrear_PodcastServlet</servlet-name>
+		<servlet-class>com.espotify.controller.AndroidCrear_PodcastServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AndroidCrear_PodcastServlet</servlet-name>
+		<url-pattern>/crear_podcast_android</url-pattern>
+	</servlet-mapping>
+	
+	
+	<servlet>
+		<servlet-name>AndroidModificar_PodcastServlet</servlet-name>
+		<servlet-class>com.espotify.controller.AndroidModificar_PodcastServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AndroidModificar_PodcastServlet</servlet-name>
+		<url-pattern>/modificar_podcast_android</url-pattern>
 	</servlet-mapping>
 	
 	

@@ -34,7 +34,7 @@ public class ListaReproduccionDAO {
 													+ "WHERE lista.id = cont.lista AND cont.audio = audio.id AND audio.genero = genero.id AND audio.usuario = user.id AND "
 													+ "lista.nombre = ? AND lista.usuario = ? AND lista.tipo = ? ORDER BY audio.titulo";
 	private final static String SHOWLISTS_QUERY = "SELECT * FROM Reproductor_musica.ListasRep WHERE usuario = ? AND tipo = ? ORDER BY nombre";
-	private final static String SHOW_ALL_LISTS_QUERY = "SELECT * FROM Reproductor_musica.ListasRep WHERE AND tipo = ? ORDER BY nombre";
+	private final static String SHOW_ALL_LISTS_QUERY = "SELECT * FROM Reproductor_musica.ListasRep WHERE tipo = ? ORDER BY nombre";
 	private final static String INSERTAUDIO_QUERY =  "INSERT INTO Reproductor_musica.Contiene (audio, lista) VALUES (?,?)";
 	private final static String DELETE_AUDIO_QUERY = "DELETE FROM Reproductor_musica.Contiene WHERE audio = ? AND lista = ?";
 	private final static String GETLIST_ID_QUERY = "SELECT id FROM Reproductor_musica.ListasRep WHERE nombre = ?";

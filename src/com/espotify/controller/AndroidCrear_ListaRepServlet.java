@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.util.Base64;
 import java.util.Collections;
 import java.util.Enumeration;
 import java.util.List;
@@ -52,6 +53,11 @@ public class AndroidCrear_ListaRepServlet extends HttpServlet {
         String email = parametrosPeticion.getString("email");
         String nombreLista = parametrosPeticion.getString("nombrePlaylist");
         String descripcion = parametrosPeticion.getString("descripcion");
+        String imagenCodificada = parametrosPeticion.getString("imagen");
+        
+        
+         // TODO IMAGEN
+        byte[] imagenDecodificada = Base64.getDecoder().decode(new String(imagenCodificada).getBytes("UTF-8"));
         
         String idUsuario = UsuarioDAO.obtenerId(email);
         ListaReproduccionDAO.crear(idUsuario, nombreLista, descripcion, "ListaRep");

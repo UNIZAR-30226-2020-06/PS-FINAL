@@ -20,12 +20,7 @@ public class GeneroDAO {
 	
 	private final static String CANCION = "cancion";
 	private final static String PODCAST = "podacast";
-
 	private final static String GET_GENERO_CAPITULO = "SELECT g.id, g.nombre FROM Reproductor_musica.Genero g WHERE g.tipo = 'capituloPodcast'";
-
-
-	
-
 	private final static String CAPITULO = "capituloPodcast";
 
 	public ArrayList<Genero> obtenerGeneroMusica() {

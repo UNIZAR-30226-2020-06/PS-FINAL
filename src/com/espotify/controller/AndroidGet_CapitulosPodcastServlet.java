@@ -50,44 +50,40 @@ public class AndroidGet_CapitulosPodcastServlet extends HttpServlet {
         getServletContext().log("Parametros: " + parametrosPeticion);
         
         String nombrePodcast = parametrosPeticion.getString("podcast");
-
-        JSONObject respuestaPeticion = new JSONObject();
         
         response.setContentType("application/json");
         response.setCharacterEncoding("utf-8");
-        PrintWriter out = response.getWriter();
-/*
+        
+
         CapituloPodcastDAO cpd = new CapituloPodcastDAO();
-        cpd.obtenerCapitulosPodcast()
+        List<Audio> capitulosPodcastLista = cpd.obtenerCapitulosPodcast(nombrePodcast);
         
+        String nombresPodcast = "";
+        String urlsPodcast = "";
         
+        boolean tieneCapitulos = false;
         
-        respuestaPeticion.put("nombreUsuario", u.getNombre());
-        respuestaPeticion.put("descripcion", u.getDescripcion());
-        respuestaPeticion.put("email", u.getCorreo());
-        
-        String idUsuario = UsuarioDAO.obtenerId(email);
-        
-        List<Audio> audios =  ListaReproduccionDAO.getAudios(nombrePlaylist, "3", "ListaRep");
-        getServletContext().log("Audios recibidos" + audios); 
-        */
-        String nombresAudio = "";
-        String urlsAudio = "";
-        /*
-        for(Audio audio : audios) {
-        	nombresAudio += audio.getTitulo() + "|";
-        	urlsAudio += audio.getUrl() + "|";
+        for (Audio podcast : capitulosPodcastLista) {
+        	nombresPodcast += podcast.getTitulo() + "|";
+        	urlsPodcast += podcast.getUrl() + "|";
+        	tieneCapitulos = true;
         }
         
-        nombresAudio = nombresAudio.substring(0, nombresAudio.length() - 1);
+        if(tieneCapitulos) {
+        	nombresPodcast = nombresPodcast.substring(0, nombresPodcast.length() - 1);
+        	urlsPodcast = urlsPodcast.substring(0, urlsPodcast.length() - 1);
+        }
         
-        respuestaPeticion.put("nombresAudio", nombresAudio);
-        respuestaPeticion.put("urlsAudio", urlsAudio);
+        JSONObject respuestaPeticion =new JSONObject();
+        respuestaPeticion.put("nombresPodcast", nombresPodcast);
+        respuestaPeticion.put("urlsPodcast", urlsPodcast);
         
+        getServletContext().log("Respuesta: " + respuestaPeticion);
+        PrintWriter out = response.getWriter();
+        response.setContentType("application/json");
+        response.setCharacterEncoding("utf-8");
         
-        // finally output the json string       
         out.print(respuestaPeticion.toString());
-        */
 	}
 
 	/**

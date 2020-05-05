@@ -1,5 +1,6 @@
 package com.espotify.dao;
 
+import java.io.File;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -26,7 +27,7 @@ public class CancionDAO {
 	private final static String GET_NOMBRE_AUTOR_QUERY = "SELECT a.nombre FROM Reproductor_musica.Usuario a WHERE a.id = ?";
 	private final static String GET_NOMBRE_GENERO_QUERY = "SELECT g.nombre FROM Reproductor_musica.Genero g WHERE g.id = ? AND g.tipo = 'cancion'";
 	private final static String GET_CANCIONES_USUARIO = "SELECT a.id, a.titulo, a.url, a.usuario, a.genero FROM Reproductor_musica.Audio a WHERE a.usuario = ? AND a.genero IN (SELECT g.id FROM Reproductor_musica.Genero g WHERE g.tipo = 'cancion')";
-	private final static String GET_TODOS_QUERY = "SELECT * FROM Reproductor_musica.Audio";
+	private final static String GET_TODOS_QUERY = "SELECT * FROM Reproductor_musica.Audio WHERE genero IN (SELECT id FROM Reproductor_musica.Genero WHERE tipo = 'cancion')";
 	
 	public int subirCancion(String titulo, int autor, int genero, String ruta) {
 		System.out.println("SubirCancion Entro+++++++++++++++++");
@@ -96,6 +97,9 @@ public class CancionDAO {
 			ps.executeUpdate();
 			
 			ConnectionManager.releaseConnection(conn);
+			
+			new File("/var/www/html/almacen-mp3/" + id + ".mp3").delete();
+			
 			System.out.println("SE HA BORRADO LA CANCION");
 			return true;
 		} catch (SQLException e) {

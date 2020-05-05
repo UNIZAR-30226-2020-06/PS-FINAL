@@ -1,6 +1,7 @@
 package com.espotify.controller;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
@@ -48,7 +49,7 @@ public class AndroidEliminar_CancionServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
         JSONObject parametrosPeticion = JSONAdapter.parsarJSON(request);
-        getServletContext().log("PETICION RECIBIDA [DELETE_SONG]: " + parametrosPeticion); 
+        getServletContext().log("--- ~AndroidEliminar_CancionServlet~ ---"); 
         
         String email = parametrosPeticion.getString("email");
         String nombreCancion = parametrosPeticion.getString("nombreCancion");
@@ -63,6 +64,8 @@ public class AndroidEliminar_CancionServlet extends HttpServlet {
         } else {
         	respuestaPeticion.put("estado", "fail");
         }
+        
+        
         
         PrintWriter out = response.getWriter();
         response.setContentType("application/json");

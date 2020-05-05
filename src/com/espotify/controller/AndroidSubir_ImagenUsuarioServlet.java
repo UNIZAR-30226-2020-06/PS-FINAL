@@ -71,7 +71,6 @@ public class AndroidSubir_ImagenUsuarioServlet extends HttpServlet {
         String idUsuario = UsuarioDAO.obtenerId(email);
         
         boolean exito = UsuarioDAO.actualizarImagen(idUsuario, imagenDecodificada);
-        getServletContext().log("Exito" + exito);
         getServletContext().log("IdUsuario: " + idUsuario + "Exito: " + exito);
         JSONObject respuestaPeticion = new JSONObject();
        

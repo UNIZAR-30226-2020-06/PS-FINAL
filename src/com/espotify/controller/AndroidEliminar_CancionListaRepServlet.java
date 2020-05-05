@@ -56,8 +56,12 @@ public class AndroidEliminar_CancionListaRepServlet extends HttpServlet {
         String nombreLista = parametrosPeticion.getString("nombrePlaylist");
         String nombreCancion = parametrosPeticion.getString("nombreCancion");
         
-        
         getServletContext().log("Parametros: " + email + "," + nombreLista + "," + nombreCancion);
+        
+        
+        if (nombreLista.contentEquals("misCanciones")) {
+        	
+        }
         
         CancionDAO canciondao = new CancionDAO();
         
