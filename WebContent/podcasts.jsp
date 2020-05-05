@@ -10,7 +10,7 @@ pageEncoding="UTF-8"%>
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="icon" href="assets/img/basic/logo.ico" type="image/x-icon">
-    <title>Espotify - Mis Listas</title>
+    <title>Espotify - Mis Podcasts</title>
     <!-- CSS -->
     <link rel="stylesheet" href="assets/css/app.css">
 </head>
@@ -343,7 +343,7 @@ String hayfoto = (String) session.getAttribute("hayfoto");
             <section>
                 <div class="relative mb-5" style="text-align: center;">
                     <h1 class="mb-2 text-primary">Podcast</h1>
-                    <p>Todas tus Podcasts</p>
+                    <p>Todos tus Podcasts</p>
                 </div>
                 <div class="contenido-pestanas" style="text-align: center;">
 						<button class="btn btn-abrir-popup-lista icon-plus" id="abrir-podcast"  onClick="document.getElementById('overlay-podcast').classList.add('active');">Crear Podcast</button>
@@ -409,59 +409,7 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 <!-- END CREAR PODCAST -->
 
 
-<!-- AJUSTES CUENTA -->
-<div class="overlay-pop-up" id="overlay-cuenta">
-    <div class="col-md-7 card p-5">
-		<form class="form-material" action="#">
-			<a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-cuenta" class="btn-cerrar-popup-perfil"><i class="icon-close1"></i></a>
-			<header class="relative nav-sticky card">
-				<h3>CAMBIAR INFORMACIÃN DE LA CUENTA</h3>
-			</header>
-			<form class="form-material" action="#"> <!--QUITAR-->
-				<!-- Input -->
-				<div class="body">
-					
-					<div class="form-group form-float">
-						<div class="form-line">
-							<input type="email" name="email" class="form-control">
-							<label class="form-label">Email</label>
-						</div>
-					</div>
-					<input type="submit" class="btn btn-outline-primary btn-sm pl-4 pr-4"
-						   value="Cambiar email">
-				</div>
-			</form>
-			<form class="form-material" action="#"> <!--QUITAR-->
-				<!-- Input -->
-				<div class="body">
-					<div class="form-group form-float">
-						<div class="form-line">
-							<input type="password" name="contrasena" class="form-control">
-							<label class="form-label">ContraseÃ±a actual</label>
-						</div>
-					</div>
-					<div class="form-group form-float">
-						<div class="form-line">
-							<input type="password" name="contrasena" class="form-control">
-							<label class="form-label">ContraseÃ±a nueva</label>
-						</div>
-					</div>
-					<div class="form-group form-float">
-						<div class="form-line">
-							<input type="password" name="password" class="form-control">
-							<label class="form-label">Confirmar contraseÃ±a</label>
-						</div>
-					</div>
 
-					<input type="submit" class="btn btn-outline-primary btn-sm pl-4 pr-4"
-						   value="Cambiar constraseÃ±a">
-				</div>
-			</form>
-			<!-- #END# Input -->
-		</form>
-	</div>
-</div>
-<!-- END AJUSTES CUENTA -->
 
 <!-- BORRAR PODCAST -->	
 	<div class="overlay-pop-up" id="overlay-borrar-listas-reproduccion">	
@@ -477,7 +425,7 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 					</header>	
 		
 					<input type="hidden" id="idLista" name="nombre" value="">
-					<input type="hidden" name="tipo" value="ListaRep">	
+					<input type="hidden" name="tipo" value="podcast">	
 					<input type="submit" class="btn btn-outline-primary btn-sm pl-4 pr-4"	
 	                       value="Aceptar">	
 	                <button class="btn btn-outline-primary btn-sm pl-4 pr-4"  onclick="document.getElementById('overlay-borrar-listas-reproduccion').classList.remove('active');">Cerrar</button>	

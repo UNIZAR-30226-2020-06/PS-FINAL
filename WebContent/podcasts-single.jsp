@@ -106,11 +106,11 @@ pageEncoding="UTF-8"%>
                 </a>
             </li>
             
-            <li><a class="ajaxifyPage" href="podcasts.jsp" onclick="setTimeout(location.reload.bind(location), 1)">
+            <li><a class="ajaxifyPage" href="mostrar_podcasts?tipo=podcasts" >
                     <i class="icon icon-headphones s-24"></i> <span>Mis podcasts</span>
                 </a>
             </li>
-            <li><a class="ajaxifyPage" href="obtener_info_fav" onclick="setTimeout(locaton.reload.bind(location), 1)">
+            <li><a class="ajaxifyPage" href="obtener_info_fav" >
             		<i class="icon icon-star s-24"></i> <span>Mis favoritos</span>
             	</a>
             </li>
@@ -469,9 +469,7 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 																</div>
 																<span class="ml-auto">${capitulo.getGenero()}</span>
 																<a href="#" class="ml-auto"><i class="icon-share-1"></i></a>
-																<div class="ml-auto">
-																	<a href="${pageContext.request.contextPath}/borrar_cancion_fav?idAudio=${cancion.getId()}" class="btn-icono icon-trash-o" ></a>
-																</div>
+																
 															</div>
 														</li>
 													</div>								                
@@ -506,7 +504,7 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 								<div class="row my-5 pt-5">
 
 									<div class="col-md-3">
-										<img src="assets/img/demo/a1.jpg" alt="/">
+										<img src="assets/img/demo/a3.jpg" alt="/">
 									</div>
 									<div class="col-md-9">
 										<div class="d-md-flex align-items-center justify-content-between">
@@ -607,7 +605,6 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 																<span class="ml-auto">${cancion.getGenero()}</span>
 																<a href="#" class="ml-auto"><i class="icon-share-1"></i></a>
 																<div class="ml-auto">
-																	<a href="anyadir_cancion_fav?idAudio=${cancion.getId()}" class="btn-favorito icon-star active"></a>
 																	<a href="${pageContext.request.contextPath}/borrar_cancion_lr?idAudio=${cancion.getId()}&idLista=${infoPodcast.getId()}&nombreLista=${infoPodcast.getNombre()}" class="btn-icono icon-trash-o" ></a>
 																</div>
 															</div>

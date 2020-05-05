@@ -49,8 +49,9 @@ public class Borrar_ListaRepServlet extends HttpServlet {
 				request.getRequestDispatcher("mostrar_lrs").forward(request, response);
 			}
 		}else {
+			String url = request.getHeader("referer");
 			//response.sendRedirect("ListaRep.jsp");
-			// Pantalla de error ?�
+			request.getRequestDispatcher(url).forward(request, response);
 		}
 	}
 
