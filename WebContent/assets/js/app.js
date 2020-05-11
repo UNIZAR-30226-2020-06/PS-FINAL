@@ -10569,9 +10569,13 @@
 					$(".playlist .media-url i").removeClass("icon-pause").addClass("icon-play"), n > 0 && a((n - 1) % e.length)
 				};
 			nextTrackSelector.on("click", function (t) {
-				t.preventDefault(), o()
+				t.preventDefault(); if(!aleatorio){ o(); }
+				else { var number = n;
+						while(number == n){number = Math.round(Math.random()*(e.length-1));} y(number); }
 			}), prevTrackSelector.on("click", function (t) {
-				t.preventDefault(), s()
+				t.preventDefault(); if(!aleatorio){ s(); }
+				else { var number = n;
+				while(number == n){number = Math.round(Math.random()*(e.length-1));} y(number); }
 			});
 			
 			var aleatorio = false;
@@ -10596,7 +10600,8 @@
 				$("#mediaPlayer").data("auto") && wavesurfer.play()
 			}), wavesurfer.on("finish", function () {
 				if(!aleatorio){ o(); }
-				else { var number = Math.round(Math.random()*(e.length-1)); y(number); }
+				else { var number = n;
+				while(number == n){number = Math.round(Math.random()*(e.length-1));} y(number); }
 			}), a(n), wavesurfer.on("audioprocess", function () {
 				$(".track-time").text(l(wavesurfer.getCurrentTime()))
 			});
