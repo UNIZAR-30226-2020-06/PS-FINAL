@@ -37,9 +37,10 @@ public class GetInfo_ListaRep_Usuario extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 
-		int usuario = Integer.valueOf(request.getParameter("id"));
+		String usuario= request.getParameter("id");
 		String nombre = request.getParameter("nombre");
 		String tipo = "ListaRep";
+
 		//String aleatorio = request.getParameter("aleatorio");
 		
 		try{

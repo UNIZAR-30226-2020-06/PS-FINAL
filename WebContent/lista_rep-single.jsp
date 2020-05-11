@@ -674,9 +674,20 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 																	<h6>${cancion.getTitulo()}</h6>${cancion.getGenero()}
 																</div>
 																<span class="ml-auto">${cancion.getGenero()}</span>
-																<a href="#" class="ml-auto"><i class="icon-share-1"></i></a>
+																<a href="#" class="snackbar ml-3" data-text="Te gusta esta canción"
+																   data-pos="top-right"
+																   data-showAction="true"
+																   data-actionText="ok"
+																   data-actionTextColor="#fff"
+																   data-backgroundColor="#0c101b"><i class="icon-thumbs-o-up s-24"></i>
+																</a>
+																<a href="#" data-toggle="control-sidebar">
+											                        <i style="position: relative;left: 10px;" class="icon-commenting-o s-24"></i>
+											                    </a>
 																<div class="ml-auto">
 																	<a href="anyadir_cancion_fav?idAudio=${cancion.getId()}" class="btn-favorito icon-star active"></a>
+																	<a href="#" class="btn-icono icon-indent" onclick="('${listaslr.size()}','${cancion.getId()}');
+																	document.getElementById('overlay-anadir-listas-reproduccion').classList.add('active')";></a>
 																	<a href="${pageContext.request.contextPath}/borrar_cancion_lr?idAudio=${cancion.getId()}&idLista=${infoLista.getId()}&nombreLista=${infoLista.getNombre()}&tipo=ListaRep" class="btn-icono icon-trash-o" ></a>
 																</div>
 															</div>

@@ -421,8 +421,11 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 	                        <h2 style="color:orange;">${tipo}</h2> 
 	                    </div>    
                 </div>
+                 <%String id = (String)request.getSession().getAttribute("id");
+                  String nombre = (String)request.getSession().getAttribute("nombre");
+                 %>
                <c:choose>
-               <c:when test="${tipo =='usuario'}"> 
+               <c:when test="${tipo =='Usuarios'}"> 
 	               <div class="row no-gutters">
 	               	<c:forEach var="usuario" items="${usuarios}"> 
 			            <div class="col-md-4 b-r">
@@ -454,7 +457,7 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 			         </c:forEach>   
 			         </div>
 		         </c:when>
-		         <c:when test="${tipo=='ListaRep'}">
+		         <c:when test="${tipo=='Listas de Reproduccion'}">
 	               <div class="row has-items-overlay" >
 	               		<c:forEach var="lista" items="${listas}" >
 								<div class="col-lg-3 col-md-4 col-sm-6 my-2" style="top:20px;">
@@ -462,32 +465,162 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 										<div class="img-wrapper">
 											<img src="assets/img/demo/a1.jpg" alt="/">
 											<div class="img-overlay text-white text-center">
-												<a href="obtener_info_lr?nombre=${lista.getNombre()}" >
+											<c:choose>
+					                    		<c:when test="${lista.getUsuario()==nombre }">
+							                    	<a href="obtener_info_podcast?nombre=${podcast.getNombre()}" >
+							                    </c:when>
+							                    <c:otherwise>
+							                    	<a href="obtener_info_podcast_usuario?nombre=${podcast.getNombre()}&id=${podcast.getUsuario()}">
+							                    </c:otherwise>
+							                </c:choose>
 													<div class="figcaption mt-3">
 														<i class="icon-link s-48"></i>
-														<h5 class="mt-5">${lista.getNombre()}</h5>
+														<h5 class="mt-5">${podcast.getNombre()}</h5>
 													</div>
-												</a>
-											</div>
-											<div class="figure-title text-center p-2">
-												<h5>${lista.getNombre()}</h5>
+													</a>
 											</div>
 										</div>
 									</figure>
-								<div class="contenido-pestanas" style="text-align: center;">
-		                            <button class="btn btn-abrir-popup-lista icon-trash-o" 
-		                            onclick="document.getElementById('idLista').value = '${lista.getNombre()}';
-		                            document.getElementById('overlay-borrar-listas-reproduccion').classList.add('active');"></button>
-	                       		 </div>
 	                    	</div>
 						</c:forEach>                   
 	               </div>
 	           </c:when> 
-               </section>
-              
-               
-				</c:choose>	
-				
+               <c:when test="${tipo=='Canciones'}">
+               		<div class="row">
+							<div class="col-lg-10 offset-lg-1">
+								<div class="row">
+									<div class="col-md-12">
+										<div class="playlist">
+											<ul id="playlist" class="playlist list-group">
+												<c:forEach var="cancion" items="${canciones}">                    
+													<div style="margin-bottom: -1px;" class="cancion">
+														<li class="list-group-item my-1">																
+															<div class="d-flex align-items-center">
+																<div class="col-1">
+																	<a class="no-ajaxy media-url" href="${cancion.getUrl()}">
+																		<i class="icon-play s-28"></i>
+																	</a>					
+																</div>
+																<div class="col-6">
+																	<h6>${cancion.getTitulo()}</h6>${cancion.getGenero()}
+																</div>
+																<span class="ml-auto">${cancion.getGenero()}</span>
+																<a href="#" class="ml-auto"><i class="icon-share-1"></i></a>
+																<a href="anyadir_cancion_fav?idAudio=${cancion.getId()}" class="btn-favorito icon-star active" ></a>
+																<a href="#" class="btn-icono icon-list-1" onclick="('${listaslr.size()}','${cancion.getId()}');
+																document.getElementById('overlay-anadir-listas-reproduccion').classList.add('active')"
+																	></a>
+															</div>
+														</li>
+													</div>								                
+												</c:forEach>
+											</ul>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+               </c:when>
+               <c:when test="${tipo=='Transmisiones'}">
+               		<div class="row">
+							<div class="col-lg-10 offset-lg-1">
+								<div class="row">
+									<div class="col-md-12">
+										<div class="playlist">
+											<ul id="playlist" class="playlist list-group">
+												<c:forEach var="cancion" items="${transmisiones}">                    
+													<div style="margin-bottom: -1px;" class="cancion">
+														<li class="list-group-item my-1">																
+															<div class="d-flex align-items-center">
+																<div class="col-1">
+																	<a class="no-ajaxy media-url" href="${cancion.getUrl()}">
+																		<i class="icon-play s-28"></i>
+																	</a>					
+																</div>
+																<div class="col-6">
+																	<h6>${cancion.getNombre()}</h6><c:if test="${cancion.getActiva()}">En directo!</c:if>
+																</div>
+																
+																<a href="#" class="ml-auto"><i class="icon-share-1"></i></a>
+																
+															</div>
+														</li>
+													</div>								                
+												</c:forEach>
+											</ul>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+               </c:when>
+               <c:when test="${tipo=='Podcasts'}">
+               		<div class="row has-items-overlay" >
+	               		<c:forEach var="podcast" items="${podcasts}" >
+								<div class="col-lg-3 col-md-4 col-sm-6 my-2" style="top:20px;">
+									<figure>
+										<div class="img-wrapper">
+											<img src="assets/img/demo/a1.jpg" alt="/">
+											<div class="img-overlay text-white text-center">
+												<c:choose>
+						                    		<c:when test="${lista.getUsuario()==nombre }">
+								                    	<a href="obtener_info_podcast?nombre=${podcast.getNombre()}" >
+								                    </c:when>
+								                    <c:otherwise>
+								                    	<a href="obtener_info_podcast_usuario?nombre=${podcast.getNombre()}&id=${podcast.getUsuario()}">
+								                    </c:otherwise>
+								                </c:choose>
+														<div class="figcaption mt-3">
+															<i class="icon-link s-48"></i>
+															<h5 class="mt-5">${podcast.getNombre()}</h5>
+														</div>
+														</a>
+											</div>
+											<div class="figure-title text-center p-2">
+												<h5>${podcast.getNombre()}</h5>
+											</div>
+										</div>
+									</figure>
+								
+	                    	</div>
+						</c:forEach>                   
+               		</div> 
+               </c:when> 
+               <c:when test="${tipo=='Capitulos'}">
+               		<div class="row">
+							<div class="col-lg-10 offset-lg-1">
+								<div class="row">
+									<div class="col-md-12">
+										<div class="playlist">
+											<ul id="playlist" class="playlist list-group">
+												<c:forEach var="cancion" items="${capitulos}">                    
+													<div style="margin-bottom: -1px;" class="cancion">
+														<li class="list-group-item my-1">																
+															<div class="d-flex align-items-center">
+																<div class="col-1">
+																	<a class="no-ajaxy media-url" href="${cancion.getUrl()}">
+																		<i class="icon-play s-28"></i>
+																	</a>					
+																</div>
+																<div class="col-6">
+																	<h6>${cancion.getTitulo()}</h6>${cancion.getGenero()}
+																</div>
+																<span class="ml-auto">${cancion.getGenero()}</span>
+																<a href="#" class="ml-auto"><i class="icon-share-1"></i></a>
+																<a href="anyadir_cancion_fav?idAudio=${cancion.getId()}" class="btn-favorito icon-star active" ></a>
+															</div>
+														</li>
+													</div>								                
+												</c:forEach>
+											</ul>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+               </c:when>
+			</c:choose>	
+			</section>
 			
         </div>
     </div>

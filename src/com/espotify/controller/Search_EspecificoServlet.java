@@ -41,6 +41,7 @@ public class Search_EspecificoServlet extends HttpServlet {
 		String tipo= request.getParameter("tipo");
 		log(nombre);
 		log(tipo);
+		request.setAttribute("nombre", nombre);
 		BusquedasDAO busquedas = new BusquedasDAO();
 		try{
 			switch (tipo) {
@@ -54,7 +55,7 @@ public class Search_EspecificoServlet extends HttpServlet {
 				List<ListaReproduccion> listas = new ArrayList<ListaReproduccion>();
 				busquedas.searchListasCompletas(nombre, listas);
 				request.setAttribute("listas", listas);
-				request.setAttribute("tipo", "Listas de Reproducción");
+				request.setAttribute("tipo", "Listas de Reproduccion");
 				break;
 			case "cancion":
 				List<Audio> canciones = new ArrayList<Audio>();
