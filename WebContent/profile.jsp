@@ -121,6 +121,50 @@ pageEncoding="UTF-8"%>
 </aside>
 <!-- END MENU DE LA IZQUIERDA-->
 
+<!-- MENU DONDE ESTAN LAS CANCIONES EN LA COLA (DERECHA) -->
+<aside class="control-sidebar fixed ">
+    <div class="slimScroll">
+        <div class="sidebar-header" style="margin-bottom: 1rem !important;">
+            <h4>Comentarios</h4>
+            <a href="#" data-toggle="control-sidebar" class="paper-nav-toggle  active"><i></i></a>
+        </div>
+        <div class="p-3">
+            <div class="media my-5 " style="margin-top: -1rem !important;margin-bottom: 2rem !important;">
+                <div class="media-body">
+                    <h6 class="mt-0">Ami Fro</h6>
+                    Cras sit amet nibh libero, in gravida nulla.
+                </div>
+            </div>
+            <div class="media my-5 " style="margin-top: -1rem !important;margin-bottom: 2rem !important;">
+                <div class="media-body">
+                    <h6 class="mt-0">Mohamed secame</h6>
+                    Basura es esta?
+                </div>
+            </div>
+            
+			<div class="row">
+                 <div class="col-lg-12">
+                     <div class="form-group">
+                         <div class="form-line">
+                               <textarea style="color: white;" rows="5" class="form-control r-0"
+                                         placeholder="Escribir comentario..."></textarea>
+                         </div>
+                     </div>
+
+                 </div>
+             </div>
+             <div class="row text-center">
+                 <div class="col-lg-12"><input type="submit" class="btn btn-primary"
+                                               value="Publicar" style="border-radius: 7px;position: relative;left: 95px;"></div>
+             </div>
+        </div>
+    </div>
+</aside>
+
+<!-- Add the sidebar's background. This div must be placed
+         immediately after the control sidebar -->
+<div class="control-sidebar-bg shadow  fixed"></div>
+<!-- END MENU DONDE ESTAN LAS CANCIONES EN LA COLA (DERECHA) -->
 
 <!-- ALGO RANDOM DE LA PARTE DERECHA -->									
 <svg class="d-none">
@@ -377,7 +421,7 @@ String hayfoto = (String) session.getAttribute("hayfoto");
                 </div>
                 
                 <div class="col-8 d-none d-lg-block">
-                    <div id="waveform"></div>
+                    <div id="waveform" style="background-color: hsla(30.6, 92.7%, 78.4%, 0.38);border-radius: 10px;"></div>
                 </div>
                 
                 <!-- TIEMPO -->
@@ -529,14 +573,22 @@ String email = (String) session.getAttribute("email");
 																</a>					
 															</div>
 															<div class="col-6">
-																<h6>${cancion.getTitulo()}</h6>${genero.getNombre()}
+																<h6>${cancion.getTitulo()}</h6>${cancion.getGenero()}
 															</div>
-															<span class="ml-auto">${cancion.getGenero()}</span>
-															<a href="#" class="ml-auto"><i class="icon-share-1"></i></a>
+															<a href="#" class="snackbar ml-3" data-text="Te gusta esta canción"
+																   data-pos="top-right"
+																   data-showAction="true"
+																   data-actionText="ok"
+																   data-actionTextColor="#fff"
+																   data-backgroundColor="#0c101b"><i class="icon-thumbs-o-up s-24"></i>
+																</a>
+																<a href="#" data-toggle="control-sidebar">
+											                        <i style="position: relative;left: 10px;" class="icon-commenting-o s-24"></i>
+											                    </a>
 															<div class="ml-auto">
 																<a href="anyadir_cancion_fav?idAudio=${cancion.getId()}" class="btn-favorito icon-star active" ></a>
 																<a href="${pageContext.request.contextPath}/ir_modificar?id_audio=${cancion.getId()}&cancion=true" class="btn-icono icon-pencil" ></a>
-																<a href="#" class="btn-icono icon-list-1" onclick="('${listaslr.size()}','${cancion.getId()}');
+																<a href="#" class="btn-icono icon-indent" onclick="('${listaslr.size()}','${cancion.getId()}');
 																document.getElementById('overlay-anadir-listas-reproduccion').classList.add('active')";
 																	></a>
 																<a href="${pageContext.request.contextPath}/eliminar_cancion?id_cancion=${cancion.getId()}" class="btn-icono icon-trash-o" ></a>
