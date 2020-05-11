@@ -62,6 +62,7 @@ public class AndroidGet_ProfileServlet extends HttpServlet {
         
         Usuario u = UsuarioDAO.obtenerInfo(email);
         
+        /*
         Blob imagenBlob = UsuarioDAO.obtenerBlobImagen(email);
         int blobLength;
 		try {
@@ -73,6 +74,8 @@ public class AndroidGet_ProfileServlet extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		*/
         
         respuestaPeticion.put("nombreUsuario", u.getNombre());
         respuestaPeticion.put("descripcion", u.getDescripcion());

@@ -20,6 +20,7 @@ import org.json.JSONObject;
 
 import com.espotify.dao.CancionDAO;
 import com.espotify.dao.FavoritosDAO;
+import com.espotify.dao.GeneroDAO;
 import com.espotify.dao.JSONAdapter;
 import com.espotify.dao.ListaReproduccionDAO;
 import com.espotify.dao.UsuarioDAO;
@@ -57,9 +58,12 @@ public class AndroidModificar_CapituloServlet extends HttpServlet {
         String generoNuevoCancion = parametrosPeticion.getString("generoPodcastNuevo");
         
         CancionDAO canciondao = new CancionDAO();
+        GeneroDAO generodao = new GeneroDAO();
         int idCancion = canciondao.obtenerIdCancion(nombreViejoCancion);
+        int idGenero = generodao.obtenerIdGenero(generoNuevoCancion);
         
-        boolean cambiado = canciondao.modificarCancion(nombreNuevoCancion, Integer.parseInt(generoNuevoCancion), idCancion);
+        
+        boolean cambiado = canciondao.modificarCancion(nombreNuevoCancion, idGenero, idCancion);
         
         JSONObject respuestaPeticion = new JSONObject();
         if(cambiado) {

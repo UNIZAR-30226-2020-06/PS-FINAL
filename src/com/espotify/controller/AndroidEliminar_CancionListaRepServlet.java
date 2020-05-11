@@ -58,11 +58,6 @@ public class AndroidEliminar_CancionListaRepServlet extends HttpServlet {
         
         getServletContext().log("Parametros: " + email + "," + nombreLista + "," + nombreCancion);
         
-        
-        if (nombreLista.contentEquals("misCanciones")) {
-        	
-        }
-        
         CancionDAO canciondao = new CancionDAO();
         
         int idLista = ListaReproduccionDAO.obtenerIdLista(nombreLista);
@@ -79,6 +74,7 @@ public class AndroidEliminar_CancionListaRepServlet extends HttpServlet {
         } else {
         	respuestaPeticion.put("estado", "fail");
         }
+        
         
         
         PrintWriter out = response.getWriter();

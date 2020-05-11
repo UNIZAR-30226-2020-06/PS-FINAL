@@ -76,6 +76,8 @@ public class AndroidEliminar_CapituloPodcastServlet extends HttpServlet {
         	respuestaPeticion.put("estado", "fail");
         }
         
+        canciondao.borrarCancion(idCancion);
+        
         
         PrintWriter out = response.getWriter();
         response.setContentType("application/json");
