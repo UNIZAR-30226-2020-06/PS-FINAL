@@ -457,7 +457,7 @@ String hayfoto = (String) session.getAttribute("hayfoto");
                 </div>
                 
                 <div class="col-8 d-none d-lg-block">
-                    <div id="waveform"></div>
+                    <div id="waveform" style="background-color: hsla(30.6, 92.7%, 78.4%, 0.38);border-radius: 10px;"></div>
                 </div>
                 
                 <!-- TIEMPO -->
@@ -488,7 +488,7 @@ String hayfoto = (String) session.getAttribute("hayfoto");
         <div class="animated p-5 ml-lg-5 mr-lg-5">
             <section>
                 <div class="relative mb-5" style="text-align: center;">
-                	<div style="background-color:black;">	
+                    <div style="background-color:black;">	
                     	<h1 class="mb-2 text-primary" >Listas de Reproduccion</h1>
                     	<p>Todas tus maravillosas listas de reproduccion</p>
                     </div>	
@@ -576,59 +576,7 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 <!-- END CREAR LISTA DE REPRODUCCIÓN -->
 
 
-<!-- AJUSTES CUENTA -->
-<div class="overlay-pop-up" id="overlay-cuenta">
-    <div class="col-md-7 card p-5">
-		<form class="form-material" action="#">
-			<a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-cuenta" class="btn-cerrar-popup-perfil"><i class="icon-close1"></i></a>
-			<header class="relative nav-sticky card">
-				<h3>CAMBIAR INFORMACIÃÂN DE LA CUENTA</h3>
-			</header>
-			<form class="form-material" action="#"> <!--QUITAR-->
-				<!-- Input -->
-				<div class="body">
-					
-					<div class="form-group form-float">
-						<div class="form-line">
-							<input type="email" name="email" class="form-control">
-							<label class="form-label">Email</label>
-						</div>
-					</div>
-					<input type="submit" class="btn btn-outline-primary btn-sm pl-4 pr-4"
-						   value="Cambiar email">
-				</div>
-			</form>
-			<form class="form-material" action="#"> <!--QUITAR-->
-				<!-- Input -->
-				<div class="body">
-					<div class="form-group form-float">
-						<div class="form-line">
-							<input type="password" name="contrasena" class="form-control">
-							<label class="form-label">ContraseÃÂ±a actual</label>
-						</div>
-					</div>
-					<div class="form-group form-float">
-						<div class="form-line">
-							<input type="password" name="contrasena" class="form-control">
-							<label class="form-label">ContraseÃÂ±a nueva</label>
-						</div>
-					</div>
-					<div class="form-group form-float">
-						<div class="form-line">
-							<input type="password" name="password" class="form-control">
-							<label class="form-label">Confirmar contraseÃÂ±a</label>
-						</div>
-					</div>
 
-					<input type="submit" class="btn btn-outline-primary btn-sm pl-4 pr-4"
-						   value="Cambiar constraseÃÂ±a">
-				</div>
-			</form>
-			<!-- #END# Input -->
-		</form>
-	</div>
-</div>
-<!-- END AJUSTES CUENTA -->
 
 <!-- BORRAR LISTA DE REPRODUCCIÓN -->	
 	<div class="overlay-pop-up" id="overlay-borrar-listas-reproduccion">	

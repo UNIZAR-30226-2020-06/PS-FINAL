@@ -494,7 +494,15 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 									<div class="img-wrapper">
 										<img src="assets/img/demo/a1.jpg" alt="/">
 										<div class="img-overlay text-white text-center">
-											<a href="obtener_info_lr?nombre=${lista.getNombre()}" >
+											<c:choose>
+					                    		<c:when test="${lista.getUsuario()==id }">
+							                    	<a href="obtener_info_lr?nombre=${lista.getNombre()}" >
+							                    </c:when>
+							                    <c:otherwise>
+							                    	<a href="obtener_info_lr_usuario?nombre=${lista.getNombre()}&id=${lista.getUsuario}">
+							                    </c:otherwise>
+							                </c:choose>
+											
 												<div class="figcaption mt-3">
 													<i class="icon-link s-48"></i>
 													<h5 class="mt-5">${lista.getNombre()}</h5>
@@ -649,15 +657,22 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 									<div class="img-wrapper">
 										<img src="assets/img/demo/a1.jpg" alt="/">
 										<div class="img-overlay text-white text-center">
-											<a href="obtener_info_lr?nombre=${lista.getNombre()}" >
-												<div class="figcaption mt-3">
-													<i class="icon-link s-48"></i>
-													<h5 class="mt-5">${lista.getNombre()}</h5>
-												</div>
-											</a>
+											<c:choose>
+					                    		<c:when test="${lista.getUsuario()==id }">
+							                    	<a href="obtener_info_podcast?nombre=${podcast.getNombre()}" >
+							                    </c:when>
+							                    <c:otherwise>
+							                    	<a href="obtener_info_podcast_usuario?nombre=${podcast.getNombre()}&id=${podcast.getUsuario}">
+							                    </c:otherwise>
+							                </c:choose>
+													<div class="figcaption mt-3">
+														<i class="icon-link s-48"></i>
+														<h5 class="mt-5">${podcast.getNombre()}</h5>
+													</div>
+													</a>
 										</div>
 										<div class="figure-title text-center p-2">
-											<h5>${lista.getNombre()}</h5>
+											<h5>${podcast.getNombre()}</h5>
 										</div>
 									</div>
 								</figure>

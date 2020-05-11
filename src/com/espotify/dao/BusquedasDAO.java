@@ -18,47 +18,117 @@ import java.io.IOException;
 
 
 public class BusquedasDAO {
-	private final static String SEARCH_CANCIONES_QUERY = "SELECT COUNT(*) sumaLikes, audios.id id, audios.titulo titulo, audios.url url, usuarios.nombre nomUser, generos.nombre nomGenero "
+	private final static String SEARCH_CANCIONES_QUERY = "(SELECT COUNT(*) sumaLikes, audios.id id, audios.titulo titulo, audios.url url, usuarios.nombre nomUser, generos.nombre nomGenero "
+														+ "FROM Reproductor_musica.Audio audios, Reproductor_musica.LikesAudio likes, Reproductor_musica.Usuario usuarios, Reproductor_musica.Genero generos "
+														+ "WHERE audios.id = likes.audio AND audios.genero = generos.id AND audios.usuario = usuarios.id AND generos.tipo = 'cancion' AND audios.titulo LIKE ? "
+														+ "GROUP BY likes.audio ORDER BY sumaLikes DESC)"
+														+ " UNION "
+														+ "(SELECT @sumaLikes=0, audios.id id, audios.titulo titulo, audios.url url, usuarios.nombre nomUser, generos.nombre nomGenero "
+														+ "FROM Reproductor_musica.Audio audios, Reproductor_musica.Usuario usuarios, Reproductor_musica.Genero generos "
+														+ "WHERE audios.genero = generos.id AND audios.usuario = usuarios.id AND generos.tipo = 'cancion' AND audios.titulo LIKE ? "
+														+ "AND audios.id NOT IN (SELECT audio FROM Reproductor_musica.LikesAudio))"
+														+ " LIMIT 5";
+	private final static String SEARCH_CANCIONES = "(SELECT COUNT(*) sumaLikes, audios.id id, audios.titulo titulo, audios.url url, usuarios.nombre nomUser, generos.nombre nomGenero "
 												+ "FROM Reproductor_musica.Audio audios, Reproductor_musica.LikesAudio likes, Reproductor_musica.Usuario usuarios, Reproductor_musica.Genero generos "
 												+ "WHERE audios.id = likes.audio AND audios.genero = generos.id AND audios.usuario = usuarios.id AND generos.tipo = 'cancion' AND audios.titulo LIKE ? "
-												+ "GROUP BY likes.audio ORDER BY sumaLikes DESC LIMIT 5";
-	private final static String SEARCH_CANCIONES = "SELECT COUNT(*) sumaLikes, audios.id id, audios.titulo titulo, audios.url url, usuarios.nombre nomUser, generos.nombre nomGenero "
-												+ "FROM Reproductor_musica.Audio audios, Reproductor_musica.LikesAudio likes, Reproductor_musica.Usuario usuarios, Reproductor_musica.Genero generos "
-												+ "WHERE audios.id = likes.audio AND audios.genero = generos.id AND audios.usuario = usuarios.id AND generos.tipo = 'cancion' AND audios.titulo LIKE ? "
-												+ "GROUP BY likes.audio ORDER BY sumaLikes DESC";
-	private final static String SEARCH_CAPITULOS_QUERY = "SELECT COUNT(*) sumaLikes, audios.id id, audios.titulo titulo, audios.url url, usuarios.nombre nomUser, generos.nombre nomGenero "
+												+ "GROUP BY likes.audio ORDER BY sumaLikes DESC)"
+												+ " UNION "
+												+ "(SELECT @sumaLikes=0, audios.id id, audios.titulo titulo, audios.url url, usuarios.nombre nomUser, generos.nombre nomGenero "
+												+ "FROM Reproductor_musica.Audio audios, Reproductor_musica.Usuario usuarios, Reproductor_musica.Genero generos "
+												+ "WHERE audios.genero = generos.id AND audios.usuario = usuarios.id AND generos.tipo = 'cancion' AND audios.titulo LIKE ? "
+												+ "AND audios.id NOT IN (SELECT audio FROM Reproductor_musica.LikesAudio))";
+	
+	private final static String SEARCH_CAPITULOS_QUERY = "(SELECT COUNT(*) sumaLikes, audios.id id, audios.titulo titulo, audios.url url, usuarios.nombre nomUser, generos.nombre nomGenero "
+														+ "FROM Reproductor_musica.Audio audios, Reproductor_musica.LikesAudio likes, Reproductor_musica.Usuario usuarios, Reproductor_musica.Genero generos "
+														+ "WHERE audios.id = likes.audio AND audios.genero = generos.id AND audios.usuario = usuarios.id AND generos.tipo = 'capituloPodcast' AND audios.titulo LIKE ? "
+														+ "GROUP BY likes.audio ORDER BY sumaLikes DESC)"
+														+ " UNION "
+														+ "(SELECT @sumaLikes=0, audios.id id, audios.titulo titulo, audios.url url, usuarios.nombre nomUser, generos.nombre nomGenero "
+														+ "FROM Reproductor_musica.Audio audios, Reproductor_musica.Usuario usuarios, Reproductor_musica.Genero generos "
+														+ "WHERE audios.genero = generos.id AND audios.usuario = usuarios.id AND generos.tipo = 'capituloPodcast' AND audios.titulo LIKE ? "
+														+ "AND audios.id NOT IN (SELECT audio FROM Reproductor_musica.LikesAudio))"
+														+ " LIMIT 5";
+	private final static String SEARCH_CAPITULOS = "(SELECT COUNT(*) sumaLikes, audios.id id, audios.titulo titulo, audios.url url, usuarios.nombre nomUser, generos.nombre nomGenero "
 												+ "FROM Reproductor_musica.Audio audios, Reproductor_musica.LikesAudio likes, Reproductor_musica.Usuario usuarios, Reproductor_musica.Genero generos "
 												+ "WHERE audios.id = likes.audio AND audios.genero = generos.id AND audios.usuario = usuarios.id AND generos.tipo = 'capituloPodcast' AND audios.titulo LIKE ? "
-												+ "GROUP BY likes.audio ORDER BY sumaLikes DESC LIMIT 5";
-	private final static String SEARCH_CAPITULOS = "SELECT COUNT(*) sumaLikes, audios.id id, audios.titulo titulo, audios.url url, usuarios.nombre nomUser, generos.nombre nomGenero "
-												+ "FROM Reproductor_musica.Audio audios, Reproductor_musica.LikesAudio likes, Reproductor_musica.Usuario usuarios, Reproductor_musica.Genero generos "
-												+ "WHERE audios.id = likes.audio AND audios.genero = generos.id AND audios.usuario = usuarios.id AND generos.tipo = 'capituloPodcast' AND audios.titulo LIKE ? "
-												+ "GROUP BY likes.audio ORDER BY sumaLikes DESC";
-	private final static String SEARCH_LISTASREP_QUERY = "SELECT COUNT(*) sumaLikes, listas.id id, usuarios.nombre nomUser, listas.nombre nombre, listas.descripcion descripcion, listas.imagen imagen, listas.tipo tipo "
+												+ "GROUP BY likes.audio ORDER BY sumaLikes DESC)"
+												+ " UNION "
+												+ "(SELECT @sumaLikes=0, audios.id id, audios.titulo titulo, audios.url url, usuarios.nombre nomUser, generos.nombre nomGenero "
+												+ "FROM Reproductor_musica.Audio audios, Reproductor_musica.Usuario usuarios, Reproductor_musica.Genero generos "
+												+ "WHERE audios.genero = generos.id AND audios.usuario = usuarios.id AND generos.tipo = 'capituloPodcast' AND audios.titulo LIKE ? "
+												+ "AND audios.id NOT IN (SELECT audio FROM Reproductor_musica.LikesAudio))";
+	
+	private final static String SEARCH_LISTASREP_QUERY = "(SELECT COUNT(*) sumaLikes, listas.id id, usuarios.nombre nomUser, listas.nombre nombre, listas.descripcion descripcion, listas.imagen imagen, listas.tipo tipo "
+														+ "FROM Reproductor_musica.ListasRep listas, Reproductor_musica.LikesLista likes, Reproductor_musica.Usuario usuarios "
+														+ "WHERE listas.id = likes.lista AND listas.usuario = usuarios.id AND listas.tipo = 'ListaRep' AND listas.nombre LIKE ? "
+														+ "GROUP BY likes.lista ORDER BY sumaLikes DESC)"
+														+ " UNION "
+														+ "(SELECT @sumaLikes=0, listas.id id, usuarios.nombre nomUser, listas.nombre nombre, listas.descripcion descripcion, listas.imagen imagen, listas.tipo tipo "
+														+ "FROM Reproductor_musica.ListasRep listas, Reproductor_musica.Usuario usuarios "
+														+ "WHERE listas.usuario = usuarios.id AND listas.tipo = 'ListaRep' AND listas.nombre LIKE ? "
+														+ "AND listas.id NOT IN (SELECT lista FROM Reproductor_musica.LikesLista))"
+														+ " LIMIT 5";
+	private final static String SEARCH_LISTAREP = "(SELECT COUNT(*) sumaLikes, listas.id id, usuarios.nombre nomUser, listas.nombre nombre, listas.descripcion descripcion, listas.imagen imagen, listas.tipo tipo "
 												+ "FROM Reproductor_musica.ListasRep listas, Reproductor_musica.LikesLista likes, Reproductor_musica.Usuario usuarios "
-												+ "WHERE listas.id = likes.lista AND listas.usuario = usuarios.id AND listas.tipo = 'canciones' AND listas.nombre LIKE ? "
-												+ "GROUP BY likes.lista ORDER BY sumaLikes DESC LIMIT 5";
-	private final static String SEARCH_LISTAREP = "SELECT COUNT(*) sumaLikes, listas.id id, usuarios.nombre nomUser, listas.nombre nombre, listas.descripcion descripcion, listas.imagen imagen, listas.tipo tipo "
-												+ "FROM Reproductor_musica.ListasRep listas, Reproductor_musica.LikesLista likes, Reproductor_musica.Usuario usuarios "
-												+ "WHERE listas.id = likes.lista AND listas.usuario = usuarios.id AND listas.tipo = 'canciones' AND listas.nombre LIKE ? "
-												+ "GROUP BY likes.lista ORDER BY sumaLikes DESC";
-	private final static String SEARCH_PODCASTS_QUERY = "SELECT COUNT(*) sumaLikes, listas.id id, usuarios.nombre nomUser, listas.nombre nombre, listas.descripcion descripcion, listas.imagen imagen, listas.tipo tipo "
+												+ "WHERE listas.id = likes.lista AND listas.usuario = usuarios.id AND listas.tipo = 'ListaRep' AND listas.nombre LIKE ? "
+												+ "GROUP BY likes.lista ORDER BY sumaLikes DESC)"
+												+ " UNION "
+												+ "(SELECT @sumaLikes=0, listas.id id, usuarios.nombre nomUser, listas.nombre nombre, listas.descripcion descripcion, listas.imagen imagen, listas.tipo tipo "
+												+ "FROM Reproductor_musica.ListasRep listas, Reproductor_musica.Usuario usuarios "
+												+ "WHERE listas.usuario = usuarios.id AND listas.tipo = 'ListaRep' AND listas.nombre LIKE ? "
+												+ "AND listas.id NOT IN (SELECT lista FROM Reproductor_musica.LikesLista))";
+	
+	private final static String SEARCH_PODCASTS_QUERY = "(SELECT COUNT(*) sumaLikes, listas.id id, usuarios.nombre nomUser, listas.nombre nombre, listas.descripcion descripcion, listas.imagen imagen, listas.tipo tipo "
+													+ "FROM Reproductor_musica.ListasRep listas, Reproductor_musica.LikesLista likes, Reproductor_musica.Usuario usuarios "
+													+ "WHERE listas.id = likes.lista AND listas.usuario = usuarios.id AND listas.tipo = 'podcast' AND listas.nombre LIKE ? "
+													+ "GROUP BY likes.lista ORDER BY sumaLikes DESC)"
+													+ " UNION "
+													+ "(SELECT @sumaLikes=0, listas.id id, usuarios.nombre nomUser, listas.nombre nombre, listas.descripcion descripcion, listas.imagen imagen, listas.tipo tipo "
+													+ "FROM Reproductor_musica.ListasRep listas, Reproductor_musica.Usuario usuarios "
+													+ "WHERE listas.usuario = usuarios.id AND listas.tipo = 'podcast' AND listas.nombre LIKE ? "
+													+ "AND listas.id NOT IN (SELECT lista FROM Reproductor_musica.LikesLista))"
+													+ " LIMIT 5";
+	private final static String SEARCH_PODCASTS = "(SELECT COUNT(*) sumaLikes, listas.id id, usuarios.nombre nomUser, listas.nombre nombre, listas.descripcion descripcion, listas.imagen imagen, listas.tipo tipo "
 												+ "FROM Reproductor_musica.ListasRep listas, Reproductor_musica.LikesLista likes, Reproductor_musica.Usuario usuarios "
 												+ "WHERE listas.id = likes.lista AND listas.usuario = usuarios.id AND listas.tipo = 'podcast' AND listas.nombre LIKE ? "
-												+ "GROUP BY likes.lista ORDER BY sumaLikes DESC LIMIT 5";
-	private final static String SEARCH_PODCASTS = "SELECT COUNT(*) sumaLikes, listas.id id, usuarios.nombre nomUser, listas.nombre nombre, listas.descripcion descripcion, listas.imagen imagen, listas.tipo tipo "
-												+ "FROM Reproductor_musica.ListasRep listas, Reproductor_musica.LikesLista likes, Reproductor_musica.Usuario usuarios "
-												+ "WHERE listas.id = likes.lista AND listas.usuario = usuarios.id AND listas.tipo = 'podcast' AND listas.nombre LIKE ? "
-												+ "GROUP BY likes.lista ORDER BY sumaLikes DESC";
-	private final static String SEARCH_TRANSMISIONES_QUERY = "SELECT COUNT(*) sumaLikes, trans.id id, trans.nombre nombre, trans.descripcion descripcion, trans.activa activa, trans.usuario idUser, estaciones.url url "
-												+ "FROM Reproductor_musica.TransmisionVivo trans, Reproductor_musica.LikesTrans likes, Reproductor_musica.Usuario usuarios, Reproductor_musica.Estacion estaciones "
-												+ "WHERE trans.id = likes.transmision AND trans.usuario = usuarios.id AND trans.estacion = estaciones.id AND trans.nombre LIKE ? "
-												+ "GROUP BY likes.transmision ORDER BY sumaLikes DESC LIMIT 5";
-	private final static String SEARCH_TRANSMISIONES = "SELECT COUNT(*) sumaLikes, trans.id id, trans.nombre nombre, trans.descripcion descripcion, trans.activa activa, trans.usuario idUser, estaciones.url url "
-												+ "FROM Reproductor_musica.TransmisionVivo trans, Reproductor_musica.LikesTrans likes, Reproductor_musica.Usuario usuarios, Reproductor_musica.Estacion estaciones "
-												+ "WHERE trans.id = likes.transmision AND trans.usuario = usuarios.id AND trans.estacion = estaciones.id AND trans.nombre LIKE ? "
-												+ "GROUP BY likes.transmision ORDER BY sumaLikes DESC";
+												+ "GROUP BY likes.lista ORDER BY sumaLikes DESC)"
+												+ " UNION "
+												+ "(SELECT @sumaLikes=0, listas.id id, usuarios.nombre nomUser, listas.nombre nombre, listas.descripcion descripcion, listas.imagen imagen, listas.tipo tipo "
+												+ "FROM Reproductor_musica.ListasRep listas, Reproductor_musica.Usuario usuarios "
+												+ "WHERE listas.usuario = usuarios.id AND listas.tipo = 'podcast' AND listas.nombre LIKE ? "
+												+ "AND listas.id NOT IN (SELECT lista FROM Reproductor_musica.LikesLista))";
+	
+	private final static String SEARCH_TRANSMISIONES_QUERY = "(SELECT COUNT(*) sumaLikes, trans.id id, trans.nombre nombre, trans.descripcion descripcion, trans.activa activa, trans.usuario idUser, estaciones.url url "
+															+ "FROM Reproductor_musica.TransmisionVivo trans, Reproductor_musica.LikesTrans likes, Reproductor_musica.Usuario usuarios, Reproductor_musica.Estacion estaciones "
+															+ "WHERE trans.id = likes.transmision AND trans.usuario = usuarios.id AND trans.estacion = estaciones.id AND trans.nombre LIKE ? "
+															+ "GROUP BY likes.transmision ORDER BY sumaLikes DESC)"
+															+ " UNION "
+															+ "(SELECT @sumaLikes=0, trans.id id, trans.nombre nombre, trans.descripcion descripcion, trans.activa activa, trans.usuario idUser, estaciones.url url "
+															+ "FROM Reproductor_musica.TransmisionVivo trans, Reproductor_musica.Usuario usuarios, Reproductor_musica.Estacion estaciones "
+															+ "WHERE trans.usuario = usuarios.id AND trans.estacion = estaciones.id AND trans.nombre LIKE ? "
+															+ "AND trans.id NOT IN (SELECT transmision FROM Reproductor_musica.LikesTrans))"
+															+ " LIMIT 5";
+	private final static String SEARCH_TRANSMISIONES = "(SELECT COUNT(*) sumaLikes, trans.id id, trans.nombre nombre, trans.descripcion descripcion, trans.activa activa, trans.usuario idUser, estaciones.url url "
+													+ "FROM Reproductor_musica.TransmisionVivo trans, Reproductor_musica.LikesTrans likes, Reproductor_musica.Usuario usuarios, Reproductor_musica.Estacion estaciones "
+													+ "WHERE trans.id = likes.transmision AND trans.usuario = usuarios.id AND trans.estacion = estaciones.id AND trans.nombre LIKE ? "
+													+ "GROUP BY likes.transmision ORDER BY sumaLikes DESC)"
+													+ " UNION "
+													+ "(SELECT @sumaLikes=0, trans.id id, trans.nombre nombre, trans.descripcion descripcion, trans.activa activa, trans.usuario idUser, estaciones.url url "
+													+ "FROM Reproductor_musica.TransmisionVivo trans, Reproductor_musica.Usuario usuarios, Reproductor_musica.Estacion estaciones "
+													+ "WHERE trans.usuario = usuarios.id AND trans.estacion = estaciones.id AND trans.nombre LIKE ? "
+													+ "AND trans.id NOT IN (SELECT transmision FROM Reproductor_musica.LikesTrans))";
+	
 	private final static String SEARCH_USUARIOS_QUERY = "(SELECT COUNT(*) sumaLikes, users.id id, users.nombre nombre, users.descripcion descripcion, users.mail mail, users.imagen imagen "
+														+ "FROM Reproductor_musica.Usuario users, Reproductor_musica.Sigue sigue "
+														+ "WHERE users.id = sigue.usuario2 AND users.nombre LIKE ? "
+														+ "GROUP BY sigue.usuario2 ORDER BY sumaLikes DESC)"
+														+ " UNION "
+														+ "(SELECT @sumaLikes=0, users.id id, users.nombre nombre, users.descripcion descripcion, users.mail mail, users.imagen imagen "
+														+ "FROM Reproductor_musica.Usuario users "
+														+ "WHERE users.nombre LIKE ? "
+														+ "AND users.id NOT IN (SELECT usuario2 FROM Reproductor_musica.Sigue))"
+														+ " LIMIT 5 ";
+	private final static String SEARCH_USUARIOS = "(SELECT COUNT(*) sumaLikes, users.id id, users.nombre nombre, users.descripcion descripcion, users.mail mail, users.imagen imagen "
 												+ "FROM Reproductor_musica.Usuario users, Reproductor_musica.Sigue sigue "
 												+ "WHERE users.id = sigue.usuario2 AND users.nombre LIKE ? "
 												+ "GROUP BY sigue.usuario2 ORDER BY sumaLikes DESC)"
@@ -66,13 +136,7 @@ public class BusquedasDAO {
 												+ "(SELECT @sumaLikes=0, users.id id, users.nombre nombre, users.descripcion descripcion, users.mail mail, users.imagen imagen "
 												+ "FROM Reproductor_musica.Usuario users "
 												+ "WHERE users.nombre LIKE ? "
-												+ "AND users.id NOT IN (SELECT usuario2 FROM Reproductor_musica.Sigue))"
-												+ " LIMIT 5 ";
-	private final static String SEARCH_USUARIOS = "SELECT COUNT(*) sumaLikes, users.id id, users.nombre nombre, users.descripcion descripcion, users.mail mail, users.imagen imagen "
-												+ "FROM Reproductor_musica.Usuario users, Reproductor_musica.Sigue sigue "
-												+ "WHERE users.id = sigue.usuario2 AND users.nombre LIKE ? "
-												+ "GROUP BY sigue.usuario2 ORDER BY sumaLikes DESC";
-	private final static String PRUEBA = "SELECT * FROM Reproductor_musica.Usuario WHERE nombre LIKE ?";
+												+ "AND users.id NOT IN (SELECT usuario2 FROM Reproductor_musica.Sigue))";
 	/*
 	 * Parametros: nombre o parte del nombre del título de una canción
 	 * Funcionalidad: Completa la lista de datos tipo Audio (id,url,titulo cancion,nombre del autor,nombre del genero al que pertenece)	
@@ -109,6 +173,7 @@ public class BusquedasDAO {
 			PreparedStatement ps = conn.prepareStatement(SEARCH_CANCIONES);
             
             ps.setString(1, "%" + nombre + "%");
+            ps.setString(2, "%" + nombre + "%");
 			ResultSet rs = ps.executeQuery();
 
 			while(rs.next()){
@@ -159,6 +224,7 @@ public class BusquedasDAO {
 			PreparedStatement ps = conn.prepareStatement(SEARCH_CAPITULOS);
             
             ps.setString(1, "%" + nombre + "%");
+            ps.setString(2, "%" + nombre + "%");
 			ResultSet rs = ps.executeQuery();
 
 			while(rs.next()){
@@ -188,9 +254,9 @@ public class BusquedasDAO {
 			ResultSet rs = ps.executeQuery();
 
 			while(rs.next()){
-				//ListaReproduccion result = new ListaReproduccion(rs.getString("id"), rs.getString("nombre"), 
-				//		rs.getString("nomUser"), rs.getString("descripcion"), rs.getString("imagen"), rs.getString("tipo"));
-                //listas.add(result);
+				ListaReproduccion result = new ListaReproduccion(rs.getString("id"), rs.getString("nombre"), 
+						rs.getString("nomUser"), rs.getString("descripcion"), rs.getString("imagen"), rs.getString("tipo"));
+                listas.add(result);
 			}
 			
 		} catch(SQLException se) {
@@ -209,11 +275,12 @@ public class BusquedasDAO {
 			PreparedStatement ps = conn.prepareStatement(SEARCH_LISTAREP);
             
             ps.setString(1, "%" + nombre + "%");
+            ps.setString(2, "%" + nombre + "%");
 			ResultSet rs = ps.executeQuery();
 
 			while(rs.next()){
 				ListaReproduccion result = new ListaReproduccion(rs.getString("id"), rs.getString("nombre"), 
-						rs.getString("nomUser"), rs.getString("descripcion"), (Blob) rs.getBlob("imagen"), rs.getString("tipo"));
+						rs.getString("nomUser"), rs.getString("descripcion"), rs.getString("imagen"), rs.getString("tipo"));
                 listas.add(result);
 			}
 			
@@ -238,9 +305,9 @@ public class BusquedasDAO {
 			ResultSet rs = ps.executeQuery();
 
 			while(rs.next()){
-				//ListaReproduccion result = new ListaReproduccion(rs.getString("id"), rs.getString("nombre"), 
-				//		rs.getString("nomUser"), rs.getString("descripcion"), rs.getString("imagen"), rs.getString("tipo"));
-                //podcasts.add(result);
+				ListaReproduccion result = new ListaReproduccion(rs.getString("id"), rs.getString("nombre"), 
+						rs.getString("nomUser"), rs.getString("descripcion"), rs.getString("imagen"), rs.getString("tipo"));
+                podcasts.add(result);
 			}
 						
 		} catch(SQLException se) {
@@ -259,11 +326,12 @@ public class BusquedasDAO {
 			PreparedStatement ps = conn.prepareStatement(SEARCH_PODCASTS);
             
             ps.setString(1, "%" + nombre + "%");
+            ps.setString(2, "%" + nombre + "%");
 			ResultSet rs = ps.executeQuery();
 
 			while(rs.next()){
 				ListaReproduccion result = new ListaReproduccion(rs.getString("id"), rs.getString("nombre"), 
-						rs.getString("nomUser"), rs.getString("descripcion"), (Blob) rs.getBlob("imagen"), rs.getString("tipo"));
+						rs.getString("nomUser"), rs.getString("descripcion"), rs.getString("imagen"), rs.getString("tipo"));
                 podcasts.add(result);
 			}
 						
@@ -309,6 +377,7 @@ public class BusquedasDAO {
 			PreparedStatement ps = conn.prepareStatement(SEARCH_TRANSMISIONES);
             
             ps.setString(1, "%" + nombre + "%");
+            ps.setString(2, "%" + nombre + "%");
 			ResultSet rs = ps.executeQuery();
 
 			while(rs.next()){
@@ -339,7 +408,7 @@ public class BusquedasDAO {
 
 			while(rs.next()){
 				Usuario result = new Usuario(rs.getString("nombre"), rs.getString("descripcion"), 
-										rs.getString("mail"), rs.getString("id"), rs.getBytes("imagen"));
+										rs.getString("mail"), rs.getString("id"), rs.getString("imagen"));
 				usuarios.add(result);
 			}
 						
@@ -356,13 +425,12 @@ public class BusquedasDAO {
 			PreparedStatement ps = conn.prepareStatement(SEARCH_USUARIOS);
             
             ps.setString(1, "%" + nombre + "%");
+            ps.setString(2, "%" + nombre + "%");
 			ResultSet rs = ps.executeQuery();
 
 			while(rs.next()){
-				
-				
 				Usuario result = new Usuario(rs.getString("nombre"), rs.getString("descripcion"), 
-										rs.getString("mail"), rs.getString("id"), (byte[]) rs.getBytes("imagen"));
+						rs.getString("mail"), rs.getString("id"), rs.getString("imagen"));
 				usuarios.add(result);
 				
 			}
