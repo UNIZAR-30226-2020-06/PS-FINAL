@@ -488,8 +488,10 @@ String hayfoto = (String) session.getAttribute("hayfoto");
         <div class="animated p-5 ml-lg-5 mr-lg-5">
             <section>
                 <div class="relative mb-5" style="text-align: center;">
-                    <h1 class="mb-2 text-primary">Lista de Reproduccion</h1>
-                    <p>Todas tus maravillosas listas de reproduccion</p>
+                	<div style="background-color:black;">	
+                    	<h1 class="mb-2 text-primary" >Listas de Reproduccion</h1>
+                    	<p>Todas tus maravillosas listas de reproduccion</p>
+                    </div>	
                 </div>
                 <div class="contenido-pestanas" style="text-align: center;">
 						<button class="btn btn-abrir-popup-lista icon-plus" id="abrir-listas-reproduccion"  onClick="document.getElementById('overlay-listas-reproduccion').classList.add('active');">Crear Lista de Reproducción</button>

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%><!DOCTYPE html>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<!DOCTYPE html>
 <html lang="zxx">
 
 <!-- Mirrored from xvelopers.com/demos/html/record-light/index.jsp by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 05 Apr 2020 17:21:29 GMT -->
@@ -11,24 +12,23 @@ pageEncoding="UTF-8"%>
 ########################################################################
 -->
 
-<!-- NOMBRE DE LA PESTAÃA -->
+<!-- NOMBRE DE LA PESTAÑA -->
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="icon" href="assets/img/basic/logo.ico" type="image/x-icon">
-    <title>Espotify</title>
+    <title>Espotify-Búsqueda</title>
     <!-- CSS -->
     <link rel="stylesheet" href="assets/css/app.css">
 </head>
-<!-- END PESTAÃA -->
 
 <body background="assets/img/fondo3.png" style="background-size: cover;background-repeat: no-repeat; background-position: center center;background-attachment: fixed;" class="sidebar-mini sidebar-collapse sidebar-expanded-on-hover has-preloader" style="display: none;">
 <!-- Pre loader
   To disable preloader remove 'has-preloader' from body
  -->
-<!-- CIRCULO DE CARGA -->
+
 <div id="loader" class="loader">
     <div class="loader-container">
         <div class="preloader-wrapper big active">
@@ -74,9 +74,8 @@ pageEncoding="UTF-8"%>
         </div>
     </div>
 </div>
-<!-- END CIRCULO DE CARGA -->							 
 
-<!-- EMPIEZA APP -->
+<!-- @Pre loader-->
 <div id="app">
 
 <!--MENU DE LA IZQUIERDA -->
@@ -102,7 +101,7 @@ pageEncoding="UTF-8"%>
             </li>
             
             <li><a class="ajaxifyPage" href="mostrar_lrs?tipo=ListaRep" >
-                    <i class="icon icon-compact-disc-1 s-24"></i> <span>Mis listas de reproduccion</span>
+                    <i class="icon icon-compact-disc-1 s-24"></i> <span>Mis listas de reproducción</span>
                 </a>
             </li>
             
@@ -117,34 +116,9 @@ pageEncoding="UTF-8"%>
         </ul>
     </div>
 </aside>
-<!-- END MENU DE LA IZQUIERDA-->
-
-<!-- MENU DONDE ESTAN LAS CANCIONES EN LA COLA (DERECHA) -->
-<aside class="control-sidebar fixed ">
-    <div class="slimScroll">
-        <div class="sidebar-header">
-            <h4>PlayList</h4>
-            <p>Awesome Collection for you</p>
-            <a href="#" data-toggle="control-sidebar" class="paper-nav-toggle  active"><i></i></a>
-        </div>
-        <div class="p-3">
-            <ul id="playlist" class="playlist list-group">
-                
+<!-- ACABA MENU DE LA IZQUIERDA-->
 
 
-            </ul>
-
-        </div>
-    </div>
-</aside>
-
-<!-- Add the sidebar's background. This div must be placed
-         immediately after the control sidebar -->
-<div class="control-sidebar-bg shadow  fixed"></div>
-<!-- END MENU DONDE ESTAN LAS CANCIONES EN LA COLA (DERECHA) -->
-
-
-<!-- ALGO RANDOM DE LA PARTE DERECHA -->									
 <svg class="d-none">
     <defs>
         <symbol id="icon-cross" viewBox="0 0 24 24">
@@ -303,8 +277,7 @@ pageEncoding="UTF-8"%>
         </div>
     </div>
 </div>
-<!-- END BUSCADOR (LUPA) -->
-
+<!-- ACABA BUSCADOR (LUPA) -->
 
 <%
 String hayfoto = (String) session.getAttribute("hayfoto");
@@ -370,7 +343,6 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 </nav>
 <!-- ACABA BARRA DE ARRIBA FIJA -->
 
-
 <!-- BARRA DE ABAJO FIJA-->
 <nav class="navbar-wrapper navbar-bottom-fixed shadow">
     <div class="navbar navbar-expand player-header justify-content-between  bd-navbar">
@@ -422,67 +394,142 @@ String hayfoto = (String) session.getAttribute("hayfoto");
         <!--END Player-->
     </div>
 </nav>
-<!-- END BARRA DE ABAJO -->
+<!-- ACABA BARRA DE ABAJO -->
 
 <!--  
 ########################################################################
 ############### ACABA BASE DE TODAS LAS PAGINAS    #####################
 ########################################################################
 -->
-</nav>
 
-<c:choose>
-<c:when test="${fav=='1'}" >
-<!-- LISTA DE FAVORITOS-->
 
-<!--Page Content-->
+
+
+<!--CONTENIDO NO AJAX-->
 <main id="pageContent" class="page has-sidebar">
-<div class="container-fluid relative  p-lg-5">
-	<div class="container-fluid relative p-0">
-		<div class="card no-b shadow no-r">
-		
-		
-			<div class="animated">
-				<!--Banner-->
-
-					<div class="has-bottom-gradient">
-						<div class="row pt-5 ml-lg-5 mr-lg-5">
-							<div class="col-md-10 offset-1">
-								<div class="row my-5 pt-5">
-									<div class="col-md-3">
-										<img src="assets/img/demo/a2.jpg" alt="/">
-									</div>
-									<div class="col-md-9">
-										<div class="d-md-flex align-items-center justify-content-between">
-											<h1 class="my-3 text-orange">Mis Favoritos</h1>
-											<div class="ml-auto mb-2">
-												<a href="#" class="snackbar ml-3" data-text="You like this song"
-												   data-pos="top-right"
-												   data-showAction="true"
-												   data-actionText="ok"
-												   data-actionTextColor="#fff"
-												   data-backgroundColor="#0c101b"><i class="icon-heart s-24"></i></a>
-												<a href="#" class="snackbar ml-3" data-text="Thanks for sharing"
-												   data-pos="top-right"
-												   data-showAction="true"
-												   data-actionText="ok"
-												   data-actionTextColor="#fff"
-												   data-backgroundColor="#0c101b"><i class="icon-share-1 s-24"></i></a>
-											</div>
+<div class="container-fluid relative animatedParent animateOnce no-p">
+    <div class="animated">
+        <!--Banner Slider-->
+       
+        <!--@Banner Slider-->
+        <div class="p-md-5 p-3  ">
+        	<h1 style="color:black;text-align:center;">Resultados de "${busqueda}"</h1>
+        	<section class="section">
+                <div class="d-flex relative align-items-center justify-content-between" style="background-color:black; top:20px;">
+	                    <div class="mb-4">
+	                        <h2 style="color:orange;">Usuarios</h2> 
+	                    </div>
+	                    <c:choose>
+	                    	<c:when test="${usuarios.isEmpty()}">
+	                    		<div style="width:33%">
+	                    			<h2 style="color:orange;text-align:center;">No hay resultados</h2>
+	                    			
+	                    		</div>
+                    		</c:when>
+                    		<c:otherwise>
+			                    <a style="text-align:right;" 
+		                    		href="VerMas?tipo=usuario&nombre=${busqueda}" >Ver más
+		                    		<i class="icon-angle-right ml-3"></i>
+			                    </a> 
+		                    </c:otherwise>
+	                    </c:choose>      
+                </div>
+                <%String id = (String)request.getSession().getAttribute("id");
+                 %>
+                <div class="row no-gutters">
+               	<c:forEach var="usuario" items="${usuarios}"> 
+		            <div class="col-md-4 b-r">
+		                <div class="text-center p-5 mt-5">
+		                    <figure class="avatar avatar-xl">
+		                    	<c:choose>
+		                    		<c:when test="${usuario.getId()==id }">
+				                    	<a href="obtener_contenido_perfil">
+				                    </c:when>
+				                    <c:otherwise>
+				                    	<a href="obtener_usuario?nombre=${usuario.getCorreo()}">
+				                    </c:otherwise>
+				                </c:choose>
+				                    	<c:choose>
+				                    		<c:when test="${usuario.getImagen()!=null}">
+				                    			<img src="${pageContext.request.contextPath}/cargar_imagen">
+				                    		</c:when>
+				                    		<c:otherwise>
+				                    			<img src="assets/img/demo/u7.jpg" alt="">
+				                    		</c:otherwise>
+				                    	</c:choose>	
+				                    	</a>     
+		                    </figure>
+		                  	<div>
+		                        <h4 class="p-t-10">${usuario.getNombre()}</h4>
+		                    </div>
+		                </div>
+		            </div>
+		         </c:forEach>   
+		         </div>
+             </section>
+              
+            <!--New Releases-->
+            <section class="section">
+                <div class="d-flex relative align-items-center justify-content-between" style="background-color:black;">
+	                    <div class="mb-4">
+	                        <h2 style="color:orange;">Listas de Reproducción</h2> 
+	                    </div>
+	                    <c:choose>
+	                    	<c:when test="${listas.isEmpty()}">
+                    			<h2 style="color:orange;text-align:center;">No hay resultados</h2>
+                    			<p style="color:black">..........................</p>	
+                    		</c:when>
+                    		<c:otherwise>
+			                    <a style="text-align:right;" 
+		                    		href="VerMas?tipo=ListaRep&nombre=${busqueda}" >Ver más
+		                    		<i class="icon-angle-right ml-3"></i>
+			                    </a> 
+		                    </c:otherwise>
+	                    </c:choose>     
+                </div>
+               <div class="row has-items-overlay" >
+               		<c:forEach var="lista" items="${listas}" >
+							<div class="col-lg-3 col-md-4 col-sm-6 my-2" style="top:20px;">
+								<figure>
+									<div class="img-wrapper">
+										<img src="assets/img/demo/a1.jpg" alt="/">
+										<div class="img-overlay text-white text-center">
+											<a href="obtener_info_lr?nombre=${lista.getNombre()}" >
+												<div class="figcaption mt-3">
+													<i class="icon-link s-48"></i>
+													<h5 class="mt-5">${lista.getNombre()}</h5>
+												</div>
+											</a>
 										</div>
-
-										<div class="text-orange my-2">
-											<p>Todas tus canciones favoritas en una playlist única</p>
+										<div class="figure-title text-center p-2">
+											<h5>${lista.getNombre()}</h5>
 										</div>
-
 									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				<!--@Banner-->
-
-				<div class="p-3 p-lg-5">
+								</figure>
+							
+                    	</div>
+					</c:forEach>                   
+               </div> 
+               </section>
+              
+               <div class="d-flex relative align-items-center justify-content-between" style="background-color:black;">
+                    <div class="mb-4">
+                        <h2 style="color:orange;">Canciones</h2>
+                    </div>
+                    <c:choose>
+                    	<c:when test="${canciones.isEmpty()}">
+                   			<h2 style="color:orange;text-align:center;">No hay resultados</h2>
+                   			<p style="color:black">..........................</p>	
+                   		</c:when>
+                   		<c:otherwise>
+		                    <a style="text-align:right;" 
+	                    		href="VerMas?tipo=cancion&nombre=${busqueda}" >Ver más
+	                    		<i class="icon-angle-right ml-3"></i>
+		                    </a> 
+	                    </c:otherwise>
+                    </c:choose> 
+                </div>
+               <div class="p-3 p-lg-5">
 					<!--New Releases-->
 					<section>
 						<div class="row">
@@ -491,7 +538,7 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 									<div class="col-md-12">
 										<div class="playlist">
 											<ul id="playlist" class="playlist list-group">
-												<c:forEach var="cancion" items="${audios}">                    
+												<c:forEach var="cancion" items="${canciones}">                    
 													<div style="margin-bottom: -1px;" class="cancion">
 														<li class="list-group-item my-1">																
 															<div class="d-flex align-items-center">
@@ -505,9 +552,10 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 																</div>
 																<span class="ml-auto">${cancion.getGenero()}</span>
 																<a href="#" class="ml-auto"><i class="icon-share-1"></i></a>
-																<div class="ml-auto">
-																	<a href="${pageContext.request.contextPath}/borrar_cancion_fav?idAudio=${cancion.getId()}" class="btn-icono icon-trash-o" ></a>
-																</div>
+																<a href="anyadir_cancion_fav?idAudio=${cancion.getId()}" class="btn-favorito icon-star active" ></a>
+																<a href="#" class="btn-icono icon-list-1" onclick="('${listaslr.size()}','${cancion.getId()}');
+																document.getElementById('overlay-anadir-listas-reproduccion').classList.add('active')"
+																	></a>
 															</div>
 														</li>
 													</div>								                
@@ -521,106 +569,25 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 					</section>
 					<!--@New Releases-->
 				</div>
-			</div>
-		</div>
-	</div>
-</div>
-</c:when>
-<c:otherwise>
-<!-- LISTAS DE REPRODUCCION -->
-
-<!--Page Content-->
-<main id="pageContent" class="page has-sidebar">
-<div class="container-fluid relative p-lg-5">								
-	<div class="container-fluid relative p-0">
-		<div class="card no-b shadow no-r">
-				<!--Banner-->
-
-					<div class="has-bottom-gradient">
-						<div class="row pt-5 ml-lg-5 mr-lg-5">
-							<div class="col-md-10 offset-1">
-								<div class="row my-5 pt-5">
-
-									<div class="col-md-3">
-										<img src="assets/img/demo/a1.jpg" alt="/">
-									</div>
-									<div class="col-md-9">
-										<div class="d-md-flex align-items-center justify-content-between">
-											<h1 class="my-3 text-orange">${infoLista.getNombre()}</h1>
-											<div class="ml-auto mb-2">
-												<a href="#" class="snackbar ml-3" data-text="You like this song"
-												   data-pos="top-right"
-												   data-showAction="true"
-												   data-actionText="ok"
-												   data-actionTextColor="#fff"
-												   data-backgroundColor="#0c101b"><i class="icon-heart s-24"></i></a>
-												<a href="#" class="snackbar ml-3" data-text="Thanks for sharing"
-												   data-pos="top-right"
-												   data-showAction="true"
-												   data-actionText="ok"
-												   data-actionTextColor="#fff"
-												   data-backgroundColor="#0c101b"><i class="icon-share-1 s-24"></i></a>
-											    <button style="text-align:right;left: 10px;border-color: transparent;color: #fd7e14;background-color: #fd7e1400;" 
-													class="btn btn-abrir-popupl btn-sm  mt-3" 
-													id="abrir-popup-lista"
-													onclick="document.getElementById('overlay-mod-listas-reproduccion').classList.add('active');">
-													<i class="icon-edit  s-24"></i>Editar
-												</button>
-											</div>
-											<!-- EDICION LISTA DE REPRODUCCION -->
-											<div class="overlay-pop-up" id="overlay-mod-listas-reproduccion">
-											    <div class="col-md-7 card p-5">
-														<a style="position: absolute;top: 20px;right: 30px;" href="#" 
-														class="btn-cerrar-popup-perfil"
-														onclick="document.getElementById('overlay-mod-listas-reproduccion').classList.remove('active');">
-															<i class="icon-close1"></i>
-														</a>
-														<header class="relative nav-sticky card">
-															<h3>CAMBIAR INFORMACIÓN DE LISTA</h3>
-														</header>
-														<form  action="modlr" method="post">
-															<!-- Input -->
-															<div class="body">
-																<input type="hidden" name="tipo" value="ListaRep">
-																<div class="form-group form-float">
-																	<div class="form-line">
-																		<input type="text" name="nombreNew" class="form-control" value="${infoLista.getNombre()}">
-																		<label class="form-label">Nombre</label>
-																	</div>
-																</div>
-											
-																<div class="form-group form-float">
-																	<div class="form-line">
-																		<input type="text" name="descripcion" class="form-control" value="${infoLista.getDescripcion()}">
-																		<label class="form-label">Descripción</label>
-																	</div>
-																</div>
-																<input type="hidden" name="nombreOld" value="${infoLista.getNombre()}">
-											
-																<input type="submit" class="btn btn-outline-primary btn-sm pl-4 pr-4"
-																	   value="Cambiar información">
-															</div>
-														</form>
-														<!-- #END# Input -->
-												</div>
-											</div>
-											<!-- END EDICION LISTA DE REPRODUCCION -->
-
-										</div>
-									
-										<div class="text-orange my-2">
-											<p>${infoLista.getDescripcion()}</p>
-										</div>
-
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				<!--@Banner-->
-
-				<div class="p-3 p-lg-5">
-					<!--New Releases-->
+				<section class="section">
+	                <div class="d-flex relative align-items-center justify-content-between" style="background-color:black;">
+		                    <div class="mb-4">
+		                        <h2 style="color:orange;">Transmisiones</h2> 
+		                    </div>
+		                    <c:choose>
+		                    	<c:when test="${transmisiones.isEmpty()}">
+	                    			<h2 style="color:orange;text-align:center;">No hay resultados</h2>
+	                    			<p style="color:black">........................</p>	
+	                    		</c:when>
+	                    		<c:otherwise>
+				                    <a style="text-align:right;" 
+			                    		href="VerMas?tipo=transmision&nombre=${busqueda}" >Ver más
+			                    		<i class="icon-angle-right ml-3"></i>
+				                    </a> 
+			                    </c:otherwise>
+		                    </c:choose>     
+	                </div>
+	                <div class="p-3 p-lg-5">
 					<section>
 						<div class="row">
 							<div class="col-lg-10 offset-lg-1">
@@ -628,9 +595,106 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 									<div class="col-md-12">
 										<div class="playlist">
 											<ul id="playlist" class="playlist list-group">
-												<c:forEach var="cancion" items="${audios}">                    
+												<c:forEach var="cancion" items="${transmisiones}">                    
 													<div style="margin-bottom: -1px;" class="cancion">
-														<li class="list-group-item my-1">
+														<li class="list-group-item my-1">																
+															<div class="d-flex align-items-center">
+																<div class="col-1">
+																	<a class="no-ajaxy media-url" href="${cancion.getUrl()}">
+																		<i class="icon-play s-28"></i>
+																	</a>					
+																</div>
+																<div class="col-6">
+																	<h6>${cancion.getNombre()}</h6><c:if test="${cancion.getActiva()}">En directo!</c:if>
+																</div>
+																
+																<a href="#" class="ml-auto"><i class="icon-share-1"></i></a>
+																
+															</div>
+														</li>
+													</div>								                
+												</c:forEach>
+											</ul>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</section>
+				</div>
+	           </section>
+				 
+				<section class="section">	
+					<div class="d-flex relative align-items-center justify-content-between" style="background-color:black;">
+	                    <div class="mb-4">
+	                        <h2 style="color:orange;">Podcasts</h2>
+	                    </div>
+	                    <c:choose>
+	                    	<c:when test="${podcasts.isEmpty()}">
+                    			<h2 style="color:orange;text-align:center;">No hay resultados</h2>
+                    			<p style="color:black">....................</p>	
+                    		</c:when>
+                    		<c:otherwise>
+			                    <a style="text-align:right;" 
+		                    		href="VerMas?tipo=podcast&nombre=${busqueda}" >Ver más
+		                    		<i class="icon-angle-right ml-3"></i>
+			                    </a> 
+		                    </c:otherwise>
+	                    </c:choose> 
+                	</div>
+                	<div class="row has-items-overlay" >
+               		<c:forEach var="podcast" items="${podcasts}" >
+							<div class="col-lg-3 col-md-4 col-sm-6 my-2" style="top:20px;">
+								<figure>
+									<div class="img-wrapper">
+										<img src="assets/img/demo/a1.jpg" alt="/">
+										<div class="img-overlay text-white text-center">
+											<a href="obtener_info_lr?nombre=${lista.getNombre()}" >
+												<div class="figcaption mt-3">
+													<i class="icon-link s-48"></i>
+													<h5 class="mt-5">${lista.getNombre()}</h5>
+												</div>
+											</a>
+										</div>
+										<div class="figure-title text-center p-2">
+											<h5>${lista.getNombre()}</h5>
+										</div>
+									</div>
+								</figure>
+							
+                    	</div>
+					</c:forEach>                   
+               </div> 
+                </section>
+                <section class="section">
+	                <div class="d-flex relative align-items-center justify-content-between" style="background-color:black;">
+		                    <div class="mb-4">
+		                        <h2 style="color:orange;">Capitulos</h2> 
+		                    </div>
+		                    <c:choose>
+		                    	<c:when test="${capitulos.isEmpty()}">
+	                    			<h2 style="color:orange;text-align:center;">No hay resultados</h2>
+	                    			<p style="color:black">....................</p>	
+	                    		</c:when>
+	                    		<c:otherwise>
+				                    <a style="text-align:right;" 
+			                    		href="VerMas?tipo=capitulo&nombre=${busqueda}" >Ver más
+			                    		<i class="icon-angle-right ml-3"></i>
+				                    </a> 
+			                    </c:otherwise>
+		                    </c:choose>    
+	                </div>
+	                <div class="p-3 p-lg-5">
+					<section>
+						<div class="row">
+							<div class="col-lg-10 offset-lg-1">
+								<div class="row">
+									<div class="col-md-12">
+										<div class="playlist">
+											<ul id="playlist" class="playlist list-group">
+												<c:forEach var="cancion" items="${capitulos}">                    
+													<div style="margin-bottom: -1px;" class="cancion">
+														<li class="list-group-item my-1">																
 															<div class="d-flex align-items-center">
 																<div class="col-1">
 																	<a class="no-ajaxy media-url" href="${cancion.getUrl()}">
@@ -642,10 +706,7 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 																</div>
 																<span class="ml-auto">${cancion.getGenero()}</span>
 																<a href="#" class="ml-auto"><i class="icon-share-1"></i></a>
-																<div class="ml-auto">
-																	<a href="anyadir_cancion_fav?idAudio=${cancion.getId()}" class="btn-favorito icon-star active"></a>
-																	<a href="${pageContext.request.contextPath}/borrar_cancion_lr?idAudio=${cancion.getId()}&idLista=${infoLista.getId()}&nombreLista=${infoLista.getNombre()}&tipo=ListaRep" class="btn-icono icon-trash-o" ></a>
-																</div>
+																<a href="anyadir_cancion_fav?idAudio=${cancion.getId()}" class="btn-favorito icon-star active" ></a>
 															</div>
 														</li>
 													</div>								                
@@ -657,17 +718,18 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 							</div>
 						</div>
 					</section>
-					<!--@New Releases-->
-
 				</div>
-
-			</div>
-		</div>
-	</div>
+	           </section>
+        </div>
+    </div>
 </div>
-</c:otherwise>
-</c:choose>
-<!-- AÑADIR CANCION A LISTA DE REPRODUCCI�N -->
+
+
+
+</main><!--@Page Content-->
+</div><!--@#app-->
+
+<!-- AÑADIR CANCION A LISTA DE REPRODUCCIÓN -->
 <div class="overlay-pop-up" id="overlay-anadir-listas-reproduccion">
     <div class="col-md-7 card p-5">
 		<a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-anadir-listas-reproduccion" class="btn-cerrar-popup-perfil"><i class="icon-close1"></i></a>			
@@ -700,16 +762,12 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 			</div>		
 	</div>
 </div>
-<!-- END AÑADIR CANCION A LISTA DE REPRODUCCI�N -->
-
-<%session.setAttribute("fav", 0); %>
-
-</main><!--@Page Content-->
-</div><!--@#app-->
+<!-- END AÑADIR CANCION A LISTA DE REPRODUCCIÓN -->
 <!--/#app -->
 <script src="https://maps.googleapis.com/maps/api/js?&amp;key=AIzaSyC3YkZNNySdyR87o83QEHWglHfHD_PZqiw&amp;libraries=places"></script>
 <script src="assets/js/app.js"></script>
-<script>
+<script  src="assets/js/mostrar-popup.js"></script>
+    <script>
 	function loopAudio(){
 		var audio = document.getElementsByTagName("audio")[0];
 		if(audio.loop){
@@ -739,8 +797,7 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 		}
 	}
 	</script>
-
-	 <script>
+	<script>
     function rellenarCampos(size,song) {
     	var i;
     	for (i=0; i <size; i++){
@@ -749,6 +806,8 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 
     }
     </script>
+
+
 </body>
 
 </html>

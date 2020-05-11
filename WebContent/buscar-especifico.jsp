@@ -142,20 +142,140 @@ pageEncoding="UTF-8"%>
         </svg>
     </button>
     <div class="searchOverlay__inner  searchOverlay__inner--up">
-        <form class="searchOverlay__form" action="Buscar" method="post">
+        <form class="searchOverlay__form" action="https://xvelopers.com/demos/html/record-light/index.jsp">
             <input
                     class="searchOverlay__input"
-                    name="nombre"
+                    name="searchOverlay"
                     type="text"
                     placeholder="Search"
                     autocomplete="off"
                     spellcheck="false"
-                    required
             />
-            <span class="searchOverlay__info">Enter para buscar, esc  para cancelar</span>
+            <span class="searchOverlay__info">Hit enter to searchOverlay or ESC to close</span>
         </form>
     </div>
-    
+    <div class="searchOverlay__inner searchOverlay__inner--down">
+        <div class="searchOverlay__related">
+            <div class="searchOverlay__suggestion">
+                <div class="card mb-3">
+                    <div class="card-header transparent b-b">
+                        <strong>New Artists</strong>
+                    </div>
+                    <ul class="playlist list-group list-group-flush">
+                        <li class="list-group-item">
+                            <div class="d-flex align-items-center">
+                                <div class="col-10">
+                                    <figure class="avatar avatar-md float-left  mr-3 mt-1">
+                                        <img src="assets/img/demo/u1.jpg" alt="">
+                                    </figure>
+                                    <h6>Zoe Foe</h6>
+                                    <small>5 Albums - 50 Songs</small>
+                                </div>
+                                <a href="#" class="ml-auto"><i class="icon-more"></i></a>
+                            </div>
+                        </li>
+                        <li class="list-group-item">
+                            <div class="d-flex align-items-center">
+                                <div class="col-10">
+                                    <figure class="avatar avatar-md float-left  mr-3 mt-1">
+                                        <img src="assets/img/demo/u2.jpg" alt="">
+                                    </figure>
+                                    <h6>Zoe Foe</h6>
+                                    <small>5 Albums - 50 Songs</small>
+                                </div>
+                                <a href="#" class="ml-auto"><i class="icon-more"></i></a>
+                            </div>
+                        </li>
+                        <li class="list-group-item">
+                            <div class="d-flex align-items-center">
+                                <div class="col-10">
+                                    <figure class="avatar avatar-md float-left  mr-3 mt-1">
+                                        <img src="assets/img/demo/u3.jpg" alt="">
+                                    </figure>
+                                    <h6>Zoe Foe</h6>
+                                    <small>5 Albums - 50 Songs</small>
+                                </div>
+                                <a href="#" class="ml-auto"><i class="icon-more"></i></a>
+                            </div>
+                        </li>
+                        <li class="list-group-item">
+                            <div class="d-flex align-items-center">
+                                <div class="col-10">
+                                    <figure class="avatar avatar-md float-left  mr-3 mt-1">
+                                        <img src="assets/img/demo/u6.jpg" alt="">
+                                    </figure>
+                                    <h6>Zoe Foe</h6>
+                                    <small>5 Albums - 50 Songs</small>
+                                </div>
+                                <a href="#" class="ml-auto"><i class="icon-more"></i></a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="searchOverlay__suggestion">
+                <div class="card mb-3">
+                    <div class="card-header transparent b-b">
+                        <strong>Events</strong>
+                    </div>
+                    <ul class="playlist list-group list-group-flush">
+                        <li class="list-group-item">
+                            <div class="d-flex align-items-center ">
+                                <div class="col-8 ">
+                                    <a href="album-single.jsp" >
+                                        <h6>Battal of Bands</h6>
+                                    </a>
+                                    <small class="mt-1"><i class="icon-placeholder-3 mr-1 "></i> London Music Hall
+                                    </small>
+                                </div>
+                                <div class="ml-auto">
+                                    <div class="text-lg-center  bg-primary r-10 p-2 text-white primary-bg">
+                                        <div class="s-18">24</div>
+                                        <small>July, 2019</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="list-group-item">
+                            <div class="d-flex align-items-center ">
+                                <div class="col-8 ">
+                                    <a href="album-single.jsp" >
+                                        <h6>Battal of Bands</h6>
+                                    </a>
+                                    <small class="mt-1"><i class="icon-placeholder-3 mr-1 "></i> London Music Hall
+                                    </small>
+                                </div>
+                                <div class="ml-auto">
+                                    <div class="text-lg-center  bg-primary r-10 p-2 text-white primary-bg">
+                                        <div class="s-18">08</div>
+                                        <small>July, 2019</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="list-group-item">
+                            <div class="d-flex align-items-center ">
+                                <div class="col-8 ">
+                                    <a href="album-single.jsp" >
+                                        <h6>Battal of Bands</h6>
+                                    </a>
+                                    <small class="mt-1"><i class="icon-placeholder-3 mr-1 "></i> London Music Hall
+                                    </small>
+                                </div>
+                                <div class="ml-auto">
+                                    <div class="text-lg-center  bg-primary r-10 p-2 text-white primary-bg">
+                                        <div class="s-18">12</div>
+                                        <small>July, 2019</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <!-- ACABA BUSCADOR (LUPA) -->
 
@@ -294,185 +414,83 @@ String hayfoto = (String) session.getAttribute("hayfoto");
         <!--@Banner Slider-->
         <div class="p-md-5 p-3  ">
             <!--New Releases-->
+           	<h1>Más resultados de "${nombre}"</h1> 
             <section class="section">
                 <div class="d-flex relative align-items-center justify-content-between" style="background-color:black;">
 	                    <div class="mb-4">
-	                        <h2 style="color:orange;">Tus Listas de reproduccion</h2> 
-	                    </div>
-	                    <a style="text-align:right;" 
-                    		href="mostrar_lrs?tipo=ListaRep" >Ver más
-                    		<i class="icon-angle-right ml-3"></i>
-	                    </a>     
+	                        <h2 style="color:orange;">${tipo}</h2> 
+	                    </div>    
                 </div>
-               <div class="row has-items-overlay" >
-               		<c:forEach var="lista" items="${listas}" >
-							<div class="col-lg-3 col-md-4 col-sm-6 my-2" style="top:20px;">
-								<figure>
-									<div class="img-wrapper">
-										<img src="assets/img/demo/a1.jpg" alt="/">
-										<div class="img-overlay text-white text-center">
-											<a href="obtener_info_lr?nombre=${lista.getNombre()}" >
-												<div class="figcaption mt-3">
-													<i class="icon-link s-48"></i>
-													<h5 class="mt-5">${lista.getNombre()}</h5>
-												</div>
-											</a>
+               <c:choose>
+               <c:when test="${tipo =='usuario'}"> 
+	               <div class="row no-gutters">
+	               	<c:forEach var="usuario" items="${usuarios}"> 
+			            <div class="col-md-4 b-r">
+			                <div class="text-center p-5 mt-5">
+			                    <figure class="avatar avatar-xl">
+			                    	<c:choose>
+			                    		<c:when test="${usuario.getId()==id }">
+					                    	<a href="obtener_contenido_perfil">
+					                    </c:when>
+					                    <c:otherwise>
+					                    	<a href="obtener_usuario?nombre=${usuario.getCorreo()}">
+					                    </c:otherwise>
+					                </c:choose>
+					                    	<c:choose>
+					                    		<c:when test="${usuario.getImagen()!=null}">
+					                    			<img src="${pageContext.request.contextPath}/cargar_imagen">
+					                    		</c:when>
+					                    		<c:otherwise>
+					                    			<img src="assets/img/demo/u7.jpg" alt="">
+					                    		</c:otherwise>
+					                    	</c:choose>	
+					                    	</a>     
+			                    </figure>
+			                  	<div>
+			                        <h4 class="p-t-10">${usuario.getNombre()}</h4>
+			                    </div>
+			                </div>
+			            </div>
+			         </c:forEach>   
+			         </div>
+		         </c:when>
+		         <c:when test="${tipo=='ListaRep'}">
+	               <div class="row has-items-overlay" >
+	               		<c:forEach var="lista" items="${listas}" >
+								<div class="col-lg-3 col-md-4 col-sm-6 my-2" style="top:20px;">
+									<figure>
+										<div class="img-wrapper">
+											<img src="assets/img/demo/a1.jpg" alt="/">
+											<div class="img-overlay text-white text-center">
+												<a href="obtener_info_lr?nombre=${lista.getNombre()}" >
+													<div class="figcaption mt-3">
+														<i class="icon-link s-48"></i>
+														<h5 class="mt-5">${lista.getNombre()}</h5>
+													</div>
+												</a>
+											</div>
+											<div class="figure-title text-center p-2">
+												<h5>${lista.getNombre()}</h5>
+											</div>
 										</div>
-										<div class="figure-title text-center p-2">
-											<h5>${lista.getNombre()}</h5>
-										</div>
-									</div>
-								</figure>
-							<div class="contenido-pestanas" style="text-align: center;">
-	                            <button class="btn btn-abrir-popup-lista icon-trash-o" 
-	                            onclick="document.getElementById('idLista').value = '${lista.getNombre()}';
-	                            document.getElementById('overlay-borrar-listas-reproduccion').classList.add('active');"></button>
-                       		 </div>
-                    	</div>
-					</c:forEach>                   
-               </div> 
+									</figure>
+								<div class="contenido-pestanas" style="text-align: center;">
+		                            <button class="btn btn-abrir-popup-lista icon-trash-o" 
+		                            onclick="document.getElementById('idLista').value = '${lista.getNombre()}';
+		                            document.getElementById('overlay-borrar-listas-reproduccion').classList.add('active');"></button>
+	                       		 </div>
+	                    	</div>
+						</c:forEach>                   
+	               </div>
+	           </c:when> 
                </section>
               
-               <div class="d-flex relative align-items-center justify-content-between" style="background-color:black;">
-                    <div class="mb-4">
-                        <h2 style="color:orange;">Tus Canciones favoritas</h2>
-                    </div>
-                    <a 
-                    href="obtener_info_fav" >Ver más
-                    	<i class="icon-angle-right ml-3"></i>
-                    </a>
-                </div>
-               <div class="p-3 p-lg-5">
-					<!--New Releases-->
-					<section>
-						<div class="row">
-							<div class="col-lg-10 offset-lg-1">
-								<div class="row">
-									<div class="col-md-12">
-										<div class="playlist">
-											<ul id="playlist" class="playlist list-group">
-												<c:forEach var="cancion" items="${audios}">                    
-													<div style="margin-bottom: -1px;" class="cancion">
-														<li class="list-group-item my-1">																
-															<div class="d-flex align-items-center">
-																<div class="col-1">
-																	<a class="no-ajaxy media-url" href="${cancion.getUrl()}">
-																		<i class="icon-play s-28"></i>
-																	</a>					
-																</div>
-																<div class="col-6">
-																	<h6>${cancion.getTitulo()}</h6>${cancion.getGenero()}
-																</div>
-																<span class="ml-auto">${cancion.getGenero()}</span>
-																<a href="#" class="ml-auto"><i class="icon-share-1"></i></a>
-																<div class="ml-auto">
-																	<a href="${pageContext.request.contextPath}/borrar_cancion_fav?idAudio=${cancion.getId()}" class="btn-icono icon-trash-o" ></a>
-																</div>
-															</div>
-														</li>
-													</div>								                
-												</c:forEach>
-											</ul>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</section>
-					<!--@New Releases-->
-				</div>
-				<!--  
-				<div class="d-flex relative align-items-center justify-content-between" style="background-color:black;">
-                    <div class="mb-4">
-                        <h2 style="color:orange;">Tus Podcasts</h2>
-                    </div>
-                    <a 
-                    href="obtener_info_fav" >Ver más
-                    	<i class="icon-angle-right ml-3"></i>
-                    </a>
-                </div>-->
+               
+				</c:choose>	
+				
+			
         </div>
     </div>
-<!-- BORRAR LISTA DE REPRODUCCIÓN -->	
-	<div class="overlay-pop-up" id="overlay-borrar-listas-reproduccion">	
-	    <div class="col-md-7 card p-5">	
-	        <a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-borrar-listas-reproduccion" class="btn-cerrar-popup-perfil"	
-	        class="btn btn-outline-primary btn-sm pl-4 pr-4"  onclick="document.getElementById('overlay-borrar-listas-reproduccion').classList.remove('active');"><i class="icon-close1"></i></a>	
-			<form class="form-material" action="borrar_lr" method="post">	
-				<!-- Input -->	
-				<div class="body">	
-					<header class="relative nav-sticky card">	
-	                    <h3>¿Estas seguro?</h3>	
-	                    <h5>Vas a borrar esta lista de reproduccion para siempre, no hay vuelta atras</h5>	
-					</header>	
-		
-					<input type="hidden" id="idLista" name="nombre" value="">
-					<input type="hidden" name="tipo" value="ListaRep">	
-					<input type="submit" class="btn btn-outline-primary btn-sm pl-4 pr-4"	
-	                       value="Aceptar">		
-				</div>	
-				<!-- #END# Input -->	
-	        </form>	
-		</div>	
-	</div>	
-<!-- END BORRAR LISTA DE REPRODUCCIÓN -->
-
-<% 
-String email = (String) session.getAttribute("email");
-%>
-
-<!-- AJUSTES CUENTA -->
-<div class="overlay-pop-up" id="overlay-cuenta">
-    <div class="col-md-7 card p-5">
-			<a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-cuenta" class="btn-cerrar-popup-perfil"><i class="icon-close1"></i></a>
-			<header class="relative nav-sticky card">
-				<h3>CAMBIAR INFORMACIÓN DE LA CUENTA</h3>
-			</header>
-			<form  action="modinfo"> <!--QUITAR-->
-				<!-- Input -->
-				<div class="body">
-					
-					<div class="form-group form-float">
-						<div class="form-line">
-							<input type="email" name="email" class="form-control" value="<%=email%>">
-							<label class="form-label">Email</label>
-						</div>
-					</div>
-					<input type="submit" class="btn btn-outline-primary btn-sm pl-4 pr-4"
-						   value="Cambiar email">
-				</div>
-			</form>
-			<form  action="modpass"> <!--QUITAR-->
-				<!-- Input -->
-				<div class="body">
-					<div class="form-group form-float">
-						<div class="form-line">
-							<input type="password" name="contrasena1" class="form-control">
-							<label class="form-label">Contraseña actual</label>
-						</div>
-					</div>
-					<div class="form-group form-float">
-						<div class="form-line">
-							<input type="password" name="contrasena2" class="form-control">
-							<label class="form-label">Contraseña nueva</label>
-						</div>
-					</div>
-					<div class="form-group form-float">
-						<div class="form-line">
-							<input type="password" name="contrasena3" class="form-control">
-							<label class="form-label">Confirmar contraseña</label>
-						</div>
-					</div>
-
-					<input type="submit" class="btn btn-outline-primary btn-sm pl-4 pr-4"
-						   value="Cambiar constraseña">
-				</div>
-			</form>
-			<a href="" style="color: red;" onclick="darbaja()">Eliminar cuenta</a>
-			<!-- #END# Input -->
-	</div>
-</div>
-<!-- END AJUSTES CUENTA -->
 
 
 </main><!--@Page Content-->
