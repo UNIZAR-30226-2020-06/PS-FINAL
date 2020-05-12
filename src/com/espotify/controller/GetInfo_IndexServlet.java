@@ -14,10 +14,12 @@ import javax.servlet.http.HttpSession;
 import com.espotify.dao.FavoritosDAO;
 import com.espotify.dao.GeneroDAO;
 import com.espotify.dao.ListaReproduccionDAO;
+import com.espotify.dao.TransmisionDAO;
 import com.espotify.dao.UsuarioDAO;
 import com.espotify.model.Audio;
 import com.espotify.model.Genero;
 import com.espotify.model.ListaReproduccion;
+import com.espotify.model.Transmision;
 import com.espotify.model.Usuario;
 
 /**
@@ -58,7 +60,8 @@ public class GetInfo_IndexServlet extends HttpServlet {
 			request.setAttribute("audios",fav);
 		}
 
-		
+		List<Transmision> transmisiones = new TransmisionDAO().getTransmisionPorNombre("PruebaEscuchar");
+		request.setAttribute("transmisiones", transmisiones);
 		request.getRequestDispatcher("index.jsp").forward( request, response );
 		//response.sendRedirect("index.jsp");
 

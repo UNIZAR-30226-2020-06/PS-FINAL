@@ -110,7 +110,6 @@ public class TransmisionDAO {
 	 * 			 el id del usuario y la URL de la estaciÃ³n asociada.
 	*/
 	public static Transmision iniciar(String nombre, String descripcion, int usuario) {
-		System.out.println("ENTROOOOOO");
 		try {
 			Connection conn = ConnectionManager.getConnection();
 						
@@ -194,8 +193,8 @@ public class TransmisionDAO {
 	}
 	
 	/*
-	 * Parámetros: id del usuario
-	 * Devuelve: id de la transmisión
+	 * Parï¿½metros: id del usuario
+	 * Devuelve: id de la transmisiï¿½n
 	 */
 	public static int getIdTransmision(String nombre) {
 		int id = -1;
@@ -298,7 +297,6 @@ public class TransmisionDAO {
 	public static List<Transmision> getTransmisionPorNombre(String nombre) {
 		List<Transmision> directos = new ArrayList<Transmision>();
 		try {
-
 			Connection conn = ConnectionManager.getConnection();
 			PreparedStatement ps = conn.prepareStatement(GET_TRANSM_NOMBRE_QUERY);
             
