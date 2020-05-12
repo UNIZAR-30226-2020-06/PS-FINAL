@@ -52,14 +52,10 @@ public class AndroidEliminar_ListaRepServlet extends HttpServlet {
         
         String email = parametrosPeticion.getString("email");
         String nombreLista = parametrosPeticion.getString("nombrePlaylist");
-        String imagenCodificada = parametrosPeticion.getString("imagen");
+
         
-        String idUsuario = UsuarioDAO.obtenerId(email);
+        String idUsuario = UsuarioDAO.obtenerIdDesdeEmail(email);
         ListaReproduccionDAO.borrar(nombreLista, idUsuario, "ListaRep");
-        
-        // TODO: Imágen
-        byte[] imagenDecodificada = Base64.getDecoder().decode(new String(imagenCodificada).getBytes("UTF-8"));
-       
         
         // Lanzar JSON
         JSONObject respuestaPeticion = new JSONObject();

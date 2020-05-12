@@ -15,9 +15,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.json.HTTP;
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.espotify.dao.CancionDAO;
@@ -30,16 +28,13 @@ import com.espotify.model.ListaReproduccion;
 import com.espotify.model.Usuario;
 
 /**
- * Servlet implementation class AndroidEliminar_ListaRepServlet
+ * Servlet implementation class AndroidEliminar_FavoritosServlet
  */
-@WebServlet("/AndroidEliminar_CancionListaRepServlet")
-public class AndroidEliminar_CancionListaRepServlet extends HttpServlet {
+@WebServlet("/AndroidEliminar_FavoritosServlet")
+public class AndroidEliminar_FavoritosServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public AndroidEliminar_CancionListaRepServlet() {
+	
+    public AndroidEliminar_FavoritosServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -48,39 +43,31 @@ public class AndroidEliminar_CancionListaRepServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		getServletContext().log("--- ~AndroidEliminar_FavoritosServlet~ ---");
 		
-        JSONObject parametrosPeticion = JSONAdapter.parsarJSON(request);
-        getServletContext().log("--- ~AndroidEliminar_CancionListaServlet~ ---"); 
+		JSONObject parametrosPeticion = JSONAdapter.parsarJSON(request);
+        getServletContext().log("Parametros: " + parametrosPeticion); 
         
+        String nombreAudio = parametrosPeticion.getString("nombreCancion");
         String email = parametrosPeticion.getString("email");
-        String nombreLista = parametrosPeticion.getString("nombrePlaylist");
-        String nombreCancion = parametrosPeticion.getString("nombreCancion");
         
-        getServletContext().log("Parametros: " + email + "," + nombreLista + "," + nombreCancion);
+        String idUsuario = UsuarioDAO.obtenerIdDesdeEmail(email);
+        int idCancion = new CancionDAO().obtenerIdCancion(nombreAudio);
         
-        CancionDAO canciondao = new CancionDAO();
+        FavoritosDAO fa = new FavoritosDAO();
+        fa.quitarAudio((Integer.parseInt(idUsuario)), idCancion);
         
-        int idLista = ListaReproduccionDAO.obtenerIdLista(nombreLista);
-        int idCancion = new CancionDAO().obtenerIdCancion(nombreCancion);
+        getServletContext().log("idUsuario: " + idUsuario + " idCancion: " + idCancion); 
         
-        getServletContext().log("ID's: " + idLista + "," + idCancion);
-        
-        boolean borrado = ListaReproduccionDAO.borrarCancionLista(idCancion, idLista);
-       
-        // Lanzar JSON
         JSONObject respuestaPeticion = new JSONObject();
-        if (borrado) {
-        	respuestaPeticion.put("estado", "ok");
-        } else {
-        	respuestaPeticion.put("estado", "fail");
-        }
         
-        
-        
+        // Lanzar JSON
         PrintWriter out = response.getWriter();
         response.setContentType("application/json");
         response.setCharacterEncoding("utf-8");
         out.print(respuestaPeticion.toString());
+        
+        getServletContext().log("-------------------------------------------");
 	}
 
 	/**

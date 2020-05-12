@@ -63,6 +63,8 @@ public class AndroidGet_GenerosPodcastServlet extends HttpServlet {
         	generos += g.getNombre() + "|";
         	
         }
+        
+        generos = generos.substring(0, generos.length() - 1);
     	
         JSONObject respuestaPeticion = new JSONObject();
         PrintWriter out = response.getWriter();

@@ -53,7 +53,7 @@ public class AndroidCrear_PodcastServlet extends HttpServlet {
         String nombreLista = parametrosPeticion.getString("nombrePodcast");
         String descripcion = parametrosPeticion.getString("descripcion");
         
-        String idUsuario = UsuarioDAO.obtenerId(email);
+        String idUsuario = UsuarioDAO.obtenerIdDesdeEmail(email);
         ListaReproduccionDAO.crear(idUsuario, nombreLista, descripcion, "podcast");
         
         JSONObject respuestaPeticion = new JSONObject();

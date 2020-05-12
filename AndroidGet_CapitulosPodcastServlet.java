@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.util.Collections;
 import java.util.Enumeration;
 import java.util.List;
 
@@ -15,13 +14,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.json.HTTP;
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.espotify.dao.CancionDAO;
-import com.espotify.dao.FavoritosDAO;
+import com.espotify.dao.CapituloPodcastDAO;
 import com.espotify.dao.JSONAdapter;
 import com.espotify.dao.ListaReproduccionDAO;
 import com.espotify.dao.UsuarioDAO;
@@ -30,16 +26,16 @@ import com.espotify.model.ListaReproduccion;
 import com.espotify.model.Usuario;
 
 /**
- * Servlet implementation class AndroidEliminar_ListaRepServlet
+ * Servlet implementation class AndroidGet_ProfileServlet
  */
-@WebServlet("/AndroidEliminar_CancionListaRepServlet")
-public class AndroidEliminar_CancionListaRepServlet extends HttpServlet {
+@WebServlet("/AndroidGet_CapitulosPodcastServlet")
+public class AndroidGet_CapitulosPodcastServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AndroidEliminar_CancionListaRepServlet() {
+    public AndroidGet_CapitulosPodcastServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -49,37 +45,44 @@ public class AndroidEliminar_CancionListaRepServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		getServletContext().log("--- ~AndroidGet_CapitulosPodcastServlet~ ---");
         JSONObject parametrosPeticion = JSONAdapter.parsarJSON(request);
-        getServletContext().log("--- ~AndroidEliminar_CancionListaServlet~ ---"); 
+        getServletContext().log("Parametros: " + parametrosPeticion);
         
-        String email = parametrosPeticion.getString("email");
-        String nombreLista = parametrosPeticion.getString("nombrePlaylist");
-        String nombreCancion = parametrosPeticion.getString("nombreCancion");
+        String nombrePodcast = parametrosPeticion.getString("podcast");
         
-        getServletContext().log("Parametros: " + email + "," + nombreLista + "," + nombreCancion);
+        response.setContentType("application/json");
+        response.setCharacterEncoding("utf-8");
         
-        CancionDAO canciondao = new CancionDAO();
+
+        CapituloPodcastDAO cpd = new CapituloPodcastDAO();
+        List<Audio> capitulosPodcastLista = cpd.obtenerCapitulosPodcast(nombrePodcast);
         
-        int idLista = ListaReproduccionDAO.obtenerIdLista(nombreLista);
-        int idCancion = new CancionDAO().obtenerIdCancion(nombreCancion);
+        String nombresPodcast = "";
+        String urlsPodcast = "";
         
-        getServletContext().log("ID's: " + idLista + "," + idCancion);
+        boolean tieneCapitulos = false;
         
-        boolean borrado = ListaReproduccionDAO.borrarCancionLista(idCancion, idLista);
-       
-        // Lanzar JSON
-        JSONObject respuestaPeticion = new JSONObject();
-        if (borrado) {
-        	respuestaPeticion.put("estado", "ok");
-        } else {
-        	respuestaPeticion.put("estado", "fail");
+        for (Audio podcast : capitulosPodcastLista) {
+        	nombresPodcast += podcast.getTitulo() + "|";
+        	urlsPodcast += podcast.getUrl() + "|";
+        	tieneCapitulos = true;
         }
         
+        if(tieneCapitulos) {
+        	nombresPodcast = nombresPodcast.substring(0, nombresPodcast.length() - 1);
+        	urlsPodcast = urlsPodcast.substring(0, urlsPodcast.length() - 1);
+        }
         
+        JSONObject respuestaPeticion =new JSONObject();
+        respuestaPeticion.put("nombresPodcast", nombresPodcast);
+        respuestaPeticion.put("urlsPodcast", urlsPodcast);
         
+        getServletContext().log("Respuesta: " + respuestaPeticion);
         PrintWriter out = response.getWriter();
         response.setContentType("application/json");
         response.setCharacterEncoding("utf-8");
+        
         out.print(respuestaPeticion.toString());
 	}
 

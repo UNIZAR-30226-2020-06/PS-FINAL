@@ -1,6 +1,7 @@
 package com.espotify.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,48 +14,43 @@ import com.espotify.dao.ListaReproduccionDAO;
 import com.espotify.model.Audio;
 import com.espotify.model.ListaReproduccion;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ListIterator;
-import java.util.Collections;
-
 /**
- * Servlet implementation Servlet
+ * Servlet implementation class GetInfo_PodcastServlet
  */
-public class GetInfo_ListaRepServlet extends HttpServlet {
+
+public class GetInfo_Podcast_Usuario extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public GetInfo_ListaRepServlet() {
+    public GetInfo_Podcast_Usuario() {
         super();
+        // TODO Auto-generated constructor stub
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		HttpSession session = request.getSession();
-		int usuario = Integer.valueOf((String) session.getAttribute("id"));
+		
+		int usuario = Integer.valueOf(request.getParameter("id"));
 		String nombre = request.getParameter("nombre");
-		String tipo = "ListaRep";
+		String tipo = "podcast";
 		//String aleatorio = request.getParameter("aleatorio");
 		
 		try{
-			ListaReproduccion infoLista = new ListaReproduccionDAO().getInfoList(nombre,usuario,tipo);
+			ListaReproduccion infoPodcast = new ListaReproduccionDAO().getInfoList(nombre,usuario,tipo);
 			List<Audio> audios = new ListaReproduccionDAO().getAudios(nombre,usuario,tipo);
 			
 			//if (aleatorio.equals("si")) {
 			//	Collections.shuffle(audios);
-			//}
+			//}			
 			
-			
-			request.setAttribute("infoLista", infoLista);
+			request.setAttribute("infoPodcast", infoPodcast);
 			request.setAttribute("audios", audios);
 				
-			request.getRequestDispatcher("lista_rep-single.jsp").forward(request, response);
+			request.getRequestDispatcher("podcasts_otro_usuario.jsp").forward(request, response);
 			//RequestDispatcher dispatcher=request.getRequestDispatcher("user.jsp");
 			//dispatcher.forward(request, response);
 
@@ -67,6 +63,7 @@ public class GetInfo_ListaRepServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

@@ -186,140 +186,20 @@ pageEncoding="UTF-8"%>
         </svg>
     </button>
     <div class="searchOverlay__inner  searchOverlay__inner--up">
-        <form class="searchOverlay__form" action="https://xvelopers.com/demos/html/record-light/index.jsp">
+        <form class="searchOverlay__form" action="Buscar" method="post">
             <input
                     class="searchOverlay__input"
-                    name="searchOverlay"
+                    name="nombre"
                     type="text"
                     placeholder="Search"
                     autocomplete="off"
                     spellcheck="false"
+                    required
             />
-            <span class="searchOverlay__info">Hit enter to searchOverlay or ESC to close</span>
+            <span class="searchOverlay__info">Enter para buscar, esc  para cancelar</span>
         </form>
     </div>
-    <div class="searchOverlay__inner searchOverlay__inner--down">
-        <div class="searchOverlay__related">
-            <div class="searchOverlay__suggestion">
-                <div class="card mb-3">
-                    <div class="card-header transparent b-b">
-                        <strong>New Artists</strong>
-                    </div>
-                    <ul class="playlist list-group list-group-flush">
-                        <li class="list-group-item">
-                            <div class="d-flex align-items-center">
-                                <div class="col-10">
-                                    <figure class="avatar avatar-md float-left  mr-3 mt-1">
-                                        <img src="assets/img/demo/u1.jpg" alt="">
-                                    </figure>
-                                    <h6>Zoe Foe</h6>
-                                    <small>5 Albums - 50 Songs</small>
-                                </div>
-                                <a href="#" class="ml-auto"><i class="icon-more"></i></a>
-                            </div>
-                        </li>
-                        <li class="list-group-item">
-                            <div class="d-flex align-items-center">
-                                <div class="col-10">
-                                    <figure class="avatar avatar-md float-left  mr-3 mt-1">
-                                        <img src="assets/img/demo/u2.jpg" alt="">
-                                    </figure>
-                                    <h6>Zoe Foe</h6>
-                                    <small>5 Albums - 50 Songs</small>
-                                </div>
-                                <a href="#" class="ml-auto"><i class="icon-more"></i></a>
-                            </div>
-                        </li>
-                        <li class="list-group-item">
-                            <div class="d-flex align-items-center">
-                                <div class="col-10">
-                                    <figure class="avatar avatar-md float-left  mr-3 mt-1">
-                                        <img src="assets/img/demo/u3.jpg" alt="">
-                                    </figure>
-                                    <h6>Zoe Foe</h6>
-                                    <small>5 Albums - 50 Songs</small>
-                                </div>
-                                <a href="#" class="ml-auto"><i class="icon-more"></i></a>
-                            </div>
-                        </li>
-                        <li class="list-group-item">
-                            <div class="d-flex align-items-center">
-                                <div class="col-10">
-                                    <figure class="avatar avatar-md float-left  mr-3 mt-1">
-                                        <img src="assets/img/demo/u6.jpg" alt="">
-                                    </figure>
-                                    <h6>Zoe Foe</h6>
-                                    <small>5 Albums - 50 Songs</small>
-                                </div>
-                                <a href="#" class="ml-auto"><i class="icon-more"></i></a>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="searchOverlay__suggestion">
-                <div class="card mb-3">
-                    <div class="card-header transparent b-b">
-                        <strong>Events</strong>
-                    </div>
-                    <ul class="playlist list-group list-group-flush">
-                        <li class="list-group-item">
-                            <div class="d-flex align-items-center ">
-                                <div class="col-8 ">
-                                    <a href="album-single.jsp" >
-                                        <h6>Battal of Bands</h6>
-                                    </a>
-                                    <small class="mt-1"><i class="icon-placeholder-3 mr-1 "></i> London Music Hall
-                                    </small>
-                                </div>
-                                <div class="ml-auto">
-                                    <div class="text-lg-center  bg-primary r-10 p-2 text-white primary-bg">
-                                        <div class="s-18">24</div>
-                                        <small>July, 2019</small>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="list-group-item">
-                            <div class="d-flex align-items-center ">
-                                <div class="col-8 ">
-                                    <a href="album-single.jsp" >
-                                        <h6>Battal of Bands</h6>
-                                    </a>
-                                    <small class="mt-1"><i class="icon-placeholder-3 mr-1 "></i> London Music Hall
-                                    </small>
-                                </div>
-                                <div class="ml-auto">
-                                    <div class="text-lg-center  bg-primary r-10 p-2 text-white primary-bg">
-                                        <div class="s-18">08</div>
-                                        <small>July, 2019</small>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="list-group-item">
-                            <div class="d-flex align-items-center ">
-                                <div class="col-8 ">
-                                    <a href="album-single.jsp" >
-                                        <h6>Battal of Bands</h6>
-                                    </a>
-                                    <small class="mt-1"><i class="icon-placeholder-3 mr-1 "></i> London Music Hall
-                                    </small>
-                                </div>
-                                <div class="ml-auto">
-                                    <div class="text-lg-center  bg-primary r-10 p-2 text-white primary-bg">
-                                        <div class="s-18">12</div>
-                                        <small>July, 2019</small>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
+    
 </div>
 <!-- ACABA BUSCADOR (LUPA) -->
 
@@ -459,19 +339,18 @@ String hayfoto = (String) session.getAttribute("hayfoto");
         <div class="p-md-5 p-3  ">
             <!--New Releases-->
             <section class="section">
-            	<div class="card no-b mb-md-3 p-2" >
-                <div class="d-flex relative align-items-center justify-content-between">
-                    <div class="mb-4">
-                        <h2>Tus Listas de reproduccion</h4>
-                    </div>
-                    <a style="color: black;" 
-                    href="mostrar_lrs?tipo=ListaRep" >Ver más
-                    	<i class="icon-angle-right ml-3"></i>
-                    </a>
+                <div class="d-flex relative align-items-center justify-content-between" style="background-color:black;">
+	                    <div class="mb-4">
+	                        <h2 style="color:orange;">Tus Listas de reproduccion</h2> 
+	                    </div>
+	                    <a style="text-align:right;" 
+                    		href="mostrar_lrs?tipo=ListaRep" >Ver más
+                    		<i class="icon-angle-right ml-3"></i>
+	                    </a>     
                 </div>
-               <div class="row has-items-overlay">
+               <div class="row has-items-overlay" >
                		<c:forEach var="lista" items="${listas}" >
-							<div class="col-lg-3 col-md-4 col-sm-6 my-2">
+							<div class="col-lg-3 col-md-4 col-sm-6 my-2" style="top:20px;">
 								<figure>
 									<div class="img-wrapper">
 										<img src="assets/img/demo/a1.jpg" alt="/">
@@ -496,13 +375,13 @@ String hayfoto = (String) session.getAttribute("hayfoto");
                     	</div>
 					</c:forEach>                   
                </div> 
-               </div>
-               <div class="card no-b mb-md-3 p-2" style="top: 40px "> 
-               <div class="d-flex relative align-items-center justify-content-between">
+               </section>
+              
+               <div class="d-flex relative align-items-center justify-content-between" style="background-color:black;">
                     <div class="mb-4">
-                        <h2>Tus Canciones favoritas</h4>
+                        <h2 style="color:orange;">Tus Canciones favoritas</h2>
                     </div>
-                    <a style="color: black;" 
+                    <a 
                     href="obtener_info_fav" >Ver más
                     	<i class="icon-angle-right ml-3"></i>
                     </a>
@@ -554,11 +433,18 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 					</section>
 					<!--@New Releases-->
 				</div>
-             
-
+				<!--  
+				<div class="d-flex relative align-items-center justify-content-between" style="background-color:black;">
+                    <div class="mb-4">
+                        <h2 style="color:orange;">Tus Podcasts</h2>
+                    </div>
+                    <a 
+                    href="obtener_info_fav" >Ver más
+                    	<i class="icon-angle-right ml-3"></i>
+                    </a>
+                </div>-->
         </div>
     </div>
-</div>
 <!-- BORRAR LISTA DE REPRODUCCIÓN -->	
 	<div class="overlay-pop-up" id="overlay-borrar-listas-reproduccion">	
 	    <div class="col-md-7 card p-5">	

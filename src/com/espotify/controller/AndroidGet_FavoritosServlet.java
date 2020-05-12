@@ -47,33 +47,39 @@ public class AndroidGet_FavoritosServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
         JSONObject parametrosPeticion = JSONAdapter.parsarJSON(request);
-        getServletContext().log("PETICION RECIBIDA [GETPROFILE]: " + parametrosPeticion); 
+        getServletContext().log("--- ~AndroidGet_FavoritosServlet~ ---");
         
         String email = parametrosPeticion.getString("email");
         JSONObject respuestaPeticion = new JSONObject();
         
         
-        String idUsuario = UsuarioDAO.obtenerId(email);
+        String idUsuario = UsuarioDAO.obtenerIdDesdeEmail(email);
         List<Audio> audios = new FavoritosDAO().getAudios(Integer.parseInt(idUsuario));
-        JSONArray audiosJSON = new JSONArray();
-        JSONObject datosAudio;
         
+        String nombresAudio = "";
+        String urlsAudio = "";
+        boolean tieneAudios = false;
         for(Audio audio : audios) {
-        	datosAudio = new JSONObject();
-        	datosAudio.put("titulo", audio.getTitulo());
-        	datosAudio.put("usuario", audio.getUsuario());
-        	datosAudio.put("url", audio.getUrl());
-        	datosAudio.put("genero", audio.getGenero());
-        	audiosJSON.put(datosAudio);
+        	nombresAudio += audio.getTitulo() + "|";
+        	urlsAudio += audio.getUrl() +  "|";
+        	tieneAudios = true;
         }
         
-        getServletContext().log("ENVIADO [GETPROFILE]: " + respuestaPeticion.toString()); 
+        if(tieneAudios) {
+        	nombresAudio = nombresAudio.substring(0, nombresAudio.length() - 1);
+        	urlsAudio = urlsAudio.substring(0, urlsAudio.length() - 1);
+        } 
         
         // Lanzar JSON
         PrintWriter out = response.getWriter();
         response.setContentType("application/json");
         response.setCharacterEncoding("utf-8");
+        respuestaPeticion.put("nombresAudio", nombresAudio);
+    	respuestaPeticion.put("urlsAudio", urlsAudio);
+    	getServletContext().log("Respuesta: " + respuestaPeticion);
+        getServletContext().log("--------------------------------------");
         out.print(respuestaPeticion.toString());
+        
 	}
 
 	/**

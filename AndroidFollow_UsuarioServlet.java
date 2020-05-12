@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.util.Collections;
 import java.util.Enumeration;
 import java.util.List;
 
@@ -15,31 +14,28 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.json.HTTP;
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.espotify.dao.CancionDAO;
-import com.espotify.dao.FavoritosDAO;
 import com.espotify.dao.JSONAdapter;
 import com.espotify.dao.ListaReproduccionDAO;
+import com.espotify.dao.SeguirDAO;
 import com.espotify.dao.UsuarioDAO;
 import com.espotify.model.Audio;
 import com.espotify.model.ListaReproduccion;
 import com.espotify.model.Usuario;
 
 /**
- * Servlet implementation class AndroidEliminar_ListaRepServlet
+ * Servlet implementation class AndroidFollow_UsuarioServlet
  */
-@WebServlet("/AndroidEliminar_CancionListaRepServlet")
-public class AndroidEliminar_CancionListaRepServlet extends HttpServlet {
+@WebServlet("/AndroidFollow_UsuarioServlet")
+public class AndroidFollow_UsuarioServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AndroidEliminar_CancionListaRepServlet() {
+    public AndroidFollow_UsuarioServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -48,38 +44,26 @@ public class AndroidEliminar_CancionListaRepServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+
         JSONObject parametrosPeticion = JSONAdapter.parsarJSON(request);
-        getServletContext().log("--- ~AndroidEliminar_CancionListaServlet~ ---"); 
+        getServletContext().log("--- ~AndroidFollow_UsuarioServlet~ ---");
+        getServletContext().log("Parametros: " + parametrosPeticion);
         
         String email = parametrosPeticion.getString("email");
-        String nombreLista = parametrosPeticion.getString("nombrePlaylist");
-        String nombreCancion = parametrosPeticion.getString("nombreCancion");
+        String nombreUsuario = parametrosPeticion.getString("usuario");
+
+        String usuario1 = UsuarioDAO.obtenerIdDesdeEmail(email);
+        int usuario2 = UsuarioDAO.obtenerIdDesdeNombreUsuario(nombreUsuario);
         
-        getServletContext().log("Parametros: " + email + "," + nombreLista + "," + nombreCancion);
+        SeguirDAO.followUser(Integer.parseInt(usuario1), usuario2);
         
-        CancionDAO canciondao = new CancionDAO();
-        
-        int idLista = ListaReproduccionDAO.obtenerIdLista(nombreLista);
-        int idCancion = new CancionDAO().obtenerIdCancion(nombreCancion);
-        
-        getServletContext().log("ID's: " + idLista + "," + idCancion);
-        
-        boolean borrado = ListaReproduccionDAO.borrarCancionLista(idCancion, idLista);
-       
-        // Lanzar JSON
-        JSONObject respuestaPeticion = new JSONObject();
-        if (borrado) {
-        	respuestaPeticion.put("estado", "ok");
-        } else {
-        	respuestaPeticion.put("estado", "fail");
-        }
-        
-        
-        
-        PrintWriter out = response.getWriter();
         response.setContentType("application/json");
         response.setCharacterEncoding("utf-8");
+        PrintWriter out = response.getWriter();
+
+        JSONObject respuestaPeticion = new JSONObject();
+        
+        // finally output the json string       
         out.print(respuestaPeticion.toString());
 	}
 

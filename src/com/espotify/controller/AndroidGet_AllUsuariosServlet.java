@@ -4,7 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
 
@@ -21,25 +21,26 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.espotify.dao.CancionDAO;
-import com.espotify.dao.FavoritosDAO;
+import com.espotify.dao.GeneroDAO;
 import com.espotify.dao.JSONAdapter;
 import com.espotify.dao.ListaReproduccionDAO;
 import com.espotify.dao.UsuarioDAO;
 import com.espotify.model.Audio;
+import com.espotify.model.Genero;
 import com.espotify.model.ListaReproduccion;
 import com.espotify.model.Usuario;
 
 /**
- * Servlet implementation class AndroidEliminar_ListaRepServlet
+ * Servlet implementation class AndroidGet_AllUsuariosServlet
  */
-@WebServlet("/AndroidEliminar_CancionListaRepServlet")
-public class AndroidEliminar_CancionListaRepServlet extends HttpServlet {
+@WebServlet("/AndroidGet_AllUsuariosServlet")
+public class AndroidGet_AllUsuariosServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AndroidEliminar_CancionListaRepServlet() {
+    public AndroidGet_AllUsuariosServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -49,37 +50,36 @@ public class AndroidEliminar_CancionListaRepServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		getServletContext().log("--- ~AndroidGet_AllUsuariosServlet~ ---");
+		
         JSONObject parametrosPeticion = JSONAdapter.parsarJSON(request);
-        getServletContext().log("--- ~AndroidEliminar_CancionListaServlet~ ---"); 
+        getServletContext().log("Parametros: " + parametrosPeticion);
         
-        String email = parametrosPeticion.getString("email");
-        String nombreLista = parametrosPeticion.getString("nombrePlaylist");
-        String nombreCancion = parametrosPeticion.getString("nombreCancion");
+        List<Usuario> listaUsuarios = UsuarioDAO.obtenerTodosUsuarios();
         
-        getServletContext().log("Parametros: " + email + "," + nombreLista + "," + nombreCancion);
-        
-        CancionDAO canciondao = new CancionDAO();
-        
-        int idLista = ListaReproduccionDAO.obtenerIdLista(nombreLista);
-        int idCancion = new CancionDAO().obtenerIdCancion(nombreCancion);
-        
-        getServletContext().log("ID's: " + idLista + "," + idCancion);
-        
-        boolean borrado = ListaReproduccionDAO.borrarCancionLista(idCancion, idLista);
-       
-        // Lanzar JSON
-        JSONObject respuestaPeticion = new JSONObject();
-        if (borrado) {
-        	respuestaPeticion.put("estado", "ok");
-        } else {
-        	respuestaPeticion.put("estado", "fail");
+        String nombreUsuarios = "";
+        String imagenes = "";
+        String descripciones = "";
+        for (Usuario u : listaUsuarios) {
+        	nombreUsuarios += u.getNombre() + "|";
+        	imagenes += u.getImagen() + "|";
+        	descripciones += u.getDescripcion() + "|";
         }
         
+        nombreUsuarios = nombreUsuarios.substring(0, nombreUsuarios.length() - 1);
+        imagenes = imagenes.substring(0, imagenes.length() - 1);
+        descripciones = descripciones.substring(0, descripciones.length() - 1);
         
-        
+        JSONObject respuestaPeticion = new JSONObject();
         PrintWriter out = response.getWriter();
         response.setContentType("application/json");
         response.setCharacterEncoding("utf-8");
+        respuestaPeticion.put("nombreUsuarios", nombreUsuarios);
+        respuestaPeticion.put("imagenes", imagenes);
+        respuestaPeticion.put("descripciones", descripciones);
+        getServletContext().log("Parametros respuesta: " + respuestaPeticion);
+        getServletContext().log("-------------------------------------------");
+        // Lanzar JSON
         out.print(respuestaPeticion.toString());
 	}
 

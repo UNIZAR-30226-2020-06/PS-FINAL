@@ -69,7 +69,7 @@ public class AndroidSubir_AudioServlet extends HttpServlet {
         String titulo = parametrosPeticion.getString("nombreCancion");
         String genero = parametrosPeticion.getString("generoCancion");
         String email = parametrosPeticion.getString("email");
-        int  idUsuario = Integer.parseInt(UsuarioDAO.obtenerId(email));
+        int  idUsuario = Integer.parseInt(UsuarioDAO.obtenerIdDesdeEmail(email));
         
         int lastId = SubirAudioDAO.obtenerUltimaCancionId() + 1;
         String ficheroCancion = lastId + ".mp3";
