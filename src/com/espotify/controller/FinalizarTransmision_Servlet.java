@@ -21,7 +21,6 @@ public class FinalizarTransmision_Servlet extends HttpServlet {
      */
     public FinalizarTransmision_Servlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
@@ -32,7 +31,8 @@ public class FinalizarTransmision_Servlet extends HttpServlet {
 		String url = (String) request.getParameter("url");
 		
 		TransmisionDAO transmisionDAO = new TransmisionDAO();
-		if (transmisionDAO.finalizar(id, url)) {
+		
+		if (transmisionDAO.parar(id, url)) {
 			request.getRequestDispatcher("/obtener_contenido_perfil").forward(request, response);
 		} else {
 			System.out.println("ERROR AL ELIMINAR");
