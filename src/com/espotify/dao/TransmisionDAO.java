@@ -46,7 +46,8 @@ public class TransmisionDAO {
 															+ "FROM Reproductor_musica.TransmisionVivo transmision, Reproductor_musica.Estacion estacion "
 															+ "WHERE transmision.estacion = estacion.id AND transmision.usuario = ?";
 	private final static String GET_USERS_SEGUIDOS_QUERY = "SELECT usuario2 FROM Reproductor_musica.Sigue WHERE usuario1 = ?";
-	
+	private final static String GET_ID_TRANSMISION_QUERY = "SELECT id FROM Reproductor_musica.TransmisionVivo WHERE nombre = ?";
+
 	
 	// -------------------------------------------------------------------------------
 	
@@ -190,6 +191,33 @@ public class TransmisionDAO {
 			e.printStackTrace(System.err);
 			return false;
 		}
+	}
+	
+	/*
+	 * Parámetros: id del usuario
+	 * Devuelve: id de la transmisión
+	 */
+	public static int getIdTransmision(String nombre) {
+		int id = -1;
+		try {
+			Connection conn = ConnectionManager.getConnection();
+			PreparedStatement ps = conn.prepareStatement(GET_ID_TRANSMISION_QUERY);
+			ps.setString(1, nombre);
+			ResultSet rs = ps.executeQuery();
+
+			while(rs.next()){
+				id = rs.getInt(1);
+			}
+			
+			ConnectionManager.releaseConnection(conn);
+			
+		} catch(SQLException se) {
+			se.printStackTrace();
+		} catch(Exception e) {
+			e.printStackTrace(System.err);
+		}
+		
+		return id;
 	}
 	
 	/*

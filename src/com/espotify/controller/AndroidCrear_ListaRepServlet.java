@@ -59,7 +59,7 @@ public class AndroidCrear_ListaRepServlet extends HttpServlet {
          // TODO IMAGEN
         byte[] imagenDecodificada = Base64.getDecoder().decode(new String(imagenCodificada).getBytes("UTF-8"));
         
-        String idUsuario = UsuarioDAO.obtenerId(email);
+        String idUsuario = UsuarioDAO.obtenerIdDesdeEmail(email);
         ListaReproduccionDAO.crear(idUsuario, nombreLista, descripcion, "ListaRep");
         
         JSONObject respuestaPeticion = new JSONObject();

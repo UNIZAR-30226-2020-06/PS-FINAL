@@ -69,7 +69,7 @@ public class AndroidSubir_CapituloServlet extends HttpServlet {
         String genero = parametrosPeticion.getString("generoCapitulo");
         String podcast = parametrosPeticion.getString("nombrePodcast");
         String email = parametrosPeticion.getString("email");
-        int  idUsuario = Integer.parseInt(UsuarioDAO.obtenerId(email));
+        int  idUsuario = Integer.parseInt(UsuarioDAO.obtenerIdDesdeEmail(email));
         
         int lastId = SubirAudioDAO.obtenerUltimaCancionId() + 1;
         String ficheroCancion = lastId + ".mp3";

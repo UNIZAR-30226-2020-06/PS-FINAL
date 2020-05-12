@@ -28,7 +28,7 @@ import com.espotify.model.Audio;
 
 @WebServlet("/AndroidCancion_Test")
 public class AndroidCancion_Test extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+	
 
     /**
      * @see HttpServlet#HttpServlet()
@@ -49,7 +49,7 @@ public class AndroidCancion_Test extends HttpServlet {
         JSONObject respuestaPeticion = new JSONObject();
         
         
-        String idUsuario = UsuarioDAO.obtenerId(email);
+        String idUsuario = UsuarioDAO.obtenerIdDesdeEmail(email);
         List<Audio> audios = new FavoritosDAO().getAudios(Integer.parseInt(idUsuario));
         JSONArray audiosJSON = new JSONArray();
         JSONObject datosAudio;

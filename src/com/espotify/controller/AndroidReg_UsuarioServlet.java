@@ -1,9 +1,13 @@
 package com.espotify.controller;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.util.Base64;
 import java.util.Enumeration;
 
 import javax.servlet.ServletException;
@@ -15,6 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.json.JSONObject;
 
+import com.espotify.dao.SubirAudioDAO;
 import com.espotify.dao.UsuarioDAO;
 
 /**
@@ -38,7 +43,7 @@ public class AndroidReg_UsuarioServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		getServletContext().log("PETICION RECIBIDA: CLIENTE ANDROID"); 
+		getServletContext().log("--- ~AndroidReg_UsuarioServlet~ ---");
 
 		// Parsear JSON!
         StringBuilder sb = new StringBuilder();
@@ -57,23 +62,36 @@ public class AndroidReg_UsuarioServlet extends HttpServlet {
         String email = parametrosPeticion.getString("correo");
         String contrasena = parametrosPeticion.getString("contrasenya");
         String descripcion = parametrosPeticion.getString("descripcion");
-
+        String imagenCodificada = parametrosPeticion.getString("imagen");
+        
         JSONObject respuestaPeticion = new JSONObject();
-
-        response.setContentType("application/json");
-        response.setCharacterEncoding("utf-8");
-        PrintWriter out = response.getWriter();
-
+        
         boolean reg = new UsuarioDAO().register(nombre, email, contrasena, descripcion, null);
         if(reg) {
         	getServletContext().log("Registro OK");
         	respuestaPeticion.put("respuesta", "ok");
-        	out.print(respuestaPeticion.toString());
         } else {
         	getServletContext().log("Registro FAIL");
         	respuestaPeticion.put("respuesta", "error");
-        	out.print(respuestaPeticion.toString());
         }
+        
+        int  idUsuario = Integer.parseInt(UsuarioDAO.obtenerIdDesdeEmail(email));
+        String ficheroImagen = idUsuario + ".mp3";
+
+        byte[] decodedString = Base64.getDecoder().decode(new String(imagenCodificada).getBytes("UTF-8"));
+        try (OutputStream stream = new FileOutputStream("/var/www/html/almacen-mp3/" + ficheroImagen)) {
+            stream.write(decodedString);
+        }
+        
+        File ficheroAudio = new File("/var/www/html/almacen-mp3/" + ficheroImagen);
+        
+        ficheroAudio.setReadable(true, false);
+		ficheroAudio.setExecutable(true, false);
+		ficheroAudio.setWritable(true, false);
+        
+        response.setContentType("application/json");
+        response.setCharacterEncoding("utf-8");
+        PrintWriter out = response.getWriter();
 
         // finally output the json string       
         // out.print(parametrosPeticion.toString());

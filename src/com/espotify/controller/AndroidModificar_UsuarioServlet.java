@@ -59,7 +59,7 @@ public class AndroidModificar_UsuarioServlet extends HttpServlet {
         response.setCharacterEncoding("utf-8");
         PrintWriter out = response.getWriter();
         
-        String idUsuario = UsuarioDAO.obtenerId(email);
+        String idUsuario = UsuarioDAO.obtenerIdDesdeEmail(email);
         UsuarioDAO.cambiar_info(nombre, descripcion, email, idUsuario, null);
         UsuarioDAO.cambiar_pass_noverify(nuevaContrasenya, idUsuario);
         

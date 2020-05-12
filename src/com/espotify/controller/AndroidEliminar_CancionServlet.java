@@ -54,7 +54,7 @@ public class AndroidEliminar_CancionServlet extends HttpServlet {
         String email = parametrosPeticion.getString("email");
         String nombreCancion = parametrosPeticion.getString("nombreCancion");
         
-        String idUsuario = UsuarioDAO.obtenerId(email);
+        String idUsuario = UsuarioDAO.obtenerIdDesdeEmail(email);
         CancionDAO canciondao = new CancionDAO();
         
         JSONObject respuestaPeticion = new JSONObject();

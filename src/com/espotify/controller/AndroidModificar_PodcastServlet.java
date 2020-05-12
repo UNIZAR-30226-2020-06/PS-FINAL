@@ -61,7 +61,7 @@ public class AndroidModificar_PodcastServlet extends HttpServlet {
         
         //byte[] imagenDecodificada = Base64.getDecoder().decode(new String(imagenCodificada).getBytes("UTF-8"));
         
-        String idUsuario = UsuarioDAO.obtenerId(email);
+        String idUsuario = UsuarioDAO.obtenerIdDesdeEmail(email);
         boolean cambiado = ListaReproduccionDAO.cambiar_info(nombreViejoPlayList, nombreNuevoPlayList, idUsuario, descripcion, null, "podcast");
         
         JSONObject respuestaPeticion = new JSONObject();

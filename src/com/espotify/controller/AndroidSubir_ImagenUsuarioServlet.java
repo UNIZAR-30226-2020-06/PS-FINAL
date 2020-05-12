@@ -65,21 +65,28 @@ public class AndroidSubir_ImagenUsuarioServlet extends HttpServlet {
         
         String imagenCodificada = parametrosPeticion.getString("imagen");
         String email = parametrosPeticion.getString("email");
+        String idUsuario = UsuarioDAO.obtenerIdDesdeEmail(email);
         
-        byte[] imagenDecodificada = Base64.getDecoder().decode(new String(imagenCodificada).getBytes("UTF-8"));
+        String ficheroImagen = idUsuario + ".jpg";
         
-        String idUsuario = UsuarioDAO.obtenerId(email);
+        //
+        //if(ficheroAudio.exists()) {
+       // 	ficheroAudio.delete();
+        //}
         
-        boolean exito = UsuarioDAO.actualizarImagen(idUsuario, imagenDecodificada);
-        getServletContext().log("IdUsuario: " + idUsuario + "Exito: " + exito);
-        JSONObject respuestaPeticion = new JSONObject();
-       
-        
-        if(exito) {
-        	respuestaPeticion.put("estado", "ok");
-        } else {
-        	respuestaPeticion.put("estado", "fail");
+        byte[] decodedString = Base64.getDecoder().decode(new String(imagenCodificada).getBytes("UTF-8"));
+        try (OutputStream stream = new FileOutputStream("/var/www/html/almacen-mp3/almacen-img/" + ficheroImagen)) {
+            stream.write(decodedString);
         }
+        
+        File ficheroAudio = new File("/var/www/html/almacen-mp3/almacen-img/" + ficheroImagen);
+        
+        ficheroAudio.setReadable(true, false);
+		ficheroAudio.setExecutable(true, false);
+		ficheroAudio.setWritable(true, false);
+
+        JSONObject respuestaPeticion = new JSONObject();
+
         
         getServletContext().log("------------------------------------");
         

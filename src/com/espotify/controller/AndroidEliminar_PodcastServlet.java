@@ -60,7 +60,7 @@ public class AndroidEliminar_PodcastServlet extends HttpServlet {
         // TODO: Imágen 
         //byte[] imagenDecodificada = Base64.getDecoder().decode(new String(imagenCodificada).getBytes("UTF-8"));
         
-        String idUsuario = UsuarioDAO.obtenerId(email);
+        String idUsuario = UsuarioDAO.obtenerIdDesdeEmail(email);
         CancionDAO canciondao = new CancionDAO();
         
         JSONObject respuestaPeticion = new JSONObject();

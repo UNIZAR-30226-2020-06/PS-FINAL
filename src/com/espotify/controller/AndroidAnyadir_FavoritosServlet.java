@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import com.espotify.dao.CancionDAO;
 import com.espotify.dao.FavoritosDAO;
 import com.espotify.dao.JSONAdapter;
 import com.espotify.dao.ListaReproduccionDAO;
@@ -31,10 +32,8 @@ import com.espotify.model.Usuario;
  */
 @WebServlet("/AndroidAnyadir_FavoritosServlet")
 public class AndroidAnyadir_FavoritosServlet extends HttpServlet {
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
+	private static final long serialVersionUID = 1L;
+	
     public AndroidAnyadir_FavoritosServlet() {
         super();
         // TODO Auto-generated constructor stub
@@ -44,14 +43,28 @@ public class AndroidAnyadir_FavoritosServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		JSONObject respuestaPeticion = new JSONObject();
-        respuestaPeticion.put("url", "http://34.69.44.48/almacen-mp3/13.mp3");
+		getServletContext().log("--- ~AndroidAnyadir_FavoritosServlet~ ---");
+		
+		JSONObject parametrosPeticion = JSONAdapter.parsarJSON(request);
+        getServletContext().log(JSONAdapter.obtenerParametros(request)); 
+        
+        String nombreAudio = parametrosPeticion.getString("nombreCancion");
+        String email = parametrosPeticion.getString("email");
+        
+        String idUsuario = UsuarioDAO.obtenerIdDesdeEmail(email);
+        
+        FavoritosDAO fa = new FavoritosDAO();
+        fa.anyadirAudio(Integer.parseInt(idUsuario), new CancionDAO().obtenerIdCancion(nombreAudio));
+        
+        JSONObject respuestaPeticion = new JSONObject();
+        
         // Lanzar JSON
         PrintWriter out = response.getWriter();
         response.setContentType("application/json");
         response.setCharacterEncoding("utf-8");
-        getServletContext().log("SONG TEST: " + respuestaPeticion);
         out.print(respuestaPeticion.toString());
+        
+        getServletContext().log("-------------------------------------------");
 	}
 
 	/**
