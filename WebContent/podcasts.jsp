@@ -214,7 +214,34 @@ pageEncoding="UTF-8"%>
         </symbol>
     </defs>
 </svg>
-
+<!-- BUSCADOR (LUPA) -->
+<div class="searchOverlay page">
+    <button
+            id="btn-searchOverlay-close"
+            class="btn btn--searchOverlay-close"
+            aria-label="Close searchOverlay form"
+    >
+        <svg class="icon icon--cross">
+            <use xlink:href="#icon-cross"></use>
+        </svg>
+    </button>
+    <div class="searchOverlay__inner  searchOverlay__inner--up">
+        <form class="searchOverlay__form" action="Buscar" method="post">
+            <input
+                    class="searchOverlay__input"
+                    name="nombre"
+                    type="text"
+                    placeholder="Search"
+                    autocomplete="off"
+                    spellcheck="false"
+                    required
+            />
+            <span class="searchOverlay__info">Enter para buscar, esc  para cancelar</span>
+        </form>
+    </div>
+    
+</div>
+<!-- ACABA BUSCADOR (LUPA) -->
 
 
 <%
