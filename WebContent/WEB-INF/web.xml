@@ -626,6 +626,51 @@
 		<url-pattern>/Inicio</url-pattern>
 	</servlet-mapping>	
 	
+	<servlet>
+		<servlet-name>Buscar</servlet-name>
+		<servlet-class>com.espotify.controller.Search_BusquedasServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Buscar</servlet-name>
+		<url-pattern>/Buscar</url-pattern>
+	</servlet-mapping>	
+	
+	<servlet>
+		<servlet-name>VerMas</servlet-name>
+		<servlet-class>com.espotify.controller.Search_EspecificoServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>VerMas</servlet-name>
+		<url-pattern>/VerMas</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>obtener_usuario</servlet-name>
+		<servlet-class>com.espotify.controller.ObtenerContenidoOtroUsuario</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>obtener_usuario</servlet-name>
+		<url-pattern>/obtener_usuario</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>obtener_info_lr_usuario</servlet-name>
+		<servlet-class>com.espotify.controller.GetInfo_ListaRep_Usuario</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>obtener_info_lr_usuario</servlet-name>
+		<url-pattern>/obtener_info_lr_usuario</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>obtener_info_podcast_usuario</servlet-name>
+		<servlet-class>com.espotify.controller.GetInfo_Podcast_Usuario</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>obtener_info_podcast_usuario</servlet-name>
+		<url-pattern>/obtener_info_podcast_usuario</url-pattern>
+	</servlet-mapping>
+	
 	<context-param>
     <param-name>directorio_ficheroTmp</param-name>
     <param-value>tmpfiles</param-value>

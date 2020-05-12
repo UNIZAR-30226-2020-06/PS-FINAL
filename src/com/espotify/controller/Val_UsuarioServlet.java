@@ -47,6 +47,7 @@ public class Val_UsuarioServlet extends HttpServlet {
 		if(u != null) {
 			HttpSession session = request.getSession();
 			session.setAttribute("id", u.getId());
+			log(u.getId());
 			session.setAttribute("nombre", u.getNombre());
 			session.setAttribute("email", u.getCorreo());
 			session.setAttribute("descripcion", u.getDescripcion());

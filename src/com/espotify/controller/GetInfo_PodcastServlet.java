@@ -47,8 +47,8 @@ public class GetInfo_PodcastServlet extends HttpServlet {
 			//	Collections.shuffle(audios);
 			//}			
 			
-			session.setAttribute("infoPodcast", infoPodcast);
-			session.setAttribute("audios", audios);
+			request.setAttribute("infoPodcast", infoPodcast);
+			request.setAttribute("audios", audios);
 				
 			request.getRequestDispatcher("podcasts-single.jsp").forward(request, response);
 			//RequestDispatcher dispatcher=request.getRequestDispatcher("user.jsp");

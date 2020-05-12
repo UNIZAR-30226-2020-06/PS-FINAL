@@ -341,7 +341,7 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 <div class="container-fluid relative animatedParent animateOnce">
         <div class="animated p-5 ml-lg-5 mr-lg-5">
             <section>
-                <div class="relative mb-5" style="text-align: center;">
+                <div class="relative mb-5" style="text-align: center; background-color:black;">
                     <h1 class="mb-2 text-primary">Podcast</h1>
                     <p>Todos tus Podcasts</p>
                 </div>

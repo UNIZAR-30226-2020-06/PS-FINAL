@@ -126,18 +126,19 @@ public class UsuarioDAO {
 		return false;
 	}
 	
-	public static boolean actualizarImagen(String idUsuario) {
-		String urlImagen = ALMACEN_IMG_URL + idUsuario;
+	public static boolean actualizarImagen(String id, String imagen) {
+		
 		try {
 			Connection conn = ConnectionManager.getConnection();
 			PreparedStatement ps;
 			
-			ps = conn.prepareStatement(UPDATE_IMG_QUERY);
-			
-			ps.setString(1, urlImagen);
-			ps.setString(2, idUsuario);
-			ps.executeUpdate();
-	
+			if(imagen != null && !imagen.equals("")) {
+				ps = conn.prepareStatement(UPDATE_IMG_QUERY);
+				
+				ps.setString(1, imagen);
+				ps.setString(2, id);
+				ps.executeUpdate();
+			}
 	
 			ConnectionManager.releaseConnection(conn);
 			return true;
@@ -238,7 +239,7 @@ public class UsuarioDAO {
 			PreparedStatement ps = conn.prepareStatement(LOGIN_QUERY);
 			ps.setString(1, email);
 			
-			// ciframos la contrase�a con HASH256
+			// ciframos la contrasea con HASH256
 			String pass_HASH = convertirSHA256(contrasena);
 			ps.setString(2, pass_HASH);
 			
@@ -311,6 +312,7 @@ public class UsuarioDAO {
 	
 	public static int obtenerIdDesdeNombreUsuario(String nombreUsuario) {
 		int id = -1;
+
 		try {
 
 			Connection conn = ConnectionManager.getConnection();
@@ -329,8 +331,7 @@ public class UsuarioDAO {
 		} catch(Exception e) {
 			e.printStackTrace(System.err);
 		}
-		
-		return id;
+				return id;
 	}
 	
 	
@@ -338,13 +339,13 @@ public class UsuarioDAO {
 	public static String obtenerURLImagen(String email) {
 		String imagen = null;
 		try {
-
+	
 			Connection conn = ConnectionManager.getConnection();
 			PreparedStatement ps = conn.prepareStatement(USER_GETIMAGE_BLOB_QUERY);
 			ps.setString(1, email);
 			
 			ResultSet rs = ps.executeQuery();
-
+	
 			if(rs.first()){
 				imagen = rs.getString("imagen");
 			}
@@ -379,20 +380,7 @@ public class UsuarioDAO {
 		}
 		
 		return listaUsuarios;
+
 	}
-	
-	// Prubas con la base de datos
- 	public static void main(String[] args) throws SQLException, IOException{
- 		/*
- 		boolean creado = register("dav","dav@unizar.es","david_password123","descripcion del usuario","/Users/davidallozatejero/downloads/user2.jpg");
- 		if (creado) System.out.println("Creado user");
- 		
- 		boolean modificada = cambiar_info("David AllTej", "asasasas","davidAT@gmail.com","18","/Users/davidallozatejero/downloads/user1.png");
- 		if (modificada) System.out.println("Modif user");
- 		
- 		Usuario u = login("davidAT@gmail.com","david_password123");
- 		System.out.println(u.getNombre());
- 		System.out.println(u.getDescripcion());
- 		*/
- 	}
+
 }

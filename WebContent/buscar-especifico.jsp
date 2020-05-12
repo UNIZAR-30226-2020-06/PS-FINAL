@@ -1,17 +1,25 @@
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%><!DOCTYPE html>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<!DOCTYPE html>
 <html lang="zxx">
 
-<!-- NOMBRE DE LA PESTAÃÂA -->
+<!-- Mirrored from xvelopers.com/demos/html/record-light/index.jsp by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 05 Apr 2020 17:21:29 GMT -->
+
+<!--  
+########################################################################
+############### BASE DE TODAS LAS PAGINAS    ###########################
+########################################################################
+-->
+
+<!-- NOMBRE DE LA PESTAÑA -->
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="icon" href="assets/img/basic/logo.ico" type="image/x-icon">
-    <title>Espotify - Mis Listas</title>
+    <title>Espotify</title>
     <!-- CSS -->
     <link rel="stylesheet" href="assets/css/app.css">
 </head>
@@ -21,7 +29,7 @@ pageEncoding="UTF-8"%>
   To disable preloader remove 'has-preloader' from body
  -->
 
- <div id="loader" class="loader">
+<div id="loader" class="loader">
     <div class="loader-container">
         <div class="preloader-wrapper big active">
             <div class="spinner-layer spinner-blue">
@@ -93,7 +101,7 @@ pageEncoding="UTF-8"%>
             </li>
             
             <li><a class="ajaxifyPage" href="mostrar_lrs?tipo=ListaRep" >
-                    <i class="icon icon-compact-disc-1 s-24"></i> <span>Mis listas de reproduccion</span>
+                    <i class="icon icon-compact-disc-1 s-24"></i> <span>Mis listas de reproducción</span>
                 </a>
             </li>
             
@@ -110,100 +118,6 @@ pageEncoding="UTF-8"%>
 </aside>
 <!-- ACABA MENU DE LA IZQUIERDA-->
 
-<!-- MENU DONDE ESTAN LAS CANCIONES EN LA COLA (DERECHA) -->
-<aside class="control-sidebar fixed ">
-    <div class="slimScroll">
-        <div class="sidebar-header">
-            <h4>PlayList</h4>
-            <p>Awesome Collection for you</p>
-            <a href="#" data-toggle="control-sidebar" class="paper-nav-toggle  active"><i></i></a>
-        </div>
-        <div class="p-3">
-            <ul id="playlist" class="playlist list-group">
-                <li class="list-group-item my-1">
-                    <a class="no-ajaxy media-url" href="http://34.69.44.48/almacen-mp3/13.mp3" data-wave="http://34.69.44.48/almacen-mp3/13.mp3">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <i class="icon-play s-28"></i>
-                            <figure class="avatar-md float-left mr-3 mt-1">
-                                <img class="r-5" src="assets/img/demo/a1.jpg" alt="">
-                            </figure>
-                            <div>
-                                <h6>alexander Pierce</h6>Atif Aslam
-                            </div>
-                            <span class="badge badge-primary badge-pill"> 5:03</span>
-                        </div>
-                    </a>
-                </li>
-                <li class="list-group-item my-1">
-                    <a class="no-ajaxy media-url" href="assets/media/track2.mp3" data-wave="assets/media/track2.json">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <i class="icon-play s-28"></i>
-                            <figure class="avatar-md float-left mr-3 mt-1">
-                                <img class="r-5" src="assets/img/demo/a2.jpg" alt="">
-                            </figure>
-                            <div>
-                                <h6>alexander Pierce</h6>Atif Aslam
-                            </div>
-                            <span class="badge badge-primary badge-pill"> 5:03</span>
-                        </div>
-                    </a>
-                </li>
-                <li class="list-group-item my-1">
-                    <a class="no-ajaxy media-url" href="assets/media/track3.mp3" data-wave="assets/media/track3.json">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <i class="icon-play s-28"></i>
-                            <figure class="avatar-md float-left mr-3 mt-1">
-                                <img class="r-5" src="assets/img/demo/a4.jpg" alt="">
-                            </figure>
-                            <div>
-                                <h6>alexander Pierce</h6>Atif Aslam
-                            </div>
-                            <span class="badge badge-primary badge-pill"> 5:03</span>
-                        </div>
-                    </a>
-                </li>
-
-                <li class="list-group-item my-1">
-                    <a class="no-ajaxy media-url" href="assets/media/track1.mp3"  data-wave="assets/media/track1.json">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <i class="icon-play s-28"></i>
-                            <figure class="avatar-md float-left mr-3 mt-1">
-                                <img class="r-5" src="assets/img/demo/a5.jpg" alt="">
-                            </figure>
-                            <div>
-                                <h6>alexander Pierce</h6>Atif Aslam
-                            </div>
-                            <span class="badge badge-primary badge-pill"> 5:03</span>
-                        </div>
-                    </a>
-                </li>
-
-                <li class="list-group-item my-1">
-                    <a class="no-ajaxy media-url" href="assets/media/track2.mp3" data-wave="assets/media/track2.json">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <i class="icon-play s-28"></i>
-                            <figure class="avatar-md float-left mr-3 mt-1">
-                                <img class="r-5" src="assets/img/demo/a6.jpg" alt="">
-                            </figure>
-                            <div>
-                                <h6>alexander Pierce</h6>Atif Aslam
-                            </div>
-                            <span class="badge badge-primary badge-pill"> 5:03</span>
-                        </div>
-                    </a>
-                </li>
-
-
-            </ul>
-
-        </div>
-    </div>
-</aside>
-
-<!-- Add the sidebar's background. This div must be placed
-         immediately after the control sidebar -->
-<div class="control-sidebar-bg shadow  fixed"></div>
-<!-- ACABA MENU DERECHA -->
 
 <svg class="d-none">
     <defs>
@@ -215,6 +129,8 @@ pageEncoding="UTF-8"%>
         </symbol>
     </defs>
 </svg>
+
+<!-- BUSCADOR (LUPA) -->
 <div class="searchOverlay page">
     <button
             id="btn-searchOverlay-close"
@@ -340,7 +256,7 @@ pageEncoding="UTF-8"%>
                         <li class="list-group-item">
                             <div class="d-flex align-items-center ">
                                 <div class="col-8 ">
-                                    <a href="album-single.jsp">
+                                    <a href="album-single.jsp" >
                                         <h6>Battal of Bands</h6>
                                     </a>
                                     <small class="mt-1"><i class="icon-placeholder-3 mr-1 "></i> London Music Hall
@@ -361,7 +277,7 @@ pageEncoding="UTF-8"%>
         </div>
     </div>
 </div>
-
+<!-- ACABA BUSCADOR (LUPA) -->
 
 <%
 String hayfoto = (String) session.getAttribute("hayfoto");
@@ -427,7 +343,6 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 </nav>
 <!-- ACABA BARRA DE ARRIBA FIJA -->
 
-
 <!-- BARRA DE ABAJO FIJA-->
 <nav class="navbar-wrapper navbar-bottom-fixed shadow">
     <div class="navbar navbar-expand player-header justify-content-between  bd-navbar">
@@ -457,7 +372,7 @@ String hayfoto = (String) session.getAttribute("hayfoto");
                 </div>
                 
                 <div class="col-8 d-none d-lg-block">
-                    <div id="waveform" style="background-color: hsla(30.6, 92.7%, 78.4%, 0.38);border-radius: 10px;"></div>
+                    <div id="waveform"></div>
                 </div>
                 
                 <!-- TIEMPO -->
@@ -478,138 +393,115 @@ String hayfoto = (String) session.getAttribute("hayfoto");
         </div>
         <!--END Player-->
     </div>
-
 </nav>
 <!-- ACABA BARRA DE ABAJO -->
 
+<!--  
+########################################################################
+############### ACABA BASE DE TODAS LAS PAGINAS    #####################
+########################################################################
+-->
+
+
+
+
+<!--CONTENIDO NO AJAX-->
 <main id="pageContent" class="page has-sidebar">
-
-<div class="container-fluid relative animatedParent animateOnce">
-        <div class="animated p-5 ml-lg-5 mr-lg-5">
-            <section>
-                <div class="relative mb-5" style="text-align: center;">
-                    <div style="background-color:black;">	
-                    	<h1 class="mb-2 text-primary" >Listas de Reproduccion</h1>
-                    	<p>Todas tus maravillosas listas de reproduccion</p>
-                    </div>	
+<div class="container-fluid relative animatedParent animateOnce no-p">
+    <div class="animated">
+        <!--Banner Slider-->
+       
+        <!--@Banner Slider-->
+        <div class="p-md-5 p-3  ">
+            <!--New Releases-->
+           	<h1>Más resultados de "${nombre}"</h1> 
+            <section class="section">
+                <div class="d-flex relative align-items-center justify-content-between" style="background-color:black;">
+	                    <div class="mb-4">
+	                        <h2 style="color:orange;">${tipo}</h2> 
+	                    </div>    
                 </div>
-                <div class="contenido-pestanas" style="text-align: center;">
-						<button class="btn btn-abrir-popup-lista icon-plus" id="abrir-listas-reproduccion"  onClick="document.getElementById('overlay-listas-reproduccion').classList.add('active');">Crear Lista de Reproducción</button>
-				</div> 
-                <div class="row has-items-overlay">
-                	<div class="col-lg-3 col-md-4 col-sm-6 my-2">
-                        <figure>
-                            <div class="img-wrapper">
-                                <img src="assets/img/demo/a2.jpg" alt="/">
-                                <div class="img-overlay text-white text-center">
-                                    <a href="obtener_info_fav" >
-                                        <div class="figcaption mt-3">
-                                            <i class="icon-link s-48"></i>
-                                            <h5 class="mt-5">Mis Favoritos</h5>
-                                            
-                                        </div>
-                                    </a>
-                                </div>
-                                <div class="figure-title text-center p-2">
-                                    <h5>Mis favoritos</h5>
-                                    
-                                </div>
-                            </div>
-                     	</figure>
-                    </div>
-                    <c:forEach var="lista" items="${listas}" >
-							<div class="col-lg-3 col-md-4 col-sm-6 my-2">
-								<figure>
-									<div class="img-wrapper">
-										<img src="assets/img/demo/a1.jpg" alt="/">
-										<div class="img-overlay text-white text-center">
-											<a href="obtener_info_lr?nombre=${lista.getNombre()}" >
-												<div class="figcaption mt-3">
-													<i class="icon-link s-48"></i>
-													<h5 class="mt-5">${lista.getNombre()}</h5>
-												</div>
-											</a>
+               <c:choose>
+               <c:when test="${tipo =='usuario'}"> 
+	               <div class="row no-gutters">
+	               	<c:forEach var="usuario" items="${usuarios}"> 
+			            <div class="col-md-4 b-r">
+			                <div class="text-center p-5 mt-5">
+			                    <figure class="avatar avatar-xl">
+			                    	<c:choose>
+			                    		<c:when test="${usuario.getId()==id }">
+					                    	<a href="obtener_contenido_perfil">
+					                    </c:when>
+					                    <c:otherwise>
+					                    	<a href="obtener_usuario?nombre=${usuario.getCorreo()}">
+					                    </c:otherwise>
+					                </c:choose>
+					                    	<c:choose>
+					                    		<c:when test="${usuario.getImagen()!=null}">
+					                    			<img src="${pageContext.request.contextPath}/cargar_imagen">
+					                    		</c:when>
+					                    		<c:otherwise>
+					                    			<img src="assets/img/demo/u7.jpg" alt="">
+					                    		</c:otherwise>
+					                    	</c:choose>	
+					                    	</a>     
+			                    </figure>
+			                  	<div>
+			                        <h4 class="p-t-10">${usuario.getNombre()}</h4>
+			                    </div>
+			                </div>
+			            </div>
+			         </c:forEach>   
+			         </div>
+		         </c:when>
+		         <c:when test="${tipo=='ListaRep'}">
+	               <div class="row has-items-overlay" >
+	               		<c:forEach var="lista" items="${listas}" >
+								<div class="col-lg-3 col-md-4 col-sm-6 my-2" style="top:20px;">
+									<figure>
+										<div class="img-wrapper">
+											<img src="assets/img/demo/a1.jpg" alt="/">
+											<div class="img-overlay text-white text-center">
+												<a href="obtener_info_lr?nombre=${lista.getNombre()}" >
+													<div class="figcaption mt-3">
+														<i class="icon-link s-48"></i>
+														<h5 class="mt-5">${lista.getNombre()}</h5>
+													</div>
+												</a>
+											</div>
+											<div class="figure-title text-center p-2">
+												<h5>${lista.getNombre()}</h5>
+											</div>
 										</div>
-										<div class="figure-title text-center p-2">
-											<h5>${lista.getNombre()}</h5>
-										</div>
-									</div>
-								</figure>
-							<div class="contenido-pestanas" style="text-align: center;">
-	                            <button class="btn btn-abrir-popup-lista icon-trash-o" 
-	                            onclick="document.getElementById('idLista').value = '${lista.getNombre()}';
-	                            document.getElementById('overlay-borrar-listas-reproduccion').classList.add('active');"></button>
-                       		 </div>
-                    	</div>
-					</c:forEach>      
-                </div>
-            </section>
+									</figure>
+								<div class="contenido-pestanas" style="text-align: center;">
+		                            <button class="btn btn-abrir-popup-lista icon-trash-o" 
+		                            onclick="document.getElementById('idLista').value = '${lista.getNombre()}';
+		                            document.getElementById('overlay-borrar-listas-reproduccion').classList.add('active');"></button>
+	                       		 </div>
+	                    	</div>
+						</c:forEach>                   
+	               </div>
+	           </c:when> 
+               </section>
+              
+               
+				</c:choose>	
+				
+			
         </div>
-     </div> 
-                    
-
-<!-- CREAR LISTA DE REPRODUCCIÓN -->
-<div class="overlay-pop-up" id="overlay-listas-reproduccion">
-    <div class="col-md-7 card p-5">
-		<a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-listas-reproduccion" class="btn-cerrar-popup-perfil"><i class="icon-close1"></i></a>
-		<form class="form-material" action="crear_lr" method="post">
-			<!-- Input -->
-			<div class="body">
-				<header class="relative nav-sticky card">
-					<h3>CREAR LISTAS DE REPRODUCCIÓN</h3>
-				</header>
-				<div class="contenedor-inputs">
-					<h4>Añadir imagen</h4>
-					<!--  <input type="file" class="btn btn-outline-primary btn-sm  mt-3" name="fileName" /> -->
-					<input type="text" name="nombre" placeholder="Nombre" id="nombre-listas-reproduccion" required/>
-					<input type="text" name="descripcion" placeholder="Descripcion" id="descripcion-listas-reproduccion"/>
-					<input type="hidden" name="tipo" value="ListaRep">
-				</div>
-
-				<input type="submit" class="btn btn-outline-primary btn-sm pl-4 pr-4"
-					   value="Aceptar">
-			</div>
-			<!-- #END# Input -->
-		</form>
-	</div>
-</div>
-<!-- END CREAR LISTA DE REPRODUCCIÓN -->
-
-
-
-
-<!-- BORRAR LISTA DE REPRODUCCIÓN -->	
-	<div class="overlay-pop-up" id="overlay-borrar-listas-reproduccion">	
-	    <div class="col-md-7 card p-5">	
-	        <a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-borrar-listas-reproduccion" class="btn-cerrar-popup-perfil"	
-	        class="btn btn-outline-primary btn-sm pl-4 pr-4"  onclick="document.getElementById('overlay-borrar-listas-reproduccion').classList.remove('active');"><i class="icon-close1"></i></a>	
-			<form class="form-material" action="borrar_lr" method="post">	
-				<!-- Input -->	
-				<div class="body">	
-					<header class="relative nav-sticky card">	
-	                    <h3>¿Estas seguro?</h3>	
-	                    <h5>Vas a borrar esta lista de reproduccion para siempre, no hay vuelta atras</h5>	
-					</header>	
-		
-					<input type="hidden" id="idLista" name="nombre" value="">
-					<input type="hidden" name="tipo" value="ListaRep">	
-					<input type="submit" class="btn btn-outline-primary btn-sm pl-4 pr-4"	
-	                       value="Aceptar">		
-				</div>	
-				<!-- #END# Input -->	
-	        </form>	
-		</div>	
-	</div>	
-<!-- END BORRAR LISTA DE REPRODUCCIÓN -->
+    </div>
 
 
 </main><!--@Page Content-->
 </div><!--@#app-->
+
+
 <!--/#app -->
 <script src="https://maps.googleapis.com/maps/api/js?&amp;key=AIzaSyC3YkZNNySdyR87o83QEHWglHfHD_PZqiw&amp;libraries=places"></script>
 <script src="assets/js/app.js"></script>
 <script  src="assets/js/mostrar-popup.js"></script>
-<script>
+    <script>
 	function loopAudio(){
 		var audio = document.getElementsByTagName("audio")[0];
 		if(audio.loop){
@@ -639,5 +531,17 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 		}
 	}
 	</script>
+	<script>
+    function rellenarCampos(size,song) {
+    	var i;
+    	for (i=0; i <size; i++){
+    	  	document.getElementsByName("idAudio")[i].value = song;
+    	}
+
+    }
+    </script>
+
+
 </body>
+
 </html>
