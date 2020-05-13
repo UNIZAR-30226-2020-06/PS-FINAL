@@ -38,6 +38,10 @@ public class TransmisionDAO {
 	private final static String GET_TRANSM_NOMBRE_QUERY = "SELECT transmision.id id, transmision.nombre nombre, transmision.descripcion descripcion, transmision.activa activa, transmision.usuario usuario, estacion.url url " 
 															+ "FROM Reproductor_musica.TransmisionVivo transmision, Reproductor_musica.Estacion estacion "
 															+ "WHERE transmision.estacion = estacion.id AND transmision.nombre = ?";
+	private final static String GET_TRANSM_ALL_QUERY = "SELECT * FROM Reproductor_musica.TransmisionVivo transmision"
+			+ "WHERE transmision.estacion = estacion.id AND transmision.nombre = ?";
+
+	
 	private final static String GET_TRANSM_ID_QUERY = "SELECT transmision.id id, transmision.nombre nombre, transmision.descripcion descripcion, transmision.activa activa, transmision.usuario usuario, estacion.url url " 
 			+ "FROM Reproductor_musica.TransmisionVivo transmision, Reproductor_musica.Estacion estacion "
 			+ "WHERE transmision.estacion = estacion.id AND transmision.id = ?";
@@ -301,6 +305,38 @@ public class TransmisionDAO {
 			PreparedStatement ps = conn.prepareStatement(GET_TRANSM_NOMBRE_QUERY);
             
 			ps.setString(1, nombre);
+			ResultSet rs = ps.executeQuery();
+
+			while(rs.next()){
+				Transmision result = new Transmision(rs.getInt("id"), rs.getString("nombre"), 
+									rs.getString("descripcion"), rs.getBoolean("activa"), 
+									rs.getInt("usuario"), rs.getString("url"));
+                directos.add(result);
+			}
+			
+			ConnectionManager.releaseConnection(conn);
+			
+		} catch(SQLException se) {
+			se.printStackTrace();
+		} catch(Exception e) {
+			e.printStackTrace(System.err);
+		}
+		
+		return directos;
+	}
+	
+	/*
+	 * Parametros: 
+	 * Devuelve: una lista de datos de tipo Transmision 
+	 * 			 (id de la misma, nombre, descipcion, boleano que indica si esta activa, 
+	 * 			 id del usuario, URL de la estación asociada)
+	*/
+	public static List<Transmision> getTodasTransmisiones() {
+		List<Transmision> directos = new ArrayList<Transmision>();
+		try {
+			Connection conn = ConnectionManager.getConnection();
+			PreparedStatement ps = conn.prepareStatement(GET_TRANSM_ALL_QUERY);
+            
 			ResultSet rs = ps.executeQuery();
 
 			while(rs.next()){

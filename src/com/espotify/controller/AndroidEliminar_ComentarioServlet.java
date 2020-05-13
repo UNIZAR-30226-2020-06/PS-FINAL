@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.util.Collections;
 import java.util.Enumeration;
 import java.util.List;
 
@@ -17,25 +18,28 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import com.espotify.dao.CancionDAO;
+import com.espotify.dao.ComentariosDAO;
+import com.espotify.dao.FavoritosDAO;
 import com.espotify.dao.JSONAdapter;
 import com.espotify.dao.ListaReproduccionDAO;
-import com.espotify.dao.SeguirDAO;
+import com.espotify.dao.TransmisionDAO;
 import com.espotify.dao.UsuarioDAO;
 import com.espotify.model.Audio;
 import com.espotify.model.ListaReproduccion;
+import com.espotify.model.Transmision;
 import com.espotify.model.Usuario;
 
 /**
- * Servlet implementation class AndroidFollow_UsuarioServlet
+ * Servlet implementation class AndroidEliminar_ComentarioServlet
  */
-@WebServlet("/AndroidFollow_UsuarioServlet")
-public class AndroidFollow_UsuarioServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+@WebServlet("/AndroidEliminar_ComentarioServlet")
+public class AndroidEliminar_ComentarioServlet extends HttpServlet {
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AndroidFollow_UsuarioServlet() {
+    public AndroidEliminar_ComentarioServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -44,31 +48,28 @@ public class AndroidFollow_UsuarioServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-        JSONObject parametrosPeticion = JSONAdapter.parsarJSON(request);
-        getServletContext().log("--- ~AndroidFollow_UsuarioServlet~ ---");
-        getServletContext().log("Parametros: " + parametrosPeticion);
+		
+		getServletContext().log("--- ~AndroidEliminar_ComentarioServlet~ ---");
+		
+		JSONObject parametrosPeticion = JSONAdapter.parsarJSON(request);
+        getServletContext().log(JSONAdapter.obtenerParametros(request)); 
         
-        String email = parametrosPeticion.getString("email");
-        String nombreUsuario = parametrosPeticion.getString("nombreUsuario");
-
-        String usuario1 = UsuarioDAO.obtenerIdDesdeEmail(email);
-        int usuario2 = UsuarioDAO.obtenerIdDesdeNombreUsuario(nombreUsuario);
+        String comentario = parametrosPeticion.getString("comentario");
+        String usuario = parametrosPeticion.getString("usuario");
+        String titulo = parametrosPeticion.getString("titulo");
         
-        getServletContext().log("Usuario 1: " + usuario1 + "Usuario 2: " + usuario2);
+        int idUsuario = UsuarioDAO.obtenerIdDesdeNombreUsuario(usuario);
+        List<Transmision> listaTransmisiones = TransmisionDAO.getTodasTransmisiones();
         
-        if(!SeguirDAO.followUser(Integer.parseInt(usuario1), usuario2)) {
-        	SeguirDAO.unfollowUser(Integer.parseInt(usuario1), usuario2);
-        }
+        int idComentario = ComentariosDAO.obtenerIdComentario(comentario, usuario);
+        ComentariosDAO.quitarComentarioAudio(idComentario);
         
+        // Lanzar JSON
+        PrintWriter out = response.getWriter();
         response.setContentType("application/json");
         response.setCharacterEncoding("utf-8");
-        PrintWriter out = response.getWriter();
-
-        JSONObject respuestaPeticion = new JSONObject();
         
-        // finally output the json string       
-        out.print(respuestaPeticion.toString());
+        getServletContext().log("-------------------------------------------");
 	}
 
 	/**
