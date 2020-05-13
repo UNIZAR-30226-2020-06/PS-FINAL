@@ -40,7 +40,7 @@ public class GetInfo_ListaRepServlet extends HttpServlet {
 		int usuario = Integer.valueOf((String) session.getAttribute("id"));
 		String nombre = request.getParameter("nombre");
 		String tipo = "ListaRep";
-		System.out.println("ENTRROOOOOOOOO");
+		List<ListaReproduccion> listas = new ListaReproduccionDAO().showLists(usuario,"ListaRep");
 		//String aleatorio = request.getParameter("aleatorio");
 		
 		try{
@@ -51,7 +51,7 @@ public class GetInfo_ListaRepServlet extends HttpServlet {
 			//	Collections.shuffle(audios);
 			//}
 			
-			
+			request.setAttribute("listaslr", listas);
 			request.setAttribute("infoLista", infoLista);
 			request.setAttribute("audios", audios);
 				

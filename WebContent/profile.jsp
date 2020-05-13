@@ -913,7 +913,7 @@ String email = (String) session.getAttribute("email");
 <!-- AÑADIR CANCION A LISTA DE REPRODUCCIÓN -->
 <div class="overlay-pop-up" id="overlay-anadir-listas-reproduccion">
     <div class="col-md-7 card p-5">
-		<a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-anadir-listas-reproduccion" class="btn-cerrar-popup-perfil"><i class="icon-close1"></i></a>			
+		<button style="position: absolute;top: 20px;right: 30px;" href="#" onclick="document.getElementById('overlay-anadir-listas-reproduccion').classList.remove('active');" id="btn-cerrar-anadir-listas-reproduccion" class="btn-cerrar-popup-perfil"><i class="icon-close1"></i></button>			
 			<!-- Input -->
 				<div class="body">
 					<div class="row has-items-overlay">
@@ -934,7 +934,7 @@ String email = (String) session.getAttribute("email");
 								<input type="hidden" name="idLista" value="${listalr.getId()}">
 								<input type="hidden" name="idAudio" value="">
 								<input type="hidden" name="nombreLista" value="${listalr.getNombre()}">
-								<input type="hidden" name="tipo" value="ListRep">
+								<input type="hidden" name="tipo" value="ListaRep">
 							</form>	
 						</div>
 					</c:forEach>

@@ -405,7 +405,7 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 															<a href="#" class="ml-auto"><i class="icon-share-1"></i></a>
 															<div class="ml-auto">
 																<a href="anyadir_cancion_fav?idAudio=${cancion.getId()}" class="btn-favorito icon-star active" ></a>
-																<a href="#" class="btn-icono icon-list-1" onclick="('${listaslr.size()}','${cancion.getId()}');
+																<a href="#" class="btn-icono icon-list-1" onclick="rellenarCampos('${mislistas.size()}','${cancion.getId()}');
 																document.getElementById('overlay-anadir-listas-reproduccion').classList.add('active')"></a>
 																
 															</div>
@@ -690,11 +690,11 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 <!-- AÑADIR CANCION A LISTA DE REPRODUCCIÓN -->
 <div class="overlay-pop-up" id="overlay-anadir-listas-reproduccion">
     <div class="col-md-7 card p-5">
-		<a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-anadir-listas-reproduccion" class="btn-cerrar-popup-perfil"><i class="icon-close1"></i></a>			
+		<a style="position: absolute;top: 20px;right: 30px;" href="#" onclick="document.getElementById('overlay-anadir-listas-reproduccion').classList.remove('active');"id="btn-cerrar-anadir-listas-reproduccion" class="btn-cerrar-popup-perfil"><i class="icon-close1"></i></a>			
 			<!-- Input -->
 				<div class="body">
 					<div class="row has-items-overlay">
-						<c:forEach var="listalr" items="${listaslr}">
+						<c:forEach var="listalr" items="${mislistas}">
 						<div class="col-lg-3 col-md-4 col-sm-6 my-2">
 							<figure>
 								<div class="img-wrapper">
@@ -711,7 +711,7 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 								<input type="hidden" name="idLista" value="${listalr.getId()}">
 								<input type="hidden" name="idAudio" value="">
 								<input type="hidden" name="nombreLista" value="${listalr.getNombre()}">
-								<input type="hidden" name="tipo" value="ListRep">
+								<input type="hidden" name="tipo" value="ListaRep">
 							</form>	
 						</div>
 					</c:forEach>
@@ -746,7 +746,7 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 								<input type="hidden" name="idLista" value="${podcast.getId()}">
 								<input type="hidden" name="idAudio" value="">
 								<input type="hidden" name="nombreLista" value="${podcast.getNombre()}">
-								<nput type="hidden" name="tipo" value="podcast">
+								<input type="hidden" name="tipo" value="podcast">
 							</form>	
 						</div>
 					</c:forEach>

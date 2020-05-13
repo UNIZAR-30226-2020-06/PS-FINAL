@@ -61,6 +61,9 @@ public class ObtenerContenidoOtroUsuario extends HttpServlet {
 		request.setAttribute("listaslr", listaslr);
 		List<ListaReproduccion> podcasts = new ListaReproduccionDAO().showLists(idUsuario,"podcast");
 		request.setAttribute("podcasts", podcasts);
+		
+		List<ListaReproduccion> mislistas = new ListaReproduccionDAO().showLists(id,"ListaRep");
+		request.setAttribute("mislistas", mislistas);
 
 		request.getRequestDispatcher("perfil_usuario.jsp").forward(request, response);
 	}

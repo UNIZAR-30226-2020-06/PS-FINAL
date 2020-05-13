@@ -36,19 +36,19 @@ public class AnyadirAudio_ListaRepServlet extends HttpServlet {
 		String tipo = request.getParameter("tipo");
 		int idAudio = Integer.valueOf(audio);
 		int idLista = Integer.valueOf(lista);
-		
+		log(tipo);
 		Boolean anyadida = new ListaReproduccionDAO().anyadirAudio(idAudio, idLista);
 		
 		if (anyadida) {
-			log("La cancion se ha a�adido correctamente");
+			log("La cancion se ha aadido correctamente");
 		} else {
-			log("La cancon no se ha podido a�adir");
+			log("La cancon no se ha podido aadir");
 		}
 		
 		HttpSession session = request.getSession();
 		session.setAttribute("anyadida?", anyadida);
 		String redir="";
-		if (tipo == "ListaRep") {
+		if (tipo.equals("ListaRep")) {
 			redir = "obtener_info_lr?nombre=" + nombre;
 		} else {
 			redir = "obtener_info_podcast?nombre=" + nombre;

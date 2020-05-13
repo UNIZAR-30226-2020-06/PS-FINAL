@@ -480,6 +480,40 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 													<i class="icon-edit  s-24"></i>Editar
 												</button>
 											</div>
+											<!-- AÑADIR CANCION A LISTA DE REPRODUCCI�N -->
+											<div class="overlay-pop-up" id="overlay-anadir-listas-reproduccion">
+											    <div class="col-md-7 card p-5">
+													<a style="position: absolute;top: 20px;right: 30px;" href="" onclick="document.getElementById('overlay-anadir-listas-reproduccion').classList.remove('active');" id="btn-cerrar-anadir-listas-reproduccion" class="btn-cerrar-popup-perfil"><i class="icon-close1"></i></a>			
+														<!-- Input -->
+															<div class="body">
+																<div class="row has-items-overlay">
+																	<c:forEach var="listalr" items="${listaslr}">
+																	<div class="col-lg-3 col-md-4 col-sm-6 my-2">
+																		<figure>
+																			<div class="img-wrapper">
+														
+																				<img src="assets/img/demo/a1.jpg" alt="/">
+																				
+																				<div class="figure-title text-center p-2">
+																					<h5>${listalr.getNombre()}</h5>
+																				</div>
+																			</div>
+																		</figure>
+																		<form class="form-material" action="anyadir_cancion_lr" method="post">
+																			<input type="submit" class="btn btn-outline-primary btn-sm pl-4 pr-4" value="Añadir">
+																			<input type="hidden" name="idLista" value="${listalr.getId()}">
+																			<input type="hidden" name="idAudio" value="">
+																			<input type="hidden" name="nombreLista" value="${listalr.getNombre()}">
+																			<input type="hidden" name="tipo" value="ListaRep">
+																		</form>	
+																	</div>
+																</c:forEach>
+															<!-- #END# Input -->
+															</div>
+														</div>		
+												</div>
+											</div>
+											<!-- END AÑADIR CANCION A LISTA DE REPRODUCCI�N -->
 											<!-- EDICION LISTA DE REPRODUCCION -->
 											<div class="overlay-pop-up" id="overlay-mod-listas-reproduccion">
 											    <div class="col-md-7 card p-5">
@@ -566,8 +600,8 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 											                    </a>
 																<div class="ml-auto">
 																	<a href="anyadir_cancion_fav?idAudio=${cancion.getId()}" class="btn-favorito icon-star active"></a>
-																	<a href="#" class="btn-icono icon-indent" onclick="('${listaslr.size()}','${cancion.getId()}');
-																	document.getElementById('overlay-anadir-listas-reproduccion').classList.add('active')";></a>
+																	<button class="btn-icono icon-indent" onclick="rellenarCampos('${listaslr.size()}','${cancion.getId()}');
+																	document.getElementById('overlay-anadir-listas-reproduccion').classList.add('active')"></button>
 																	<a href="${pageContext.request.contextPath}/borrar_cancion_lr?idAudio=${cancion.getId()}&idLista=${infoLista.getId()}&nombreLista=${infoLista.getNombre()}&tipo=ListaRep" class="btn-icono icon-trash-o" ></a>
 																</div>
 															</div>
@@ -591,40 +625,7 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 </div>
 </c:otherwise>
 </c:choose>
-<!-- AÑADIR CANCION A LISTA DE REPRODUCCI�N -->
-<div class="overlay-pop-up" id="overlay-anadir-listas-reproduccion">
-    <div class="col-md-7 card p-5">
-		<a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-anadir-listas-reproduccion" class="btn-cerrar-popup-perfil"><i class="icon-close1"></i></a>			
-			<!-- Input -->
-				<div class="body">
-					<div class="row has-items-overlay">
-						<c:forEach var="listalr" items="${listaslr}">
-						<div class="col-lg-3 col-md-4 col-sm-6 my-2">
-							<figure>
-								<div class="img-wrapper">
-			
-									<img src="assets/img/demo/a1.jpg" alt="/">
-									
-									<div class="figure-title text-center p-2">
-										<h5>${listalr.getNombre()}</h5>
-									</div>
-								</div>
-							</figure>
-							<form class="form-material" action="anyadir_cancion_lr" method="post">
-								<input type="submit" class="btn btn-outline-primary btn-sm pl-4 pr-4" value="Añadir">
-								<input type="hidden" name="idLista" value="${listalr.getId()}">
-								<input type="hidden" name="idAudio" value="">
-								<input type="hidden" name="nombreLista" value="${listalr.getNombre()}">
-								<input type="hidden" name="tipo" value="ListRep">
-							</form>	
-						</div>
-					</c:forEach>
-				<!-- #END# Input -->
-				</div>
-			</div>		
-	</div>
-</div>
-<!-- END AÑADIR CANCION A LISTA DE REPRODUCCI�N -->
+
 
 <%session.setAttribute("fav", 0); %>
 

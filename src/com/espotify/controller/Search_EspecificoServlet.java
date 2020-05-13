@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.espotify.dao.BusquedasDAO;
+import com.espotify.dao.ListaReproduccionDAO;
 import com.espotify.model.Audio;
 import com.espotify.model.ListaReproduccion;
 import com.espotify.model.Transmision;
@@ -37,10 +38,10 @@ public class Search_EspecificoServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+		HttpSession session = request.getSession();
+		int usuario = Integer.valueOf((String)session.getAttribute("id"));
 		String nombre = request.getParameter("nombre");
 		String tipo= request.getParameter("tipo");
-		log(nombre);
-		log(tipo);
 		request.setAttribute("nombre", nombre);
 		BusquedasDAO busquedas = new BusquedasDAO();
 		try{
@@ -83,7 +84,10 @@ public class Search_EspecificoServlet extends HttpServlet {
 				request.setAttribute("tipo", "Capitulos");
 				break;
 				
-			}			
+			}	
+			
+			List<ListaReproduccion> listaslr = new ListaReproduccionDAO().showLists(usuario,"ListaRep");
+			request.setAttribute("listaslr", listaslr);
 			//RequestDispatcher dispatcher=request.getRequestDispatcher("busqueda.jsp");
 			//dispatcher.forward(request, response);
 			request.getRequestDispatcher("buscar-especifico.jsp").forward(request, response);

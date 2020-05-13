@@ -388,10 +388,19 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 																<div class="col-6">
 																	<h6>${cancion.getTitulo()}</h6>${cancion.getGenero()}
 																</div>
-																<span class="ml-auto">${cancion.getGenero()}</span>
-																<a href="#" class="ml-auto"><i class="icon-share-1"></i></a>
+																<a href="#" class="snackbar ml-3" data-text="Te gusta esta canción"
+																   data-pos="top-right"
+																   data-showAction="true"
+																   data-actionText="ok"
+																   data-actionTextColor="#fff"
+																   data-backgroundColor="#0c101b"><i class="icon-thumbs-o-up s-24"></i>
+																</a>
+																<a href="#" data-toggle="control-sidebar">
+											                        <i style="position: relative;left: 10px;" class="icon-commenting-o s-24"></i>
+											                    </a>
+																<span class="ml-auto">${cancion.getGenero()}</span>								
 																<a href="anyadir_cancion_fav?idAudio=${cancion.getId()}" class="btn-favorito icon-star active" ></a>
-																<a href="#" class="btn-icono icon-list-1" onclick="('${listaslr.size()}','${cancion.getId()}');
+																<a href="#" class="btn-icono icon-list-1" onclick="rellenarCampos('${listaslr.size()}','${cancion.getId()}');
 																document.getElementById('overlay-anadir-listas-reproduccion').classList.add('active')"
 																	></a>
 															</div>
@@ -406,37 +415,28 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 						</div>
                </c:when>
                <c:when test="${tipo=='Transmisiones'}">
-               		<div class="row">
-							<div class="col-lg-10 offset-lg-1">
-								<div class="row">
-									<div class="col-md-12">
-										<div class="playlist">
-											<ul id="playlist" class="playlist list-group">
-												<c:forEach var="cancion" items="${transmisiones}">                    
-													<div style="margin-bottom: -1px;" class="cancion">
-														<li class="list-group-item my-1">																
-															<div class="d-flex align-items-center">
-																<div class="col-1">
-																	<a class="no-ajaxy media-url" href="${cancion.getUrl()}">
-																		<i class="icon-play s-28"></i>
-																	</a>					
-																</div>
-																<div class="col-6">
-																	<h6>${cancion.getNombre()}</h6><c:if test="${cancion.getActiva()}">En directo!</c:if>
-																</div>
-																
-																<a href="#" class="ml-auto"><i class="icon-share-1"></i></a>
-																
-															</div>
-														</li>
-													</div>								                
-												</c:forEach>
-											</ul>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
+               		<div class="row has-items-overlay" >
+		               		<c:forEach var="transmision" items="${transmisiones}" >
+									<div class="col-lg-3 col-md-4 col-sm-6 my-2" style="top:20px;">
+										<figure>
+											<div class="img-wrapper">
+												<img src="assets/img/demo/a1.jpg" alt="/">
+												<div class="img-overlay text-white text-center">
+													<a href="ver_transmision?idTransmision=${transmision.getId()}">
+														<div class="figcaption mt-3">
+															<i class="icon-link s-48"></i>
+															<h5 class="mt-5">${transmision.getNombre()}</h5>
+														</div>
+													</a>
+												</div>
+												<div class="figure-title text-center p-2">
+													<h5>${transmision.getNombre()}</h5>
+												</div>
+											</div>
+										</figure>
+		                    	</div>
+							</c:forEach>                   
+		                </div> 
                </c:when>
                <c:when test="${tipo=='Podcasts'}">
                		<div class="row has-items-overlay" >
@@ -490,8 +490,9 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 																	<h6>${cancion.getTitulo()}</h6>${cancion.getGenero()}
 																</div>
 																<span class="ml-auto">${cancion.getGenero()}</span>
-																<a href="#" class="ml-auto"><i class="icon-share-1"></i></a>
-																<a href="anyadir_cancion_fav?idAudio=${cancion.getId()}" class="btn-favorito icon-star active" ></a>
+																<a href="#" class="btn-icono icon-indent" onclick="rellenarCampos('${podcasts.size()}','${capitulo.getId()}');
+																document.getElementById('overlay-anadir-podcast').classList.add('active')";
+																	></a>
 															</div>
 														</li>
 													</div>								                
@@ -513,6 +514,75 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 </main><!--@Page Content-->
 </div><!--@#app-->
 
+<!-- AÑADIR CANCION A LISTA DE REPRODUCCIÓN -->
+<div class="overlay-pop-up" id="overlay-anadir-listas-reproduccion">
+    <div class="col-md-7 card p-5">
+		<a style="position: absolute;top: 20px;right: 30px;" href="#" onclick="document.getElementById('overlay-anadir-listas-reproduccion').classList.remove('active');" id="btn-cerrar-anadir-listas-reproduccion" class="btn-cerrar-popup-perfil"><i class="icon-close1"></i></a>			
+			<!-- Input -->
+				<div class="body">
+					<div class="row has-items-overlay">
+						<c:forEach var="listalr" items="${listaslr}">
+						<div class="col-lg-3 col-md-4 col-sm-6 my-2">
+							<figure>
+								<div class="img-wrapper">
+			
+									<img src="assets/img/demo/a1.jpg" alt="/">
+									
+									<div class="figure-title text-center p-2">
+										<h5>${listalr.getNombre()}</h5>
+									</div>
+								</div>
+							</figure>
+							<form class="form-material" action="anyadir_cancion_lr" method="post">
+								<input type="submit" class="btn btn-outline-primary btn-sm pl-4 pr-4" value="Añadir">
+								<input type="hidden" name="idLista" value="${listalr.getId()}">
+								<input type="hidden" name="idAudio" value="">
+								<input type="hidden" name="nombreLista" value="${listalr.getNombre()}">
+								<input type="hidden" name="tipo" value="ListaRep">
+							</form>	
+						</div>
+					</c:forEach>
+				<!-- #END# Input -->
+				</div>
+			</div>		
+	</div>
+</div>
+<!-- END AÑADIR CANCION A LISTA DE REPRODUCCIÓN -->
+
+<!-- AÑADIR CAPITULO A PODCAST -->
+<div class="overlay-pop-up" id="overlay-anadir-podcast">
+    <div class="col-md-7 card p-5">
+		<a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-anadir-podcast" class="btn-cerrar-popup-perfil"><i class="icon-close1"></i></a>			
+			<!-- Input -->
+				<div class="body">
+					<div class="row has-items-overlay">
+						<c:forEach var="podcast" items="${podcasts}">
+						<div class="col-lg-3 col-md-4 col-sm-6 my-2">
+							<figure>
+								<div class="img-wrapper">
+			
+									<img src="assets/img/demo/a1.jpg" alt="/">
+									
+									<div class="figure-title text-center p-2">
+										<h5>${podcast.getNombre()}</h5>
+									</div>
+								</div>
+							</figure>
+							<form class="form-material" action="anyadir_cancion_lr" method="post">
+								<input type="submit" class="btn btn-outline-primary btn-sm pl-4 pr-4" value="Añadir">
+								<input type="hidden" name="idLista" value="${podcast.getId()}">
+								<input type="hidden" name="idAudio" value="">
+								<input type="hidden" name="nombreLista" value="${podcast.getNombre()}">
+								<nput type="hidden" name="tipo" value="podcast">
+							</form>	
+						</div>
+					</c:forEach>
+				<!-- #END# Input -->
+				</div>
+			</div>		
+	</div>
+</div>
+<!-- END AÑADIR CAPITULO A PODCAST -->
 
 <!--/#app -->
 <script src="https://maps.googleapis.com/maps/api/js?&amp;key=AIzaSyC3YkZNNySdyR87o83QEHWglHfHD_PZqiw&amp;libraries=places"></script>
