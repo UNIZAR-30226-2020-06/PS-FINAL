@@ -15,9 +15,11 @@ import com.espotify.dao.CancionDAO;
 import com.espotify.dao.CapituloPodcastDAO;
 import com.espotify.dao.GeneroDAO;
 import com.espotify.dao.ListaReproduccionDAO;
+import com.espotify.dao.TransmisionDAO;
 import com.espotify.model.Audio;
 import com.espotify.model.Genero;
 import com.espotify.model.ListaReproduccion;
+import com.espotify.model.Transmision;
 import com.mysql.cj.Session;
 
 /**

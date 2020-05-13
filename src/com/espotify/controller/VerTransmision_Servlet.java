@@ -8,43 +8,39 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.espotify.dao.TransmisionDAO;
+import com.espotify.model.Transmision;
 
 /**
- * Servlet implementation class FinalizarTransmision_Servlet
+ * Servlet implementation class VerTransmision_Servlet
  */
-@WebServlet("/FinalizarTransmision_Servlet")
-public class FinalizarTransmision_Servlet extends HttpServlet {
+@WebServlet("/VerTransmision_Servlet")
+public class VerTransmision_Servlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public FinalizarTransmision_Servlet() {
+    public VerTransmision_Servlet() {
         super();
+        // TODO Auto-generated constructor stub
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int id = Integer.valueOf((String) request.getParameter("idTransmision"));
-		String url = (String) request.getParameter("url");
-		
-		TransmisionDAO transmisionDAO = new TransmisionDAO();
-		
-		if (transmisionDAO.parar(id, url)) {
-			request.getRequestDispatcher("/obtener_contenido_perfil").forward(request, response);
-		} else {
-			System.out.println("ERROR AL ELIMINAR");
-		}
-		
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		int id = Integer.parseInt((String) request.getParameter("idTransmision"));
+		Transmision transmision = new TransmisionDAO().getTransmisionPorId(id);
+		request.setAttribute("transmision", transmision);
+		request.getRequestDispatcher("ver-transmision.jsp").forward(request, response);
+
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 
