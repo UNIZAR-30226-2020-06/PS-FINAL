@@ -4,7 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Enumeration;
 import java.util.List;
 
@@ -15,32 +15,31 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.json.HTTP;
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.espotify.dao.CancionDAO;
-import com.espotify.dao.GeneroDAO;
+import com.espotify.dao.ComentariosDAO;
+import com.espotify.dao.FavoritosDAO;
 import com.espotify.dao.JSONAdapter;
 import com.espotify.dao.ListaReproduccionDAO;
+import com.espotify.dao.TransmisionDAO;
 import com.espotify.dao.UsuarioDAO;
 import com.espotify.model.Audio;
-import com.espotify.model.Genero;
 import com.espotify.model.ListaReproduccion;
+import com.espotify.model.Transmision;
 import com.espotify.model.Usuario;
 
 /**
- * Servlet implementation class AndroidGet_AllUsuariosServlet
+ * Servlet implementation class AndroidAnyadir_ComentarioServlet
  */
-@WebServlet("/AndroidGet_AllUsuariosServlet")
-public class AndroidGet_AllUsuariosServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+@WebServlet("/AndroidAnyadir_ComentarioServlet")
+public class AndroidAnyadir_ComentarioServlet extends HttpServlet {
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AndroidGet_AllUsuariosServlet() {
+    public AndroidAnyadir_ComentarioServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -50,40 +49,38 @@ public class AndroidGet_AllUsuariosServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		getServletContext().log("--- ~AndroidGet_AllUsuariosServlet~ ---");
+		getServletContext().log("--- ~AndroidAnyadir_ComentarioServlet~ ---");
 		
-        JSONObject parametrosPeticion = JSONAdapter.parsarJSON(request);
-        getServletContext().log("Parametros: " + parametrosPeticion);
-        String email = parametrosPeticion.getString("email");
+		JSONObject parametrosPeticion = JSONAdapter.parsarJSON(request);
+        getServletContext().log(JSONAdapter.obtenerParametros(request)); 
         
-        List<Usuario> listaUsuarios = UsuarioDAO.obtenerTodosUsuarios();
+        String comentario = parametrosPeticion.getString("comentario");
+        String usuario = parametrosPeticion.getString("usuario");
+        String titulo = parametrosPeticion.getString("titulo");
         
-        String nombreUsuarios = "";
-        String imagenes = "";
-        String descripciones = "";
-        for (Usuario u : listaUsuarios) {
-        	if (!email.contentEquals(u.getCorreo())) {
-	        	nombreUsuarios += u.getNombre() + "|";
-	        	imagenes += u.getImagen() + "|";
-	        	descripciones += u.getDescripcion() + "|";
+        
+        int idUsuario = UsuarioDAO.obtenerIdDesdeNombreUsuario(usuario);
+        List<Transmision> listaTransmisiones = TransmisionDAO.getTodasTransmisiones();
+        
+        boolean esComentarioTransmision = false;
+        for (Transmision t : listaTransmisiones) {
+        	if(t.getNombre().contentEquals(titulo)) {
+        		ComentariosDAO.anyadirComentarioTrans(comentario, idUsuario, t.getId());
+        		esComentarioTransmision = true;
         	}
         }
         
-        nombreUsuarios = nombreUsuarios.substring(0, nombreUsuarios.length() - 1);
-        imagenes = imagenes.substring(0, imagenes.length() - 1);
-        descripciones = descripciones.substring(0, descripciones.length() - 1);
+        CancionDAO cancionDAO = new CancionDAO();
+        if(!esComentarioTransmision) {
+        	ComentariosDAO.anyadirComentarioAudio(comentario, idUsuario, cancionDAO.obtenerIdCancion(titulo));
+        }
         
-        JSONObject respuestaPeticion = new JSONObject();
+        // Lanzar JSON
         PrintWriter out = response.getWriter();
         response.setContentType("application/json");
         response.setCharacterEncoding("utf-8");
-        respuestaPeticion.put("nombreUsuarios", nombreUsuarios);
-        respuestaPeticion.put("imagenes", imagenes);
-        respuestaPeticion.put("descripciones", descripciones);
-        getServletContext().log("Parametros respuesta: " + respuestaPeticion);
+        
         getServletContext().log("-------------------------------------------");
-        // Lanzar JSON
-        out.print(respuestaPeticion.toString());
 	}
 
 	/**

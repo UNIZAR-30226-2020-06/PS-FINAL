@@ -28,6 +28,12 @@ public class CancionDAO {
 	private final static String GET_NOMBRE_GENERO_QUERY = "SELECT g.nombre FROM Reproductor_musica.Genero g WHERE g.id = ? AND g.tipo = 'cancion'";
 	private final static String GET_CANCIONES_USUARIO = "SELECT a.id, a.titulo, a.url, a.usuario, a.genero FROM Reproductor_musica.Audio a WHERE a.usuario = ? AND a.genero IN (SELECT g.id FROM Reproductor_musica.Genero g WHERE g.tipo = 'cancion')";
 	private final static String GET_TODOS_QUERY = "SELECT * FROM Reproductor_musica.Audio WHERE genero IN (SELECT id FROM Reproductor_musica.Genero WHERE tipo = 'cancion')";
+	private final static String GET_MASLIKES_QUERY = "SELECT a.id, a.url, a.titulo, a.usuario, a.genero" + 
+													 " FROM Reproductor_musica.Audio a, Reproductor_musica.LikesAudio la" + 
+													 " WHERE a.id = la.audio AND a.genero = ? GROUP BY a.id ORDER BY COUNT(la.audio) DESC";	
+	private final static String GET_NOLIKES_QUERY = "SELECT a.id, a.url, a.titulo, a.usuario, a.genero" + 
+													" FROM Reproductor_musica.Audio a, Reproductor_musica.LikesAudio la" + 
+													" WHERE a.id NOT IN (SELECT la.audio FROM Reproductor_musica.LikesAudio la) AND a.genero = ? GROUP BY a.id";
 	
 	public int subirCancion(String titulo, int autor, int genero, String ruta) {
 		System.out.println("SubirCancion Entro+++++++++++++++++");
@@ -147,6 +153,35 @@ public class CancionDAO {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			System.out.println("Error al obtener el id de la canción");
+			return null;
+		}
+	}
+	
+	public List<Audio> obtenerCancionesPorGenero(String genero) {
+		Connection conn;
+		try {
+			conn = ConnectionManager.getConnection();
+			PreparedStatement ps = conn.prepareStatement(GET_MASLIKES_QUERY);				
+			ResultSet rs = ps.executeQuery();
+			List<Audio> listaAudios = new ArrayList<>();
+			ps.setString(1, genero);
+			
+			while(rs.next()) { 
+				listaAudios.add(new Audio(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5)));
+			}
+			
+			PreparedStatement ps2 = conn.prepareStatement(GET_NOLIKES_QUERY);		
+			ps2.setString(1, genero);
+			ResultSet rs2 = ps2.executeQuery();
+			
+			while(rs2.next()) { 
+				listaAudios.add(new Audio(rs2.getString(1), rs2.getString(2), rs2.getString(3), rs2.getString(4), rs2.getString(5)));
+			}
+			
+			ConnectionManager.releaseConnection(conn);
+			
+			return listaAudios;
+		} catch (SQLException e) {
 			return null;
 		}
 	}

@@ -19,22 +19,23 @@ import org.json.JSONObject;
 
 import com.espotify.dao.JSONAdapter;
 import com.espotify.dao.ListaReproduccionDAO;
+import com.espotify.dao.SeguirDAO;
 import com.espotify.dao.UsuarioDAO;
 import com.espotify.model.Audio;
 import com.espotify.model.ListaReproduccion;
 import com.espotify.model.Usuario;
 
 /**
- * Servlet implementation class AndroidGet_ProfileServlet
+ * Servlet implementation class AndroidFollow_UsuarioServlet
  */
-@WebServlet("/AndroidGet_AudiosServlet")
-public class AndroidGet_AudiosServlet extends HttpServlet {
+@WebServlet("/AndroidFollow_BoolServlet")
+public class AndroidFollow_BoolServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AndroidGet_AudiosServlet() {
+    public AndroidFollow_BoolServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -45,40 +46,29 @@ public class AndroidGet_AudiosServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         JSONObject parametrosPeticion = JSONAdapter.parsarJSON(request);
-        getServletContext().log("JSON Object: " + parametrosPeticion);
+        getServletContext().log("--- ~AndroidFollow_BoolServlet~ ---");
+        getServletContext().log("Parametros: " + parametrosPeticion);
         
         String email = parametrosPeticion.getString("email");
-        String nombrePlaylist = parametrosPeticion.getString("nombrePlaylist");
+        String nombreUsuario = parametrosPeticion.getString("usuario");
 
+        String usuario1 = UsuarioDAO.obtenerIdDesdeEmail(email);
+        int usuario2 = UsuarioDAO.obtenerIdDesdeNombreUsuario(nombreUsuario);
+        
+        
         JSONObject respuestaPeticion = new JSONObject();
+        if(SeguirDAO.isFollowing(Integer.parseInt(usuario1), usuario2)) {
+        	respuestaPeticion.put("siguiendo", true);
+        } else {
+        	respuestaPeticion.put("siguiendo", false);
+        }
         
         response.setContentType("application/json");
         response.setCharacterEncoding("utf-8");
         PrintWriter out = response.getWriter();
         
-        int idUsuario = Integer.parseInt(UsuarioDAO.obtenerIdDesdeEmail(email));
-        Usuario u = new UsuarioDAO().obtenerInfo(idUsuario);
-        respuestaPeticion.put("nombreUsuario", u.getNombre());
-        respuestaPeticion.put("descripcion", u.getDescripcion());
-        respuestaPeticion.put("email", u.getCorreo());
-        
-        List<Audio> audios =  ListaReproduccionDAO.getAudios(nombrePlaylist, "3", "ListaRep");
-        getServletContext().log("Audios recibidos" + audios); 
-        
-        String nombresAudio = "";
-        String urlsAudio = "";
-        
-        for(Audio audio : audios) {
-        	nombresAudio += audio.getTitulo() + "|";
-        	urlsAudio += audio.getUrl() + "|";
-        }
-        
-        nombresAudio = nombresAudio.substring(0, nombresAudio.length() - 1);
-        
-        respuestaPeticion.put("nombresAudio", nombresAudio);
-        respuestaPeticion.put("urlsAudio", urlsAudio);
-        
-        
+        getServletContext().log("Respuesta petición: " + respuestaPeticion);
+        getServletContext().log("-----------------------------------------");
         // finally output the json string       
         out.print(respuestaPeticion.toString());
 	}
