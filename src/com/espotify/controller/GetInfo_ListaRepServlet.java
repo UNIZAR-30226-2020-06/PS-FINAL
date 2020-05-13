@@ -40,6 +40,7 @@ public class GetInfo_ListaRepServlet extends HttpServlet {
 		int usuario = Integer.valueOf((String) session.getAttribute("id"));
 		String nombre = request.getParameter("nombre");
 		String tipo = "ListaRep";
+		System.out.println("ENTRROOOOOOOOO");
 		//String aleatorio = request.getParameter("aleatorio");
 		
 		try{

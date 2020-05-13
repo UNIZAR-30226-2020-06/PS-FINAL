@@ -19,22 +19,24 @@ import org.json.JSONObject;
 
 import com.espotify.dao.JSONAdapter;
 import com.espotify.dao.ListaReproduccionDAO;
+import com.espotify.dao.TransmisionDAO;
 import com.espotify.dao.UsuarioDAO;
 import com.espotify.model.Audio;
 import com.espotify.model.ListaReproduccion;
+import com.espotify.model.Transmision;
 import com.espotify.model.Usuario;
 
 /**
- * Servlet implementation class AndroidGet_ProfileServlet
+ * Servlet implementation class AndroidGet_TransmisionesServlet
  */
-@WebServlet("/AndroidGet_AudiosServlet")
-public class AndroidGet_AudiosServlet extends HttpServlet {
+@WebServlet("/AndroidGet_TransmisionesServlet")
+public class AndroidGet_TransmisionesServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AndroidGet_AudiosServlet() {
+    public AndroidGet_TransmisionesServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -45,41 +47,50 @@ public class AndroidGet_AudiosServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         JSONObject parametrosPeticion = JSONAdapter.parsarJSON(request);
-        getServletContext().log("JSON Object: " + parametrosPeticion);
+        getServletContext().log("--- ~AndroidGet_TransmisionesServlet~ ---");
+        getServletContext().log("Parametros: " + parametrosPeticion);
         
         String email = parametrosPeticion.getString("email");
-        String nombrePlaylist = parametrosPeticion.getString("nombrePlaylist");
-
-        JSONObject respuestaPeticion = new JSONObject();
         
         response.setContentType("application/json");
         response.setCharacterEncoding("utf-8");
         PrintWriter out = response.getWriter();
         
-        Usuario u = new UsuarioDAO().obtenerInfo(email);
-        respuestaPeticion.put("nombreUsuario", u.getNombre());
-        respuestaPeticion.put("descripcion", u.getDescripcion());
-        respuestaPeticion.put("email", u.getCorreo());
+        UsuarioDAO u = new UsuarioDAO();
+        String idUsuario = u.obtenerIdDesdeEmail(email);
         
-        String idUsuario = UsuarioDAO.obtenerIdDesdeEmail(email);
+        TransmisionDAO tr = new TransmisionDAO();
+        List<Transmision> lista = tr.getTransmisionesUsersSeguidos(Integer.parseInt(idUsuario));
         
-        List<Audio> audios =  ListaReproduccionDAO.getAudios(nombrePlaylist, "3", "ListaRep");
-        getServletContext().log("Audios recibidos" + audios); 
+        boolean hayTransmisiones = false;
+        String nombresTransmision = "";
+        String urlsTransmision = "";
+        String usuariosTransmision = "";
         
-        String nombresAudio = "";
-        String urlsAudio = "";
-        
-        for(Audio audio : audios) {
-        	nombresAudio += audio.getTitulo() + "|";
-        	urlsAudio += audio.getUrl() + "|";
+        for (Transmision t : lista) {
+        	if (t.getActiva()) {
+        		nombresTransmision += t.getNombre() + "|";
+        		urlsTransmision += t.getUrl() + "|";
+        		usuariosTransmision += t.getUsuario() + "|";
+        	}
+        	hayTransmisiones = true;
         }
         
-        nombresAudio = nombresAudio.substring(0, nombresAudio.length() - 1);
         
-        respuestaPeticion.put("nombresAudio", nombresAudio);
-        respuestaPeticion.put("urlsAudio", urlsAudio);
+        JSONObject respuestaPeticion = new JSONObject();
         
+        if (hayTransmisiones) {
+        	nombresTransmision = nombresTransmision.substring(0, nombresTransmision.length() - 1);
+        	urlsTransmision = urlsTransmision.substring(0, urlsTransmision.length() - 1);
+        	usuariosTransmision = usuariosTransmision.substring(0, usuariosTransmision.length() - 1);
         
+        }
+        
+        respuestaPeticion.put("nombresTransmision", nombresTransmision);
+        respuestaPeticion.put("urlsTransmision", urlsTransmision);
+        respuestaPeticion.put("usuariosTransmision", usuariosTransmision);
+        getServletContext().log("Respuesta: " + respuestaPeticion);
+        getServletContext().log("----------------------------------------");
         // finally output the json string       
         out.print(respuestaPeticion.toString());
 	}

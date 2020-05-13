@@ -186,6 +186,24 @@
 	</servlet-mapping>
 	
 	<servlet>
+		<servlet-name>AndroidSubir_CapituloServlet</servlet-name>
+		<servlet-class>com.espotify.controller.AndroidSubir_CapituloServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AndroidSubir_CapituloServlet</servlet-name>
+		<url-pattern>/subir_capitulo_android</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>AndroidGet_AllUsuariosServlet</servlet-name>
+		<servlet-class>com.espotify.controller.AndroidGet_AllUsuariosServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AndroidGet_AllUsuariosServlet</servlet-name>
+		<url-pattern>/obtener_usuarios_android</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
 		<servlet-name>AndroidEliminar_PodcastServlet</servlet-name>
 		<servlet-class>com.espotify.controller.AndroidEliminar_PodcastServlet</servlet-class>
 	</servlet>
@@ -260,6 +278,16 @@
 	</servlet-mapping>
 	
 	<servlet>
+		<servlet-name>AndroidGet_FavoritosServlet</servlet-name>
+		<servlet-class>com.espotify.controller.AndroidGet_FavoritosServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AndroidGet_FavoritosServlet</servlet-name>
+		<url-pattern>/obtener_favoritos_android</url-pattern>
+	</servlet-mapping>
+	
+	
+	<servlet>
 		<servlet-name>AndroidAnyadir_AudioListaServlet</servlet-name>
 		<servlet-class>com.espotify.controller.AndroidAnyadir_AudioListaServlet</servlet-class>
 	</servlet>
@@ -267,6 +295,53 @@
 		<servlet-name>AndroidAnyadir_AudioListaServlet</servlet-name>
 		<url-pattern>/anyadir_audio_lista_android</url-pattern>
 	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>AndroidAnyadir_FavoritosServlet</servlet-name>
+		<servlet-class>com.espotify.controller.AndroidAnyadir_FavoritosServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AndroidAnyadir_FavoritosServlet</servlet-name>
+		<url-pattern>/anyadir_favorito_android</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>AndroidEliminar_FavoritosServlet</servlet-name>
+		<servlet-class>com.espotify.controller.AndroidEliminar_FavoritosServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AndroidEliminar_FavoritosServlet</servlet-name>
+		<url-pattern>/eliminar_favorito_android</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>AndroidGet_TransmisionesServlet</servlet-name>
+		<servlet-class>com.espotify.controller.AndroidGet_TransmisionesServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AndroidGet_TransmisionesServlet</servlet-name>
+		<url-pattern>/transmisiones_servlet</url-pattern>
+	</servlet-mapping>
+	
+	
+	<servlet>
+		<servlet-name>AndroidFollow_UsuarioServlet</servlet-name>
+		<servlet-class>com.espotify.controller.AndroidFollow_UsuarioServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AndroidFollow_UsuarioServlet</servlet-name>
+		<url-pattern>/follow_usuario_android</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>AndroidUnfollow_UsuarioServlet</servlet-name>
+		<servlet-class>com.espotify.controller.AndroidUnfollow_UsuarioServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AndroidUnfollow_UsuarioServlet</servlet-name>
+		<url-pattern>/unfollow_usuario_android</url-pattern>
+	</servlet-mapping>
+	
 	
 	<servlet>
 		<servlet-name>Usuario_modinfo</servlet-name>
@@ -418,6 +493,15 @@
 	</servlet-mapping>
 	
 	<servlet>
+		<servlet-name>mostrar_transmisiones</servlet-name>
+		<servlet-class>com.espotify.controller.GetAll_TransmisionesServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>mostrar_transmisiones</servlet-name>
+		<url-pattern>/mostrar_transmisiones</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
 			<servlet-name>obtener_contenido_perfil</servlet-name>
 			<servlet-class>com.espotify.controller.ObtenerCotenidoUsuario</servlet-class>
 	</servlet>
@@ -459,6 +543,15 @@
 	    <servlet-mapping>
 		 	<servlet-name>finalizar_transmision</servlet-name>
 	       	<url-pattern>/finalizar_transmision</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+        <servlet-name>ver_transmision</servlet-name>
+	    <servlet-class>com.espotify.controller.VerTransmision_Servlet</servlet-class>
+	</servlet>
+	    <servlet-mapping>
+		 	<servlet-name>ver_transmision</servlet-name>
+	       	<url-pattern>/ver_transmision</url-pattern>
 	</servlet-mapping>
 		
 		<servlet>

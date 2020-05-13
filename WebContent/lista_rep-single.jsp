@@ -424,7 +424,7 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 											                        <i style="position: relative;left: 10px;" class="icon-commenting-o s-24"></i>
 											                    </a>
 																<div class="ml-auto">
-																	<a href="${pageContext.request.contextPath}/borrar_cancion_fav?idAudio=${cancion.getId()}" class="btn-icono icon-trash-o" ></a>
+																	<a href="${pageContext.request.contextPath}/borrar_cancion_fav?idAudio=${cancion.getId()}" class="btn-favorito icon-star active" ></a>
 																</div>
 															</div>
 														</li>

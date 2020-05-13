@@ -276,7 +276,7 @@ String hayfoto = (String) session.getAttribute("hayfoto");
             <!-- BOTONES ANTERIOR, PAUSE, SIGUIENTE -->
                 <div class="col">
                     <div class="d-flex align-items-center">
-                        <button id="shuffleTrack" class="btn btn-link d-none d-sm-block">
+                        <button id="shuffleTrack" class="btn btn-link d-none d-sm-block" onClick="document.getElementById('shuffleTrack').classList.add('active');">
                             <i class="icon-shuffle s-18"></i>
                         </button>
                         <button id="previousTrack" class="btn btn-link d-none d-sm-block">
@@ -289,7 +289,7 @@ String hayfoto = (String) session.getAttribute("hayfoto");
                         <button id="nextTrack" class="btn btn-link d-none d-sm-block">
                             <i class="icon-next s-18"></i>
                         </button>
-                        <button class="btn btn-link" onclick="loopAudio();">
+                        <button class=" btn btn-control" id="btn-loop" onclick="loopAudio();document.getElementById('btn-loop').classList.add('active');"">
                             <i class="icon-repeat s-18"></i>
                         </button>
                     </div>
@@ -341,6 +341,43 @@ String hayfoto = (String) session.getAttribute("hayfoto");
             <section class="section">
                 <div class="d-flex relative align-items-center justify-content-between" style="background-color:black;">
 	                    <div class="mb-4">
+	                        <h2 style="color:orange;">Transmisiones en vivo de los usuarios seguidos</h2> 
+	                    </div>
+	                    <a style="text-align:right;" 
+                    		href="mostrar_transmisiones" >Ver más
+                    		<i class="icon-angle-right ml-3"></i>
+	                    </a>     
+                </div>
+               <div class="row has-items-overlay" >
+               		<c:forEach var="transmision" items="${transmisiones}" >
+							<div class="col-lg-3 col-md-4 col-sm-6 my-2" style="top:20px;">
+								<figure>
+									<div class="img-wrapper">
+										<img src="assets/img/demo/a1.jpg" alt="/">
+										<div class="img-overlay text-white text-center">
+											<a href="ver_transmision?idTransmision=${transmision.getId()}">
+												<div class="figcaption mt-3">
+													<i class="icon-link s-48"></i>
+													<h5 class="mt-5">${transmision.getNombre()}</h5>
+												</div>
+											</a>
+										</div>
+										<div class="figure-title text-center p-2">
+											<h5>${transmision.getNombre()}</h5>
+										</div>
+									</div>
+								</figure>
+                    	</div>
+					</c:forEach>                   
+               </div> 
+               </section>
+            <!-- END TRANSMISIONES EN VIVO -->
+            
+            <!-- LISTAS DE REPRODUCCION -->
+            
+            <section class="section">
+                <div class="d-flex relative align-items-center justify-content-between" style="background-color:black;">
+	                    <div class="mb-4">
 	                        <h2 style="color:orange;">Tus Listas de reproduccion</h2> 
 	                    </div>
 	                    <a style="text-align:right;" 
@@ -376,7 +413,9 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 					</c:forEach>                   
                </div> 
                </section>
+               <!-- END LISTAS DE REPRODUCCION -->
               
+              <!-- FAVORITOS -->
                <div class="d-flex relative align-items-center justify-content-between" style="background-color:black;">
                     <div class="mb-4">
                         <h2 style="color:orange;">Tus Canciones favoritas</h2>
@@ -418,7 +457,7 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 											                        <i style="position: relative;left: 10px;" class="icon-commenting-o s-24"></i>
 											                    </a>
 																<div class="ml-auto">
-																	<a href="${pageContext.request.contextPath}/borrar_cancion_fav?idAudio=${cancion.getId()}" class="btn-icono icon-trash-o" ></a>
+																	<a href="${pageContext.request.contextPath}/borrar_cancion_fav?idAudio=${cancion.getId()}" class="btn-favorito icon-star active" ></a>
 																</div>
 															</div>
 														</li>
@@ -431,6 +470,8 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 							</div>
 						</div>
 					</section>
+					<!-- END FAVORITOS -->
+					
 					<!--@New Releases-->
 				</div>
 				<!--  
@@ -445,6 +486,7 @@ String hayfoto = (String) session.getAttribute("hayfoto");
                 </div>-->
         </div>
     </div>
+</div>
 <!-- BORRAR LISTA DE REPRODUCCIÓN -->	
 	<div class="overlay-pop-up" id="overlay-borrar-listas-reproduccion">	
 	    <div class="col-md-7 card p-5">	

@@ -40,16 +40,17 @@ import com.espotify.model.Usuario;
 
 
 /**
- * Servlet implementation class AndroidSubir_ImagenUsuarioServlet
+ * Servlet implementation class AndroidVal
  */
-@WebServlet("/AndroidSubir_ImagenUsuarioServlet")
-public class AndroidSubir_ImagenUsuarioServlet extends HttpServlet {
+@WebServlet("/AndroidSubir_CapituloServlet")
+public class AndroidSubir_CapituloServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private static final String URL_PRINCIPAL = "https://espotify.ddns.net/almacen-mp3/";
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AndroidSubir_ImagenUsuarioServlet() {
+    public AndroidSubir_CapituloServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -59,34 +60,50 @@ public class AndroidSubir_ImagenUsuarioServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		getServletContext().log("--- ~AndroidSubir_ImagenUsuarioServlet~ ---");
+		getServletContext().log("--- ~AndroidSubir_CapituloServlet~ ---");
 		
         JSONObject parametrosPeticion = JSONAdapter.parsarJSON(request);
         
-        String imagenCodificada = parametrosPeticion.getString("imagen");
+        String cancion = parametrosPeticion.getString("capitulo");
+        String titulo = parametrosPeticion.getString("nombreCapitulo");
+        String genero = parametrosPeticion.getString("generoCapitulo");
+        String podcast = parametrosPeticion.getString("nombrePodcast");
         String email = parametrosPeticion.getString("email");
-        String idUsuario = UsuarioDAO.obtenerIdDesdeEmail(email);
+        int  idUsuario = Integer.parseInt(UsuarioDAO.obtenerIdDesdeEmail(email));
         
-        String ficheroImagen = idUsuario + ".jpg";
-        
-        //
-        //if(ficheroAudio.exists()) {
-       // 	ficheroAudio.delete();
-        //}
-        
-        byte[] decodedString = Base64.getDecoder().decode(new String(imagenCodificada).getBytes("UTF-8"));
-        try (OutputStream stream = new FileOutputStream("/var/www/html/almacen-mp3/almacen-img/" + ficheroImagen)) {
+        int lastId = SubirAudioDAO.obtenerUltimaCancionId() + 1;
+        String ficheroCancion = lastId + ".mp3";
+
+        byte[] decodedString = Base64.getDecoder().decode(new String(cancion).getBytes("UTF-8"));
+        try (OutputStream stream = new FileOutputStream("/var/www/html/almacen-mp3/" + ficheroCancion)) {
             stream.write(decodedString);
         }
         
-        File ficheroAudio = new File("/var/www/html/almacen-mp3/almacen-img/" + ficheroImagen);
+        File ficheroAudio = new File("/var/www/html/almacen-mp3/" + ficheroCancion);
         
         ficheroAudio.setReadable(true, false);
 		ficheroAudio.setExecutable(true, false);
 		ficheroAudio.setWritable(true, false);
-
+        
+        CancionDAO ca = new CancionDAO();
+        GeneroDAO gd = new GeneroDAO();
+        int idGenero = gd.obtenerIdGenero(genero);
+        
+        getServletContext().log("idGenero: " + idGenero);
+        int exito = ca.subirCancion(titulo, idUsuario, idGenero, URL_PRINCIPAL + ficheroCancion);
+        
+        
+        int idLista = ListaReproduccionDAO.obtenerIdLista(podcast);
+        ListaReproduccionDAO.anyadirAudio(lastId, idLista);
+       
+        boolean resultado = ListaReproduccionDAO.anyadirAudio(lastId, idLista);
+        
         JSONObject respuestaPeticion = new JSONObject();
-
+        if(exito == 1) {
+        	respuestaPeticion.put("estado", "ok");
+        } else {
+        	respuestaPeticion.put("estado", "fail");
+        }
         
         getServletContext().log("------------------------------------");
         

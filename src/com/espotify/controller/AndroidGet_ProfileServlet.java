@@ -24,6 +24,7 @@ import org.json.JSONObject;
 import com.espotify.dao.CancionDAO;
 import com.espotify.dao.JSONAdapter;
 import com.espotify.dao.ListaReproduccionDAO;
+import com.espotify.dao.SeguirDAO;
 import com.espotify.dao.UsuarioDAO;
 import com.espotify.model.Audio;
 import com.espotify.model.ListaReproduccion;
@@ -62,6 +63,7 @@ public class AndroidGet_ProfileServlet extends HttpServlet {
         
         Usuario u = UsuarioDAO.obtenerInfo(email);
         
+        /*
         Blob imagenBlob = UsuarioDAO.obtenerBlobImagen(email);
         int blobLength;
 		try {
@@ -73,13 +75,16 @@ public class AndroidGet_ProfileServlet extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		*/
         
         respuestaPeticion.put("nombreUsuario", u.getNombre());
         respuestaPeticion.put("descripcion", u.getDescripcion());
         respuestaPeticion.put("email", u.getCorreo());
         
         
-        String idUsuario = UsuarioDAO.obtenerId(email);
+        String idUsuario = UsuarioDAO.obtenerIdDesdeEmail(email);
+        int nSeguidores = SeguirDAO.getNumFollowers(Integer.parseInt(idUsuario));
         
         CancionDAO canciondao = new CancionDAO();
         List<ListaReproduccion> listas = new ListaReproduccionDAO().showLists(idUsuario, "ListaRep");
@@ -113,22 +118,23 @@ public class AndroidGet_ProfileServlet extends HttpServlet {
         	podcasts += podcast.getNombre() + "|";
         	podcastsUsuarioDescripcion += podcast.getDescripcion() + "|";
         	tienePodcasts = true;
-        }
+        } 
+        
         
         if(tieneListas) {
         	listasDescripcion = listasDescripcion.substring(0, listasDescripcion.length() - 1);
         	listasReproduccion = listasReproduccion.substring(0, listasReproduccion.length() - 1);
-        }
+        } 
         
     	if (tieneAudios) {
     		audiosUsuarioTitulo = audiosUsuarioTitulo.substring(0, audiosUsuarioTitulo.length() - 1);
         	audiosUsuarioUrls = audiosUsuarioUrls.substring(0, audiosUsuarioUrls.length() - 1);
-    	}
+    	} 
     	
     	if (tienePodcasts) {
     		podcasts = podcasts.substring(0, podcasts.length() - 1);
     		podcastsUsuarioDescripcion = podcastsUsuarioDescripcion.substring(0, podcastsUsuarioDescripcion.length() - 1);
-    	}
+    	} 
     	
         respuestaPeticion.put("lista", listasReproduccion);
         respuestaPeticion.put("listaDescripcion", listasDescripcion);
@@ -136,6 +142,7 @@ public class AndroidGet_ProfileServlet extends HttpServlet {
         respuestaPeticion.put("audiosUrl", audiosUsuarioUrls);
         respuestaPeticion.put("podcasts", podcasts);
         respuestaPeticion.put("podcastsDescripcion", podcastsUsuarioDescripcion);
+        respuestaPeticion.put("numSeguidores", nSeguidores);
         getServletContext().log("Respuesta: " + respuestaPeticion.toString());
         getServletContext().log("-------------------------------------------");
         // Lanzar JSON

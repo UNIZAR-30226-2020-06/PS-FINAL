@@ -6,20 +6,23 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.util.List;
 
 import com.espotify.dao.TransmisionDAO;
+import com.espotify.model.Transmision;
 
 /**
- * Servlet implementation class FinalizarTransmision_Servlet
+ * Servlet implementation class GetAll_TransmisionesSrvlet
  */
-@WebServlet("/FinalizarTransmision_Servlet")
-public class FinalizarTransmision_Servlet extends HttpServlet {
+@WebServlet("/GetAll_TransmisionesSrvlet")
+public class GetAll_TransmisionesServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public FinalizarTransmision_Servlet() {
+    public GetAll_TransmisionesServlet() {
         super();
     }
 
@@ -27,18 +30,13 @@ public class FinalizarTransmision_Servlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int id = Integer.valueOf((String) request.getParameter("idTransmision"));
-		String url = (String) request.getParameter("url");
-		
-		TransmisionDAO transmisionDAO = new TransmisionDAO();
-		
-		if (transmisionDAO.parar(id, url)) {
-			request.getRequestDispatcher("/obtener_contenido_perfil").forward(request, response);
-		} else {
-			System.out.println("ERROR AL ELIMINAR");
-		}
-		
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		HttpSession session = request.getSession();
+		//PONER PARA USUARIOS SEGUIDOS
+		//int idUsuario = Integer.parseInt(session.getId());
+		List<Transmision> transmisiones = new TransmisionDAO().getTransmisionPorNombre("PruebaEscuchar");
+		//List<Transmision> transmisiones = new TransmisionDAO().getTransmisionesUsersSeguidos(idUsuario);
+		request.setAttribute("transmisiones", transmisiones);
+		request.getRequestDispatcher("mostrar_transmisiones.jsp").forward( request, response );
 	}
 
 	/**

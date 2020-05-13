@@ -1,30 +1,16 @@
-<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%><!DOCTYPE html>
 <html lang="zxx">
 
-<!--  
-########################################################################
-############### BASE DE TODAS LAS PAGINAS    ###########################
-########################################################################
--->
-
-<!-- RECOGIDA DATOS -->
-<%
-String nombre = (String) session.getAttribute("nombre");
-%>
-
-
-<!-- NOMBRE DE LA PESTAÃA -->
+<!-- NOMBRE DE LA PESTAÃÂA -->
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="icon" href="assets/img/basic/logo.ico" type="image/x-icon">
-    <title>Espotify</title>
+    <title>Espotify - Mis Podcasts</title>
     <!-- CSS -->
     <link rel="stylesheet" href="assets/css/app.css">
 </head>
@@ -34,7 +20,7 @@ String nombre = (String) session.getAttribute("nombre");
   To disable preloader remove 'has-preloader' from body
  -->
 
-<div id="loader" class="loader">
+ <div id="loader" class="loader">
     <div class="loader-container">
         <div class="preloader-wrapper big active">
             <div class="spinner-layer spinner-blue">
@@ -98,23 +84,23 @@ String nombre = (String) session.getAttribute("nombre");
                     <i class=" icon-angle-left  pull-right"></i>
                 </a>
                 <ul class="sub-menu">
-					<c:forEach var="genero1" items="${generos}">                    
-						<li><a href="page-blank.jsp" >${genero1.getNombre()}</a></li>
+					<c:forEach var="genero" items="${generos}">                    
+						<li><a href="page-blank.jsp" >${genero.getNombre()}</a></li>
 	                </c:forEach>
 
                 </ul>
             </li>
             
-            <li><a class="ajaxifyPage" href="mostrar_lrs?tipo=ListaRep" onclick="setTimeout(location.reload.bind(location), 1)">
-                    <i class="icon icon-compact-disc-1 s-24"></i> <span>Mis listas de reproduccion</span>
+            <li><a class="ajaxifyPage" href="mostrar_lrs?tipo=ListaRep" >
+                    <i class="icon icon-compact-disc-1 s-24"></i> <span>Mis Listas de Reproducción</span>
                 </a>
             </li>
             
-            <li><a class="ajaxifyPage" href="podcasts.jsp" >
+            <li><a class="ajaxifyPage" href="mostrar_podcasts?tipo=podcast" >
                     <i class="icon icon-headphones s-24"></i> <span>Mis podcasts</span>
                 </a>
             </li>
-            <li><a class="ajaxifyPage" href="obtener_info_fav" >
+            <li><a class="ajaxifyPage" href="obtener_info_fav" onclick="setTimeout(locaton.reload.bind(location), 1)">
             		<i class="icon icon-star s-24"></i> <span>Mis favoritos</span>
             	</a>
             </li>
@@ -134,7 +120,7 @@ String nombre = (String) session.getAttribute("nombre");
         <div class="p-3">
             <ul id="playlist" class="playlist list-group">
                 <li class="list-group-item my-1">
-                    <a class="no-ajaxy media-url" href="assets/media/track1.mp3"  data-wave="assets/media/track1.json">
+                    <a class="no-ajaxy media-url" href="http://34.69.44.48/almacen-mp3/13.mp3" data-wave="http://34.69.44.48/almacen-mp3/13.mp3">
                         <div class="d-flex justify-content-between align-items-center">
                             <i class="icon-play s-28"></i>
                             <figure class="avatar-md float-left mr-3 mt-1">
@@ -218,7 +204,6 @@ String nombre = (String) session.getAttribute("nombre");
 <div class="control-sidebar-bg shadow  fixed"></div>
 <!-- ACABA MENU DERECHA -->
 
-
 <svg class="d-none">
     <defs>
         <symbol id="icon-cross" viewBox="0 0 24 24">
@@ -230,34 +215,6 @@ String nombre = (String) session.getAttribute("nombre");
     </defs>
 </svg>
 
-<!-- BUSCADOR (LUPA) -->
-<div class="searchOverlay page">
-    <button
-            id="btn-searchOverlay-close"
-            class="btn btn--searchOverlay-close"
-            aria-label="Close searchOverlay form"
-    >
-        <svg class="icon icon--cross">
-            <use xlink:href="#icon-cross"></use>
-        </svg>
-    </button>
-    <div class="searchOverlay__inner  searchOverlay__inner--up">
-        <form class="searchOverlay__form" action="Buscar" method="post">
-            <input
-                    class="searchOverlay__input"
-                    name="nombre"
-                    type="text"
-                    placeholder="Search"
-                    autocomplete="off"
-                    spellcheck="false"
-                    required
-            />
-            <span class="searchOverlay__info">Enter para buscar, esc  para cancelar</span>
-        </form>
-    </div>
-    
-</div>
-<!-- ACABA BUSCADOR (LUPA) -->
 
 
 <%
@@ -375,74 +332,79 @@ String hayfoto = (String) session.getAttribute("hayfoto");
         </div>
         <!--END Player-->
     </div>
+
 </nav>
 <!-- ACABA BARRA DE ABAJO -->
 
-<!--  
-########################################################################
-############### ACABA BASE DE TODAS LAS PAGINAS    #####################
-########################################################################
--->
-<!--Page Content-->
 <main id="pageContent" class="page has-sidebar">
-<div class="container-fluid relative animatedParent animateOnce p-lg-5">
-    <div class="card no-b shadow no-r">
-        <div class="row no-gutters">
-            <div class="col-md-4 b-r">
-                <div class="text-center p-5 mt-5">
-                    <figure class="avatar avatar-xl">
-                        <img src="assets/img/demo/u7.jpg" alt=""></figure>
-                    <div>
-                        <h4 class="p-t-10"><%=nombre %></h4>
-                    </div>
-                   <ul id="transmision" class="playlist list-group">
-                   	<li class="list-group-item my-1">
-              			<div class="d-flex align-items-center">
-							<div class="col-1">
-								<a class="no-ajaxy media-url" href="${transmision.getUrl()}">
-									<i class="icon-play s-28"></i>
-								</a>					
-							</div>
-							<div class="col-6">
-								<h3>${transmision.getNombre()}</h3>
-								<h6>${transmision.getDescripcion()}</h6>
-							</div>
-							<span class="ml-auto">${transmision.getActiva()}</span>
-						</div>
-                   	</li>
-                   </ul>
-                </div>
-            </div>
-			
-            <!-- COMENTARIOS -->
-			<div class="text-center p-5 mt-5">
-				<div class="p5 b-b">
-					<div class="playlist">
-						<textarea class="formulario-subir-cancion" >COMENTARIO</textarea>
-					</div>
-					<div class="playlist">
-						<textarea class="formulario-subir-cancion" >COMENTARIO</textarea>
-					</div>
-					<div class="playlist">
-						<textarea class="formulario-subir-cancion" >COMENTARIO</textarea>
-					</div>
-				</div>
-				<input type="text" name="comentario" class="formulario-subir-cancion" placeholder="COMENTA" required=""/>			
-				<div="p-4">
-					<input type="submit" class="btn btn-outline-primary btn-sm  mt-3" value="COMENTAR">
-				</div>
-			</div>
-			<!-- COMENTARIOS -->
-        </div>
-    </div>
 
-</div>
+<div class="container-fluid relative animatedParent animateOnce">
+        <div class="animated p-5 ml-lg-5 mr-lg-5">
+            <section>
+                <div class="relative mb-5" style="text-align: center; background-color:black;">
+                    <h1 class="mb-2 text-primary">Transmisiones</h1>
+                    <p>Las transmisiones en vivo de los usuarios que sigues</p>
+                </div>
+                <div class="contenido-pestanas" style="text-align: center;">
+						<button class="btn btn-abrir-popup-lista icon-plus" id="iniciar-tranmision"  onClick="document.getElementById('overlay-iniciar-transmision').classList.add('active');">Iniciar Transmisión</button>
+				</div> 
+                <div class="row has-items-overlay">
+                    <c:forEach var="transmision" items="${transmisiones}" >
+						<div class="col-lg-3 col-md-4 col-sm-6 my-2">
+							<figure>
+								<div class="img-wrapper">
+									<img src="assets/img/demo/a3.jpg" alt="/">
+									<div class="img-overlay text-white text-center">
+										<a 	 href="ver_transmision?idTransmision=${transmision.getId()}" >
+											<div class="figcaption mt-3">
+												<i class="icon-link s-48"></i>
+												<h5 class="mt-5">${transmision.getNombre()}</h5>
+											</div>
+										</a>
+									</div>
+									<div class="figure-title text-center p-2">
+										<h5>${transmision.getNombre()}</h5>
+									</div>
+								</div>
+							</figure>
+                   		</div>
+					</c:forEach>      
+                </div>
+            </section>
+        </div>
+     </div> 
+                    
+
+<!-- INICIAR TRANSMISION -->
+<div class="overlay-pop-up" id="overlay-iniciar-transmision">	
+		<div class="col-md-7 card p-5">	
+	        <a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-iniciar-transmision" class="btn-cerrar-popup-perfil"	
+	        class="btn btn-outline-primary btn-sm pl-4 pr-4"  onclick="document.getElementById('overlay-iniciar-transmision').classList.remove('active');"><i class="icon-close1"></i></a>	
+			<form class="form-material" action="iniciar_transmision" method="post">
+					<div class="p5 b-b">
+						<input type="text" name="nombre" class="formulario-subir-cancion" placeholder="Nombre de la transmisión" required=""/>
+						<input type="text" name="descripcion" class="formulario-subir-cancion" placeholder="Descripcion"/>
+					</div>
+					<div="p-4">
+						<input type="submit" class="btn btn-outline-primary btn-sm  mt-3" value="INICIAR">
+					</div>
+			</form>
+		</div>
+</div>				
+<!-- END INICIAR TRANSMISION -->
+
+
+
+
+
+
 
 </main><!--@Page Content-->
 </div><!--@#app-->
 <!--/#app -->
 <script src="https://maps.googleapis.com/maps/api/js?&amp;key=AIzaSyC3YkZNNySdyR87o83QEHWglHfHD_PZqiw&amp;libraries=places"></script>
 <script src="assets/js/app.js"></script>
+<script  src="assets/js/mostrar-popup.js"></script>
 <script>
 	function loopAudio(){
 		var audio = document.getElementsByTagName("audio")[0];
@@ -473,6 +435,5 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 		}
 	}
 	</script>
-
 </body>
 </html>

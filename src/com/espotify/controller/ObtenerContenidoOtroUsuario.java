@@ -43,7 +43,7 @@ public class ObtenerContenidoOtroUsuario extends HttpServlet {
 		HttpSession session = request.getSession();
 		int id = Integer.valueOf((String) session.getAttribute("id"));
 		String nombre = request.getParameter("nombre");
-		int idUsuario = Integer.valueOf(new UsuarioDAO().obtenerId(nombre));
+		int idUsuario = Integer.valueOf(new UsuarioDAO().obtenerIdDesdeNombreUsuario(nombre));
 		if (id == idUsuario) {
 			request.getRequestDispatcher("obtener_contenido_perfil").forward(request, response);
 		}

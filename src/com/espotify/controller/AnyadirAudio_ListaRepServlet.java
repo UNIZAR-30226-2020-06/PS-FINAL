@@ -40,9 +40,9 @@ public class AnyadirAudio_ListaRepServlet extends HttpServlet {
 		Boolean anyadida = new ListaReproduccionDAO().anyadirAudio(idAudio, idLista);
 		
 		if (anyadida) {
-			log("La cancion se ha añadido correctamente");
+			log("La cancion se ha aï¿½adido correctamente");
 		} else {
-			log("La cancon no se ha podido añadir");
+			log("La cancon no se ha podido aï¿½adir");
 		}
 		
 		HttpSession session = request.getSession();
@@ -51,7 +51,7 @@ public class AnyadirAudio_ListaRepServlet extends HttpServlet {
 		if (tipo == "ListaRep") {
 			redir = "obtener_info_lr?nombre=" + nombre;
 		} else {
-			redir = "obtener_info_podcast?nombre=" +nombre;
+			redir = "obtener_info_podcast?nombre=" + nombre;
 		}
 		log("Donde redirige: " +redir);
 		

@@ -5,6 +5,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.Part;
 
@@ -30,9 +32,11 @@ public class UsuarioDAO {
 	private final static String UPDATE_PASS_QUERY_NOVERIFY = "UPDATE Reproductor_musica.Usuario SET password=? WHERE id = ?";
 	private final static String LOGIN_QUERY = "SELECT nombre, descripcion, mail, id, imagen FROM Reproductor_musica.Usuario WHERE mail = ? AND password = ?";
 	private final static String USER_GETID_QUERY = "SELECT id, imagen FROM Reproductor_musica.Usuario WHERE mail = ?";
+	private final static String USER_GETID_NAME_QUERY = "SELECT id FROM Reproductor_musica.Usuario WHERE nombre = ?";
 	private final static String USER_GETINFO_QUERY = "SELECT nombre, descripcion, mail, imagen FROM Reproductor_musica.Usuario WHERE mail = ?";
 	private final static String USER_GETIMAGE_BLOB_QUERY = "SELECT imagen FROM Reproductor_musica.Usuario WHERE mail = ?";
-	
+	private final static String USER_GETALL_QUERY = "SELECT * FROM Reproductor_musica.Usuario";
+	private final static String ALMACEN_IMG_URL = "https://espotify.ddns.net/almacen-mp3/almacen-img/";
 	
 	/**
 	 * Registra un usuario nuevo en la base de datos.
@@ -281,7 +285,7 @@ public class UsuarioDAO {
 	}
 	
 	
-	public static String obtenerId(String email) {
+	public static String obtenerIdDesdeEmail(String email) {
 		String id = "";
 
 		try {
@@ -306,16 +310,42 @@ public class UsuarioDAO {
 		return id;
 	}
 	
+	public static int obtenerIdDesdeNombreUsuario(String nombreUsuario) {
+		int id = -1;
+
+		try {
+
+			Connection conn = ConnectionManager.getConnection();
+			PreparedStatement ps = conn.prepareStatement(USER_GETID_NAME_QUERY);
+			ps.setInt(1, id);
+			
+			ResultSet rs = ps.executeQuery();
+
+			if(rs.first()){
+				id = rs.getInt("id");
+			}
+			
+			ConnectionManager.releaseConnection(conn);
+		} catch(SQLException se) {
+			se.printStackTrace();
+		} catch(Exception e) {
+			e.printStackTrace(System.err);
+		}
+				return id;
+	}
+	
+	
+	
 	public static String obtenerURLImagen(String email) {
 		String imagen = null;
 		try {
-
+	
 			Connection conn = ConnectionManager.getConnection();
 			PreparedStatement ps = conn.prepareStatement(USER_GETIMAGE_BLOB_QUERY);
 			ps.setString(1, email);
 			
 			ResultSet rs = ps.executeQuery();
-
+	
 			if(rs.first()){
 				imagen = rs.getString("imagen");
 			}
@@ -330,18 +360,27 @@ public class UsuarioDAO {
 		return imagen;
 	}
 	
-	// Prubas con la base de datos
- 	//public static void main(String[] args) throws SQLException, IOException{
- 		/*
- 		boolean creado = register("dav","dav@unizar.es","david_password123","descripcion del usuario","/Users/davidallozatejero/downloads/user2.jpg");
- 		if (creado) System.out.println("Creado user");
- 		
- 		boolean modificada = cambiar_info("David AllTej", "asasasas","davidAT@gmail.com","18","/Users/davidallozatejero/downloads/user1.png");
- 		if (modificada) System.out.println("Modif user");
- 		
- 		Usuario u = login("davidAT@gmail.com","david_password123");
- 		System.out.println(u.getNombre());
- 		System.out.println(u.getDescripcion());
- 		*/
- 	//}
+	public static List<Usuario> obtenerTodosUsuarios() {
+		List<Usuario> listaUsuarios = new ArrayList<>();
+		try {
+
+			Connection conn = ConnectionManager.getConnection();
+			PreparedStatement ps = conn.prepareStatement(USER_GETALL_QUERY);
+			ResultSet rs = ps.executeQuery();
+
+			while (rs.next()) {
+				listaUsuarios.add(new Usuario(rs.getString(2), rs.getString(3), null , null, rs.getString(6)));
+			}
+			
+			ConnectionManager.releaseConnection(conn);
+		} catch(SQLException se) {
+			se.printStackTrace();
+		} catch(Exception e) {
+			e.printStackTrace(System.err);
+		}
+		
+		return listaUsuarios;
+
+	}
+
 }
