@@ -316,7 +316,7 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 					                    	<a href="obtener_contenido_perfil">
 					                    </c:when>
 					                    <c:otherwise>
-					                    	<a href="obtener_usuario?nombre=${usuario.getCorreo()}">
+					                    	<a href="obtener_usuario?nombre=${usuario.getId()}">
 					                    </c:otherwise>
 					                </c:choose>
 					                    	<c:choose>
