@@ -42,12 +42,14 @@ public class ObtenerContenidoOtroUsuario extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		int id = Integer.valueOf((String) session.getAttribute("id"));
-		String nombre = request.getParameter("nombre");
-		int idUsuario = Integer.valueOf(new UsuarioDAO().obtenerIdDesdeNombreUsuario(nombre));
+		int idUsuario = Integer.valueOf(request.getParameter("nombre"));
+		//int idUsuario = Integer.valueOf(new UsuarioDAO().obtenerIdDesdeNombreUsuario(nombre));
 		if (id == idUsuario) {
 			request.getRequestDispatcher("obtener_contenido_perfil").forward(request, response);
 		}
+		System.out.printf("%d", idUsuario);
 		Usuario n = new UsuarioDAO().obtenerInfo(idUsuario);
+		log(n.getNombre());
 		request.setAttribute("nombre", n.getNombre());
 		request.setAttribute("descripcion", n.getDescripcion());
 		request.setAttribute("email", n.getCorreo());

@@ -42,7 +42,7 @@ public class GetInfo_ListaRepServlet extends HttpServlet {
 		String tipo = "ListaRep";
 		List<ListaReproduccion> listas = new ListaReproduccionDAO().showLists(usuario,"ListaRep");
 		//String aleatorio = request.getParameter("aleatorio");
-		
+		log(nombre);
 		try{
 			ListaReproduccion infoLista = new ListaReproduccionDAO().getInfoList(nombre,usuario,tipo);
 			List<Audio> audios = new ListaReproduccionDAO().getAudios(nombre,usuario,tipo);
