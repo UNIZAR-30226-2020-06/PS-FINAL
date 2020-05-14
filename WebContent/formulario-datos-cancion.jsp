@@ -18,8 +18,8 @@ Boolean cancion =  (Boolean) request.getAttribute("cancion");
 int id_audio = Integer.parseInt((String) request.getAttribute("id_audio"));
 System.out.println(cancion + "++++++++++++++++++++++++++++++++++++++++++++++");
 request.setAttribute("ruta", (String) request.getAttribute("ruta"));
+int pagina = Integer.valueOf((String) request.getParameter("pagina"));
 %>
-
 
 
 <!-- NOMBRE DE LA PESTAÃA -->
@@ -523,36 +523,135 @@ request.setAttribute("ruta", (String) request.getAttribute("ruta"));
             </div>
             <% if(id_audio == 0 && cancion == true) {  %>
             	<form action="subir_cancion" >
-            <% String ruta = (String)request.getAttribute("ruta");
-            } else if (id_audio != 0 && cancion == true){ 
-            	request.setAttribute("id_audio", id_audio);%>
-            	<form action="modificar_cancion">
-            <% } else if (id_audio == 0 && cancion == false){  %>
-            	<form action="subir_capitulo">
-            <% } else if (id_audio != 0 && cancion == false){  %>
-            	<form action="modificar_capitulo">
-            <%} %>
-					<div class="text-center p-5 mt-5">
+            		<div class="text-center p-5 mt-5">
 						<div class="p5 b-b">
-							<input type="hidden" value="${id_audio}" name="id">
-							<input type="hidden" value="${ruta}" name="ruta">
-							<input type="text" name="titulo" class="formulario-subir-cancion" placeholder="Título de la canción" required=""/>
-							<select name="genero">
+							<input type="hidden" value="${id_audio}" name="id" id="id1">
+							<input type="hidden" value="${ruta}" name="ruta" id="ruta1">
+							<input type="text" name="titulo" id="titulo1" class="formulario-subir-cancion" placeholder="Título de la canción" required/>
+							<select id="genero1" name="genero">
 							   <c:forEach var="genero" items="${generos}">
 							   		<option value="${genero.getId()}">${genero.getNombre()}</option>
 							   </c:forEach>
 							</select>
 						</div>
-						<div="p-4">
-							<input type="submit" class="btn btn-outline-primary btn-sm  mt-3" value="Guardar">
+						<div class="p-4">
+							<a id="submit1" href="obtener_contenido_perfil?pagina=<%=pagina %>" class="btn btn-outline-primary btn-sm  mt-3">Guardar</a>
 						</div>
 					</div>
 				</form>
+            <% String ruta = (String)request.getAttribute("ruta");
+            } else if (id_audio != 0 && cancion == true){ 
+            	request.setAttribute("id_audio", id_audio);%>
+            	<form action="modificar_cancion">
+            		<div class="text-center p-5 mt-5">
+						<div class="p5 b-b">
+							<input type="hidden" value="${id_audio}" name="id" id="id2">
+							<input type="hidden" value="${ruta}" name="ruta" id="ruta2">
+							<input type="text" name="titulo" id="titulo2" class="formulario-subir-cancion" placeholder="Título de la canción" required/>
+							<select id="genero2" name="genero">
+							   <c:forEach var="genero" items="${generos}">
+							   		<option value="${genero.getId()}">${genero.getNombre()}</option>
+							   </c:forEach>
+							</select>
+						</div>
+						<div class="p-4">
+							<a id="submit2" href="obtener_contenido_perfil?pagina=<%=pagina %>" class="btn btn-outline-primary btn-sm  mt-3">Guardar</a>
+						</div>
+					</div>
+				</form>
+            <% } else if (id_audio == 0 && cancion == false){  %>
+            	<form action="subir_capitulo">
+            		<div class="text-center p-5 mt-5">
+						<div class="p5 b-b">
+							<input type="hidden" value="${id_audio}" name="id" id="id3">
+							<input type="hidden" value="${ruta}" name="ruta" id="ruta3">
+							<input type="text" name="titulo" id="titulo3" class="formulario-subir-cancion" placeholder="Título de la canción" required/>
+							<select id="genero3" name="genero">
+							   <c:forEach var="genero" items="${generos}">
+							   		<option value="${genero.getId()}">${genero.getNombre()}</option>
+							   </c:forEach>
+							</select>
+						</div>
+						<div class="p-4">
+							<a id="submit3" href="obtener_contenido_perfil?pagina=<%=pagina %>" class="btn btn-outline-primary btn-sm  mt-3">Guardar</a>
+						</div>
+					</div>
+				</form>
+            <% } else if (id_audio != 0 && cancion == false){  %>
+            	<form action="modificar_capitulo">
+            		<div class="text-center p-5 mt-5">
+						<div class="p5 b-b">
+							<input type="hidden" value="${id_audio}" name="id" id="id4">
+							<input type="hidden" value="${ruta}" name="ruta" id="ruta4">
+							<input type="text" name="titulo" id="titulo4" class="formulario-subir-cancion" placeholder="Título de la canción" required/>
+							<select id="genero4" name="genero">
+							   <c:forEach var="genero" items="${generos}">
+							   		<option value="${genero.getId()}">${genero.getNombre()}</option>
+							   </c:forEach>
+							</select>
+						</div>
+						<div class="p-4">
+							<a id="submit4" href="obtener_contenido_perfil?pagina=<%=pagina %>" class="btn btn-outline-primary btn-sm  mt-3">Guardar</a>
+						</div>
+					</div>
+				</form>
+            <%} %>
+					
         </div>
     </div>
 
 </div>
-
+<script>
+    $(document).ready(function() {
+    	$('#submit1').click(function(event) {
+			var idVar = $('#id').val();
+			var rutaVar = $('#ruta').val();
+			var tituloVar = $('#titulo').val();
+			// Si en vez de por post lo queremos hacer por get, cambiamos el $.post por $.get
+			$.get('subir_cancion', {
+				id : idVar,
+				ruta : rutaVar,
+				titulo : tituloVar
+			});
+		});
+    	$('#submit2').click(function(event) {
+			var idVar = $('#id2').val();
+			var tituloVar = $('#titulo2').val();
+			var generoVar = $('#genero2').val();
+			console.log(idVar);
+			console.log(tituloVar);
+			console.log(generoVar);
+			// Si en vez de por post lo queremos hacer por get, cambiamos el $.post por $.get
+			$.get('modificar_cancion', {
+				id : idVar,
+				genero : generoVar,
+				titulo : tituloVar
+			});
+		});
+    	$('#submit3').click(function(event) {
+			var idVar = $('#id').val();
+			var rutaVar = $('#ruta').val();
+			var tituloVar = $('#titulo').val();
+			// Si en vez de por post lo queremos hacer por get, cambiamos el $.post por $.get
+			$.get('subir_capitulo', {
+				id : idVar,
+				ruta : rutaVar,
+				titulo : tituloVar
+			});
+		});
+    	$('#submit4').click(function(event) {
+			var idVar = $('#id').val();
+			var rutaVar = $('#ruta').val();
+			var tituloVar = $('#titulo').val();
+			// Si en vez de por post lo queremos hacer por get, cambiamos el $.post por $.get
+			$.get('modificar_capitulo', {
+				id : idVar,
+				ruta : rutaVar,
+				titulo : tituloVar
+			});
+		});
+    });
+    </script>
 </main><!--@Page Content-->
 </div><!--@#app-->
 <!--/#app -->
@@ -588,6 +687,7 @@ request.setAttribute("ruta", (String) request.getAttribute("ruta"));
 		}
 	}
 	</script>
+	
 
 </body>
 </html>

@@ -10,7 +10,10 @@ pageEncoding="UTF-8"%>
 ############### BASE DE TODAS LAS PAGINAS    ###########################
 ########################################################################
 -->
-<%request.setAttribute("generos", request.getAttribute("generos")); %>
+<%
+request.setAttribute("generos", request.getAttribute("generos"));
+int pagina = Integer.valueOf((String) request.getParameter("pagina"));
+%>
 
 <!-- NOMBRE DE LA PESTAÃA -->
 <head>
@@ -514,9 +517,16 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 													<li class="list-group-item my-1">
 														<div class="d-flex align-items-center">
 															<div class="col-1">
-																<a class="no-ajaxy media-url" href="${cancion.getUrl()}">
-																	<i class="icon-play s-28"></i>
-																</a>					
+																<%
+																	if(pagina == 2) {%>
+																	<a class="no-ajaxy media-url" href="${cancion.getUrl()}">
+																		<i class="icon-play s-28"><%=pagina %></i>
+																	</a>
+																	<%} else {%>
+																	<a href="NOMBRE DEL SERVLET A CARGAR PERFIL USUARIO?pagina=2" onclick="setTimeout(location.reload.bind(location), 1)">
+																		<i class="icon-play s-28"><%=pagina %></i>
+																	</a>
+																	<%} %>					
 															</div>
 															<div class="col-6">
 																<h6>${cancion.getTitulo()}</h6>${genero.getNombre()}

@@ -3,6 +3,10 @@ pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%><!DOCTYPE html>
 <html lang="zxx">
 
+<% 
+int pagina = Integer.valueOf((String) request.getParameter("pagina"));
+%>
+
 <!-- Mirrored from xvelopers.com/demos/html/record-light/index.jsp by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 05 Apr 2020 17:21:29 GMT -->
 
 <!--  
@@ -83,10 +87,17 @@ pageEncoding="UTF-8"%>
 <aside class="main-sidebar fixed offcanvas shadow" data-toggle='offcanvas'>
     <div class="sidebar">
         <ul class="sidebar-menu">
-            <li><a class="ajaxifyPage active" href="Inicio" >
+        	<%if(pagina == 5){ %>
+            <li><a class="ajaxifyPage active" href="Inicio?pagina=10" >
                     <i class="icon icon-home-1 s-24"></i> <span>Inicio</span>
                 </a>
             </li>
+            <%} else{%>
+            <li><a class="ajaxifyPage active" href="Inicio?pagina=<%=pagina %>" >
+                    <i class="icon icon-home-1 s-24"></i> <span>Inicio</span>
+                </a>
+            </li>
+            <%}%>
             
             <li class="menu-item-has-children">
                 <a href="#">
@@ -101,19 +112,35 @@ pageEncoding="UTF-8"%>
                 </ul>
             </li>
             
-            <li><a class="ajaxifyPage" href="mostrar_lrs?tipo=ListaRep" >
+            <%if(pagina == 5){ %>
+            <li><a class="ajaxifyPage" href="mostrar_lrs?tipo=ListaRep&pagina=10" >
                     <i class="icon icon-compact-disc-1 s-24"></i> <span>Mis listas de reproduccion</span>
                 </a>
             </li>
             
-            <li><a class="ajaxifyPage" href="mostrar_podcasts?tipo=podcasts" >
+            <li><a class="ajaxifyPage" href="mostrar_podcasts?tipo=podcasts&pagina=10" >
                     <i class="icon icon-headphones s-24"></i> <span>Mis podcasts</span>
                 </a>
             </li>
-            <li><a class="ajaxifyPage" href="obtener_info_fav" >
+            <li><a class="ajaxifyPage" href="obtener_info_fav?pagina=10" >
             		<i class="icon icon-star s-24"></i> <span>Mis favoritos</span>
             	</a>
             </li>
+            <%} else{%>
+            <li><a class="ajaxifyPage" href="mostrar_lrs?tipo=ListaRep&pagina=<%=pagina %>" >
+                    <i class="icon icon-compact-disc-1 s-24"></i> <span>Mis listas de reproduccion</span>
+                </a>
+            </li>
+            
+            <li><a class="ajaxifyPage" href="mostrar_podcasts?tipo=podcasts&pagina=<%=pagina %>" >
+                    <i class="icon icon-headphones s-24"></i> <span>Mis podcasts</span>
+                </a>
+            </li>
+            <li><a class="ajaxifyPage" href="obtener_info_fav?pagina=<%=pagina %>" >
+            		<i class="icon icon-star s-24"></i> <span>Mis favoritos</span>
+            	</a>
+            </li>
+            <%}%>
         </ul>
     </div>
 </aside>
@@ -361,11 +388,19 @@ String hayfoto = (String) session.getAttribute("hayfoto");
             <a href="#" data-toggle="push-menu" class="paper-nav-toggle pp-nav-toggle ml-2 mr-2">
                 <i></i>
             </a>
-            <a class="navbar-brand d-none d-lg-block" href="Inicio" >
+            <%if(pagina == 5){ %>
+            <a class="navbar-brand d-none d-lg-block" href="Inicio?pagina=10" >
                 <div class="d-flex align-items-center s-14 l-s-2">
-                    <a style="position: absolute;width: 12%;" href="Inicio" ><img  src="assets/img/logo.png"></a>
+                    <a style="position: absolute;width: 12%;" href="Inicio?pagina=10" ><img  src="assets/img/logo.png"></a>
                 </div>
             </a>
+            <%} else{%>
+            <a class="navbar-brand d-none d-lg-block" href="Inicio?pagina=<%=pagina %>" >
+                <div class="d-flex align-items-center s-14 l-s-2">
+                    <a style="position: absolute;width: 12%;" href="Inicio?pagina=<%=pagina %>" ><img  src="assets/img/logo.png"></a>
+                </div>
+            </a>
+            <%}%>
         </div>
         
         <!--Top Menu Start -->
@@ -394,10 +429,17 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 					<div class="dropdown-menu p-4 dropdown-menu-right">
 						<div class="row box justify-content-between my-4">
 							<div class="col text-center">
-								<a class="ajaxifyPage" href="obtener_contenido_perfil" >
+								<%if(pagina == 5){ %>
+					            <a class="ajaxifyPage" href="obtener_contenido_perfil?pagina=10" >
 									<i class="icon-user-4  s-24"></i>
 									<div class="pt-1">Mi perfil</div>
 								</a>
+					            <%} else{%>
+					            <a class="ajaxifyPage" href="obtener_contenido_perfil?pagina=<%=pagina %>" >
+									<i class="icon-user-4  s-24"></i>
+									<div class="pt-1">Mi perfil</div>
+								</a>
+					            <%}%>
 							</div>
 							<div class="col text-center">
 								<a class="ajaxifyPage" href="logout" >
@@ -525,24 +567,23 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 														<form  action="modlr" method="post">
 															<!-- Input -->
 															<div class="body">
-																<input type="hidden" name="tipo" value="podcast">
+																<input type="hidden" name="tipo" id="tipo" value="podcast">
 																<div class="form-group form-float">
 																	<div class="form-line">
-																		<input type="text" name="nombreNew" class="form-control" value="${infoPodcast.getNombre()}">
+																		<input type="text" name="nombreNew" id="nombreNew" class="form-control" value="${infoPodcast.getNombre()}">
 																		<label class="form-label">Nombre</label>
 																	</div>
 																</div>
 											
 																<div class="form-group form-float">
 																	<div class="form-line">
-																		<input type="text" name="descripcion" class="form-control" value="${infoPodcast.getDescripcion()}">
+																		<input type="text" name="descripcion" id="descripcion" class="form-control" value="${infoPodcast.getDescripcion()}">
 																		<label class="form-label">Descripción</label>
 																	</div>
 																</div>
-																<input type="hidden" name="nombreOld" value="${infoPodcast.getNombre()}">
+																<input type="hidden" name="nombreOld" id="nombreOld" value="${infoPodcast.getNombre()}">
 											
-																<input type="submit" class="btn btn-outline-primary btn-sm pl-4 pr-4"
-																	   value="Cambiar información">
+																<a id="submit" href="Inicio?pagina=<%=pagina %>" class="btn btn-outline-primary btn-sm pl-4 pr-4">Cambiar información</a>
 															</div>
 														</form>
 														<!-- #END# Input -->
@@ -577,9 +618,16 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 														<li class="list-group-item my-1">
 															<div class="d-flex align-items-center">
 																<div class="col-1">
+																	<%
+																	if(pagina == 5) {%>
 																	<a class="no-ajaxy media-url" href="${cancion.getUrl()}">
-																		<i class="icon-play s-28"></i>
-																	</a>					
+																		<i class="icon-play s-28"><%=pagina %></i>
+																	</a>
+																	<%} else { String nombre = (String) request.getParameter("nombre");%>
+																	<a href="obtener_info_podcast?nombre=<%=nombre%>&pagina=5" onclick="setTimeout(location.reload.bind(location), 1)">
+																		<i class="icon-play s-28"><%=pagina %></i>
+																	</a>
+																	<%} %>					
 																</div>
 																<div class="col-6">
 																	<h6>${cancion.getTitulo()}</h6>${cancion.getGenero()}
@@ -595,7 +643,7 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 											                        <i style="position: relative;left: 10px;" class="icon-commenting-o s-24"></i>
 											                    </a>
 																<div class="ml-auto">
-																	<a href="${pageContext.request.contextPath}/borrar_cancion_lr?idAudio=${cancion.getId()}&idLista=${infoPodcast.getId()}&nombreLista=${infoPodcast.getNombre()}&tipo=podcast" class="btn-icono icon-trash-o" ></a>
+																	<a href="${pageContext.request.contextPath}/borrar_cancion_lr?idAudio=${cancion.getId()}&idLista=${infoPodcast.getId()}&nombreLista=${infoPodcast.getNombre()}&tipo=podcast&pagina=<%=pagina %>" class="btn-icono icon-trash-o" ></a>
 																</div>
 															</div>
 														</li>
@@ -615,7 +663,7 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 			</div>
 		</div>
 	</div>
-</div>
+
 
 <!-- AÑADIR CAPITULO A PODCAST -->
 <div class="overlay-pop-up" id="overlay-anadir-listas-reproduccion">
@@ -651,6 +699,27 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 </div>
 <!-- END AÑADIR CAPITULO A PODCAST -->
 
+<script>
+    $(document).ready(function() {
+    	$('#submit').click(function(event) {
+			var tipoVar = $('#tipo').val();
+			var nombreNewVar = $('#nombreNew').val();
+			var descripcionVar = $('#descripcion').val();
+			var nombreOldVar = $('#nombreOld').val();
+			console.log(tipoVar);
+			console.log(nombreNewVar);
+			console.log(descripcionVar);
+			console.log(nombreOldVar);
+			// Si en vez de por post lo queremos hacer por get, cambiamos el $.post por $.get
+			$.get('modlr', {
+				tipo : tipoVar,
+				nombreNew : nombreNewVar,
+				descripcion : descripcionVar,
+				nombreOld : nombreOldVar
+			});
+		});
+    });
+    </script>
 
 </main><!--@Page Content-->
 </div><!--@#app-->

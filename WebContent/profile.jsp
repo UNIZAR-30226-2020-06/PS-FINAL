@@ -10,7 +10,10 @@ pageEncoding="UTF-8"%>
 ############### BASE DE TODAS LAS PAGINAS    ###########################
 ########################################################################
 -->
-<%request.setAttribute("generos", request.getAttribute("generos")); %>
+<%
+request.setAttribute("generos", request.getAttribute("generos"));
+int pagina = Integer.valueOf((String) request.getParameter("pagina"));
+%>
 
 <!-- NOMBRE DE LA PESTAÃA -->
 <head>
@@ -26,7 +29,7 @@ pageEncoding="UTF-8"%>
 
 <!-- END PESTAÑA -->
 
-<body background="assets/img/fondo3.png" style="background-size: cover;background-repeat: no-repeat; background-position: center center;background-attachment: fixed;" class="sidebar-mini sidebar-collapse sidebar-expanded-on-hover has-preloader" style="display: none;">
+<body background="assets/img/fondo3.png" style="background-size: cover;background-repeat: no-repeat; background-position: center center;background-attachment: fixed;" class="sidebar-mini sidebar-collapse sidebar-expanded-on-hover" style="display: none;">
 <!-- Pre loader
   To disable preloader remove 'has-preloader' from body
  -->
@@ -85,7 +88,7 @@ pageEncoding="UTF-8"%>
 <aside class="main-sidebar fixed offcanvas shadow" data-toggle='offcanvas'>
     <div class="sidebar">
         <ul class="sidebar-menu">
-            <li><a class="ajaxifyPage active" href="Inicio" >
+            <li><a class="ajaxifyPage active" href="Inicio?pagina=<%=pagina %>" >
                     <i class="icon icon-home-1 s-24"></i> <span>Inicio</span>
                 </a>
             </li>
@@ -103,16 +106,16 @@ pageEncoding="UTF-8"%>
                 </ul>
             </li>
             
-            <li><a class="ajaxifyPage" href="mostrar_lrs?tipo=ListaRep" >
+            <li><a class="ajaxifyPage" href="mostrar_lrs?tipo=ListaRep&pagina=<%=pagina %>" >
                     <i class="icon icon-compact-disc-1 s-24"></i> <span>Mis listas de reproduccion</span>
                 </a>
             </li>
             
-            <li><a class="ajaxifyPage" href="mostrar_podcasts?tipo=podcast" >
+            <li><a class="ajaxifyPage" href="mostrar_podcasts?tipo=podcast&pagina=<%=pagina %>" >
                     <i class="icon icon-headphones s-24"></i> <span>Mis podcasts</span>
                 </a>
             </li>
-            <li><a class="ajaxifyPage" href="obtener_info_fav" onclick="setTimeout(locaton.reload.bind(location), 1)">
+            <li><a class="ajaxifyPage" href="obtener_info_fav?pagina=<%=pagina %>">
             		<i class="icon icon-star s-24"></i> <span>Mis favoritos</span>
             	</a>
             </li>
@@ -338,9 +341,9 @@ String hayfoto = (String) session.getAttribute("hayfoto");
             <a href="#" data-toggle="push-menu" class="paper-nav-toggle pp-nav-toggle ml-2 mr-2">
                 <i></i>
             </a>
-            <a class="navbar-brand d-none d-lg-block" href="Inicio" >
+            <a class="navbar-brand d-none d-lg-block" href="Inicio?pagina=<%=pagina %>" >
                 <div class="d-flex align-items-center s-14 l-s-2">
-                    <a style="position: absolute;width: 12%;" href="Inicio" ><img  src="assets/img/logo.png"></a>
+                    <a style="position: absolute;width: 12%;" href="Inicio?pagina=<%=pagina %>" ><img  src="assets/img/logo.png"></a>
                 </div>
             </a>
         </div>
@@ -348,7 +351,7 @@ String hayfoto = (String) session.getAttribute("hayfoto");
         <!--Top Menu Start -->
         <div class="navbar-custom-menu">
             <ul class="nav navbar-nav">
-
+				<li id="contenido"></li>
                 <!-- Right Sidebar Toggle Button -->
                 <li class="searchOverlay-wrap">
                     <a href="#" id="btn-searchOverlay" class="nav-link mr-3 btn--searchOverlay no-ajaxy">
@@ -371,7 +374,7 @@ String hayfoto = (String) session.getAttribute("hayfoto");
                     <div class="dropdown-menu p-4 dropdown-menu-right">
                         <div class="row box justify-content-between my-4">
                         	<div class="col text-center">
-								<a class="ajaxifyPage" href="obtener_contenido_perfil" >
+								<a class="ajaxifyPage" href="${pageContext.request.contextPath}/obtener_contenido_perfil?pagina=<%=pagina %>" >
 									<i class="icon-user-4  s-24"></i>
 									<div class="pt-1">Mi perfil</div>
 								</a>
@@ -536,14 +539,6 @@ String email = (String) session.getAttribute("email");
 							<a class="nav-link r-20" id="w3--tab5" data-toggle="tab" href="#w3-tab5"
 							   role="tab" aria-controls="tab2" aria-selected="false">Transmisiones</a>
 						</li>
-						<li class="nav-item">
-							<a class="nav-link r-20" id="w3--tab6" data-toggle="tab" href="#w3-tab6"
-							   role="tab" aria-controls="tab3" aria-selected="false">Seguidores</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link r-20" id="w3--tab7" data-toggle="tab" href="#w3-tab7"
-							   role="tab" aria-controls="tab3" aria-selected="false">Siguiendo</a>
-						</li>
 					</ul>
 				</div>
 			</div>
@@ -568,9 +563,16 @@ String email = (String) session.getAttribute("email");
 													<li class="list-group-item my-1">
 														<div class="d-flex align-items-center">
 															<div class="col-1">
+																<%
+																if(pagina == 4) {%>
 																<a class="no-ajaxy media-url" href="${cancion.getUrl()}">
-																	<i class="icon-play s-28"></i>
-																</a>					
+																	<i class="icon-play s-28"><%=pagina %></i>
+																</a>
+																<%} else {%>
+																<a href="obtener_contenido_perfil?pagina=4" onclick="setTimeout(location.reload.bind(location), 1)">
+																	<i class="icon-play s-28"><%=pagina %></i>
+																</a>
+																<%} %>				
 															</div>
 															<div class="col-6">
 																<h6>${cancion.getTitulo()}</h6>${cancion.getGenero()}
@@ -586,12 +588,12 @@ String email = (String) session.getAttribute("email");
 											                        <i style="position: relative;left: 10px;" class="icon-commenting-o s-24"></i>
 											                    </a>
 															<div class="ml-auto">
-																<a href="anyadir_cancion_fav?idAudio=${cancion.getId()}" class="btn-favorito icon-star" ></a>
-																<a href="${pageContext.request.contextPath}/ir_modificar?id_audio=${cancion.getId()}&cancion=true" class="btn-icono icon-pencil" ></a>
+																<a href="anyadir_cancion_fav?idAudio=${cancion.getId()}&pagina=<%=pagina %>" class="btn-favorito icon-star" ></a>
+																<a href="${pageContext.request.contextPath}/ir_modificar?id_audio=${cancion.getId()}&cancion=true&pagina=<%=pagina %>" class="btn-icono icon-pencil" ></a>
 																<a href="#" class="btn-icono icon-indent" onclick="rellenarCampos('${listaslr.size()}','${cancion.getId()}');
-																document.getElementById('overlay-anadir-listas-reproduccion').classList.add('active')";
+																document.getElementById('overlay-anadir-listas-reproduccion').classList.add('active')"
 																	></a>
-																<a href="${pageContext.request.contextPath}/eliminar_cancion?id_cancion=${cancion.getId()}" class="btn-icono icon-trash-o" ></a>
+																<a href="${pageContext.request.contextPath}/eliminar_cancion?id_cancion=${cancion.getId()}&pagina=<%=pagina %>" class="btn-icono icon-trash-o" ></a>
 															</div>
 														</div>
 													</li>
@@ -618,7 +620,7 @@ String email = (String) session.getAttribute("email");
 	                            <div class="img-wrapper">
 	                                <img src="assets/img/demo/a2.jpg" alt="/">
 	                                <div class="img-overlay text-white text-center">
-	                                    <a href="obtener_info_fav" >
+	                                	<a href="obtener_info_fav?pagina=<%=pagina %>" >
 	                                        <div class="figcaption mt-3">
 	                                            <i class="icon-link s-48"></i>
 	                                            <h5 class="mt-5">Mis Favoritos</h5>
@@ -637,7 +639,7 @@ String email = (String) session.getAttribute("email");
 									<div class="img-wrapper">
 										<img src="assets/img/demo/a1.jpg" alt="/">
 										<div class="img-overlay text-white text-center">
-											<a href="obtener_info_lr?nombre=${listalr.getNombre()}" >
+											<a href="obtener_info_lr?nombre=${listalr.getNombre()}&pagina=<%=pagina %>" >
 												<div class="figcaption mt-3">
 													<i class="icon-link s-48"></i>
 													<h5 class="mt-5">${listalr.getNombre()}</h5>
@@ -687,11 +689,11 @@ String email = (String) session.getAttribute("email");
 															<span class="ml-auto">${capitulo.getGenero()}</span>
 															<a href="#" class="ml-auto"><i class="icon-share-1"></i></a>
 															<div class="ml-auto">
-																<a href="${pageContext.request.contextPath}/ir_modificar?id_audio=${capitulo.getId()}&cancion=false" class="btn-icono icon-pencil" ></a>
+																<a href="${pageContext.request.contextPath}/ir_modificar?id_audio=${capitulo.getId()}&cancion=false&pagina=<%=pagina %>" class="btn-icono icon-pencil" ></a>
 																<a href="#" class="btn-icono icon-indent" onclick="rellenarCampos('${podcasts.size()}','${capitulo.getId()}');
 																document.getElementById('overlay-anadir-podcast').classList.add('active')";
 																	></a>
-																<a href="${pageContext.request.contextPath}/eliminar_capitulo?id_capitulo=${capitulo.getId()}" class="btn-icono icon-trash-o" ></a>
+																<a href="${pageContext.request.contextPath}/eliminar_capitulo?id_capitulo=${capitulo.getId()}&pagina=<%=pagina %>" class="btn-icono icon-trash-o" ></a>
 															</div>
 														</div>
 													</li>
@@ -719,7 +721,7 @@ String email = (String) session.getAttribute("email");
 									<div class="img-wrapper">
 										<img src="assets/img/demo/a1.jpg" alt="/">
 										<div class="img-overlay text-white text-center">
-											<a href="obtener_info_podcast?nombre=${podcast.getNombre()}" >
+											<a href="obtener_info_podcast?nombre=${podcast.getNombre()}&pagina=<%=pagina %>" >
 												<div class="figcaption mt-3">
 													<i class="icon-link s-48"></i>
 													<h5 class="mt-5">${podcast.getNombre()}</h5>
@@ -749,162 +751,6 @@ String email = (String) session.getAttribute("email");
 					</div>
 				</div>
 				<!-- END TRANSMISIONES -->
-				<!---SEGUIDORES-->
-				<div class="tab-pane fade text-center p-5" id="w3-tab6" role="tabpanel"
-					 aria-labelledby="w3-tab6">
-					<div class="table-responsive">
-						<table class="table table-hover earning-box">
-							<tbody>
-							<tr class="no-b">
-								<td class="w-10"><span class="round">
-									<img src="assets/img/demo/u1.png" alt="user"></span>
-								</td>
-								<td>
-									<h6>Sara Kamzoon</h6>
-									<small class="text-muted">Marketing Manager</small>
-								</td>
-								<td>25</td>
-								<td>$250</td>
-							</tr>
-							<tr>
-								<td class="w-10"><span class="round">
-									<img src="assets/img/demo/u2.png" alt="user"></span>
-								</td>
-								<td>
-									<h6>Sara Kamzoon</h6>
-									<small class="text-muted">Marketing Manager</small>
-								</td>
-								<td>25</td>
-								<td>$250</td>
-							</tr>
-							<tr>
-								<td class="w-10"><span class="round">
-									<img src="assets/img/demo/u3.png" alt="user"></span>
-								</td>
-								<td>
-									<h6>Sara Kamzoon</h6>
-									<small class="text-muted">Marketing Manager</small>
-								</td>
-								<td>25</td>
-								<td>$250</td>
-							</tr>
-							<tr>
-								<td class="w-10"><span class="round">
-									<img src="assets/img/demo/u4.png" alt="user"></span>
-								</td>
-								<td>
-									<h6>Sara Kamzoon</h6>
-									<small class="text-muted">Marketing Manager</small>
-								</td>
-								<td>25</td>
-								<td>$250</td>
-							</tr>
-							<tr>
-								<td class="w-10"><span class="round">
-									<img src="assets/img/demo/u5.png" alt="user"></span>
-								</td>
-								<td>
-									<h6>Sara Kamzoon</h6>
-									<small class="text-muted">Marketing Manager</small>
-								</td>
-								<td>25</td>
-								<td>$250</td>
-							</tr>
-							<tr>
-								<td class="w-10"><span class="round">
-									<img src="assets/img/demo/u6.png" alt="user"></span>
-								</td>
-								<td>
-									<h6>Sara Kamzoon</h6>
-									<small class="text-muted">Marketing Manager</small>
-								</td>
-								<td>25</td>
-								<td>$250</td>
-							</tr>
-							</tbody>
-						</table>
-					</div>
-				</div>
-				<!-- END SEGUIDORES -->
-				
-				<!--SIGUIENDO-->
-				<div class="tab-pane fade text-center p-5" id="w3-tab7" role="tabpanel"
-					 aria-labelledby="w3-tab7">
-					<div class="table-responsive">
-						<table class="table table-hover earning-box">
-
-							<tbody>
-							<tr class="no-b">
-								<td class="w-10"><span class="round">
-							<img src="assets/img/demo/u1.png" alt="user"></span>
-								</td>
-								<td>
-									<h6>Sara Kamzoon</h6>
-									<small class="text-muted">Marketing Manager</small>
-								</td>
-								<td>25</td>
-								<td>$250</td>
-							</tr>
-							<tr>
-								<td class="w-10"><span class="round">
-							<img src="assets/img/demo/u2.png" alt="user"></span>
-								</td>
-								<td>
-									<h6>Sara Kamzoon</h6>
-									<small class="text-muted">Marketing Manager</small>
-								</td>
-								<td>25</td>
-								<td>$250</td>
-							</tr>
-							<tr>
-								<td class="w-10"><span class="round">
-							<img src="assets/img/demo/u3.png" alt="user"></span>
-								</td>
-								<td>
-									<h6>Sara Kamzoon</h6>
-									<small class="text-muted">Marketing Manager</small>
-								</td>
-								<td>25</td>
-								<td>$250</td>
-							</tr>
-							<tr>
-								<td class="w-10"><span class="round">
-							<img src="assets/img/demo/u4.png" alt="user"></span>
-								</td>
-								<td>
-									<h6>Sara Kamzoon</h6>
-									<small class="text-muted">Marketing Manager</small>
-								</td>
-								<td>25</td>
-								<td>$250</td>
-							</tr>
-							<tr>
-								<td class="w-10"><span class="round">
-							<img src="assets/img/demo/u5.png" alt="user"></span>
-								</td>
-								<td>
-									<h6>Sara Kamzoon</h6>
-									<small class="text-muted">Marketing Manager</small>
-								</td>
-								<td>25</td>
-								<td>$250</td>
-							</tr>
-							<tr>
-								<td class="w-10"><span class="round">
-							<img src="assets/img/demo/u6.png" alt="user"></span>
-								</td>
-								<td>
-									<h6>Sara Kamzoon</h6>
-									<small class="text-muted">Marketing Manager</small>
-								</td>
-								<td>25</td>
-								<td>$250</td>
-							</tr>
-							</tbody>
-						</table>
-					</div>
-				</div>
-				<!-- END SIGUIENDO -->
 			</div>
 		</div>
 	</div>
@@ -990,11 +836,10 @@ String email = (String) session.getAttribute("email");
 					<input type="file" class="btn btn-outline-primary btn-sm  mt-3" name="fileName" /> -->
 					<input type="text" name="nombre" placeholder="Nombre" id="nombre-listas-reproduccion" required/>
 					<input type="text" name="descripcion" placeholder="Descripcion" id="descripcion-listas-reproduccion"/>
-					<input type="hidden" name="tipo" value="ListaRep">
+					<input type="hidden" name="tipo" id="tipo" value="ListaRep">
 				</div>
 
-				<input type="submit" class="btn btn-outline-primary btn-sm pl-4 pr-4"
-					   value="Aceptar">
+				<a id="submit3" href="obtener_contenido_perfil?pagina=<%=pagina %>" class="btn btn-outline-primary btn-sm pl-4 pr-4">Aceptar</a>
 			</div>
 			<!-- #END# Input -->
 		</form>
@@ -1016,13 +861,12 @@ String email = (String) session.getAttribute("email");
 				<div class="contenedor-inputs">
 				<!--<h4>Añadir imagen</h4>
 					<input type="file" class="btn btn-outline-primary btn-sm  mt-3" name="fileName" /> -->
-					<input type="text" name="nombre" placeholder="Nombre" id="nombre-listas-reproduccion" required/>
-					<input type="text" name="descripcion" placeholder="Descripcion" id="descripcion-listas-reproduccion"/>
-					<input type="hidden" name="tipo" value="podcast">
+					<input type="text" name="nombre" placeholder="Nombre" id="nombre-listas-reproduccion7" required/>
+					<input type="text" name="descripcion" placeholder="Descripcion" id="descripcion-listas-reproduccion7"/>
+					<input type="hidden" name="tipo" name="tipo7" value="podcast">
 				</div>
 
-				<input type="submit" class="btn btn-outline-primary btn-sm pl-4 pr-4"
-					   value="Aceptar">
+				<a id="submit7" href="obtener_contenido_perfil?pagina=<%=pagina %>" class="btn btn-outline-primary btn-sm pl-4 pr-4">Aceptar</a>
 			</div>
 			<!-- #END# Input -->
 		</form>
@@ -1049,12 +893,12 @@ String email = (String) session.getAttribute("email");
 									</div>
 								</div>
 							</figure>
-							<form class="form-material" action="anyadir_cancion_lr" method="post">
-								<input type="submit" class="btn btn-outline-primary btn-sm pl-4 pr-4" value="Añadir">
-								<input type="hidden" name="idLista" value="${listalr.getId()}">
-								<input type="hidden" name="idAudio" value="">
-								<input type="hidden" name="nombreLista" value="${listalr.getNombre()}">
-								<input type="hidden" name="tipo" value="ListRep">
+							<form class="form-material" action="anyadir_cancion_lr">
+								<input type="hidden" name="idLista" id="idLista" value="${listalr.getId()}">
+								<input type="hidden" name="idAudio" id="idAudio" value="">
+								<input type="hidden" name="nombreLista" id="nombreLista" value="${listalr.getNombre()}">
+								<input type="hidden" name="tipo" id="tipo2" value="ListRep">
+								<a id="submit4" href="obtener_contenido_perfil?pagina=<%=pagina %>" class="btn btn-outline-primary btn-sm pl-4 pr-4">Añadir</a>
 							</form>	
 						</div>
 					</c:forEach>
@@ -1084,12 +928,12 @@ String email = (String) session.getAttribute("email");
 									</div>
 								</div>
 							</figure>
-							<form class="form-material" action="anyadir_cancion_lr" method="post">
-								<input type="submit" class="btn btn-outline-primary btn-sm pl-4 pr-4" value="Añadir">
-								<input type="hidden" name="idLista" value="${podcast.getId()}">
-								<input type="hidden" name="idAudio" value="">
-								<input type="hidden" name="nombreLista" value="${podcast.getNombre()}">
-								<nput type="hidden" name="tipo" value="podcast">
+							<form class="form-material" action="anyadir_cancion_lr">
+								<input type="hidden" name="idLista" id="idLista2" value="${podcast.getId()}">
+								<input type="hidden" name="idAudio" id="idAudio2" value="">
+								<input type="hidden" name="nombreLista" id="nombreLista2" value="${podcast.getNombre()}">
+								<input type="hidden" name="tipo" id="tipo3" value="podcast">
+								<a id="submit5" href="obtener_contenido_perfil?pagina=<%=pagina %>" class="btn btn-outline-primary btn-sm pl-4 pr-4">Añadir</a>
 							</form>	
 						</div>
 					</c:forEach>
@@ -1105,7 +949,7 @@ String email = (String) session.getAttribute("email");
 	    <div class="col-md-7 card p-5">	
 	        <a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-borrar-listas-reproduccion" class="btn-cerrar-popup-perfil"	
 	        class="btn btn-outline-primary btn-sm pl-4 pr-4"  onclick="document.getElementById('overlay-borrar-listas-reproduccion').classList.remove('active');"><i class="icon-close1"></i></a>	
-			<form class="form-material" action="borrar_lr" method="post">	
+			<form class="form-material" action="borrar_lr">	
 				<!-- Input -->	
 				<div class="body">	
 					<header class="relative nav-sticky card">	
@@ -1113,11 +957,10 @@ String email = (String) session.getAttribute("email");
 	                    <h5>Vas a borrar esta lista de reproduccion para siempre, no hay vuelta atras</h5>	
 					</header>	
 		
-					<input type="hidden" id="idLista" name="nombre" value="">
-					<input type="hidden" name="tipo" value="ListaRep">	
-					<input type="submit" class="btn btn-outline-primary btn-sm pl-4 pr-4"	
-	                       value="Aceptar">	
-	                
+					<input type="hidden" id="idLista6" name="nombre" value="">
+					<input type="hidden" name="tipo" id="tipo6" value="ListaRep">	
+					<a id="submit6" href="obtener_contenido_perfil?pagina=<%=pagina %>" class="btn btn-outline-primary btn-sm pl-4 pr-4">Aceptar</a>	
+	             </div>   
 				<!-- #END# Input -->	
 	        </form>	
 		</div>	
@@ -1137,11 +980,10 @@ String email = (String) session.getAttribute("email");
 	                    <h5>Vas a borrar este podcast para siempre, no hay vuelta atras</h5>	
 					</header>	
 		
-					<input type="hidden" id="idPodcast" name="nombre" value="">
-					<input type="hidden" name="tipo" value="podcast">	
-					<input type="submit" class="btn btn-outline-primary btn-sm pl-4 pr-4"	
-	                       value="Aceptar">	
-	                
+					<input type="hidden" id="idPodcast8" name="nombre" value="">
+					<input type="hidden" name="tipo" id="tipo8" value="podcast">	
+					<a id="submit8" href="obtener_contenido_perfil?pagina=<%=pagina %>" class="btn btn-outline-primary btn-sm pl-4 pr-4">Aceptar</a>	
+	             </div>   
 				<!-- #END# Input -->	
 	        </form>	
 		</div>	
@@ -1155,10 +997,10 @@ String email = (String) session.getAttribute("email");
 	        class="btn btn-outline-primary btn-sm pl-4 pr-4"  onclick="document.getElementById('overlay-iniciar-transmision').classList.remove('active');"><i class="icon-close1"></i></a>	
 			<form class="form-material" action="iniciar_transmision" method="post">
 					<div class="p5 b-b">
-						<input type="text" name="nombre" class="formulario-subir-cancion" placeholder="Nombre de la transmisión" required=""/>
+						<input type="text" name="nombre" class="formulario-subir-cancion" placeholder="Nombre de la transmisión" required/>
 						<input type="text" name="descripcion" class="formulario-subir-cancion" placeholder="Descripcion"/>
 					</div>
-					<div="p-4">
+					<div class="p-4">
 						<input type="submit" class="btn btn-outline-primary btn-sm  mt-3" value="INICIAR">
 					</div>
 			</form>
@@ -1179,27 +1021,27 @@ String email = (String) session.getAttribute("email");
 					
 					<div class="form-group form-float">
 						<div class="form-line">
-							<input type="text" name="nombre" class="form-control" value="<%=nombre%>">
+							<input type="text" name="nombre" id="nombre" class="form-control" value="<%=nombre%>">
 							<label class="form-label">Nombre</label>
 						</div>
 					</div>
 
 					<div class="form-group form-float">
 						<div class="form-line">
-							<input type="text" name="descripcion" class="form-control" value="<%=descripcion%>">
+							<input type="text" name="descripcion" id="descripcion" class="form-control" value="<%=descripcion%>">
 							<label class="form-label">Descripción</label>
 						</div>
 					</div>
 					
 					<div class="form-group form-float">
 						<div class="form-line">
-							<input type="email" name="email" class="form-control" value="<%=email%>">
+							<input type="email" name="email" id="email" class="form-control" value="<%=email%>">
 							<label class="form-label">Email</label>
 						</div>
 					</div>
-
-					<input type="submit" class="btn btn-outline-primary btn-sm pl-4 pr-4"
-						   value="Cambiar información">
+					<a id="submit1" href="obtener_contenido_perfil?pagina=<%=pagina %>" class="btn btn-outline-primary btn-sm pl-4 pr-4">
+						Cambiar información
+					</a>
 				</div>
 			</form>
 			<!-- #END# Input -->
@@ -1220,25 +1062,25 @@ String email = (String) session.getAttribute("email");
 				<div class="body">
 					<div class="form-group form-float">
 						<div class="form-line">
-							<input type="password" name="contrasena1" class="form-control">
+							<input type="password" name="contrasena1" id="contrasena1" class="form-control">
 							<label class="form-label">Contraseña actual</label>
 						</div>
 					</div>
 					<div class="form-group form-float">
 						<div class="form-line">
-							<input type="password" name="contrasena2" class="form-control">
+							<input type="password" name="contrasena2" id="contrasena2" class="form-control">
 							<label class="form-label">Contraseña nueva</label>
 						</div>
 					</div>
 					<div class="form-group form-float">
 						<div class="form-line">
-							<input type="password" name="contrasena3" class="form-control">
+							<input type="password" name="contrasena3" id="contrasena3" class="form-control">
 							<label class="form-label">Confirmar contraseña</label>
 						</div>
 					</div>
 
-					<input type="submit" class="btn btn-outline-primary btn-sm pl-4 pr-4"
-						   value="Cambiar constraseña">
+					<a id="submit2" href="obtener_contenido_perfil?pagina=<%=pagina %>" class="btn btn-outline-primary btn-sm pl-4 pr-4"
+						   value="Cambiar constraseña">Cambiar constraseña</a>
 				</div>
 			</form>
 			<a href="" style="color: red;" onclick="darbaja()">Eliminar cuenta</a>
@@ -1297,6 +1139,110 @@ String email = (String) session.getAttribute("email");
     	  	document.getElementsByName("idAudio")[i].value = song;
     	}
     }
+    </script>
+    <script>
+    $(document).ready(function() {
+    	$('#submit1').click(function(event) {
+			var nombreVar = $('#nombre').val();
+			var descripcionVar = $('#descripcion').val();
+			var emailVar = $('#email').val();
+			// Si en vez de por post lo queremos hacer por get, cambiamos el $.post por $.get
+			$.get('modinfo', {
+				nombre : nombreVar,
+				descripcion : descripcionVar,
+				email : emailVar
+			}, function(responseText){
+				$('#contenido').html(responseText);
+			});
+		});
+    	$('#submit2').click(function(event) {
+			var contrasena1Var = $('#contrasena1').val();
+			var contrasena2Var = $('#contrasena2').val();
+			var contrasena3Var = $('#contrasena3').val();
+			// Si en vez de por post lo queremos hacer por get, cambiamos el $.post por $.get
+			$.get('modpass', {
+				contrasena1 : contrasena1Var,
+				contrasena2 : contrasena2Var,
+				contrasena3 : contrasena3Var
+			}, function(responseText){
+				$('#contenido').html(responseText);
+			});
+		});
+    	$('#submit3').click(function(event) {
+			var nombreVar = $('#nombre-listas-reproduccion').val();
+			var descripcionVar = $('#descripcion-listas-reproduccion').val();
+			var tipoVar = $('#tipo').val();
+			// Si en vez de por post lo queremos hacer por get, cambiamos el $.post por $.get
+			$.get('crear_lr', {
+				nombre : nombreVar,
+				descripcion : descripcionVar,
+				tipo : tipoVar
+			}, function(responseText){
+				$('#contenido').html(responseText);
+			});
+		});
+    	$('#submit4').click(function(event) {
+			var idListaVar = $('#idLista').val();
+			var idAudioVar = $('#idAudio').val();
+			var nombreListaVar = $('#nombreLista').val();
+			var tipoVar = $('#tipo2').val();
+			// Si en vez de por post lo queremos hacer por get, cambiamos el $.post por $.get
+			$.get('anyadir_cancion_lr', {
+				idLista : idListaVar,
+				idAudio : idAudioVar,
+				nombreLista : nombreListaVar,
+				tipo : tipoVar
+			});
+		});
+    	$('#submit5').click(function(event) {
+			var idListaVar = $('#idLista2').val();
+			var idAudioVar = $('#idAudio2').val();
+			var nombreListaVar = $('#nombreLista2').val();
+			var tipoVar = $('#tipo3').val();
+			// Si en vez de por post lo queremos hacer por get, cambiamos el $.post por $.get
+			$.get('anyadir_cancion_lr', {
+				idLista : idListaVar,
+				idAudio : idAudioVar,
+				nombreLista : nombreListaVar,
+				tipo : tipoVar
+			});
+		});
+    	$('#submit6').click(function(event) {
+			var idListaVar = $('#idLista6').val();
+			var tipoVar = $('#tipo6').val();
+			console.log(idListaVar);
+			console.log(tipoVar);
+			// Si en vez de por post lo queremos hacer por get, cambiamos el $.post por $.get
+			$.get('borrar_lr', {
+				nombre : idListaVar,
+				tipo : tipoVar
+			});
+		});
+    	$('#submit7').click(function(event) {
+			var idListaVar = $('#nombre-listas-reproduccion7').val();
+			var descripcionVar = $('#descripcion-listas-reproduccion7').val();
+			var tipoVar = $('#tipo7').val();
+			console.log(idListaVar);
+			console.log(tipoVar);
+			// Si en vez de por post lo queremos hacer por get, cambiamos el $.post por $.get
+			$.get('crear_lr', {
+				nombre : idListaVar,
+				tipo : tipoVar,
+				descripcion : descripcionVar
+			});
+		});
+    	$('#submit8').click(function(event) {
+			var idListaVar = $('#idPodcast8').val();
+			var tipoVar = $('#tipo8').val();
+			console.log(idListaVar);
+			console.log(tipoVar);
+			// Si en vez de por post lo queremos hacer por get, cambiamos el $.post por $.get
+			$.get('borrar_lr', {
+				nombre : idListaVar,
+				tipo : tipoVar
+			});
+		});
+    });
     </script>
     
     </main><!--@Page Content-->

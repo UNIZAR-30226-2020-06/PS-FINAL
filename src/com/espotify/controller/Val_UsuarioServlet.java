@@ -79,7 +79,7 @@ public class Val_UsuarioServlet extends HttpServlet {
 			List<Transmision> transmisiones = new TransmisionDAO().getTransmisionPorNombre("PruebaEscuchar");
 			request.setAttribute("transmisiones", transmisiones);
 			
-			request.getRequestDispatcher("index.jsp").forward( request, response );
+			request.getRequestDispatcher("index.jsp?pagina=0").forward( request, response );
 			//response.sendRedirect("index.jsp");
 		}else {
 			//response.getWriter().println("<div class='popup' id='popup'><a href='#' id='btn-cerrar-popup' class='btn-cerrar-popup'><i class='fas fa-times'></i></a><h3>Datos incorrectos</h3><h4>Email o contrase�a incorrectos, int�ntelo de nuevo.</h4><form action=''><div class='contenedor-inputs'></div><input type='submit' class='btn-cerrar-popup' value='Entendido'></form></div>");
