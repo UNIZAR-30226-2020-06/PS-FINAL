@@ -432,7 +432,7 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 									<div class="img-wrapper">
 										<img src="assets/img/demo/a1.jpg" alt="/">
 										<div class="img-overlay text-white text-center">
-											<a href="obtener_info_lr_usuario?id=${lista.getId()}" >
+											<a href="obtener_info_lr_usuario?id=${listalr.getId()}" >
 												<div class="figcaption mt-3">
 													<i class="icon-link s-48"></i>
 													<h5 class="mt-5">${listalr.getNombre()}</h5>
