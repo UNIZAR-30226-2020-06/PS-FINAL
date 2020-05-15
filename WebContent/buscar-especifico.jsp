@@ -377,18 +377,18 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 										<div class="playlist">
 											<ul id="playlist" class="playlist list-group">
 												<c:forEach var="cancion" items="${canciones}">                    
-													<div style="margin-bottom: -1px;" class="cancion">
-														<li class="list-group-item my-1">																
-															<div class="d-flex align-items-center">
-																<div class="col-1">
-																	<a class="no-ajaxy media-url" href="${cancion.getUrl()}">
-																		<i class="icon-play s-28"></i>
-																	</a>					
-																</div>
-																<div class="col-6">
-																	<h6>${cancion.getTitulo()}</h6>${cancion.getGenero()}
-																</div>
-																<a href="#" class="snackbar ml-3" data-text="Te gusta esta canción"
+												<div style="margin-bottom: -1px;" class="cancion">
+													<li class="list-group-item my-1">
+														<div class="d-flex align-items-center">
+															<div class="col-1">
+																<a class="no-ajaxy media-url" href="${cancion.getUrl()}">
+																	<i class="icon-play s-28"></i>
+																</a>					
+															</div>
+															<div class="col-6">
+																<h6>${cancion.getTitulo()}</h6>${cancion.getGenero()}
+															</div>
+															<a href="#" class="snackbar ml-3" data-text="Te gusta esta canción"
 																   data-pos="top-right"
 																   data-showAction="true"
 																   data-actionText="ok"
@@ -398,15 +398,16 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 																<a href="#" data-toggle="control-sidebar">
 											                        <i style="position: relative;left: 10px;" class="icon-commenting-o s-24"></i>
 											                    </a>
-																<span class="ml-auto">${cancion.getGenero()}</span>								
-																<a href="anyadir_cancion_fav?idAudio=${cancion.getId()}" class="btn-favorito icon-star active" ></a>
-																<a href="#" class="btn-icono icon-list-1" onclick="rellenarCampos('${listaslr.size()}','${cancion.getId()}');
-																document.getElementById('overlay-anadir-listas-reproduccion').classList.add('active')"
+															<div class="ml-auto">
+																<a href="anyadir_cancion_fav?idAudio=${cancion.getId()}" class="btn-favorito icon-star" ></a>
+																<a href="#" class="btn-icono icon-indent" onclick="rellenarCampos('${listaslr.size()}','${cancion.getId()}');
+																document.getElementById('overlay-anadir-listas-reproduccion').classList.add('active')";
 																	></a>
 															</div>
-														</li>
-													</div>								                
-												</c:forEach>
+														</div>
+													</li>
+												</div>								                
+											</c:forEach>
 											</ul>
 										</div>
 									</div>
@@ -477,26 +478,37 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 									<div class="col-md-12">
 										<div class="playlist">
 											<ul id="playlist" class="playlist list-group">
-												<c:forEach var="cancion" items="${capitulos}">                    
-													<div style="margin-bottom: -1px;" class="cancion">
-														<li class="list-group-item my-1">																
-															<div class="d-flex align-items-center">
-																<div class="col-1">
-																	<a class="no-ajaxy media-url" href="${cancion.getUrl()}">
-																		<i class="icon-play s-28"></i>
-																	</a>					
-																</div>
-																<div class="col-6">
-																	<h6>${cancion.getTitulo()}</h6>${cancion.getGenero()}
-																</div>
-																<span class="ml-auto">${cancion.getGenero()}</span>
+												<c:forEach var="capitulo" items="${capitulos}">                    
+												<div style="margin-bottom: -1px;" class="cancion">
+													<li class="list-group-item my-1">
+														<div class="d-flex align-items-center">
+															<div class="col-1">
+																<a class="no-ajaxy media-url" href="${capitulo.getUrl()}">
+																	<i class="icon-play s-28"></i>
+																</a>					
+															</div>
+															<div class="col-6">
+																<h6>${capitulo.getTitulo()}</h6>${capitulo.getGenero()}
+															</div>
+															<a href="#" class="snackbar ml-3" data-text="Te gusta esta canción"
+																   data-pos="top-right"
+																   data-showAction="true"
+																   data-actionText="ok"
+																   data-actionTextColor="#fff"
+																   data-backgroundColor="#0c101b"><i class="icon-thumbs-o-up s-24"></i>
+																</a>
+																<a href="#" data-toggle="control-sidebar">
+											                        <i style="position: relative;left: 10px;" class="icon-commenting-o s-24"></i>
+											                    </a>															
+															<div class="ml-auto">
 																<a href="#" class="btn-icono icon-indent" onclick="rellenarCampos('${podcasts.size()}','${capitulo.getId()}');
 																document.getElementById('overlay-anadir-podcast').classList.add('active')";
 																	></a>
 															</div>
-														</li>
-													</div>								                
-												</c:forEach>
+														</div>
+													</li>
+												</div>								                
+											</c:forEach>
 											</ul>
 										</div>
 									</div>

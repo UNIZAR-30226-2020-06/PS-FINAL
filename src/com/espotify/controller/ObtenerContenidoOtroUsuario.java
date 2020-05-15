@@ -48,12 +48,12 @@ public class ObtenerContenidoOtroUsuario extends HttpServlet {
 			request.getRequestDispatcher("obtener_contenido_perfil").forward(request, response);
 		}
 		System.out.printf("%d", idUsuario);
-		Usuario n = new UsuarioDAO().obtenerInfo(idUsuario);
-		log(n.getNombre());
-		request.setAttribute("nombre", n.getNombre());
-		request.setAttribute("descripcion", n.getDescripcion());
-		request.setAttribute("email", n.getCorreo());
-		request.setAttribute("imagen", n.getImagen());
+		Usuario usuario = new UsuarioDAO().obtenerInfo(idUsuario);
+		log(usuario.getNombre());
+		request.setAttribute("nombre", usuario.getNombre());
+		request.setAttribute("descripcion", usuario.getDescripcion());
+		request.setAttribute("email", usuario.getCorreo());
+		request.setAttribute("imagen", usuario.getImagen());
 		
 		ArrayList<Audio> canciones = new CancionDAO().obtenerCancionesUsuario(idUsuario);
 		request.setAttribute("canciones", canciones);
@@ -66,6 +66,9 @@ public class ObtenerContenidoOtroUsuario extends HttpServlet {
 		
 		List<ListaReproduccion> mislistas = new ListaReproduccionDAO().showLists(id,"ListaRep");
 		request.setAttribute("mislistas", mislistas);
+		
+		List<ListaReproduccion> misPodcasts = new ListaReproduccionDAO().showLists(id,"podcast");
+		request.setAttribute("misPodcasts", misPodcasts);
 
 		request.getRequestDispatcher("perfil_usuario.jsp").forward(request, response);
 	}

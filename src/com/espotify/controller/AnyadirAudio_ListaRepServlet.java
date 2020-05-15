@@ -34,6 +34,7 @@ public class AnyadirAudio_ListaRepServlet extends HttpServlet {
 		String lista = request.getParameter("idLista");
 		String nombre = request.getParameter("nombreLista");
 		String tipo = request.getParameter("tipo");
+		System.out.println("+++++++++++++++++++++++++++++++++++" + audio);
 		int idAudio = Integer.valueOf(audio);
 		int idLista = Integer.valueOf(lista);
 		log(tipo);

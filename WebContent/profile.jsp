@@ -416,14 +416,6 @@ String email = (String) session.getAttribute("email");
 							<a class="nav-link r-20" id="w3--tab5" data-toggle="tab" href="#w3-tab5"
 							   role="tab" aria-controls="tab2" aria-selected="false">Transmisiones</a>
 						</li>
-						<li class="nav-item">
-							<a class="nav-link r-20" id="w3--tab6" data-toggle="tab" href="#w3-tab6"
-							   role="tab" aria-controls="tab3" aria-selected="false">Seguidores</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link r-20" id="w3--tab7" data-toggle="tab" href="#w3-tab7"
-							   role="tab" aria-controls="tab3" aria-selected="false">Siguiendo</a>
-						</li>
 					</ul>
 				</div>
 			</div>
@@ -469,7 +461,7 @@ String email = (String) session.getAttribute("email");
 																<a href="anyadir_cancion_fav?idAudio=${cancion.getId()}" class="btn-favorito icon-star" ></a>
 																<a href="${pageContext.request.contextPath}/ir_modificar?id_audio=${cancion.getId()}&cancion=true" class="btn-icono icon-pencil" ></a>
 																<a href="#" class="btn-icono icon-indent" onclick="rellenarCampos('${listaslr.size()}','${cancion.getId()}');
-																document.getElementById('overlay-anadir-listas-reproduccion').classList.add('active')";
+																document.getElementById('overlay-anadir-listas-reproduccion').classList.add('active');"
 																	></a>
 																<a href="${pageContext.request.contextPath}/eliminar_cancion?id_cancion=${cancion.getId()}" class="btn-icono icon-trash-o" ></a>
 															</div>
@@ -562,14 +554,22 @@ String email = (String) session.getAttribute("email");
 																</a>					
 															</div>
 															<div class="col-6">
-																<h6>${capitulo.getTitulo()}</h6>${genero.getNombre()}
+																<h6>${capitulo.getTitulo()}</h6>${capitulo.getGenero()}
 															</div>
-															<span class="ml-auto">${capitulo.getGenero()}</span>
-															<a href="#" class="ml-auto"><i class="icon-share-1"></i></a>
+															<a href="#" class="snackbar ml-3" data-text="Te gusta esta canción"
+																   data-pos="top-right"
+																   data-showAction="true"
+																   data-actionText="ok"
+																   data-actionTextColor="#fff"
+																   data-backgroundColor="#0c101b"><i class="icon-thumbs-o-up s-24"></i>
+																</a>
+																<a href="#" data-toggle="control-sidebar">
+											                        <i style="position: relative;left: 10px;" class="icon-commenting-o s-24"></i>
+											                    </a>															
 															<div class="ml-auto">
 																<a href="${pageContext.request.contextPath}/ir_modificar?id_audio=${capitulo.getId()}&cancion=false" class="btn-icono icon-pencil" ></a>
 																<a href="#" class="btn-icono icon-indent" onclick="rellenarCampos('${podcasts.size()}','${capitulo.getId()}');
-																document.getElementById('overlay-anadir-podcast').classList.add('active')";
+																document.getElementById('overlay-anadir-podcast').classList.add('active');"
 																	></a>
 																<a href="${pageContext.request.contextPath}/eliminar_capitulo?id_capitulo=${capitulo.getId()}" class="btn-icono icon-trash-o" ></a>
 															</div>
@@ -629,162 +629,6 @@ String email = (String) session.getAttribute("email");
 					</div>
 				</div>
 				<!-- END TRANSMISIONES -->
-				<!---SEGUIDORES-->
-				<div class="tab-pane fade text-center p-5" id="w3-tab6" role="tabpanel"
-					 aria-labelledby="w3-tab6">
-					<div class="table-responsive">
-						<table class="table table-hover earning-box">
-							<tbody>
-							<tr class="no-b">
-								<td class="w-10"><span class="round">
-									<img src="assets/img/demo/u1.png" alt="user"></span>
-								</td>
-								<td>
-									<h6>Sara Kamzoon</h6>
-									<small class="text-muted">Marketing Manager</small>
-								</td>
-								<td>25</td>
-								<td>$250</td>
-							</tr>
-							<tr>
-								<td class="w-10"><span class="round">
-									<img src="assets/img/demo/u2.png" alt="user"></span>
-								</td>
-								<td>
-									<h6>Sara Kamzoon</h6>
-									<small class="text-muted">Marketing Manager</small>
-								</td>
-								<td>25</td>
-								<td>$250</td>
-							</tr>
-							<tr>
-								<td class="w-10"><span class="round">
-									<img src="assets/img/demo/u3.png" alt="user"></span>
-								</td>
-								<td>
-									<h6>Sara Kamzoon</h6>
-									<small class="text-muted">Marketing Manager</small>
-								</td>
-								<td>25</td>
-								<td>$250</td>
-							</tr>
-							<tr>
-								<td class="w-10"><span class="round">
-									<img src="assets/img/demo/u4.png" alt="user"></span>
-								</td>
-								<td>
-									<h6>Sara Kamzoon</h6>
-									<small class="text-muted">Marketing Manager</small>
-								</td>
-								<td>25</td>
-								<td>$250</td>
-							</tr>
-							<tr>
-								<td class="w-10"><span class="round">
-									<img src="assets/img/demo/u5.png" alt="user"></span>
-								</td>
-								<td>
-									<h6>Sara Kamzoon</h6>
-									<small class="text-muted">Marketing Manager</small>
-								</td>
-								<td>25</td>
-								<td>$250</td>
-							</tr>
-							<tr>
-								<td class="w-10"><span class="round">
-									<img src="assets/img/demo/u6.png" alt="user"></span>
-								</td>
-								<td>
-									<h6>Sara Kamzoon</h6>
-									<small class="text-muted">Marketing Manager</small>
-								</td>
-								<td>25</td>
-								<td>$250</td>
-							</tr>
-							</tbody>
-						</table>
-					</div>
-				</div>
-				<!-- END SEGUIDORES -->
-				
-				<!--SIGUIENDO-->
-				<div class="tab-pane fade text-center p-5" id="w3-tab7" role="tabpanel"
-					 aria-labelledby="w3-tab7">
-					<div class="table-responsive">
-						<table class="table table-hover earning-box">
-
-							<tbody>
-							<tr class="no-b">
-								<td class="w-10"><span class="round">
-							<img src="assets/img/demo/u1.png" alt="user"></span>
-								</td>
-								<td>
-									<h6>Sara Kamzoon</h6>
-									<small class="text-muted">Marketing Manager</small>
-								</td>
-								<td>25</td>
-								<td>$250</td>
-							</tr>
-							<tr>
-								<td class="w-10"><span class="round">
-							<img src="assets/img/demo/u2.png" alt="user"></span>
-								</td>
-								<td>
-									<h6>Sara Kamzoon</h6>
-									<small class="text-muted">Marketing Manager</small>
-								</td>
-								<td>25</td>
-								<td>$250</td>
-							</tr>
-							<tr>
-								<td class="w-10"><span class="round">
-							<img src="assets/img/demo/u3.png" alt="user"></span>
-								</td>
-								<td>
-									<h6>Sara Kamzoon</h6>
-									<small class="text-muted">Marketing Manager</small>
-								</td>
-								<td>25</td>
-								<td>$250</td>
-							</tr>
-							<tr>
-								<td class="w-10"><span class="round">
-							<img src="assets/img/demo/u4.png" alt="user"></span>
-								</td>
-								<td>
-									<h6>Sara Kamzoon</h6>
-									<small class="text-muted">Marketing Manager</small>
-								</td>
-								<td>25</td>
-								<td>$250</td>
-							</tr>
-							<tr>
-								<td class="w-10"><span class="round">
-							<img src="assets/img/demo/u5.png" alt="user"></span>
-								</td>
-								<td>
-									<h6>Sara Kamzoon</h6>
-									<small class="text-muted">Marketing Manager</small>
-								</td>
-								<td>25</td>
-								<td>$250</td>
-							</tr>
-							<tr>
-								<td class="w-10"><span class="round">
-							<img src="assets/img/demo/u6.png" alt="user"></span>
-								</td>
-								<td>
-									<h6>Sara Kamzoon</h6>
-									<small class="text-muted">Marketing Manager</small>
-								</td>
-								<td>25</td>
-								<td>$250</td>
-							</tr>
-							</tbody>
-						</table>
-					</div>
-				</div>
-				<!-- END SIGUIENDO -->
 			</div>
 		</div>
 	</div>
@@ -969,7 +813,7 @@ String email = (String) session.getAttribute("email");
 								<input type="hidden" name="idLista" value="${podcast.getId()}">
 								<input type="hidden" name="idAudio" value="">
 								<input type="hidden" name="nombreLista" value="${podcast.getNombre()}">
-								<nput type="hidden" name="tipo" value="podcast">
+								<input type="hidden" name="tipo" value="podcast">
 							</form>	
 						</div>
 					</c:forEach>
