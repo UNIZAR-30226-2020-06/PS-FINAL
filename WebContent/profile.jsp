@@ -537,7 +537,7 @@ String email = (String) session.getAttribute("email");
 								</figure>
 								<div class="contenido-pestanas" style="text-align: center;">
 		                            <button class="btn btn-abrir-popup-lista icon-trash-o" 
-		                            onclick="document.getElementById('idLista').value = '${listalr.getNombre()}';
+		                            onclick="document.getElementById('idLista6').value = '${listalr.getNombre()}';
 		                            document.getElementById('overlay-borrar-listas-reproduccion').classList.add('active');"></button>
                        			</div>
 							</div>
@@ -643,7 +643,7 @@ String email = (String) session.getAttribute("email");
 								</figure>
 								<div class="contenido-pestanas" style="text-align: center;">
 		                            <button class="btn btn-abrir-popup-lista icon-trash-o" 
-		                            onclick="document.getElementById('idPodcast').value = '${podcast.getNombre()}';
+		                            onclick="document.getElementById('idPodcast8').value = '${podcast.getNombre()}';
 		                            document.getElementById('overlay-borrar-podcast').classList.add('active');"></button>
                        			</div>
 							</div>
@@ -899,7 +899,7 @@ String email = (String) session.getAttribute("email");
 		
 					<input type="hidden" id="idPodcast8" name="nombre" value="">
 					<input type="hidden" name="tipo" id="tipo8" value="podcast">	
-					<a id="submit8" href="obtener_contenido_perfil?pagina=<%=pagina %>" class="btn btn-outline-primary btn-sm pl-4 pr-4">Aceptar</a>	
+					<a id="submit8" href="#" class="btn btn-outline-primary btn-sm pl-4 pr-4">Aceptar</a>	
 	             </div>   
 				<!-- #END# Input -->	
 	        </form>	

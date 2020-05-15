@@ -472,6 +472,7 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 			var tipoVar = $('#tipo1').val();
 			console.log(idListaVar);
 			console.log(tipoVar);
+			console.log(descripcionVar);
 			// Si en vez de por post lo queremos hacer por get, cambiamos el $.post por $.get
 			$.get('crear_lr', {
 				nombre : idListaVar,

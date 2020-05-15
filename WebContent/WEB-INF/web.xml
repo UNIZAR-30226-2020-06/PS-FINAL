@@ -574,6 +574,7 @@
 		<url-pattern>/mostrar_transmisiones</url-pattern>
 	</servlet-mapping>
 	
+	
 	<servlet>
 			<servlet-name>obtener_contenido_perfil</servlet-name>
 			<servlet-class>com.espotify.controller.ObtenerCotenidoUsuario</servlet-class>
@@ -635,6 +636,27 @@
 		<servlet-name>Usuario_modpass</servlet-name>
 		<url-pattern>/logout</url-pattern>
 	</servlet-mapping>
+	
+	
+	<servlet>
+		<servlet-name>anyadir_coment_cancion</servlet-name>
+		<servlet-class>com.espotify.controller.Anyadir_ComentarioAudioServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>anyadir_coment_cancion</servlet-name>
+		<url-pattern>/anyadir_coment_cancion</url-pattern>
+	</servlet-mapping>
+	
+	
+	<servlet>
+		<servlet-name>getall_coment_cancion</servlet-name>
+		<servlet-class>com.espotify.controller.GetAll_ComentCanServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>getall_coment_cancion</servlet-name>
+		<url-pattern>/getall_coment_cancion</url-pattern>
+	</servlet-mapping>
+	
 	
 	<servlet>
 		<servlet-name>anyadir_cancion_lr</servlet-name>
@@ -760,6 +782,16 @@
 	<servlet-mapping>
 		<servlet-name>obtener_info_podcast_usuario</servlet-name>
 		<url-pattern>/obtener_info_podcast_usuario</url-pattern>
+	</servlet-mapping>
+	
+	
+	<servlet>
+		<servlet-name>estaciones_libres</servlet-name>
+		<servlet-class>com.espotify.controller.getURLestacionesLibres_Servlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>estaciones_libres</servlet-name>
+		<url-pattern>/estaciones_libres</url-pattern>
 	</servlet-mapping>
 	
 	<context-param>

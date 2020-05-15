@@ -120,7 +120,7 @@ int pagina = Integer.valueOf((String) request.getParameter("pagina"));
 </aside>
 <!-- ACABA MENU DE LA IZQUIERDA-->
 
-<!-- MENU DONDE ESTAN LAS CANCIONES EN LA COLA (DERECHA) -->
+<!-- MENU DONDE ESTAN LOS COMENTARIOS (DERECHA) -->
 <aside class="control-sidebar fixed ">
     <div class="slimScroll">
         <div class="sidebar-header" style="margin-bottom: 1rem !important;">
@@ -128,34 +128,27 @@ int pagina = Integer.valueOf((String) request.getParameter("pagina"));
             <a href="#" data-toggle="control-sidebar" class="paper-nav-toggle  active"><i></i></a>
         </div>
         <div class="p-3">
-            <div class="media my-5 " style="margin-top: -1rem !important;margin-bottom: 2rem !important;">
-                <div class="media-body">
-                    <h6 class="mt-0">Ami Fro</h6>
-                    Cras sit amet nibh libero, in gravida nulla.
-                </div>
-            </div>
-            <div class="media my-5 " style="margin-top: -1rem !important;margin-bottom: 2rem !important;">
-                <div class="media-body">
-                    <h6 class="mt-0">Mohamed secame</h6>
-                    Basura es esta?
-                </div>
-            </div>
-            
+        	<div id="listaComentariosCancion"></div>
+        	
+            <form action="anyadir_coment_cancion">
 			<div class="row">
                  <div class="col-lg-12">
                      <div class="form-group">
                          <div class="form-line">
-                               <textarea style="color: white;" rows="5" class="form-control r-0"
+                               <textarea id="textarea" style="color: white;" rows="5" class="form-control r-0"
                                          placeholder="Escribir comentario..."></textarea>
                          </div>
                      </div>
 
                  </div>
              </div>
+             <input type="hidden" id="audioIDcomment" name="nombre" value="">
              <div class="row text-center">
-                 <div class="col-lg-12"><input type="submit" class="btn btn-primary"
-                                               value="Publicar" style="border-radius: 7px;position: relative;left: 95px;"></div>
+                 <div class="col-lg-12">
+                 	<a id="publicar" href="#"  class="btn btn-primary" style="border-radius: 7px;position: relative;left: 95px;">Publicar</a>
+                 </div>
              </div>
+             </form>
         </div>
     </div>
 </aside>
@@ -163,7 +156,7 @@ int pagina = Integer.valueOf((String) request.getParameter("pagina"));
 <!-- Add the sidebar's background. This div must be placed
          immediately after the control sidebar -->
 <div class="control-sidebar-bg shadow  fixed"></div>
-<!-- END MENU DONDE ESTAN LAS CANCIONES EN LA COLA (DERECHA) -->
+<!-- END MENU DONDE ESTAN LOS COMENTARIOS (DERECHA) -->
 
 <svg class="d-none">
     <defs>
@@ -457,8 +450,8 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 																   data-actionTextColor="#fff"
 																   data-backgroundColor="#0c101b"><i class="icon-thumbs-o-up s-24"></i>
 																</a>
-																<a href="#" data-toggle="control-sidebar">
-											                        <i style="position: relative;left: 10px;" class="icon-commenting-o s-24"></i>
+																<a href="#" data-toggle="control-sidebar" onclick="document.getElementById('audioIDcomment').value = '${cancion.getId()}';">
+											                        <i style="position: relative;left: 10px;" class="icon-commenting-o s-24">${cancion.getId()}</i>
 											                    </a>
 																<div class="ml-auto">
 																	<a href="${pageContext.request.contextPath}/borrar_cancion_fav?idAudio=${cancion.getId()}&pagina=<%=pagina %>" class="btn-favorito icon-star active" ></a>
@@ -491,28 +484,6 @@ String hayfoto = (String) session.getAttribute("hayfoto");
         </div>
     </div>
 </div>
-<!-- BORRAR LISTA DE REPRODUCCIÓN -->	
-	<div class="overlay-pop-up" id="overlay-borrar-listas-reproduccion">	
-	    <div class="col-md-7 card p-5">	
-	        <a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-borrar-listas-reproduccion" class="btn-cerrar-popup-perfil"	
-	        class="btn btn-outline-primary btn-sm pl-4 pr-4"  onclick="document.getElementById('overlay-borrar-listas-reproduccion').classList.remove('active');"><i class="icon-close1"></i></a>	
-			<form class="form-material" action="borrar_lr">	
-				<!-- Input -->	
-				<div class="body">	
-					<header class="relative nav-sticky card">	
-	                    <h3>¿Estas seguro?</h3>	
-	                    <h5>Vas a borrar esta lista de reproduccion para siempre, no hay vuelta atras</h5>	
-					</header>	
-		
-					<input type="hidden" id="idLista" name="nombre" value="">
-					<input type="hidden" name="tipo" id="tipo2" value="ListaRep">	
-					<a id="submit2" href="mostrar_lrs?tipo=ListaRep&pagina=<%=pagina %>" class="btn btn-outline-primary btn-sm pl-4 pr-4">Aceptar</a>
-				</div>	
-				<!-- #END# Input -->	
-	        </form>	
-		</div>	
-	</div>	
-<!-- END BORRAR LISTA DE REPRODUCCIÓN -->
 
 
 
@@ -526,16 +497,40 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 <script  src="assets/js/mostrar-popup.js"></script>
 <script>
     $(document).ready(function() {
-    	$('#submit2').click(function(event) {
-			var idListaVar = $('#idLista').val();
-			var tipoVar = $('#tipo2').val();
-			console.log(idListaVar);
-			console.log(tipoVar);
-			// Si en vez de por post lo queremos hacer por get, cambiamos el $.post por $.get
-			$.get('borrar_lr', {
-				nombre : idListaVar,
-				tipo : tipoVar
+    	$('.playlist a').click(function(event) { // cargar los comentarios de cancion
+			var audioId = $('#audioIDcomment').val();
+			console.log(audioId);
+			$.get('getall_coment_cancion', {
+				idAudio: audioId
+			}, function(data){
+				$('#listaComentariosCancion').html(data);
 			});
+		});
+    	$('#publicar').click(function(event) { // publicar comentario en cancion
+			var textarea = $('#textarea').val();
+			var audioId = $('#audioIDcomment').val();
+			var idUsuarioVar = <%=session.getAttribute("id")%>;
+			console.log(textarea);
+			console.log(audioId);
+			console.log(idUsuarioVar);
+			if(textarea != ""){
+				$.get('anyadir_coment_cancion', {
+					descripcion : textarea,
+					idUsuario : idUsuarioVar,
+					idAudio: audioId
+				}, function(){
+					document.getElementById('textarea').value="";
+					$('.playlist a').ready(function(event) { // cargar los comentarios de cancion
+						var audioId = $('#audioIDcomment').val();
+						console.log(audioId);
+						$.get('getall_coment_cancion', {
+							idAudio: audioId
+						}, function(data){
+							$('#listaComentariosCancion').html(data);
+						});
+					});
+				});
+			}
 		});
     });
     </script>
