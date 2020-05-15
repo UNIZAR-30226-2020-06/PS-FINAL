@@ -469,7 +469,7 @@ String email = (String) session.getAttribute("email");
 																<a href="anyadir_cancion_fav?idAudio=${cancion.getId()}" class="btn-favorito icon-star" ></a>
 																<a href="${pageContext.request.contextPath}/ir_modificar?id_audio=${cancion.getId()}&cancion=true" class="btn-icono icon-pencil" ></a>
 																<a href="#" class="btn-icono icon-indent" onclick="rellenarCampos('${listaslr.size()}','${cancion.getId()}');
-																document.getElementById('overlay-anadir-listas-reproduccion').classList.add('active')";
+																document.getElementById('overlay-anadir-listas-reproduccion').classList.add('active')"
 																	></a>
 																<a href="${pageContext.request.contextPath}/eliminar_cancion?id_cancion=${cancion.getId()}" class="btn-icono icon-trash-o" ></a>
 															</div>
@@ -568,8 +568,8 @@ String email = (String) session.getAttribute("email");
 															<a href="#" class="ml-auto"><i class="icon-share-1"></i></a>
 															<div class="ml-auto">
 																<a href="${pageContext.request.contextPath}/ir_modificar?id_audio=${capitulo.getId()}&cancion=false" class="btn-icono icon-pencil" ></a>
-																<a href="#" class="btn-icono icon-indent" onclick="rellenarCampos('${podcasts.size()}','${capitulo.getId()}');
-																document.getElementById('overlay-anadir-podcast').classList.add('active')";
+																<a href="#" class="btn-icono icon-indent" onclick="rellenarCamposP('${podcasts.size()}','${capitulo.getId()}');
+																document.getElementById('overlay-anadir-podcast').classList.add('active')"
 																	></a>
 																<a href="${pageContext.request.contextPath}/eliminar_capitulo?id_capitulo=${capitulo.getId()}" class="btn-icono icon-trash-o" ></a>
 															</div>
@@ -917,6 +917,8 @@ String email = (String) session.getAttribute("email");
 			<!-- Input -->
 				<div class="body">
 					<div class="row has-items-overlay">
+					<c:choose ><c:when test="${listaslr.isEmpty()}"><h2>Parece que no tienes ninguna lista...</h2></c:when>
+						<c:otherwise>
 						<c:forEach var="listalr" items="${listaslr}">
 						<div class="col-lg-3 col-md-4 col-sm-6 my-2">
 							<figure>
@@ -938,6 +940,7 @@ String email = (String) session.getAttribute("email");
 							</form>	
 						</div>
 					</c:forEach>
+					</c:otherwise></c:choose>
 				<!-- #END# Input -->
 				</div>
 			</div>		
@@ -952,6 +955,8 @@ String email = (String) session.getAttribute("email");
 			<!-- Input -->
 				<div class="body">
 					<div class="row has-items-overlay">
+					<c:choose ><c:when test="${podcasts.isEmpty()}"><h2>Parece que no tienes ningun podcast...</h2></c:when>
+						<c:otherwise>
 						<c:forEach var="podcast" items="${podcasts}">
 						<div class="col-lg-3 col-md-4 col-sm-6 my-2">
 							<figure>
@@ -967,12 +972,13 @@ String email = (String) session.getAttribute("email");
 							<form class="form-material" action="anyadir_cancion_lr" method="post">
 								<input type="submit" class="btn btn-outline-primary btn-sm pl-4 pr-4" value="Añadir">
 								<input type="hidden" name="idLista" value="${podcast.getId()}">
-								<input type="hidden" name="idAudio" value="">
+								<input type="hidden" name="idAudioP" value="">
 								<input type="hidden" name="nombreLista" value="${podcast.getNombre()}">
-								<nput type="hidden" name="tipo" value="podcast">
+								<input type="hidden" name="tipo" value="podcast">
 							</form>	
 						</div>
 					</c:forEach>
+					</c:otherwise></c:choose>
 				<!-- #END# Input -->
 				</div>
 			</div>		
@@ -1175,6 +1181,14 @@ String email = (String) session.getAttribute("email");
     	var i;
     	for (i=0; i <size; i++){
     	  	document.getElementsByName("idAudio")[i].value = song;
+    	}
+    }
+    </script>
+    <script>
+    function rellenarCamposP(size,song) {
+    	var i;
+    	for (i=0; i <size; i++){
+    	  	document.getElementsByName("idAudioP")[i].value = song;
     	}
     }
     </script>

@@ -474,7 +474,7 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 															<span class="ml-auto">${capitulo.getGenero()}</span>
 															<a href="#" class="ml-auto"><i class="icon-share-1"></i></a>
 															<div class="ml-auto">
-																<a href="#" class="btn-icono icon-list-1" onclick="rellenarCampos('${podcasts.size()}','${capitulo.getId()}');
+																<a href="#" class="btn-icono icon-list-1" onclick="rellenarCamposP('${podcastslr.size()}','${capitulo.getId()}');
 																document.getElementById('overlay-anadir-podcast').classList.add('active')"></a>
 
 															</div>
@@ -694,6 +694,8 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 			<!-- Input -->
 				<div class="body">
 					<div class="row has-items-overlay">
+						<c:choose ><c:when test="${mislistas.isEmpty()}"><h2>Parece que no tienes ninguna lista...</h2></c:when>
+						<c:otherwise>
 						<c:forEach var="listalr" items="${mislistas}">
 						<div class="col-lg-3 col-md-4 col-sm-6 my-2">
 							<figure>
@@ -715,6 +717,7 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 							</form>	
 						</div>
 					</c:forEach>
+					</c:otherwise></c:choose>
 				<!-- #END# Input -->
 				</div>
 			</div>		
@@ -725,11 +728,13 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 <!-- AÑADIR CAPITULO A PODCAST -->
 <div class="overlay-pop-up" id="overlay-anadir-podcast">
     <div class="col-md-7 card p-5">
-		<a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-anadir-podcast" class="btn-cerrar-popup-perfil"><i class="icon-close1"></i></a>			
+		<a style="position: absolute;top: 20px;right: 30px;" href="#" onclick="document.getElementById('overlay-anadir-podcast').classList.remove('active');" id="btn-cerrar-anadir-podcast" class="btn-cerrar-popup-perfil"><i class="icon-close1"></i></a>			
 			<!-- Input -->
 				<div class="body">
 					<div class="row has-items-overlay">
-						<c:forEach var="podcast" items="${podcasts}">
+						<c:choose ><c:when test="${podcastslr.isEmpty()}"><h2>Parece que no tienes ningun podcast...</h2></c:when>
+						<c:otherwise>
+						<c:forEach var="podcast" items="${podcastslr}">
 						<div class="col-lg-3 col-md-4 col-sm-6 my-2">
 							<figure>
 								<div class="img-wrapper">
@@ -744,12 +749,13 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 							<form class="form-material" action="anyadir_cancion_lr" method="post">
 								<input type="submit" class="btn btn-outline-primary btn-sm pl-4 pr-4" value="Añadir">
 								<input type="hidden" name="idLista" value="${podcast.getId()}">
-								<input type="hidden" name="idAudio" value="">
+								<input type="hidden" name="idAudioP" value="">
 								<input type="hidden" name="nombreLista" value="${podcast.getNombre()}">
 								<input type="hidden" name="tipo" value="podcast">
 							</form>	
 						</div>
 					</c:forEach>
+					</c:otherwise></c:choose>
 				<!-- #END# Input -->
 				</div>
 			</div>		
@@ -808,6 +814,14 @@ String hayfoto = (String) session.getAttribute("hayfoto");
     	var i;
     	for (i=0; i <size; i++){
     	  	document.getElementsByName("idAudio")[i].value = song;
+    	}
+    }
+    </script>
+    <script>
+    function rellenarCamposP(size,song) {
+    	var i;
+    	for (i=0; i <size; i++){
+    	  	document.getElementsByName("idAudioP")[i].value = song;
     	}
     }
     </script>

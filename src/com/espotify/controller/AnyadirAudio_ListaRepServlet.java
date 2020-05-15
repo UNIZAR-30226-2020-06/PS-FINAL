@@ -30,30 +30,37 @@ public class AnyadirAudio_ListaRepServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		String audio = request.getParameter("idAudio");
+		
 		String lista = request.getParameter("idLista");
 		String nombre = request.getParameter("nombreLista");
 		String tipo = request.getParameter("tipo");
-		int idAudio = Integer.valueOf(audio);
 		int idLista = Integer.valueOf(lista);
+		
+		Boolean anyadida=false;	
+		String redir="";
+		log(lista);
+		log(nombre);
 		log(tipo);
-		Boolean anyadida = new ListaReproduccionDAO().anyadirAudio(idAudio, idLista);
+		if (tipo.equals("ListaRep")) {
+			String audio = request.getParameter("idAudio");
+			int idAudio = Integer.valueOf(audio);		
+			anyadida = new ListaReproduccionDAO().anyadirAudio(idAudio, idLista);
+			redir = "obtener_info_lr?nombre=" + nombre;
+		} else {
+			String audio = request.getParameter("idAudioP");
+			int idAudio = Integer.valueOf(audio);
+			anyadida = new ListaReproduccionDAO().anyadirAudio(idAudio, idLista);
+			redir = "obtener_info_podcast?nombre=" + nombre;
+		}
+		log("Donde redirige: " +redir);
 		
 		if (anyadida) {
 			log("La cancion se ha aadido correctamente");
 		} else {
 			log("La cancon no se ha podido aadir");
 		}
-		
 		HttpSession session = request.getSession();
 		session.setAttribute("anyadida?", anyadida);
-		String redir="";
-		if (tipo.equals("ListaRep")) {
-			redir = "obtener_info_lr?nombre=" + nombre;
-		} else {
-			redir = "obtener_info_podcast?nombre=" + nombre;
-		}
-		log("Donde redirige: " +redir);
 		
 		request.getRequestDispatcher(redir).forward(request, response);
 		//RequestDispatcher dispatcher=request.getRequestDispatcher("audio.jsp");
