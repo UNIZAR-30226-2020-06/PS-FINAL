@@ -1,6 +1,7 @@
 package com.espotify.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -30,6 +31,9 @@ public class Modpass_UsuarioServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		response.setContentType( "text/html; charset=iso-8859-1" );
+		PrintWriter out = response.getWriter();
+		
 		HttpSession session = request.getSession();
 		String id = (String) session.getAttribute("id");
 		//String id = (String) request.getParameter("id"); // PRUEBA - BORRAR
@@ -42,14 +46,29 @@ public class Modpass_UsuarioServlet extends HttpServlet {
 		if(pass2.equals(pass3)){
 			boolean ok = UsuarioDAO.cambiar_pass(pass1,pass2,id);
 			if(ok) {
-				response.sendRedirect("profile.jsp?ok=");
+				out.println("<div class=\"alert alert-success alert-dismissible fade show\" role=\"alert\">");
+				out.println("<strong>Contraseña cambiada correctamente!</strong>");
+				out.println("<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\">");
+				out.println("<span aria-hidden='true'>&times;</span>");
+				out.println("</button>");
+				out.println("</div>");
 			}
 			else {
-				response.sendRedirect("profile.jsp?error=pass_incorrecto");
+				out.println("<div class=\"alert alert-danger alert-dismissible fade show\" role=\"alert\">");
+				out.println("<strong>Contraseña incorrecta.</strong> Vuelva a intentarlo.");
+				out.println("<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\">");
+				out.println("<span aria-hidden='true'>&times;</span>");
+				out.println("</button>");
+				out.println("</div>");
 			}
 		}
 		else{
-			response.sendRedirect("profile.jsp?error=pass_diferentes");
+			out.println("<div class=\"alert alert-danger alert-dismissible fade show\" role=\"alert\">");
+			out.println("<strong>Las contraseñas no coinciden</strong> Vuelva a intentarlo.");
+			out.println("<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\">");
+			out.println("<span aria-hidden='true'>&times;</span>");
+			out.println("</button>");
+			out.println("</div>");
 		}
 				
 		//request.getRequestDispatcher("usuario.jsp").forward(request, response);

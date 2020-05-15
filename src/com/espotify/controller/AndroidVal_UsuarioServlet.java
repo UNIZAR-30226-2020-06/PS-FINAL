@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.json.JSONObject;
 
+import com.espotify.dao.JSONAdapter;
 import com.espotify.dao.UsuarioDAO;
 import com.espotify.model.Usuario;
 
@@ -41,20 +42,13 @@ public class AndroidVal_UsuarioServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		getServletContext().log("PETICION RECIBIDA: CLIENTE ANDROID - LOGIN"); 
 		
-		// Parsear JSON!
-        StringBuilder sb = new StringBuilder();
-        String s;
-        while ((s = request.getReader().readLine()) != null) {
-           sb.append(s);
-        }
+		
 
-        getServletContext().log("String recibido: " + sb.toString()); //got the full request as string. 
-        String parseJSON = sb.toString();
-       
-        JSONObject parametrosPeticion = new JSONObject(parseJSON);
-        getServletContext().log("JSON Object: " + parametrosPeticion);
+		JSONObject parametrosPeticion = JSONAdapter.parsarJSON(request);
+	    getServletContext().log("--- ~AndroidVal_UsuarioServlet~ ---");
+	    getServletContext().log("Parametros: " + parametrosPeticion);
         
-        String email = parametrosPeticion.getString("email");
+        String usuario = parametrosPeticion.getString("usuario");
         String contrasena = parametrosPeticion.getString("contrasenya");
         
         JSONObject respuestaPeticion = new JSONObject();
@@ -63,10 +57,11 @@ public class AndroidVal_UsuarioServlet extends HttpServlet {
         response.setCharacterEncoding("utf-8");
         PrintWriter out = response.getWriter();
         
-        Usuario u = new UsuarioDAO().login(email, contrasena);
+        Usuario u = new UsuarioDAO().login(usuario, contrasena);
         if(u != null) {
         	getServletContext().log("Login OK");
         	respuestaPeticion.put("respuesta", "ok");
+        	respuestaPeticion.put("email", u.getCorreo());
         	out.print(respuestaPeticion.toString());
         } else {
         	getServletContext().log("Registro FAIL");

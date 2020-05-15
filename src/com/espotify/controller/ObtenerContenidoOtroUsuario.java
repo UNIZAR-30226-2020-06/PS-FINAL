@@ -33,7 +33,6 @@ public class ObtenerContenidoOtroUsuario extends HttpServlet {
      */
     public ObtenerContenidoOtroUsuario() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
@@ -69,6 +68,7 @@ public class ObtenerContenidoOtroUsuario extends HttpServlet {
 		
 		List<ListaReproduccion> misPodcasts = new ListaReproduccionDAO().showLists(id,"podcast");
 		request.setAttribute("misPodcasts", misPodcasts);
+
 
 		request.getRequestDispatcher("perfil_usuario.jsp").forward(request, response);
 	}

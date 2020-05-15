@@ -5,6 +5,11 @@ pageEncoding="UTF-8"%>
 
 <!-- Mirrored from xvelopers.com/demos/html/record-light/index.jsp by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 05 Apr 2020 17:21:29 GMT -->
 
+<% 
+int pagina = Integer.valueOf((String) request.getParameter("pagina"));
+String nombre = (String) request.getParameter("nombre");
+%>
+
 <!--  
 ########################################################################
 ############### BASE DE TODAS LAS PAGINAS    ###########################
@@ -83,7 +88,7 @@ pageEncoding="UTF-8"%>
 <aside class="main-sidebar fixed offcanvas shadow" data-toggle='offcanvas'>
     <div class="sidebar">
         <ul class="sidebar-menu">
-            <li><a class="ajaxifyPage active" href="Inicio" >
+            <li><a class="ajaxifyPage active" href="Inicio?pagina=10" >
                     <i class="icon icon-home-1 s-24"></i> <span>Inicio</span>
                 </a>
             </li>
@@ -101,16 +106,16 @@ pageEncoding="UTF-8"%>
                 </ul>
             </li>
             
-            <li><a class="ajaxifyPage" href="mostrar_lrs?tipo=ListaRep" >
+            <li><a class="ajaxifyPage" href="mostrar_lrs?tipo=ListaRep&pagina=10" >
                     <i class="icon icon-compact-disc-1 s-24"></i> <span>Mis listas de reproduccion</span>
                 </a>
             </li>
             
-            <li><a class="ajaxifyPage" href="mostrar_podcasts?tipo=podcasts" >
+            <li><a class="ajaxifyPage" href="mostrar_podcasts?tipo=podcasts&pagina=10" >
                     <i class="icon icon-headphones s-24"></i> <span>Mis podcasts</span>
                 </a>
             </li>
-            <li><a class="ajaxifyPage" href="obtener_info_fav" >
+            <li><a class="ajaxifyPage" href="obtener_info_fav?pagina=10" >
             		<i class="icon icon-star s-24"></i> <span>Mis favoritos</span>
             	</a>
             </li>
@@ -241,9 +246,9 @@ String hayfoto = (String) session.getAttribute("hayfoto");
             <a href="#" data-toggle="push-menu" class="paper-nav-toggle pp-nav-toggle ml-2 mr-2">
                 <i></i>
             </a>
-            <a class="navbar-brand d-none d-lg-block" href="Inicio" >
+            <a class="navbar-brand d-none d-lg-block" href="Inicio?pagina=10" >
                 <div class="d-flex align-items-center s-14 l-s-2">
-                    <a style="position: absolute;width: 12%;" href="Inicio" ><img  src="assets/img/logo.png"></a>
+                    <a style="position: absolute;width: 12%;" href="Inicio?pagina=10" ><img  src="assets/img/logo.png"></a>
                 </div>
             </a>
         </div>
@@ -274,7 +279,7 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 					<div class="dropdown-menu p-4 dropdown-menu-right">
 						<div class="row box justify-content-between my-4">
 							<div class="col text-center">
-								<a class="ajaxifyPage" href="obtener_contenido_perfil" >
+								<a class="ajaxifyPage" href="obtener_contenido_perfil?pagina=10" >
 									<i class="icon-user-4  s-24"></i>
 									<div class="pt-1">Mi perfil</div>
 								</a>
@@ -304,7 +309,7 @@ String hayfoto = (String) session.getAttribute("hayfoto");
             <!-- BOTONES ANTERIOR, PAUSE, SIGUIENTE -->
                 <div class="col">
                     <div class="d-flex align-items-center">
-                        <button id="shuffleTrack" class="btn btn-link d-none d-sm-block">
+                        <button id="shuffleTrack" class="btn btn-link d-none d-sm-block" onClick="document.getElementById('shuffleTrack').classList.add('active');">
                             <i class="icon-shuffle s-18"></i>
                         </button>
                         <button id="previousTrack" class="btn btn-link d-none d-sm-block">
@@ -317,7 +322,7 @@ String hayfoto = (String) session.getAttribute("hayfoto");
                         <button id="nextTrack" class="btn btn-link d-none d-sm-block">
                             <i class="icon-next s-18"></i>
                         </button>
-                        <button class="btn btn-link" onclick="loopAudio();">
+                        <button class=" btn btn-control" id="btn-loop" onclick="loopAudio();document.getElementById('btn-loop').classList.add('active');"">
                             <i class="icon-repeat s-18"></i>
                         </button>
                     </div>
@@ -346,14 +351,14 @@ String hayfoto = (String) session.getAttribute("hayfoto");
         <!--END Player-->
     </div>
 </nav>
-<!-- END BARRA DE ABAJO -->
+<!-- ACABA BARRA DE ABAJO -->
 
 <!--  
 ########################################################################
 ############### ACABA BASE DE TODAS LAS PAGINAS    #####################
 ########################################################################
 -->
-</nav>
+
 
 <!--Page Content-->
 <main id="pageContent" class="page has-sidebar">
@@ -410,14 +415,19 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 														<li class="list-group-item my-1">
 															<div class="d-flex align-items-center">
 																<div class="col-1">
+																	<%if(pagina == 5) {%>
 																	<a class="no-ajaxy media-url" href="${cancion.getUrl()}">
 																		<i class="icon-play s-28"></i>
-																	</a>					
+																	</a>
+																	<% } else {%>
+																	<a href="obtener_info_lr?nombre=<%=nombre%>&pagina=5" onclick="setTimeout(location.reload.bind(location), 1)">
+																		<i class="icon-play s-28"></i>
+																	</a>
+																	<%} %>					
 																</div>
 																<div class="col-6">
 																	<h6>${cancion.getTitulo()}</h6>${cancion.getGenero()}
 																</div>
-																<span class="ml-auto">${cancion.getGenero()}</span>
 																<a href="#" class="snackbar ml-3" data-text="Te gusta esta canción"
 																   data-pos="top-right"
 																   data-showAction="true"
@@ -429,7 +439,7 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 											                        <i style="position: relative;left: 10px;" class="icon-commenting-o s-24"></i>
 											                    </a>
 																<div class="ml-auto">
-																	<a href="anyadir_cancion_fav?idAudio=${cancion.getId()}" class="btn-favorito icon-star active"></a>
+																	<a href="anyadir_cancion_fav?idAudio=${cancion.getId()}&pagina=<%=pagina %>" class="btn-favorito icon-star active"></a>
 																	<a href="#" class="btn-icono icon-indent" onclick="rellenarCampos('${listaslr.size()}','${cancion.getId()}');
 																document.getElementById('overlay-anadir-listas-reproduccion').classList.add('active')";></a>
 																</div>
@@ -451,12 +461,13 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 			</div>
 		</div>
 	</div>
-</div>
 
-<!-- AÑADIR CANCION A LISTA DE REPRODUCCIÓN -->
+
+<!-- AÑADIR CANCION A LISTA DE REPRODUCCI�N -->
 <div class="overlay-pop-up" id="overlay-anadir-listas-reproduccion">
     <div class="col-md-7 card p-5">
-		<a style="position: absolute;top: 20px;right: 30px;" href="#" onclick="document.getElementById('overlay-anadir-listas-reproduccion').classList.remove('active');" id="btn-cerrar-anadir-listas-reproduccion" class="btn-cerrar-popup-perfil"><i class="icon-close1"></i></a>			
+		<a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-anadir-listas-reproduccion" class="btn-cerrar-popup-perfil"><i class="icon-close1"
+		onclick="document.getElementById('overlay-anadir-listas-reproduccion').classList.remove('active');"></i></a>			
 			<!-- Input -->
 				<div class="body">
 					<div class="row has-items-overlay">
@@ -473,11 +484,11 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 								</div>
 							</figure>
 							<form class="form-material" action="anyadir_cancion_lr" method="post">
-								<input type="submit" class="btn btn-outline-primary btn-sm pl-4 pr-4" value="Añadir">
-								<input type="hidden" name="idLista" value="${listalr.getId()}">
-								<input type="hidden" name="idAudio" value="">
-								<input type="hidden" name="nombreLista" value="${listalr.getNombre()}">
-								<input type="hidden" name="tipo" value="ListaRep">
+								<input type="hidden" name="idLista" id="idLista" value="${listalr.getId()}">
+								<input type="hidden" name="idAudio" id="idAudio" value="">
+								<input type="hidden" name="nombreLista" id="nombreLista" value="${listalr.getNombre()}">
+								<input type="hidden" name="tipo" id="tipo" value="ListRep">
+								<a id="submit2" href="Inicio?pagina=<%=pagina %>" class="btn btn-outline-primary btn-sm pl-4 pr-4">Añadir</a>
 							</form>	
 						</div>
 					</c:forEach>
@@ -486,9 +497,25 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 			</div>		
 	</div>
 </div>
-<!-- END AÑADIR CANCION A LISTA DE REPRODUCCIÓN -->
+<!-- END AÑADIR CANCION A LISTA DE REPRODUCCI�N -->
 
-
+<script>
+    $(document).ready(function() {
+    	$('#submit2').click(function(event) {
+			var idListaVar = $('#idLista').val();
+			var idAudioVar = $('#idAudio').val();
+			var nombreListaVar = $('#nombreLista').val();
+			var tipoVar = $('#tipo').val();
+			// Si en vez de por post lo queremos hacer por get, cambiamos el $.post por $.get
+			$.get('anyadir_cancion_lr', {
+				idLista : idListaVar,
+				idAudio : idAudioVar,
+				nombreLista : nombreListaVar,
+				tipo : tipoVar
+			});
+		});
+    });
+    </script>
 </main><!--@Page Content-->
 </div><!--@#app-->
 <!--/#app -->

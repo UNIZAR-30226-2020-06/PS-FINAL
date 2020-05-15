@@ -4,6 +4,10 @@ pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%><!DOCTYPE html>
 <html lang="zxx">
 
+<% 
+int pagina = Integer.valueOf((String) request.getParameter("pagina"));
+%>
+
 <!-- NOMBRE DE LA PESTAÃÂA -->
 <head>
     <meta charset="utf-8">
@@ -16,7 +20,7 @@ pageEncoding="UTF-8"%>
     <link rel="stylesheet" href="assets/css/app.css">
 </head>
 
-<body background="assets/img/fondo3.png" style="background-size: cover;background-repeat: no-repeat; background-position: center center;background-attachment: fixed;" class="sidebar-mini sidebar-collapse sidebar-expanded-on-hover has-preloader" style="display: none;">
+<body id="todo" background="assets/img/fondo3.png" style="background-size: cover;background-repeat: no-repeat; background-position: center center;background-attachment: fixed;" class="sidebar-mini sidebar-collapse sidebar-expanded-on-hover has-preloader" style="display: none;">
 <!-- Pre loader
   To disable preloader remove 'has-preloader' from body
  -->
@@ -74,7 +78,7 @@ pageEncoding="UTF-8"%>
 <aside class="main-sidebar fixed offcanvas shadow" data-toggle='offcanvas'>
     <div class="sidebar">
         <ul class="sidebar-menu">
-            <li><a class="ajaxifyPage active" href="Inicio" >
+            <li><a class="ajaxifyPage active" href="Inicio?pagina=<%=pagina %>" >
                     <i class="icon icon-home-1 s-24"></i> <span>Inicio</span>
                 </a>
             </li>
@@ -92,16 +96,16 @@ pageEncoding="UTF-8"%>
                 </ul>
             </li>
             
-            <li><a class="ajaxifyPage" href="mostrar_lrs?tipo=ListaRep" >
+            <li><a class="ajaxifyPage" href="mostrar_lrs?tipo=ListaRep&pagina=<%=pagina %>" >
                     <i class="icon icon-compact-disc-1 s-24"></i> <span>Mis listas de reproduccion</span>
                 </a>
             </li>
             
-            <li><a class="ajaxifyPage" href="mostrar_podcasts?tipo=podcasts" >
+            <li><a class="ajaxifyPage" href="mostrar_podcasts?tipo=podcasts&pagina=<%=pagina %>" >
                     <i class="icon icon-headphones s-24"></i> <span>Mis podcasts</span>
                 </a>
             </li>
-            <li><a class="ajaxifyPage" href="obtener_info_fav" >
+            <li><a class="ajaxifyPage" href="obtener_info_fav?pagina=<%=pagina %>" >
             		<i class="icon icon-star s-24"></i> <span>Mis favoritos</span>
             	</a>
             </li>
@@ -257,9 +261,9 @@ String hayfoto = (String) session.getAttribute("hayfoto");
             <a href="#" data-toggle="push-menu" class="paper-nav-toggle pp-nav-toggle ml-2 mr-2">
                 <i></i>
             </a>
-            <a class="navbar-brand d-none d-lg-block" href="Inicio" >
+            <a class="navbar-brand d-none d-lg-block" href="Inicio?pagina=<%=pagina %>" >
                 <div class="d-flex align-items-center s-14 l-s-2">
-                    <a style="position: absolute;width: 12%;" href="Inicio" ><img  src="assets/img/logo.png"></a>
+                    <a style="position: absolute;width: 12%;" href="Inicio?pagina=<%=pagina %>" ><img  src="assets/img/logo.png"></a>
                 </div>
             </a>
         </div>
@@ -290,7 +294,7 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 					<div class="dropdown-menu p-4 dropdown-menu-right">
 						<div class="row box justify-content-between my-4">
 							<div class="col text-center">
-								<a class="ajaxifyPage" href="obtener_contenido_perfil" >
+								<a class="ajaxifyPage" href="obtener_contenido_perfil?pagina=<%=pagina %>" >
 									<i class="icon-user-4  s-24"></i>
 									<div class="pt-1">Mi perfil</div>
 								</a>
@@ -367,9 +371,10 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 
 <main id="pageContent" class="page has-sidebar">
 
-<div class="container-fluid relative animatedParent animateOnce">
-        <div class="animated p-5 ml-lg-5 mr-lg-5">
-            <section>
+<div class="container-fluid relative animatedParent animateOnce no-p">
+    <div class="animated">
+    	 <div class="p-md-5 p-3  ">
+            <section class="section">
                 <div class="relative mb-5" style="text-align: center;">
                     <div style="background-color:black;">	
                     	<h1 class="mb-2 text-primary" >Listas de Reproduccion</h1>
@@ -385,7 +390,7 @@ String hayfoto = (String) session.getAttribute("hayfoto");
                             <div class="img-wrapper">
                                 <img src="assets/img/demo/a2.jpg" alt="/">
                                 <div class="img-overlay text-white text-center">
-                                    <a href="obtener_info_fav" >
+                                	<a href="obtener_info_fav?pagina=<%=pagina %>" >
                                         <div class="figcaption mt-3">
                                             <i class="icon-link s-48"></i>
                                             <h5 class="mt-5">Mis Favoritos</h5>
@@ -406,7 +411,7 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 									<div class="img-wrapper">
 										<img src="assets/img/demo/a1.jpg" alt="/">
 										<div class="img-overlay text-white text-center">
-											<a href="obtener_info_lr?nombre=${lista.getNombre()}" >
+											<a href="obtener_info_lr?nombre=${lista.getNombre()}&pagina=<%=pagina %>" >
 												<div class="figcaption mt-3">
 													<i class="icon-link s-48"></i>
 													<h5 class="mt-5">${lista.getNombre()}</h5>
@@ -429,13 +434,14 @@ String hayfoto = (String) session.getAttribute("hayfoto");
             </section>
         </div>
      </div> 
-                    
+ </div>                   
 
 <!-- CREAR LISTA DE REPRODUCCIÓN -->
 <div class="overlay-pop-up" id="overlay-listas-reproduccion">
     <div class="col-md-7 card p-5">
-		<a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-listas-reproduccion" class="btn-cerrar-popup-perfil"><i class="icon-close1"></i></a>
-		<form class="form-material" action="crear_lr" method="post">
+		<a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-listas-reproduccion" class="btn-cerrar-popup-perfil"
+		onClick="document.getElementById('overlay-listas-reproduccion').classList.remove('active');"><i class="icon-close1"></i></a>
+		<form class="form-material" action="crear_lr">
 			<!-- Input -->
 			<div class="body">
 				<header class="relative nav-sticky card">
@@ -446,11 +452,10 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 					<!--  <input type="file" class="btn btn-outline-primary btn-sm  mt-3" name="fileName" /> -->
 					<input type="text" name="nombre" placeholder="Nombre" id="nombre-listas-reproduccion" required/>
 					<input type="text" name="descripcion" placeholder="Descripcion" id="descripcion-listas-reproduccion"/>
-					<input type="hidden" name="tipo" value="ListaRep">
+					<input type="hidden" name="tipo" id="tipo1" value="ListaRep">
 				</div>
 
-				<input type="submit" class="btn btn-outline-primary btn-sm pl-4 pr-4"
-					   value="Aceptar">
+				<a id="submit1" href="#" class="btn btn-outline-primary btn-sm pl-4 pr-4">Aceptar</a>
 			</div>
 			<!-- #END# Input -->
 		</form>
@@ -466,7 +471,7 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 	    <div class="col-md-7 card p-5">	
 	        <a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-borrar-listas-reproduccion" class="btn-cerrar-popup-perfil"	
 	        class="btn btn-outline-primary btn-sm pl-4 pr-4"  onclick="document.getElementById('overlay-borrar-listas-reproduccion').classList.remove('active');"><i class="icon-close1"></i></a>	
-			<form class="form-material" action="borrar_lr" method="post">	
+			<form class="form-material" action="borrar_lr">	
 				<!-- Input -->	
 				<div class="body">	
 					<header class="relative nav-sticky card">	
@@ -475,9 +480,8 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 					</header>	
 		
 					<input type="hidden" id="idLista" name="nombre" value="">
-					<input type="hidden" name="tipo" value="ListaRep">	
-					<input type="submit" class="btn btn-outline-primary btn-sm pl-4 pr-4"	
-	                       value="Aceptar">		
+					<input type="hidden" name="tipo" id="tipo2" value="ListaRep">	
+					<a id="submit2" href="#" class="btn btn-outline-primary btn-sm pl-4 pr-4">Aceptar</a>
 				</div>	
 				<!-- #END# Input -->	
 	        </form>	
@@ -485,6 +489,42 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 	</div>	
 <!-- END BORRAR LISTA DE REPRODUCCIÓN -->
 
+<script>
+    $(document).ready(function() {
+    	$('#submit1').click(function(event) {
+			var idListaVar = $('#nombre-listas-reproduccion').val();
+			var descripcionVar = $('#descripcion-listas-reproduccion').val();
+			var tipoVar = $('#tipo1').val();
+			console.log(idListaVar);
+			console.log(tipoVar);
+			// Si en vez de por post lo queremos hacer por get, cambiamos el $.post por $.get
+			$.get('crear_lr', {
+				nombre : idListaVar,
+				tipo : tipoVar,
+				descripcion : descripcionVar
+			}, function(){
+				location.href="mostrar_lrs?tipo=ListaRep&pagina=10";
+				//$("#pageContent").load("#pageContent");
+				//$("#todo").load("#todo");
+			});
+		});
+    	$('#submit2').click(function(event) {
+			var idListaVar = $('#idLista').val();
+			var tipoVar = $('#tipo2').val();
+			console.log(idListaVar);
+			console.log(tipoVar);
+			// Si en vez de por post lo queremos hacer por get, cambiamos el $.post por $.get
+			$.get('borrar_lr', {
+				nombre : idListaVar,
+				tipo : tipoVar
+			}, function(){
+				location.href="mostrar_lrs?tipo=ListaRep&pagina=10";
+				//$("#pageContent").load("#pageContent");
+				//$("#todo").load("#todo");
+			});
+		});
+    });
+    </script>
 
 </main><!--@Page Content-->
 </div><!--@#app-->

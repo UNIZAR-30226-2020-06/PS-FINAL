@@ -87,7 +87,7 @@ String nombre = (String) session.getAttribute("nombre");
 <aside class="main-sidebar fixed offcanvas shadow" data-toggle='offcanvas'>
     <div class="sidebar">
         <ul class="sidebar-menu">
-            <li><a class="ajaxifyPage active" href="Inicio" >
+            <li><a class="ajaxifyPage active" href="Inicio?pagina=10" >
                     <i class="icon icon-home-1 s-24"></i> <span>Inicio</span>
                 </a>
             </li>
@@ -106,16 +106,16 @@ String nombre = (String) session.getAttribute("nombre");
             </li>
             
 
-            <li><a class="ajaxifyPage" href="mostrar_lrs?tipo=ListaRep" >
+            <li><a class="ajaxifyPage" href="mostrar_lrs?tipo=ListaRep&pagina=10" >
                     <i class="icon icon-compact-disc-1 s-24"></i> <span>Mis listas de reproduccion</span>
                 </a>
             </li>
             
-            <li><a class="ajaxifyPage" href="mostrar_podcasts?tipo=podcasts" >
+            <li><a class="ajaxifyPage" href="mostrar_podcasts?tipo=podcasts&pagina=10" >
                     <i class="icon icon-headphones s-24"></i> <span>Mis podcasts</span>
                 </a>
             </li>
-            <li><a class="ajaxifyPage" href="obtener_info_fav" >
+            <li><a class="ajaxifyPage" href="obtener_info_fav?pagina=10" >
             		<i class="icon icon-star s-24"></i> <span>Mis favoritos</span>
             	</a>
             </li>
@@ -272,9 +272,9 @@ String hayfoto = (String) session.getAttribute("hayfoto");
             <a href="#" data-toggle="push-menu" class="paper-nav-toggle pp-nav-toggle ml-2 mr-2">
                 <i></i>
             </a>
-            <a class="navbar-brand d-none d-lg-block" href="Inicio" >
+            <a class="navbar-brand d-none d-lg-block" href="Inicio?pagina=10" >
                 <div class="d-flex align-items-center s-14 l-s-2">
-                    <a style="position: absolute;width: 12%;" href="Inicio" ><img  src="assets/img/logo.png"></a>
+                    <a style="position: absolute;width: 12%;" href="Inicio?pagina=10" ><img  src="assets/img/logo.png"></a>
                 </div>
             </a>
         </div>
@@ -305,7 +305,7 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 					<div class="dropdown-menu p-4 dropdown-menu-right">
 						<div class="row box justify-content-between my-4">
 							<div class="col text-center">
-								<a class="ajaxifyPage" href="obtener_contenido_perfil" >
+								<a class="ajaxifyPage" href="obtener_contenido_perfil?pagina=10" >
 									<i class="icon-user-4  s-24"></i>
 									<div class="pt-1">Mi perfil</div>
 								</a>
@@ -414,7 +414,7 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 						</div>
 						<div="p-4">
 							<input type="submit" class="btn btn-outline-primary btn-sm  mt-3" value="MODIFICAR INFORMACIÓN">
-							<a href="finalizar_transmision?idTransmision=${transmision.getId()}&url=${transmision.getUrl()}" class="btn btn-outline-primary btn-sm  mt-3">FINALIZAR</a>
+							<a href="finalizar_transmision?idTransmision=${transmision.getId()}&url=${transmision.getUrl()}&pagina=10" class="btn btn-outline-primary btn-sm  mt-3">FINALIZAR</a>
 						</div>
 					</div>
 				</form>

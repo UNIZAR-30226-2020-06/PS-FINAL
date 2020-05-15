@@ -10,7 +10,11 @@ pageEncoding="UTF-8"%>
 ############### BASE DE TODAS LAS PAGINAS    ###########################
 ########################################################################
 -->
-<%request.setAttribute("generos", request.getAttribute("generos")); %>
+<%
+request.setAttribute("generos", request.getAttribute("generos"));
+int pagina = Integer.valueOf((String) request.getParameter("pagina"));
+String nombre = (String) request.getParameter("nombre");
+%>
 
 <!-- NOMBRE DE LA PESTAÃA -->
 <head>
@@ -85,7 +89,7 @@ pageEncoding="UTF-8"%>
 <aside class="main-sidebar fixed offcanvas shadow" data-toggle='offcanvas'>
     <div class="sidebar">
         <ul class="sidebar-menu">
-            <li><a class="ajaxifyPage active" href="Inicio" >
+            <li><a class="ajaxifyPage active" href="Inicio?pagina=10" >
                     <i class="icon icon-home-1 s-24"></i> <span>Inicio</span>
                 </a>
             </li>
@@ -103,16 +107,16 @@ pageEncoding="UTF-8"%>
                 </ul>
             </li>
             
-            <li><a class="ajaxifyPage" href="mostrar_lrs?tipo=ListaRep" >
+            <li><a class="ajaxifyPage" href="mostrar_lrs?tipo=ListaRep&pagina=10" >
                     <i class="icon icon-compact-disc-1 s-24"></i> <span>Mis listas de reproduccion</span>
                 </a>
             </li>
             
-            <li><a class="ajaxifyPage" href="mostrar_podcasts?tipo=podcast" >
+            <li><a class="ajaxifyPage" href="mostrar_podcasts?tipo=podcast&pagina=10" >
                     <i class="icon icon-headphones s-24"></i> <span>Mis podcasts</span>
                 </a>
             </li>
-            <li><a class="ajaxifyPage" href="obtener_info_fav" onclick="setTimeout(locaton.reload.bind(location), 1)">
+            <li><a class="ajaxifyPage" href="obtener_info_fav?pagina=10">
             		<i class="icon icon-star s-24"></i> <span>Mis favoritos</span>
             	</a>
             </li>
@@ -121,6 +125,50 @@ pageEncoding="UTF-8"%>
 </aside>
 <!-- END MENU DE LA IZQUIERDA-->
 
+<!-- MENU DONDE ESTAN LAS CANCIONES EN LA COLA (DERECHA) -->
+<aside class="control-sidebar fixed ">
+    <div class="slimScroll">
+        <div class="sidebar-header" style="margin-bottom: 1rem !important;">
+            <h4>Comentarios</h4>
+            <a href="#" data-toggle="control-sidebar" class="paper-nav-toggle  active"><i></i></a>
+        </div>
+        <div class="p-3">
+            <div class="media my-5 " style="margin-top: -1rem !important;margin-bottom: 2rem !important;">
+                <div class="media-body">
+                    <h6 class="mt-0">Ami Fro</h6>
+                    Cras sit amet nibh libero, in gravida nulla.
+                </div>
+            </div>
+            <div class="media my-5 " style="margin-top: -1rem !important;margin-bottom: 2rem !important;">
+                <div class="media-body">
+                    <h6 class="mt-0">Mohamed secame</h6>
+                    Basura es esta?
+                </div>
+            </div>
+            
+			<div class="row">
+                 <div class="col-lg-12">
+                     <div class="form-group">
+                         <div class="form-line">
+                               <textarea style="color: white;" rows="5" class="form-control r-0"
+                                         placeholder="Escribir comentario..."></textarea>
+                         </div>
+                     </div>
+
+                 </div>
+             </div>
+             <div class="row text-center">
+                 <div class="col-lg-12"><input type="submit" class="btn btn-primary"
+                                               value="Publicar" style="border-radius: 7px;position: relative;left: 95px;"></div>
+             </div>
+        </div>
+    </div>
+</aside>
+
+<!-- Add the sidebar's background. This div must be placed
+         immediately after the control sidebar -->
+<div class="control-sidebar-bg shadow  fixed"></div>
+<!-- END MENU DONDE ESTAN LAS CANCIONES EN LA COLA (DERECHA) -->
 
 <!-- ALGO RANDOM DE LA PARTE DERECHA -->									
 <svg class="d-none">
@@ -174,9 +222,9 @@ String hayfoto = (String) session.getAttribute("hayfoto");
             <a href="#" data-toggle="push-menu" class="paper-nav-toggle pp-nav-toggle ml-2 mr-2">
                 <i></i>
             </a>
-            <a class="navbar-brand d-none d-lg-block" href="Inicio" >
+            <a class="navbar-brand d-none d-lg-block" href="Inicio?pagina=10" >
                 <div class="d-flex align-items-center s-14 l-s-2">
-                    <a style="position: absolute;width: 12%;" href="Inicio" ><img  src="assets/img/logo.png"></a>
+                    <a style="position: absolute;width: 12%;" href="Inicio?pagina=10" ><img  src="assets/img/logo.png"></a>
                 </div>
             </a>
         </div>
@@ -207,7 +255,7 @@ String hayfoto = (String) session.getAttribute("hayfoto");
                     <div class="dropdown-menu p-4 dropdown-menu-right">
                         <div class="row box justify-content-between my-4">
                         	<div class="col text-center">
-								<a class="ajaxifyPage" href="obtener_contenido_perfil" >
+								<a class="ajaxifyPage" href="obtener_contenido_perfil?pagina=10" >
 									<i class="icon-user-4  s-24"></i>
 									<div class="pt-1">Mi perfil</div>
 								</a>
@@ -237,7 +285,7 @@ String hayfoto = (String) session.getAttribute("hayfoto");
             <!-- BOTONES ANTERIOR, PAUSE, SIGUIENTE -->
                 <div class="col">
                     <div class="d-flex align-items-center">
-                        <button id="shuffleTrack" class="btn btn-link d-none d-sm-block">
+                        <button id="shuffleTrack" class="btn btn-link d-none d-sm-block" onClick="document.getElementById('shuffleTrack').classList.add('active');">
                             <i class="icon-shuffle s-18"></i>
                         </button>
                         <button id="previousTrack" class="btn btn-link d-none d-sm-block">
@@ -250,14 +298,14 @@ String hayfoto = (String) session.getAttribute("hayfoto");
                         <button id="nextTrack" class="btn btn-link d-none d-sm-block">
                             <i class="icon-next s-18"></i>
                         </button>
-                        <button class="btn btn-link" onclick="loopAudio();">
+                        <button class=" btn btn-control" id="btn-loop" onclick="loopAudio();document.getElementById('btn-loop').classList.add('active');"">
                             <i class="icon-repeat s-18"></i>
                         </button>
                     </div>
                 </div>
                 
                 <div class="col-8 d-none d-lg-block">
-                    <div id="waveform"></div>
+                    <div id="waveform" style="background-color: hsla(30.6, 92.7%, 78.4%, 0.38);border-radius: 10px;"></div>
                 </div>
                 
                 <!-- TIEMPO -->
@@ -279,7 +327,7 @@ String hayfoto = (String) session.getAttribute("hayfoto");
         <!--END Player-->
     </div>
 </nav>
-<!-- END BARRA DE ABAJO -->
+<!-- ACABA BARRA DE ABAJO -->
 
 <!--  
 ########################################################################
@@ -386,9 +434,16 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 													<li class="list-group-item my-1">
 														<div class="d-flex align-items-center">
 															<div class="col-1">
+																<%
+																if(pagina == 12) {%>
 																<a class="no-ajaxy media-url" href="${cancion.getUrl()}">
 																	<i class="icon-play s-28"></i>
-																</a>					
+																</a>
+																<%} else {%>
+																<a href="obtener_usuario?nombre=<%=nombre %>&pagina=12" onclick="setTimeout(location.reload.bind(location), 1)">
+																	<i class="icon-play s-28"></i>
+																</a>
+																<%} %>					
 															</div>
 															<div class="col-6">
 																<h6>${cancion.getTitulo()}</h6>${cancion.getGenero()}
@@ -432,7 +487,7 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 									<div class="img-wrapper">
 										<img src="assets/img/demo/a1.jpg" alt="/">
 										<div class="img-overlay text-white text-center">
-											<a href="obtener_info_lr_usuario?id=${listalr.getId()}" >
+											<a href="obtener_info_lr_usuario?id=${listalr.getId()}&pagina=10" >
 												<div class="figcaption mt-3">
 													<i class="icon-link s-48"></i>
 													<h5 class="mt-5">${listalr.getNombre()}</h5>
@@ -464,27 +519,33 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 													<li class="list-group-item my-1">
 														<div class="d-flex align-items-center">
 															<div class="col-1">
+																<%
+																if(pagina == 14) {%>
 																<a class="no-ajaxy media-url" href="${capitulo.getUrl()}">
 																	<i class="icon-play s-28"></i>
-																</a>					
+																</a>
+																<%} else {%>
+																<a href="obtener_usuario?nombre=<%=nombre %>&pagina=14" onclick="setTimeout(location.reload.bind(location), 1)">
+																	<i class="icon-play s-28"></i>
+																</a>
+																<%} %>					
 															</div>
 															<div class="col-6">
 																<h6>${capitulo.getTitulo()}</h6>${capitulo.getGenero()}
 															</div>
 															<a href="#" class="snackbar ml-3" data-text="Te gusta esta canción"
-																   data-pos="top-right"
-																   data-showAction="true"
-																   data-actionText="ok"
-																   data-actionTextColor="#fff"
-																   data-backgroundColor="#0c101b"><i class="icon-thumbs-o-up s-24"></i>
-																</a>
-																<a href="#" data-toggle="control-sidebar">
-											                        <i style="position: relative;left: 10px;" class="icon-commenting-o s-24"></i>
-											                    </a>															
+															   data-pos="top-right"
+															   data-showAction="true"
+															   data-actionText="ok"
+															   data-actionTextColor="#fff"
+															   data-backgroundColor="#0c101b"><i class="icon-thumbs-o-up s-24"></i>
+															</a>
+															<a href="#" data-toggle="control-sidebar">
+										                        <i style="position: relative;left: 10px;" class="icon-commenting-o s-24"></i>
+										                    </a>
 															<div class="ml-auto">
-																<a href="#" class="btn-icono icon-indent" onclick="rellenarCampos('${podcasts.size()}','${capitulo.getId()}');
-																document.getElementById('overlay-anadir-podcast').classList.add('active')";
-																	></a>
+																<a href="#" class="btn-icono icon-indent" onclick="rellenarCamposP('${podcastslr.size()}','${capitulo.getId()}');
+																document.getElementById('overlay-anadir-podcast').classList.add('active')"></a>
 															</div>
 														</div>
 													</li>
@@ -509,7 +570,7 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 									<div class="img-wrapper">
 										<img src="assets/img/demo/a1.jpg" alt="/">
 										<div class="img-overlay text-white text-center">
-											<a href="obtener_info_podcast_usuario?id=${podcast.getId()}" >
+											<a href="obtener_info_podcast_usuario?id=${podcast.getId()}&pagina=10" >
 												<div class="figcaption mt-3">
 													<i class="icon-link s-48"></i>
 													<h5 class="mt-5">${podcast.getNombre()}</h5>
@@ -546,6 +607,8 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 			<!-- Input -->
 				<div class="body">
 					<div class="row has-items-overlay">
+						<c:choose ><c:when test="${mislistas.isEmpty()}"><h2>Parece que no tienes ninguna lista...</h2></c:when>
+						<c:otherwise>
 						<c:forEach var="listalr" items="${mislistas}">
 						<div class="col-lg-3 col-md-4 col-sm-6 my-2">
 							<figure>
@@ -567,6 +630,7 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 							</form>	
 						</div>
 					</c:forEach>
+					</c:otherwise></c:choose>
 				<!-- #END# Input -->
 				</div>
 			</div>		
@@ -580,10 +644,12 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 		<a style="position: absolute;top: 20px;right: 30px;" href="#" 
 			id="btn-cerrar-anadir-podcast" onclick="document.getElementById('overlay-anadir-podcast').classList.remove('active');" 
 			class="btn-cerrar-popup-perfil"><i class="icon-close1"></i></a>			
+
 			<!-- Input -->
 				<div class="body">
 					<div class="row has-items-overlay">
 						<c:forEach var="podcast" items="${misPodcasts}">
+
 						<div class="col-lg-3 col-md-4 col-sm-6 my-2">
 							<figure>
 								<div class="img-wrapper">
@@ -598,7 +664,7 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 							<form class="form-material" action="anyadir_cancion_lr" method="post">
 								<input type="submit" class="btn btn-outline-primary btn-sm pl-4 pr-4" value="Añadir">
 								<input type="hidden" name="idLista" value="${podcast.getId()}">
-								<input type="hidden" name="idAudio" value="">
+								<input type="hidden" name="idAudioP" value="">
 								<input type="hidden" name="nombreLista" value="${podcast.getNombre()}">
 								<input type="hidden" name="tipo" value="podcast">
 							</form>	
@@ -662,6 +728,14 @@ String hayfoto = (String) session.getAttribute("hayfoto");
     	var i;
     	for (i=0; i <size; i++){
     	  	document.getElementsByName("idAudio")[i].value = song;
+    	}
+    }
+    </script>
+    <script>
+    function rellenarCamposP(size,song) {
+    	var i;
+    	for (i=0; i <size; i++){
+    	  	document.getElementsByName("idAudioP")[i].value = song;
     	}
     }
     </script>

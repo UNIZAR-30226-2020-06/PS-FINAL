@@ -1,6 +1,8 @@
 package com.espotify.controller;
 
 import java.io.IOException;
+import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -17,13 +19,13 @@ import com.espotify.model.Transmision;
  * Servlet implementation class IniciarTransimision_Servlet
  */
 @WebServlet("/IniciarTransimision_Servlet")
-public class IniciarTransimision_Servlet extends HttpServlet {
+public class getURLestacionesLibres_Servlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public IniciarTransimision_Servlet() {
+    public getURLestacionesLibres_Servlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,18 +35,11 @@ public class IniciarTransimision_Servlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		int idUsuario = Integer.valueOf((String) session.getAttribute("id"));
-		System.out.println(idUsuario);
-		String nombre = (String) request.getParameter("nombre");
-		System.out.println(nombre);
-		String descripcion = (String) request.getParameter("descripcion");
-		System.out.println(descripcion);
-		String URL = (String) request.getParameter("URL");
-		System.out.println(URL);
+		
 		TransmisionDAO transmisionDAO = new TransmisionDAO();
-		Transmision transmision = transmisionDAO.iniciar(nombre, descripcion, idUsuario, URL);
-		request.setAttribute("transmision", transmision);
-		request.getRequestDispatcher("control-transmision.jsp").forward(request, response);
+		List<String> URLs = transmisionDAO.getURLestacionesLibres();
+		request.setAttribute("transmision", URLs);
+		//request.getRequestDispatcher("control-transmision.jsp").forward(request, response);
 	}
 
 	/**

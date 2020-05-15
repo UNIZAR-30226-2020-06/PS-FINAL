@@ -2,6 +2,7 @@ package com.espotify.controller;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -33,6 +34,9 @@ public class Modinfo_UsuarioServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		response.setContentType( "text/html; charset=iso-8859-1" );
+		PrintWriter out = response.getWriter();
+		
 		HttpSession session = request.getSession();
 		String id = (String) session.getAttribute("id");
 		
@@ -59,11 +63,24 @@ public class Modinfo_UsuarioServlet extends HttpServlet {
 			
 			//request.getRequestDispatcher("usuario.jsp").forward(request, response);
 			//response.sendRedirect("profile.jsp?ok=");
-			request.getRequestDispatcher("/obtener_contenido_perfil").forward(request, response);
+			//request.getRequestDispatcher("/obtener_contenido_perfil").forward(request, response);
+			
+			out.println("<div class=\"alert alert-success alert-dismissible fade show\" role=\"alert\">");
+			out.println("<strong>Cambios realizados correctamente!</strong>");
+			out.println("<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\">");
+			out.println("<span aria-hidden='true'>&times;</span>");
+			out.println("</button>");
+			out.println("</div>");
 		}
 		else {
 			//response.sendRedirect("profile.jsp?error1=");
-			request.getRequestDispatcher("/obtener_contenido_perfil").forward(request, response);
+			//request.getRequestDispatcher("/obtener_contenido_perfil").forward(request, response);
+			out.println("<div class=\"alert alert-danger alert-dismissible fade show\" role=\"alert\">");
+			out.println("<strong>Ha ocurrido un error. </strong> Vuelva a intentarlo.");
+			out.println("<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\">");
+			out.println("<span aria-hidden='true'>&times;</span>");
+			out.println("</button>");
+			out.println("</div>");
 		}
 	}
 

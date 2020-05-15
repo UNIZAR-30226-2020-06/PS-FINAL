@@ -88,6 +88,8 @@ public class Search_EspecificoServlet extends HttpServlet {
 			
 			List<ListaReproduccion> listaslr = new ListaReproduccionDAO().showLists(usuario,"ListaRep");
 			request.setAttribute("listaslr", listaslr);
+			List<ListaReproduccion> podcastslr = new ListaReproduccionDAO().showLists(usuario,"podcast");
+			request.setAttribute("podcastslr", podcastslr);
 			//RequestDispatcher dispatcher=request.getRequestDispatcher("busqueda.jsp");
 			//dispatcher.forward(request, response);
 			request.getRequestDispatcher("buscar-especifico.jsp").forward(request, response);

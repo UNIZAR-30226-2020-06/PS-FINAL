@@ -114,7 +114,7 @@ pageEncoding="UTF-8"%>
                                 <div class="body">
                                     <div class="form-group form-float">
                                         <div class="form-line">
-                                            <input type="email" name="email" class="form-control">
+                                            <input type="text" name="email" class="form-control">
                                             <label class="form-label">Email</label>
                                         </div>
                                     </div>

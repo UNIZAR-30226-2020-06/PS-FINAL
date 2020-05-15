@@ -30,10 +30,10 @@ public class CancionDAO {
 	private final static String GET_TODOS_QUERY = "SELECT * FROM Reproductor_musica.Audio WHERE genero IN (SELECT id FROM Reproductor_musica.Genero WHERE tipo = 'cancion')";
 	private final static String GET_MASLIKES_QUERY = "SELECT a.id, a.url, a.titulo, a.usuario, a.genero" + 
 													 " FROM Reproductor_musica.Audio a, Reproductor_musica.LikesAudio la" + 
-													 " WHERE a.id = la.audio AND a.genero = ? GROUP BY a.id ORDER BY COUNT(la.audio) DESC";	
+													 " WHERE a.id = la.audio AND a.genero = ? GROUP BY a.id ORDER BY COUNT(la.audio) DESC LIMIT 20";	
 	private final static String GET_NOLIKES_QUERY = "SELECT a.id, a.url, a.titulo, a.usuario, a.genero" + 
 													" FROM Reproductor_musica.Audio a, Reproductor_musica.LikesAudio la" + 
-													" WHERE a.id NOT IN (SELECT la.audio FROM Reproductor_musica.LikesAudio la) AND a.genero = ? GROUP BY a.id";
+													" WHERE a.id NOT IN (SELECT la.audio FROM Reproductor_musica.LikesAudio la) AND a.genero = ? GROUP BY a.id LIMIT 20";
 	
 	public int subirCancion(String titulo, int autor, int genero, String ruta) {
 		System.out.println("SubirCancion Entro+++++++++++++++++");
@@ -157,21 +157,21 @@ public class CancionDAO {
 		}
 	}
 	
-	public List<Audio> obtenerCancionesPorGenero(String genero) {
+	public List<Audio> obtenerCancionesPorGenero(int idGenero) {
 		Connection conn;
+		List<Audio> listaAudios = new ArrayList<>();
 		try {
 			conn = ConnectionManager.getConnection();
 			PreparedStatement ps = conn.prepareStatement(GET_MASLIKES_QUERY);				
+			ps.setInt(1, idGenero);
 			ResultSet rs = ps.executeQuery();
-			List<Audio> listaAudios = new ArrayList<>();
-			ps.setString(1, genero);
 			
 			while(rs.next()) { 
 				listaAudios.add(new Audio(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5)));
 			}
 			
 			PreparedStatement ps2 = conn.prepareStatement(GET_NOLIKES_QUERY);		
-			ps2.setString(1, genero);
+			ps2.setInt(1, idGenero);
 			ResultSet rs2 = ps2.executeQuery();
 			
 			while(rs2.next()) { 

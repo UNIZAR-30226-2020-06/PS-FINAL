@@ -45,11 +45,11 @@ public class Crear_ListaRepServlet extends HttpServlet {
 			*/
 			//RequestDispatcher dispatcher=request.getRequestDispatcher("user.jsp");
 	        //dispatcher.forward(request, response);
-			if(tipo.contentEquals("podcast")) {
-				request.getRequestDispatcher("mostrar_podcasts").forward(request, response);// Vuevle al mismo lugar donde se hace la peticion
-			}else {
-				request.getRequestDispatcher("mostrar_lrs").forward(request, response);// Vuevle al mismo lugar donde se hace la peticion
-			}
+			//if(tipo.contentEquals("podcast")) {
+			//	request.getRequestDispatcher("mostrar_podcasts").forward(request, response);// Vuevle al mismo lugar donde se hace la peticion
+			//}else {
+			//	request.getRequestDispatcher("mostrar_lrs").forward(request, response);// Vuevle al mismo lugar donde se hace la peticion
+			//}
 			
 		}else {
 			//response.sendRedirect("crearListaRep.jsp");
