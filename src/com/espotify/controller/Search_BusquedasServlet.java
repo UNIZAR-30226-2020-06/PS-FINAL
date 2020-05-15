@@ -52,6 +52,8 @@ public class Search_BusquedasServlet extends HttpServlet {
 			List<Usuario> usuarios = new ArrayList<Usuario>();
 			List<ListaReproduccion> listaslr = new ListaReproduccionDAO().showLists(usuario,"ListaRep");
 			request.setAttribute("listaslr", listaslr);
+			List<ListaReproduccion> podcastslr = new ListaReproduccionDAO().showLists(usuario,"podcast");
+			request.setAttribute("podcastslr", podcastslr);
 			BusquedasDAO busquedas = new BusquedasDAO();
 			busquedas.searchAll(nombre,canciones,capitulos,listas,podcasts,transmisiones,usuarios);
 			request.setAttribute("canciones", canciones);

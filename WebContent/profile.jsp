@@ -458,15 +458,15 @@ String email = (String) session.getAttribute("email");
 																<h6>${cancion.getTitulo()}</h6>${cancion.getGenero()}
 															</div>
 															<a href="#" class="snackbar ml-3" data-text="Te gusta esta canción"
-																   data-pos="top-right"
-																   data-showAction="true"
-																   data-actionText="ok"
-																   data-actionTextColor="#fff"
-																   data-backgroundColor="#0c101b"><i class="icon-thumbs-o-up s-24"></i>
-																</a>
-																<a href="#" data-toggle="control-sidebar">
-											                        <i style="position: relative;left: 10px;" class="icon-commenting-o s-24"></i>
-											                    </a>
+															   data-pos="top-right"
+															   data-showAction="true"
+															   data-actionText="ok"
+															   data-actionTextColor="#fff"
+															   data-backgroundColor="#0c101b"><i class="icon-thumbs-o-up s-24"></i>
+															</a>
+															<a href="#" data-toggle="control-sidebar">
+										                        <i style="position: relative;left: 10px;" class="icon-commenting-o s-24"></i>
+										                    </a>
 															<div class="ml-auto">
 																<a href="anyadir_cancion_fav?idAudio=${cancion.getId()}&pagina=<%=pagina %>" class="btn-favorito icon-star" ></a>
 																<a href="${pageContext.request.contextPath}/ir_modificar?id_audio=${cancion.getId()}&cancion=true&pagina=<%=pagina %>" class="btn-icono icon-pencil" ></a>
@@ -585,9 +585,8 @@ String email = (String) session.getAttribute("email");
 											                    </a>
 															<div class="ml-auto">
 																<a href="${pageContext.request.contextPath}/ir_modificar?id_audio=${capitulo.getId()}&cancion=false&pagina=<%=pagina %>" class="btn-icono icon-pencil" ></a>
-																<a href="#" class="btn-icono icon-indent" onclick="rellenarCampos('${podcasts.size()}','${capitulo.getId()}');
-																document.getElementById('overlay-anadir-podcast').classList.add('active')";
-																	></a>
+																<a href="#" class="btn-icono icon-indent" onclick="rellenarCamposP('${podcasts.size()}','${capitulo.getId()}');
+																document.getElementById('overlay-anadir-podcast').classList.add('active')"></a>
 																<a href="${pageContext.request.contextPath}/eliminar_capitulo?id_capitulo=${capitulo.getId()}&pagina=<%=pagina %>" class="btn-icono icon-trash-o" ></a>
 															</div>
 														</div>
@@ -777,6 +776,8 @@ String email = (String) session.getAttribute("email");
 			<!-- Input -->
 				<div class="body">
 					<div class="row has-items-overlay">
+					<c:choose ><c:when test="${listaslr.isEmpty()}"><h2>Parece que no tienes ninguna lista...</h2></c:when>
+						<c:otherwise>
 						<c:forEach var="listalr" items="${listaslr}">
 						<div class="col-lg-3 col-md-4 col-sm-6 my-2">
 							<figure>
@@ -794,10 +795,11 @@ String email = (String) session.getAttribute("email");
 								<input type="hidden" name="idAudio" id="idAudio" value="">
 								<input type="hidden" name="nombreLista" id="nombreLista" value="${listalr.getNombre()}">
 								<input type="hidden" name="tipo" id="tipo2" value="ListRep">
-								<a id="submit4" href="obtener_contenido_perfil?pagina=<%=pagina %>" class="btn btn-outline-primary btn-sm pl-4 pr-4">Añadir</a>
+								<a id="submit4" href="#" class="btn btn-outline-primary btn-sm pl-4 pr-4">Añadir</a>
 							</form>	
 						</div>
 					</c:forEach>
+					</c:otherwise></c:choose>
 				<!-- #END# Input -->
 				</div>
 			</div>		
@@ -812,6 +814,8 @@ String email = (String) session.getAttribute("email");
 			<!-- Input -->
 				<div class="body">
 					<div class="row has-items-overlay">
+					<c:choose ><c:when test="${podcasts.isEmpty()}"><h2>Parece que no tienes ningun podcast...</h2></c:when>
+						<c:otherwise>
 						<c:forEach var="podcast" items="${podcasts}">
 						<div class="col-lg-3 col-md-4 col-sm-6 my-2">
 							<figure>
@@ -829,10 +833,11 @@ String email = (String) session.getAttribute("email");
 								<input type="hidden" name="idAudio" id="idAudio2" value="">
 								<input type="hidden" name="nombreLista" id="nombreLista2" value="${podcast.getNombre()}">
 								<input type="hidden" name="tipo" id="tipo3" value="podcast">
-								<a id="submit5" href="obtener_contenido_perfil?pagina=<%=pagina %>" class="btn btn-outline-primary btn-sm pl-4 pr-4">Añadir</a>
+								<a id="submit5" href="#" class="btn btn-outline-primary btn-sm pl-4 pr-4">Añadir</a>
 							</form>	
 						</div>
 					</c:forEach>
+					</c:otherwise></c:choose>
 				<!-- #END# Input -->
 				</div>
 			</div>		
@@ -855,7 +860,7 @@ String email = (String) session.getAttribute("email");
 		
 					<input type="hidden" id="idLista6" name="nombre" value="">
 					<input type="hidden" name="tipo" id="tipo6" value="ListaRep">	
-					<a id="submit6" href="obtener_contenido_perfil?pagina=<%=pagina %>" class="btn btn-outline-primary btn-sm pl-4 pr-4">Aceptar</a>	
+					<a id="submit6" href="#" class="btn btn-outline-primary btn-sm pl-4 pr-4">Aceptar</a>	
 	             </div>   
 				<!-- #END# Input -->	
 	        </form>	
@@ -1038,7 +1043,7 @@ String email = (String) session.getAttribute("email");
     </script>
     <script>
     $(document).ready(function() {
-    	$('#submit1').click(function(event) {
+    	$('#submit1').click(function(event) { // cambiar info imagen
 			var nombreVar = $('#nombre').val();
 			var descripcionVar = $('#descripcion').val();
 			var emailVar = $('#email').val();
@@ -1051,7 +1056,7 @@ String email = (String) session.getAttribute("email");
 				$('#contenido').html(responseText);
 			});
 		});
-    	$('#submit2').click(function(event) {
+    	$('#submit2').click(function(event) { // cambiar contraseña
 			var contrasena1Var = $('#contrasena1').val();
 			var contrasena2Var = $('#contrasena2').val();
 			var contrasena3Var = $('#contrasena3').val();
@@ -1064,7 +1069,7 @@ String email = (String) session.getAttribute("email");
 				$('#contenido').html(responseText);
 			});
 		});
-    	$('#submit3').click(function(event) {
+    	$('#submit3').click(function(event) { // crear lista
 			var nombreVar = $('#nombre-listas-reproduccion').val();
 			var descripcionVar = $('#descripcion-listas-reproduccion').val();
 			var tipoVar = $('#tipo').val();
@@ -1073,12 +1078,11 @@ String email = (String) session.getAttribute("email");
 				nombre : nombreVar,
 				descripcion : descripcionVar,
 				tipo : tipoVar
-			}, function(responseText){
-				$('#contenido').html(responseText);
-				location.href="mostrar_lrs?tipo=ListaRep&pagina=10";
+			}, function(){
+				location.href ="mostrar_lrs?tipo=ListaRep&pagina=10";
 			});
 		});
-    	$('#submit4').click(function(event) {
+    	$('#submit4').click(function(event) { // añadir cancion a lista
 			var idListaVar = $('#idLista').val();
 			var idAudioVar = $('#idAudio').val();
 			var nombreListaVar = $('#nombreLista').val();
@@ -1091,20 +1095,20 @@ String email = (String) session.getAttribute("email");
 				tipo : tipoVar
 			});
 		});
-    	$('#submit5').click(function(event) {
+    	$('#submit5').click(function(event) { // añadir capitulo a podcast
 			var idListaVar = $('#idLista2').val();
 			var idAudioVar = $('#idAudio2').val();
 			var nombreListaVar = $('#nombreLista2').val();
 			var tipoVar = $('#tipo3').val();
 			// Si en vez de por post lo queremos hacer por get, cambiamos el $.post por $.get
 			$.get('anyadir_cancion_lr', {
-				idLista : idListaVar,
+				idListaP : idListaVar,
 				idAudio : idAudioVar,
 				nombreLista : nombreListaVar,
 				tipo : tipoVar
 			});
 		});
-    	$('#submit6').click(function(event) {
+    	$('#submit6').click(function(event) { // borrar lista de reproduccion
 			var idListaVar = $('#idLista6').val();
 			var tipoVar = $('#tipo6').val();
 			console.log(idListaVar);
@@ -1113,9 +1117,11 @@ String email = (String) session.getAttribute("email");
 			$.get('borrar_lr', {
 				nombre : idListaVar,
 				tipo : tipoVar
+			}, function(){
+				location.href ="mostrar_lrs?tipo=ListaRep&pagina=10";
 			});
 		});
-    	$('#submit7').click(function(event) {
+    	$('#submit7').click(function(event) { // crear podcast
 			var idListaVar = $('#nombre-listas-reproduccion7').val();
 			var descripcionVar = $('#descripcion-listas-reproduccion7').val();
 			var tipoVar = $('#tipo7').val();
@@ -1130,7 +1136,7 @@ String email = (String) session.getAttribute("email");
 				location.href="mostrar_podcasts?tipo=podcasts&pagina=10";
 			});
 		});
-    	$('#submit8').click(function(event) {
+    	$('#submit8').click(function(event) { // borrar podcast
 			var idListaVar = $('#idPodcast8').val();
 			var tipoVar = $('#tipo8').val();
 			console.log(idListaVar);
@@ -1139,9 +1145,19 @@ String email = (String) session.getAttribute("email");
 			$.get('borrar_lr', {
 				nombre : idListaVar,
 				tipo : tipoVar
+			}, function(){
+				location.href="mostrar_podcasts?tipo=podcasts&pagina=10";
 			});
 		});
     });
+
+    function rellenarCamposP(size,song) {
+    	var i;
+    	for (i=0; i <size; i++){
+    	  	document.getElementsByName("idAudioP")[i].value = song;
+    	}
+    }
+
     </script>
     
     </main><!--@Page Content-->

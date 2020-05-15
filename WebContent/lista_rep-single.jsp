@@ -504,17 +504,17 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 												   data-actionTextColor="#fff"
 												   data-backgroundColor="#0c101b"><i class="icon-thumbs-o-up s-24"></i>
 												</a>
-											    <button style="color: #fd7e14;position: relative;left: 10px;bottom: 13px;" 
+											    <a style="color: #fd7e14;position: relative;left: 10px;bottom: 13px;" 
 													class="btn btn-abrir-popupl btn-sm  mt-3" 
 													id="abrir-popup-lista"
 													onclick="document.getElementById('overlay-mod-listas-reproduccion').classList.add('active');">
 													<i class="icon-edit  s-24"></i>Editar
-												</button>
+												</a>
 											</div>
 											<!-- AÑADIR CANCION A LISTA DE REPRODUCCI�N -->
 											<div class="overlay-pop-up" id="overlay-anadir-listas-reproduccion">
 											    <div class="col-md-7 card p-5">
-													<a style="position: absolute;top: 20px;right: 30px;" href="" onclick="document.getElementById('overlay-anadir-listas-reproduccion').classList.remove('active');" id="btn-cerrar-anadir-listas-reproduccion" class="btn-cerrar-popup-perfil"><i class="icon-close1"></i></a>			
+													<a style="position: absolute;top: 20px;right: 30px;" href="#" onclick="document.getElementById('overlay-anadir-listas-reproduccion').classList.remove('active');" id="btn-cerrar-anadir-listas-reproduccion" class="btn-cerrar-popup-perfil"><i class="icon-close1"></i></a>			
 														<!-- Input -->
 															<div class="body">
 																<div class="row has-items-overlay">

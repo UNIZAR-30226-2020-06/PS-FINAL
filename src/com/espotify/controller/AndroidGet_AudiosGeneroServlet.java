@@ -18,6 +18,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import com.espotify.dao.CancionDAO;
+import com.espotify.dao.GeneroDAO;
 import com.espotify.dao.JSONAdapter;
 import com.espotify.dao.ListaReproduccionDAO;
 import com.espotify.dao.UsuarioDAO;
@@ -55,8 +56,11 @@ public class AndroidGet_AudiosGeneroServlet extends HttpServlet {
         response.setCharacterEncoding("utf-8");
         PrintWriter out = response.getWriter();
         
+        GeneroDAO ga = new GeneroDAO();
+        int idGenero = ga.obtenerIdGenero(genero);
+        
         CancionDAO ca = new CancionDAO();
-        List<Audio> audios =  ca.obtenerCancionesPorGenero(genero);
+        List<Audio> audios =  ca.obtenerCancionesPorGenero(idGenero);
         
         String nombresAudio = "";
         String urlsAudio = "";
@@ -76,7 +80,8 @@ public class AndroidGet_AudiosGeneroServlet extends HttpServlet {
         respuestaPeticion.put("nombresAudio", nombresAudio);
         respuestaPeticion.put("urlsAudio", urlsAudio);
         
-        
+        getServletContext().log("Respuesta: " + respuestaPeticion);
+        getServletContext().log("-------------------------------");
         // finally output the json string       
         out.print(respuestaPeticion.toString());
 	}

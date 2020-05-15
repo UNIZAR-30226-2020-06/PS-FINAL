@@ -45,7 +45,7 @@ import com.espotify.model.Usuario;
 @WebServlet("/AndroidSubir_ImagenUsuarioServlet")
 public class AndroidSubir_ImagenUsuarioServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+    private static final String DIRECTORIO_IMAGEN_USUARIO = "/var/www/html/almacen-mp3/almacen-img/usuarios/";
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -69,17 +69,18 @@ public class AndroidSubir_ImagenUsuarioServlet extends HttpServlet {
         
         String ficheroImagen = idUsuario + ".jpg";
         
-        //
-        //if(ficheroAudio.exists()) {
-       // 	ficheroAudio.delete();
-        //}
+        File imagen = new File(DIRECTORIO_IMAGEN_USUARIO + ficheroImagen);
+        
+        if (imagen.exists()) {
+        	imagen.delete();
+        }
         
         byte[] decodedString = Base64.getDecoder().decode(new String(imagenCodificada).getBytes("UTF-8"));
-        try (OutputStream stream = new FileOutputStream("/var/www/html/almacen-mp3/almacen-img/" + ficheroImagen)) {
+        try (OutputStream stream = new FileOutputStream(DIRECTORIO_IMAGEN_USUARIO + ficheroImagen)) {
             stream.write(decodedString);
         }
         
-        File ficheroAudio = new File("/var/www/html/almacen-mp3/almacen-img/" + ficheroImagen);
+        File ficheroAudio = new File(DIRECTORIO_IMAGEN_USUARIO + ficheroImagen);
         
         ficheroAudio.setReadable(true, false);
 		ficheroAudio.setExecutable(true, false);
@@ -87,7 +88,6 @@ public class AndroidSubir_ImagenUsuarioServlet extends HttpServlet {
 
         JSONObject respuestaPeticion = new JSONObject();
 
-        
         getServletContext().log("------------------------------------");
         
         PrintWriter out = response.getWriter();

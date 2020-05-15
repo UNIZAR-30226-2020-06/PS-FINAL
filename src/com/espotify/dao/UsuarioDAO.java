@@ -30,13 +30,13 @@ public class UsuarioDAO {
 	private final static String UPDATE_IMG_QUERY = "UPDATE Reproductor_musica.Usuario SET imagen = ? WHERE id = ?";
 	private final static String UPDATE_PASS_QUERY = "UPDATE Reproductor_musica.Usuario SET password=? WHERE id = ? AND password=?";
 	private final static String UPDATE_PASS_QUERY_NOVERIFY = "UPDATE Reproductor_musica.Usuario SET password=? WHERE id = ?";
-	private final static String LOGIN_QUERY = "SELECT nombre, descripcion, mail, id, imagen FROM Reproductor_musica.Usuario WHERE mail = ? AND password = ?";
+	private final static String LOGIN_QUERY = "SELECT nombre, descripcion, mail, id, imagen FROM Reproductor_musica.Usuario WHERE nombre = ? AND password = ?";
 	private final static String USER_GETID_QUERY = "SELECT id, imagen FROM Reproductor_musica.Usuario WHERE mail = ?";
 	private final static String USER_GETID_NAME_QUERY = "SELECT id FROM Reproductor_musica.Usuario WHERE nombre = ?";
 	private final static String USER_GETINFO_QUERY = "SELECT nombre, descripcion, mail, imagen FROM Reproductor_musica.Usuario WHERE id = ?";
 	private final static String USER_GETIMAGE_BLOB_QUERY = "SELECT imagen FROM Reproductor_musica.Usuario WHERE mail = ?";
 	private final static String USER_GETALL_QUERY = "SELECT * FROM Reproductor_musica.Usuario";
-	private final static String ALMACEN_IMG_URL = "https://espotify.ddns.net/almacen-mp3/almacen-img/";
+	private final static String ALMACEN_IMG_URL = "https://espotify.ddns.net/almacen-mp3/almacen-img/usuarios/";
 	
 	/**
 	 * Registra un usuario nuevo en la base de datos.
@@ -48,7 +48,7 @@ public class UsuarioDAO {
 	 */
 	
 	public static boolean register(String nombre,String email, String contrasena, String descripcion, String imagen) {
-		
+		String rutaImagen = ALMACEN_IMG_URL;
 		try {
 			Connection conn = ConnectionManager.getConnection();
 			PreparedStatement ps = conn.prepareStatement(INSERT_QUERY);
@@ -61,12 +61,13 @@ public class UsuarioDAO {
 			ps.setString(4, pass_HASH);
 			ps.executeUpdate();
 			
-			if(imagen != null && !imagen.equals("")) {
-				ps = conn.prepareStatement(INSERT_IMG_QUERY);
-				ps.setString(1, imagen);
-				ps.setString(2, email);
-				ps.executeUpdate();
-			}
+			String idImagen = obtenerIdDesdeEmail(email);
+			rutaImagen += idImagen + ".jpg";
+			
+			ps = conn.prepareStatement(INSERT_IMG_QUERY);
+			ps.setString(1, rutaImagen);
+			ps.setString(2, email);
+			ps.executeUpdate();
 			
 			ConnectionManager.releaseConnection(conn);
 			return true;
@@ -126,7 +127,32 @@ public class UsuarioDAO {
 		return false;
 	}
 	
-	public static boolean actualizarImagen(String id, String imagen) {
+	public static boolean actualizarImagenUsuario(String id, String imagen) {
+		
+		try {
+			Connection conn = ConnectionManager.getConnection();
+			PreparedStatement ps;
+			
+			if(imagen != null && !imagen.equals("")) {
+				ps = conn.prepareStatement(UPDATE_IMG_QUERY);
+				
+				ps.setString(1, imagen);
+				ps.setString(2, id);
+				ps.executeUpdate();
+			}
+	
+			ConnectionManager.releaseConnection(conn);
+			return true;
+		} catch(SQLException se) {
+			se.printStackTrace();
+			return false;
+		} catch(Exception e) {
+			e.printStackTrace(System.err);
+		}
+		return false;
+	}
+	
+	public static boolean actualizarImagenLista(String id, String imagen) {
 		
 		try {
 			Connection conn = ConnectionManager.getConnection();
@@ -231,13 +257,13 @@ public class UsuarioDAO {
 	}
 	
 	
-	public static Usuario login(String email, String contrasena) {
+	public static Usuario login(String usuario, String contrasena) {
 		Usuario result = null;
 		try {
 
 			Connection conn = ConnectionManager.getConnection();
 			PreparedStatement ps = conn.prepareStatement(LOGIN_QUERY);
-			ps.setString(1, email);
+			ps.setString(1, usuario);
 			
 			// ciframos la contrasea con HASH256
 			String pass_HASH = convertirSHA256(contrasena);
