@@ -574,6 +574,17 @@
 		<url-pattern>/mostrar_transmisiones</url-pattern>
 	</servlet-mapping>
 	
+	
+	<servlet>
+		<servlet-name>iniciar_transmision</servlet-name>
+		<servlet-class>com.espotify.controller.IniciarTransimision_Servlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>iniciar_transmision</servlet-name>
+		<url-pattern>/iniciar_transmision</url-pattern>
+	</servlet-mapping>
+	
+	
 	<servlet>
 			<servlet-name>obtener_contenido_perfil</servlet-name>
 			<servlet-class>com.espotify.controller.ObtenerCotenidoUsuario</servlet-class>
