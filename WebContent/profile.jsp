@@ -471,11 +471,8 @@ String email = (String) session.getAttribute("email");
 																<a href="anyadir_cancion_fav?idAudio=${cancion.getId()}&pagina=<%=pagina %>" class="btn-favorito icon-star" ></a>
 																<a href="${pageContext.request.contextPath}/ir_modificar?id_audio=${cancion.getId()}&cancion=true&pagina=<%=pagina %>" class="btn-icono icon-pencil" ></a>
 																<a href="#" class="btn-icono icon-indent" onclick="rellenarCampos('${listaslr.size()}','${cancion.getId()}');
-<<<<<<< HEAD
 																document.getElementById('overlay-anadir-listas-reproduccion').classList.add('active');"
-=======
-																document.getElementById('overlay-anadir-listas-reproduccion').classList.add('active')"
->>>>>>> branch 'master' of https://github.com/UNIZAR-30226-2020-06/PS-FINAL.git
+
 																	></a>
 																<a href="${pageContext.request.contextPath}/eliminar_cancion?id_cancion=${cancion.getId()}&pagina=<%=pagina %>" class="btn-icono icon-trash-o" ></a>
 															</div>
@@ -586,22 +583,12 @@ String email = (String) session.getAttribute("email");
 																</a>
 																<a href="#" data-toggle="control-sidebar">
 											                        <i style="position: relative;left: 10px;" class="icon-commenting-o s-24"></i>
-<<<<<<< HEAD
-											                    </a>															
-															<div class="ml-auto">
-																<a href="${pageContext.request.contextPath}/ir_modificar?id_audio=${capitulo.getId()}&cancion=false" class="btn-icono icon-pencil" ></a>
-																<a href="#" class="btn-icono icon-indent" onclick="rellenarCampos('${podcasts.size()}','${capitulo.getId()}');
-																document.getElementById('overlay-anadir-podcast').classList.add('active');"
-																	></a>
-																<a href="${pageContext.request.contextPath}/eliminar_capitulo?id_capitulo=${capitulo.getId()}" class="btn-icono icon-trash-o" ></a>
-=======
 											                    </a>
 															<div class="ml-auto">
 																<a href="${pageContext.request.contextPath}/ir_modificar?id_audio=${capitulo.getId()}&cancion=false&pagina=<%=pagina %>" class="btn-icono icon-pencil" ></a>
 																<a href="#" class="btn-icono icon-indent" onclick="rellenarCamposP('${podcasts.size()}','${capitulo.getId()}');
 																document.getElementById('overlay-anadir-podcast').classList.add('active')"></a>
 																<a href="${pageContext.request.contextPath}/eliminar_capitulo?id_capitulo=${capitulo.getId()}&pagina=<%=pagina %>" class="btn-icono icon-trash-o" ></a>
->>>>>>> branch 'master' of https://github.com/UNIZAR-30226-2020-06/PS-FINAL.git
 															</div>
 														</div>
 													</li>
