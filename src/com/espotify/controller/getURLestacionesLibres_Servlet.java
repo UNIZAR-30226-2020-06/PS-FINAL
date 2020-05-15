@@ -18,7 +18,7 @@ import com.espotify.model.Transmision;
 /**
  * Servlet implementation class IniciarTransimision_Servlet
  */
-@WebServlet("/IniciarTransimision_Servlet")
+@WebServlet("/getURLestacionesLibres_Servlet")
 public class getURLestacionesLibres_Servlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
