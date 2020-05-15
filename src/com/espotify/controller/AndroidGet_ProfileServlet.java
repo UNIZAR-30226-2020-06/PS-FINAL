@@ -82,6 +82,7 @@ public class AndroidGet_ProfileServlet extends HttpServlet {
         respuestaPeticion.put("nombreUsuario", u.getNombre());
         respuestaPeticion.put("descripcion", u.getDescripcion());
         respuestaPeticion.put("email", u.getCorreo());
+        respuestaPeticion.put("imagen", u.getImagen());
         
         int nSeguidores = SeguirDAO.getNumFollowers(idUsuario);
         

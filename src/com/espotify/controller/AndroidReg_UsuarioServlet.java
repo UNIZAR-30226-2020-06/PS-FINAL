@@ -30,6 +30,7 @@ public class AndroidReg_UsuarioServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final String PETICION_LOGIN = "login";
 	private static final String PETICION_REGISTRO = "registrar";
+	private static final String DIRECTORIO_IMAGEN_USUARIO = "/var/www/html/almacen-mp3/almacen-img/usuarios/";
 
     /**
      * @see HttpServlet#HttpServlet()
@@ -76,14 +77,14 @@ public class AndroidReg_UsuarioServlet extends HttpServlet {
         }
         
         int  idUsuario = Integer.parseInt(UsuarioDAO.obtenerIdDesdeEmail(email));
-        String ficheroImagen = idUsuario + ".mp3";
+        String ficheroImagen = idUsuario + ".jpg";
 
         byte[] decodedString = Base64.getDecoder().decode(new String(imagenCodificada).getBytes("UTF-8"));
-        try (OutputStream stream = new FileOutputStream("/var/www/html/almacen-mp3/" + ficheroImagen)) {
+        try (OutputStream stream = new FileOutputStream(DIRECTORIO_IMAGEN_USUARIO + ficheroImagen)) {
             stream.write(decodedString);
         }
         
-        File ficheroAudio = new File("/var/www/html/almacen-mp3/" + ficheroImagen);
+        File ficheroAudio = new File(DIRECTORIO_IMAGEN_USUARIO + ficheroImagen);
         
         ficheroAudio.setReadable(true, false);
 		ficheroAudio.setExecutable(true, false);
@@ -94,7 +95,7 @@ public class AndroidReg_UsuarioServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
 
         // finally output the json string       
-        // out.print(parametrosPeticion.toString());
+        out.print(respuestaPeticion.toString());
 	}
 
 	/**
