@@ -31,16 +31,16 @@ import com.espotify.model.ListaReproduccion;
 import com.espotify.model.Usuario;
 
 /**
- * Servlet implementation class AndroidGet_ProfileServlet
+ * Servlet implementation class AndroidGet_OtrosProfileServlet
  */
-@WebServlet("/AndroidGet_ProfileServlet")
-public class AndroidGet_ProfileServlet extends HttpServlet {
+@WebServlet("/AndroidGet_OtrosProfileServlet")
+public class AndroidGet_OtrosProfileServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AndroidGet_ProfileServlet() {
+    public AndroidGet_OtrosProfileServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -50,18 +50,18 @@ public class AndroidGet_ProfileServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		getServletContext().log("--- ~AndroidGet_ProfileServlet~ ---");
+		getServletContext().log("--- ~AndroidGet_OtrosProfileServlet~ ---");
 		
         JSONObject parametrosPeticion = JSONAdapter.parsarJSON(request);
         getServletContext().log("Parametros: " + parametrosPeticion);
-        String email = parametrosPeticion.getString("email");
+        String nombreUsuario = parametrosPeticion.getString("nombreUsuario");
         JSONObject respuestaPeticion = new JSONObject();
         
         response.setContentType("application/json");
         response.setCharacterEncoding("utf-8");
         PrintWriter out = response.getWriter();
         
-        int idUsuario = Integer.parseInt(UsuarioDAO.obtenerIdDesdeEmail(email));
+        int idUsuario = UsuarioDAO.obtenerIdDesdeNombreUsuario(nombreUsuario);
         Usuario u = new UsuarioDAO().obtenerInfo(idUsuario);
         
         /*
@@ -82,6 +82,7 @@ public class AndroidGet_ProfileServlet extends HttpServlet {
         respuestaPeticion.put("nombreUsuario", u.getNombre());
         respuestaPeticion.put("descripcion", u.getDescripcion());
         respuestaPeticion.put("email", u.getCorreo());
+        
         
         int nSeguidores = SeguirDAO.getNumFollowers(idUsuario);
         

@@ -1,20 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%><!DOCTYPE html>
 <html lang="zxx">
 
 <!-- Mirrored from xvelopers.com/demos/html/record-light/index.jsp by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 05 Apr 2020 17:21:29 GMT -->
+
+<% 
+int pagina = Integer.valueOf((String) request.getParameter("pagina"));
+String nombre = (String) request.getParameter("nombre");
+%>
 
 <!--  
 ########################################################################
 ############### BASE DE TODAS LAS PAGINAS    ###########################
 ########################################################################
 -->
-<% 
-int pagina = Integer.valueOf((String) request.getParameter("pagina"));
-%>
-<!-- NOMBRE DE LA PESTAÑA -->
+
+<!-- NOMBRE DE LA PESTAÃA -->
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -25,12 +27,13 @@ int pagina = Integer.valueOf((String) request.getParameter("pagina"));
     <!-- CSS -->
     <link rel="stylesheet" href="assets/css/app.css">
 </head>
+<!-- END PESTAÃA -->
 
-<body background="assets/img/fondo3.png" style="background-size: cover;background-repeat: no-repeat; background-position: center center;background-attachment: fixed;" class="sidebar-mini sidebar-collapse sidebar-expanded-on-hover" style="display: none;">
+<body background="assets/img/fondo3.png" style="background-size: cover;background-repeat: no-repeat; background-position: center center;background-attachment: fixed;" class="sidebar-mini sidebar-collapse sidebar-expanded-on-hover has-preloader" style="display: none;">
 <!-- Pre loader
   To disable preloader remove 'has-preloader' from body
  -->
-
+<!-- CIRCULO DE CARGA -->
 <div id="loader" class="loader">
     <div class="loader-container">
         <div class="preloader-wrapper big active">
@@ -76,15 +79,16 @@ int pagina = Integer.valueOf((String) request.getParameter("pagina"));
         </div>
     </div>
 </div>
+<!-- END CIRCULO DE CARGA -->							 
 
-<!-- @Pre loader-->
+<!-- EMPIEZA APP -->
 <div id="app">
 
 <!--MENU DE LA IZQUIERDA -->
 <aside class="main-sidebar fixed offcanvas shadow" data-toggle='offcanvas'>
     <div class="sidebar">
         <ul class="sidebar-menu">
-            <li><a class="ajaxifyPage active" href="Inicio?pagina=<%=pagina %>" >
+            <li><a class="ajaxifyPage active" href="Inicio?pagina=10" >
                     <i class="icon icon-home-1 s-24"></i> <span>Inicio</span>
                 </a>
             </li>
@@ -102,23 +106,47 @@ int pagina = Integer.valueOf((String) request.getParameter("pagina"));
                 </ul>
             </li>
             
-            <li><a class="ajaxifyPage" href="mostrar_lrs?tipo=ListaRep&pagina=<%=pagina %>" >
-                    <i class="icon icon-compact-disc-1 s-24"></i> <span>Mis listas de reproducción</span>
+            <li><a class="ajaxifyPage" href="mostrar_lrs?tipo=ListaRep&pagina=10" >
+                    <i class="icon icon-compact-disc-1 s-24"></i> <span>Mis listas de reproduccion</span>
                 </a>
             </li>
             
-            <li><a class="ajaxifyPage" href="mostrar_podcasts?tipo=podcasts&pagina=<%=pagina %>" >
+            <li><a class="ajaxifyPage" href="mostrar_podcasts?tipo=podcasts&pagina=10" >
                     <i class="icon icon-headphones s-24"></i> <span>Mis podcasts</span>
                 </a>
             </li>
-            <li><a class="ajaxifyPage" href="obtener_info_fav?pagina=<%=pagina %>" >
+            <li><a class="ajaxifyPage" href="obtener_info_fav?pagina=10" >
             		<i class="icon icon-star s-24"></i> <span>Mis favoritos</span>
             	</a>
             </li>
         </ul>
     </div>
 </aside>
-<!-- ACABA MENU DE LA IZQUIERDA-->
+<!-- END MENU DE LA IZQUIERDA-->
+
+<!-- MENU DONDE ESTAN LAS CANCIONES EN LA COLA (DERECHA) -->
+<aside class="control-sidebar fixed ">
+    <div class="slimScroll">
+        <div class="sidebar-header">
+            <h4>PlayList</h4>
+            <p>Awesome Collection for you</p>
+            <a href="#" data-toggle="control-sidebar" class="paper-nav-toggle  active"><i></i></a>
+        </div>
+        <div class="p-3">
+            <ul id="playlist" class="playlist list-group">
+                
+
+
+            </ul>
+
+        </div>
+    </div>
+</aside>
+
+<!-- Add the sidebar's background. This div must be placed
+         immediately after the control sidebar -->
+<div class="control-sidebar-bg shadow  fixed"></div>
+<!-- END MENU DONDE ESTAN LAS CANCIONES EN LA COLA (DERECHA) -->
 
 <!-- MENU DONDE ESTAN LAS CANCIONES EN LA COLA (DERECHA) -->
 <aside class="control-sidebar fixed ">
@@ -165,6 +193,7 @@ int pagina = Integer.valueOf((String) request.getParameter("pagina"));
 <div class="control-sidebar-bg shadow  fixed"></div>
 <!-- END MENU DONDE ESTAN LAS CANCIONES EN LA COLA (DERECHA) -->
 
+<!-- ALGO RANDOM DE LA PARTE DERECHA -->									
 <svg class="d-none">
     <defs>
         <symbol id="icon-cross" viewBox="0 0 24 24">
@@ -205,6 +234,7 @@ int pagina = Integer.valueOf((String) request.getParameter("pagina"));
 </div>
 <!-- ACABA BUSCADOR (LUPA) -->
 
+
 <%
 String hayfoto = (String) session.getAttribute("hayfoto");
 %>
@@ -216,9 +246,9 @@ String hayfoto = (String) session.getAttribute("hayfoto");
             <a href="#" data-toggle="push-menu" class="paper-nav-toggle pp-nav-toggle ml-2 mr-2">
                 <i></i>
             </a>
-            <a class="navbar-brand d-none d-lg-block" href="Inicio?pagina=<%=pagina %>" >
+            <a class="navbar-brand d-none d-lg-block" href="Inicio?pagina=10" >
                 <div class="d-flex align-items-center s-14 l-s-2">
-                    <a style="position: absolute;width: 12%;" href="Inicio?pagina=<%=pagina %>" ><img  src="assets/img/logo.png"></a>
+                    <a style="position: absolute;width: 12%;" href="Inicio?pagina=10" ><img  src="assets/img/logo.png"></a>
                 </div>
             </a>
         </div>
@@ -249,7 +279,7 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 					<div class="dropdown-menu p-4 dropdown-menu-right">
 						<div class="row box justify-content-between my-4">
 							<div class="col text-center">
-								<a class="ajaxifyPage" href="${pageContext.request.contextPath}/obtener_contenido_perfil?pagina=<%=pagina %>">
+								<a class="ajaxifyPage" href="obtener_contenido_perfil?pagina=10" >
 									<i class="icon-user-4  s-24"></i>
 									<div class="pt-1">Mi perfil</div>
 								</a>
@@ -268,6 +298,7 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 	</div>
 </nav>
 <!-- ACABA BARRA DE ARRIBA FIJA -->
+
 
 <!-- BARRA DE ABAJO FIJA-->
 <nav class="navbar-wrapper navbar-bottom-fixed shadow">
@@ -329,100 +360,48 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 -->
 
 
-<!--CONTENIDO NO AJAX-->
+<!--Page Content-->
 <main id="pageContent" class="page has-sidebar">
-<div class="container-fluid relative animatedParent animateOnce no-p">
-    <div class="animated">
-        <!--Banner Slider-->
-       
-        <!--@Banner Slider-->
-        <div class="p-md-5 p-3  ">
-            <!--New Releases-->
-            <section class="section">
-                <div class="d-flex relative align-items-center justify-content-between" style="background-color:black;">
-	                    <div class="mb-4">
-	                        <h2 style="color:orange;">Transmisiones en vivo de los usuarios seguidos</h2> 
-	                    </div>
-	                    <a style="text-align:right;" 
-                    		href="mostrar_transmisiones?pagina=<%=pagina %>" >Ver más
-                    		<i class="icon-angle-right ml-3"></i>
-	                    </a>     
-                </div>
-               <div class="row has-items-overlay" >
-               		<c:forEach var="transmision" items="${transmisiones}" >
-							<div class="col-lg-3 col-md-4 col-sm-6 my-2" style="top:20px;">
-								<figure>
-									<div class="img-wrapper">
+<div class="container-fluid relative p-lg-5">								
+	<div class="container-fluid relative p-0">
+		<div class="card no-b shadow no-r">
+				<!--Banner-->
+
+					<div class="has-bottom-gradient">
+						<div class="row pt-5 ml-lg-5 mr-lg-5">
+							<div class="col-md-10 offset-1">
+								<div class="row my-5 pt-5">
+
+									<div class="col-md-3">
 										<img src="assets/img/demo/a1.jpg" alt="/">
-										<div class="img-overlay text-white text-center">
-											<a href="ver_transmision?idTransmision=${transmision.getId()}&pagina=<%=pagina %>">
-												<div class="figcaption mt-3">
-													<i class="icon-link s-48"></i>
-													<h5 class="mt-5">${transmision.getNombre()}</h5>
-												</div>
-											</a>
-										</div>
-										<div class="figure-title text-center p-2">
-											<h5>${transmision.getNombre()}</h5>
-										</div>
 									</div>
-								</figure>
-                    	</div>
-					</c:forEach>                   
-               </div> 
-               </section>
-            <!-- END TRANSMISIONES EN VIVO -->
-            
-            <!-- LISTAS DE REPRODUCCION -->
-            
-            <section class="section">
-                <div class="d-flex relative align-items-center justify-content-between" style="background-color:black;">
-	                    <div class="mb-4">
-	                        <h2 style="color:orange;">Tus Listas de reproduccion</h2> 
-	                    </div>
-	                    <a style="text-align:right;" 
-                    		href="mostrar_lrs?tipo=ListaRep&pagina=<%=pagina %>" >Ver más
-                    		<i class="icon-angle-right ml-3"></i>
-	                    </a>     
-                </div>
-               <div class="row has-items-overlay" >
-               		<c:forEach var="lista" items="${listas}" >
-							<div class="col-lg-3 col-md-4 col-sm-6 my-2" style="top:20px;">
-								<figure>
-									<div class="img-wrapper">
-										<img src="assets/img/demo/a1.jpg" alt="/">
-										<div class="img-overlay text-white text-center">
-											<a href="obtener_info_lr?nombre=${lista.getNombre()}&pagina=<%=pagina %>" >
-												<div class="figcaption mt-3">
-													<i class="icon-link s-48"></i>
-													<h5 class="mt-5">${lista.getNombre()}</h5>
-												</div>
-											</a>
+									<div class="col-md-9">
+										<div class="d-md-flex align-items-center justify-content-between">
+											<h1 class="my-3 text-orange">${infoLista.getNombre()}</h1>
+											<div class="ml-auto mb-2">
+												<a href="#" class="snackbar ml-3" data-text="Te gusta esta lista"
+												   data-pos="top-right"
+												   data-showAction="true"
+												   data-actionText="ok"
+												   data-actionTextColor="#fff"
+												   data-backgroundColor="#0c101b"><i class="icon-thumbs-o-up s-24"></i>
+												</a>
+											</div>
+
 										</div>
-										<div class="figure-title text-center p-2">
-											<h5>${lista.getNombre()}</h5>
+									
+										<div class="text-orange my-2">
+											<p>${infoLista.getDescripcion()}</p>
 										</div>
+
 									</div>
-								</figure>
-							<div class="contenido-pestanas" style="text-align: center;">
-                       		 </div>
-                    	</div>
-					</c:forEach>                   
-               </div> 
-               </section>
-               <!-- END LISTAS DE REPRODUCCION -->
-              
-              <!-- FAVORITOS -->
-               <div class="d-flex relative align-items-center justify-content-between" style="background-color:black;">
-                    <div class="mb-4">
-                        <h2 style="color:orange;">Tus Canciones favoritas</h2>
-                    </div>
-                    <a 
-                    href="obtener_info_fav?pagina=<%=pagina %>" >Ver más
-                    	<i class="icon-angle-right ml-3"></i>
-                    </a>
-                </div>
-               <div class="p-3 p-lg-5">
+								</div>
+							</div>
+						</div>
+					</div>
+				<!--@Banner-->
+
+				<div class="p-3 p-lg-5">
 					<!--New Releases-->
 					<section>
 						<div class="row">
@@ -433,19 +412,18 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 											<ul id="playlist" class="playlist list-group">
 												<c:forEach var="cancion" items="${audios}">                    
 													<div style="margin-bottom: -1px;" class="cancion">
-														<li class="list-group-item my-1">																
+														<li class="list-group-item my-1">
 															<div class="d-flex align-items-center">
 																<div class="col-1">
-																	<%
-																	if(pagina == 0) {%>
+																	<%if(pagina == 5) {%>
 																	<a class="no-ajaxy media-url" href="${cancion.getUrl()}">
 																		<i class="icon-play s-28"></i>
 																	</a>
-																	<%} else {%>
-																	<a href="Inicio?pagina=0" onclick="setTimeout(location.reload.bind(location), 1)">
+																	<% } else {%>
+																	<a href="obtener_info_lr?nombre=<%=nombre%>&pagina=5" onclick="setTimeout(location.reload.bind(location), 1)">
 																		<i class="icon-play s-28"></i>
 																	</a>
-																	<%} %>						
+																	<%} %>					
 																</div>
 																<div class="col-6">
 																	<h6>${cancion.getTitulo()}</h6>${cancion.getGenero()}
@@ -461,7 +439,9 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 											                        <i style="position: relative;left: 10px;" class="icon-commenting-o s-24"></i>
 											                    </a>
 																<div class="ml-auto">
-																	<a href="${pageContext.request.contextPath}/borrar_cancion_fav?idAudio=${cancion.getId()}&pagina=<%=pagina %>" class="btn-favorito icon-star active" ></a>
+																	<a href="anyadir_cancion_fav?idAudio=${cancion.getId()}&pagina=<%=pagina %>" class="btn-favorito icon-star active"></a>
+																	<a href="#" class="btn-icono icon-indent" onclick="rellenarCampos('${listaslr.size()}','${cancion.getId()}');
+																document.getElementById('overlay-anadir-listas-reproduccion').classList.add('active')";></a>
 																</div>
 															</div>
 														</li>
@@ -474,72 +454,74 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 							</div>
 						</div>
 					</section>
-					<!-- END FAVORITOS -->
-					
 					<!--@New Releases-->
+
 				</div>
-				<!--  
-				<div class="d-flex relative align-items-center justify-content-between" style="background-color:black;">
-                    <div class="mb-4">
-                        <h2 style="color:orange;">Tus Podcasts</h2>
-                    </div>
-                    <a 
-                    href="obtener_info_fav" >Ver más
-                    	<i class="icon-angle-right ml-3"></i>
-                    </a>
-                </div>-->
-        </div>
-    </div>
+
+			</div>
+		</div>
+	</div>
+
+
+<!-- AÑADIR CANCION A LISTA DE REPRODUCCI�N -->
+<div class="overlay-pop-up" id="overlay-anadir-listas-reproduccion">
+    <div class="col-md-7 card p-5">
+		<a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-anadir-listas-reproduccion" class="btn-cerrar-popup-perfil"><i class="icon-close1"
+		onclick="document.getElementById('overlay-anadir-listas-reproduccion').classList.remove('active');"></i></a>			
+			<!-- Input -->
+				<div class="body">
+					<div class="row has-items-overlay">
+						<c:forEach var="listalr" items="${listaslr}">
+						<div class="col-lg-3 col-md-4 col-sm-6 my-2">
+							<figure>
+								<div class="img-wrapper">
+			
+									<img src="assets/img/demo/a1.jpg" alt="/">
+									
+									<div class="figure-title text-center p-2">
+										<h5>${listalr.getNombre()}</h5>
+									</div>
+								</div>
+							</figure>
+							<form class="form-material" action="anyadir_cancion_lr" method="post">
+								<input type="hidden" name="idLista" id="idLista" value="${listalr.getId()}">
+								<input type="hidden" name="idAudio" id="idAudio" value="">
+								<input type="hidden" name="nombreLista" id="nombreLista" value="${listalr.getNombre()}">
+								<input type="hidden" name="tipo" id="tipo" value="ListRep">
+								<a id="submit2" href="Inicio?pagina=<%=pagina %>" class="btn btn-outline-primary btn-sm pl-4 pr-4">Añadir</a>
+							</form>	
+						</div>
+					</c:forEach>
+				<!-- #END# Input -->
+				</div>
+			</div>		
+	</div>
 </div>
-<!-- BORRAR LISTA DE REPRODUCCIÓN -->	
-	<div class="overlay-pop-up" id="overlay-borrar-listas-reproduccion">	
-	    <div class="col-md-7 card p-5">	
-	        <a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-borrar-listas-reproduccion" class="btn-cerrar-popup-perfil"	
-	        class="btn btn-outline-primary btn-sm pl-4 pr-4"  onclick="document.getElementById('overlay-borrar-listas-reproduccion').classList.remove('active');"><i class="icon-close1"></i></a>	
-			<form class="form-material" action="borrar_lr">	
-				<!-- Input -->	
-				<div class="body">	
-					<header class="relative nav-sticky card">	
-	                    <h3>¿Estas seguro?</h3>	
-	                    <h5>Vas a borrar esta lista de reproduccion para siempre, no hay vuelta atras</h5>	
-					</header>	
-		
-					<input type="hidden" id="idLista" name="nombre" value="">
-					<input type="hidden" name="tipo" id="tipo2" value="ListaRep">	
-					<a id="submit2" href="mostrar_lrs?tipo=ListaRep&pagina=<%=pagina %>" class="btn btn-outline-primary btn-sm pl-4 pr-4">Aceptar</a>
-				</div>	
-				<!-- #END# Input -->	
-	        </form>	
-		</div>	
-	</div>	
-<!-- END BORRAR LISTA DE REPRODUCCIÓN -->
+<!-- END AÑADIR CANCION A LISTA DE REPRODUCCI�N -->
 
-
-
-</main><!--@Page Content-->
-</div><!--@#app-->
-
-
-<!--/#app -->
-<script src="https://maps.googleapis.com/maps/api/js?&amp;key=AIzaSyC3YkZNNySdyR87o83QEHWglHfHD_PZqiw&amp;libraries=places"></script>
-<script src="assets/js/app.js"></script>
-<script  src="assets/js/mostrar-popup.js"></script>
 <script>
     $(document).ready(function() {
     	$('#submit2').click(function(event) {
 			var idListaVar = $('#idLista').val();
-			var tipoVar = $('#tipo2').val();
-			console.log(idListaVar);
-			console.log(tipoVar);
+			var idAudioVar = $('#idAudio').val();
+			var nombreListaVar = $('#nombreLista').val();
+			var tipoVar = $('#tipo').val();
 			// Si en vez de por post lo queremos hacer por get, cambiamos el $.post por $.get
-			$.get('borrar_lr', {
-				nombre : idListaVar,
+			$.get('anyadir_cancion_lr', {
+				idLista : idListaVar,
+				idAudio : idAudioVar,
+				nombreLista : nombreListaVar,
 				tipo : tipoVar
 			});
 		});
     });
     </script>
-    <script>
+</main><!--@Page Content-->
+</div><!--@#app-->
+<!--/#app -->
+<script src="https://maps.googleapis.com/maps/api/js?&amp;key=AIzaSyC3YkZNNySdyR87o83QEHWglHfHD_PZqiw&amp;libraries=places"></script>
+<script src="assets/js/app.js"></script>
+<script>
 	function loopAudio(){
 		var audio = document.getElementsByTagName("audio")[0];
 		if(audio.loop){
@@ -569,7 +551,8 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 		}
 	}
 	</script>
-	<script>
+
+	 <script>
     function rellenarCampos(size,song) {
     	var i;
     	for (i=0; i <size; i++){
@@ -578,8 +561,6 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 
     }
     </script>
-
-
 </body>
 
 </html>

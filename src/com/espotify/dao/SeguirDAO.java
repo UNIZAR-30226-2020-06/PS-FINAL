@@ -34,6 +34,8 @@ public class SeguirDAO {
 			   											  +"WHERE sigue.usuario1 = usuario.id AND sigue.usuario2 = ?";
 		
 	private final static String GET_NUMUSERSEGUIDORES_QUERY = "SELECT count(*) FROM Reproductor_musica.Sigue sigue WHERE sigue.usuario2 = ?";
+	private final static String GET_ISFOLLOWING_QUERY = "SELECT * FROM Reproductor_musica.Sigue sigue WHERE sigue.usuario1 = ? AND sigue.usuario2 = ?";
+
 	
 	/*
 	 * Parametros: id del usuario propio (usuario1), id del usuario a seguir (usuario2)
@@ -50,6 +52,36 @@ public class SeguirDAO {
 			
 			ConnectionManager.releaseConnection(conn);
 			return true;
+			
+		} catch(SQLException se) {
+			System.out.println(se.getMessage());
+			return false;
+		} catch(Exception e) {
+			e.printStackTrace(System.err);
+			return false;
+		}
+	}
+	
+	
+	/*
+	 * Parametros: id del usuario propio (usuario1), id del usuario a comprobar si lo sigue (usuario2)
+	 * Devuelve: false en caso de que no lo siga, true en caso de que lo siga
+	*/
+	public static boolean isFollowing(int usuario1, int usuario2) {
+		try {
+			Connection conn = ConnectionManager.getConnection();
+			PreparedStatement ps = conn.prepareStatement(GET_ISFOLLOWING_QUERY);
+			ps.setInt(1, usuario1);
+			ps.setInt(2, usuario2);
+			ResultSet rs = ps.executeQuery();
+			
+			if (rs.next()) {
+				return true;
+			}
+			
+			ConnectionManager.releaseConnection(conn);
+			
+			return false;
 			
 		} catch(SQLException se) {
 			System.out.println(se.getMessage());
@@ -153,7 +185,7 @@ public class SeguirDAO {
 			ResultSet rs = ps.executeQuery();
 
 			while(rs.next()){
-				nSeguidores++;
+				nSeguidores = rs.getInt(1);
 			}
 			
 			ConnectionManager.releaseConnection(conn);

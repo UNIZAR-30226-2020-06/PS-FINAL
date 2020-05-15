@@ -33,7 +33,7 @@ public class UsuarioDAO {
 	private final static String LOGIN_QUERY = "SELECT nombre, descripcion, mail, id, imagen FROM Reproductor_musica.Usuario WHERE mail = ? AND password = ?";
 	private final static String USER_GETID_QUERY = "SELECT id, imagen FROM Reproductor_musica.Usuario WHERE mail = ?";
 	private final static String USER_GETID_NAME_QUERY = "SELECT id FROM Reproductor_musica.Usuario WHERE nombre = ?";
-	private final static String USER_GETINFO_QUERY = "SELECT nombre, descripcion, mail, imagen FROM Reproductor_musica.Usuario WHERE mail = ?";
+	private final static String USER_GETINFO_QUERY = "SELECT nombre, descripcion, mail, imagen FROM Reproductor_musica.Usuario WHERE id = ?";
 	private final static String USER_GETIMAGE_BLOB_QUERY = "SELECT imagen FROM Reproductor_musica.Usuario WHERE mail = ?";
 	private final static String USER_GETALL_QUERY = "SELECT * FROM Reproductor_musica.Usuario";
 	private final static String ALMACEN_IMG_URL = "https://espotify.ddns.net/almacen-mp3/almacen-img/";
@@ -259,14 +259,14 @@ public class UsuarioDAO {
 		return result;
 	}
 	
-	public static Usuario obtenerInfo(String email) {
+	public static Usuario obtenerInfo(int id) {
 		Usuario result = null;
 		Blob blob = null;
 		try {
 
 			Connection conn = ConnectionManager.getConnection();
 			PreparedStatement ps = conn.prepareStatement(USER_GETINFO_QUERY);
-			ps.setString(1, email);
+			ps.setInt(1, id);
 			
 			ResultSet rs = ps.executeQuery();
 
@@ -312,12 +312,11 @@ public class UsuarioDAO {
 	
 	public static int obtenerIdDesdeNombreUsuario(String nombreUsuario) {
 		int id = -1;
-
 		try {
 
 			Connection conn = ConnectionManager.getConnection();
 			PreparedStatement ps = conn.prepareStatement(USER_GETID_NAME_QUERY);
-			ps.setInt(1, id);
+			ps.setString(1, nombreUsuario);
 			
 			ResultSet rs = ps.executeQuery();
 
@@ -331,7 +330,7 @@ public class UsuarioDAO {
 		} catch(Exception e) {
 			e.printStackTrace(System.err);
 		}
-				return id;
+		return id;
 	}
 	
 	
@@ -369,7 +368,7 @@ public class UsuarioDAO {
 			ResultSet rs = ps.executeQuery();
 
 			while (rs.next()) {
-				listaUsuarios.add(new Usuario(rs.getString(2), rs.getString(3), null , null, rs.getString(6)));
+				listaUsuarios.add(new Usuario(rs.getString(2), rs.getString(3), rs.getString(5) , null, rs.getString(6)));
 			}
 			
 			ConnectionManager.releaseConnection(conn);

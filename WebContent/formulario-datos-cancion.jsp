@@ -247,140 +247,20 @@ int pagina = Integer.valueOf((String) request.getParameter("pagina"));
         </svg>
     </button>
     <div class="searchOverlay__inner  searchOverlay__inner--up">
-        <form class="searchOverlay__form" action="https://xvelopers.com/demos/html/record-light/index.jsp">
+        <form class="searchOverlay__form" action="Buscar" method="post">
             <input
                     class="searchOverlay__input"
-                    name="searchOverlay"
+                    name="nombre"
                     type="text"
                     placeholder="Search"
                     autocomplete="off"
                     spellcheck="false"
+                    required
             />
-            <span class="searchOverlay__info">Hit enter to searchOverlay or ESC to close</span>
+            <span class="searchOverlay__info">Enter para buscar, esc  para cancelar</span>
         </form>
     </div>
-    <div class="searchOverlay__inner searchOverlay__inner--down">
-        <div class="searchOverlay__related">
-            <div class="searchOverlay__suggestion">
-                <div class="card mb-3">
-                    <div class="card-header transparent b-b">
-                        <strong>New Artists</strong>
-                    </div>
-                    <ul class="playlist list-group list-group-flush">
-                        <li class="list-group-item">
-                            <div class="d-flex align-items-center">
-                                <div class="col-10">
-                                    <figure class="avatar avatar-md float-left  mr-3 mt-1">
-                                        <img src="assets/img/demo/u1.jpg" alt="">
-                                    </figure>
-                                    <h6>Zoe Foe</h6>
-                                    <small>5 Albums - 50 Songs</small>
-                                </div>
-                                <a href="#" class="ml-auto"><i class="icon-more"></i></a>
-                            </div>
-                        </li>
-                        <li class="list-group-item">
-                            <div class="d-flex align-items-center">
-                                <div class="col-10">
-                                    <figure class="avatar avatar-md float-left  mr-3 mt-1">
-                                        <img src="assets/img/demo/u2.jpg" alt="">
-                                    </figure>
-                                    <h6>Zoe Foe</h6>
-                                    <small>5 Albums - 50 Songs</small>
-                                </div>
-                                <a href="#" class="ml-auto"><i class="icon-more"></i></a>
-                            </div>
-                        </li>
-                        <li class="list-group-item">
-                            <div class="d-flex align-items-center">
-                                <div class="col-10">
-                                    <figure class="avatar avatar-md float-left  mr-3 mt-1">
-                                        <img src="assets/img/demo/u3.jpg" alt="">
-                                    </figure>
-                                    <h6>Zoe Foe</h6>
-                                    <small>5 Albums - 50 Songs</small>
-                                </div>
-                                <a href="#" class="ml-auto"><i class="icon-more"></i></a>
-                            </div>
-                        </li>
-                        <li class="list-group-item">
-                            <div class="d-flex align-items-center">
-                                <div class="col-10">
-                                    <figure class="avatar avatar-md float-left  mr-3 mt-1">
-                                        <img src="assets/img/demo/u6.jpg" alt="">
-                                    </figure>
-                                    <h6>Zoe Foe</h6>
-                                    <small>5 Albums - 50 Songs</small>
-                                </div>
-                                <a href="#" class="ml-auto"><i class="icon-more"></i></a>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="searchOverlay__suggestion">
-                <div class="card mb-3">
-                    <div class="card-header transparent b-b">
-                        <strong>Events</strong>
-                    </div>
-                    <ul class="playlist list-group list-group-flush">
-                        <li class="list-group-item">
-                            <div class="d-flex align-items-center ">
-                                <div class="col-8 ">
-                                    <a href="video-single.jsp" >
-                                        <h6>Battal of Bands</h6>
-                                    </a>
-                                    <small class="mt-1"><i class="icon-placeholder-3 mr-1 "></i> London Music Hall
-                                    </small>
-                                </div>
-                                <div class="ml-auto">
-                                    <div class="text-lg-center  bg-primary r-10 p-2 text-white primary-bg">
-                                        <div class="s-18">24</div>
-                                        <small>July, 2019</small>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="list-group-item">
-                            <div class="d-flex align-items-center ">
-                                <div class="col-8 ">
-                                    <a href="video-single.jsp" >
-                                        <h6>Battal of Bands</h6>
-                                    </a>
-                                    <small class="mt-1"><i class="icon-placeholder-3 mr-1 "></i> London Music Hall
-                                    </small>
-                                </div>
-                                <div class="ml-auto">
-                                    <div class="text-lg-center  bg-primary r-10 p-2 text-white primary-bg">
-                                        <div class="s-18">08</div>
-                                        <small>July, 2019</small>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="list-group-item">
-                            <div class="d-flex align-items-center ">
-                                <div class="col-8 ">
-                                    <a href="video-single.jsp" >
-                                        <h6>Battal of Bands</h6>
-                                    </a>
-                                    <small class="mt-1"><i class="icon-placeholder-3 mr-1 "></i> London Music Hall
-                                    </small>
-                                </div>
-                                <div class="ml-auto">
-                                    <div class="text-lg-center  bg-primary r-10 p-2 text-white primary-bg">
-                                        <div class="s-18">12</div>
-                                        <small>July, 2019</small>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
+    
 </div>
 <!-- ACABA BUSCADOR (LUPA) -->
 <% String hayfoto = (String) session.getAttribute("hayfoto");  %>
@@ -604,9 +484,9 @@ int pagina = Integer.valueOf((String) request.getParameter("pagina"));
 <script>
     $(document).ready(function() {
     	$('#submit1').click(function(event) {
-			var idVar = $('#id').val();
-			var rutaVar = $('#ruta').val();
-			var tituloVar = $('#titulo').val();
+			var idVar = $('#id1').val();
+			var rutaVar = $('#ruta1').val();
+			var tituloVar = $('#titulo1').val();
 			// Si en vez de por post lo queremos hacer por get, cambiamos el $.post por $.get
 			$.get('subir_cancion', {
 				id : idVar,
@@ -629,9 +509,9 @@ int pagina = Integer.valueOf((String) request.getParameter("pagina"));
 			});
 		});
     	$('#submit3').click(function(event) {
-			var idVar = $('#id').val();
-			var rutaVar = $('#ruta').val();
-			var tituloVar = $('#titulo').val();
+			var idVar = $('#id3').val();
+			var rutaVar = $('#ruta3').val();
+			var tituloVar = $('#titulo3').val();
 			// Si en vez de por post lo queremos hacer por get, cambiamos el $.post por $.get
 			$.get('subir_capitulo', {
 				id : idVar,
@@ -640,13 +520,13 @@ int pagina = Integer.valueOf((String) request.getParameter("pagina"));
 			});
 		});
     	$('#submit4').click(function(event) {
-			var idVar = $('#id').val();
-			var rutaVar = $('#ruta').val();
-			var tituloVar = $('#titulo').val();
+    		var idVar = $('#id4').val();
+			var tituloVar = $('#titulo4').val();
+			var generoVar = $('#genero4').val();
 			// Si en vez de por post lo queremos hacer por get, cambiamos el $.post por $.get
 			$.get('modificar_capitulo', {
 				id : idVar,
-				ruta : rutaVar,
+				genero : generoVar,
 				titulo : tituloVar
 			});
 		});

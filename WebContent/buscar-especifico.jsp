@@ -142,140 +142,20 @@ pageEncoding="UTF-8"%>
         </svg>
     </button>
     <div class="searchOverlay__inner  searchOverlay__inner--up">
-        <form class="searchOverlay__form" action="https://xvelopers.com/demos/html/record-light/index.jsp">
+        <form class="searchOverlay__form" action="Buscar" method="post">
             <input
                     class="searchOverlay__input"
-                    name="searchOverlay"
+                    name="nombre"
                     type="text"
                     placeholder="Search"
                     autocomplete="off"
                     spellcheck="false"
+                    required
             />
-            <span class="searchOverlay__info">Hit enter to searchOverlay or ESC to close</span>
+            <span class="searchOverlay__info">Enter para buscar, esc  para cancelar</span>
         </form>
     </div>
-    <div class="searchOverlay__inner searchOverlay__inner--down">
-        <div class="searchOverlay__related">
-            <div class="searchOverlay__suggestion">
-                <div class="card mb-3">
-                    <div class="card-header transparent b-b">
-                        <strong>New Artists</strong>
-                    </div>
-                    <ul class="playlist list-group list-group-flush">
-                        <li class="list-group-item">
-                            <div class="d-flex align-items-center">
-                                <div class="col-10">
-                                    <figure class="avatar avatar-md float-left  mr-3 mt-1">
-                                        <img src="assets/img/demo/u1.jpg" alt="">
-                                    </figure>
-                                    <h6>Zoe Foe</h6>
-                                    <small>5 Albums - 50 Songs</small>
-                                </div>
-                                <a href="#" class="ml-auto"><i class="icon-more"></i></a>
-                            </div>
-                        </li>
-                        <li class="list-group-item">
-                            <div class="d-flex align-items-center">
-                                <div class="col-10">
-                                    <figure class="avatar avatar-md float-left  mr-3 mt-1">
-                                        <img src="assets/img/demo/u2.jpg" alt="">
-                                    </figure>
-                                    <h6>Zoe Foe</h6>
-                                    <small>5 Albums - 50 Songs</small>
-                                </div>
-                                <a href="#" class="ml-auto"><i class="icon-more"></i></a>
-                            </div>
-                        </li>
-                        <li class="list-group-item">
-                            <div class="d-flex align-items-center">
-                                <div class="col-10">
-                                    <figure class="avatar avatar-md float-left  mr-3 mt-1">
-                                        <img src="assets/img/demo/u3.jpg" alt="">
-                                    </figure>
-                                    <h6>Zoe Foe</h6>
-                                    <small>5 Albums - 50 Songs</small>
-                                </div>
-                                <a href="#" class="ml-auto"><i class="icon-more"></i></a>
-                            </div>
-                        </li>
-                        <li class="list-group-item">
-                            <div class="d-flex align-items-center">
-                                <div class="col-10">
-                                    <figure class="avatar avatar-md float-left  mr-3 mt-1">
-                                        <img src="assets/img/demo/u6.jpg" alt="">
-                                    </figure>
-                                    <h6>Zoe Foe</h6>
-                                    <small>5 Albums - 50 Songs</small>
-                                </div>
-                                <a href="#" class="ml-auto"><i class="icon-more"></i></a>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="searchOverlay__suggestion">
-                <div class="card mb-3">
-                    <div class="card-header transparent b-b">
-                        <strong>Events</strong>
-                    </div>
-                    <ul class="playlist list-group list-group-flush">
-                        <li class="list-group-item">
-                            <div class="d-flex align-items-center ">
-                                <div class="col-8 ">
-                                    <a href="album-single.jsp" >
-                                        <h6>Battal of Bands</h6>
-                                    </a>
-                                    <small class="mt-1"><i class="icon-placeholder-3 mr-1 "></i> London Music Hall
-                                    </small>
-                                </div>
-                                <div class="ml-auto">
-                                    <div class="text-lg-center  bg-primary r-10 p-2 text-white primary-bg">
-                                        <div class="s-18">24</div>
-                                        <small>July, 2019</small>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="list-group-item">
-                            <div class="d-flex align-items-center ">
-                                <div class="col-8 ">
-                                    <a href="album-single.jsp" >
-                                        <h6>Battal of Bands</h6>
-                                    </a>
-                                    <small class="mt-1"><i class="icon-placeholder-3 mr-1 "></i> London Music Hall
-                                    </small>
-                                </div>
-                                <div class="ml-auto">
-                                    <div class="text-lg-center  bg-primary r-10 p-2 text-white primary-bg">
-                                        <div class="s-18">08</div>
-                                        <small>July, 2019</small>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="list-group-item">
-                            <div class="d-flex align-items-center ">
-                                <div class="col-8 ">
-                                    <a href="album-single.jsp" >
-                                        <h6>Battal of Bands</h6>
-                                    </a>
-                                    <small class="mt-1"><i class="icon-placeholder-3 mr-1 "></i> London Music Hall
-                                    </small>
-                                </div>
-                                <div class="ml-auto">
-                                    <div class="text-lg-center  bg-primary r-10 p-2 text-white primary-bg">
-                                        <div class="s-18">12</div>
-                                        <small>July, 2019</small>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
+    
 </div>
 <!-- ACABA BUSCADOR (LUPA) -->
 
@@ -352,7 +232,7 @@ String hayfoto = (String) session.getAttribute("hayfoto");
             <!-- BOTONES ANTERIOR, PAUSE, SIGUIENTE -->
                 <div class="col">
                     <div class="d-flex align-items-center">
-                        <button id="shuffleTrack" class="btn btn-link d-none d-sm-block">
+                        <button id="shuffleTrack" class="btn btn-link d-none d-sm-block" onClick="document.getElementById('shuffleTrack').classList.add('active');">
                             <i class="icon-shuffle s-18"></i>
                         </button>
                         <button id="previousTrack" class="btn btn-link d-none d-sm-block">
@@ -365,14 +245,14 @@ String hayfoto = (String) session.getAttribute("hayfoto");
                         <button id="nextTrack" class="btn btn-link d-none d-sm-block">
                             <i class="icon-next s-18"></i>
                         </button>
-                        <button class="btn btn-link" onclick="loopAudio();">
+                        <button class=" btn btn-control" id="btn-loop" onclick="loopAudio();document.getElementById('btn-loop').classList.add('active');"">
                             <i class="icon-repeat s-18"></i>
                         </button>
                     </div>
                 </div>
                 
                 <div class="col-8 d-none d-lg-block">
-                    <div id="waveform"></div>
+                    <div id="waveform" style="background-color: hsla(30.6, 92.7%, 78.4%, 0.38);border-radius: 10px;"></div>
                 </div>
                 
                 <!-- TIEMPO -->
@@ -421,8 +301,11 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 	                        <h2 style="color:orange;">${tipo}</h2> 
 	                    </div>    
                 </div>
+                 <%String id = (String)request.getSession().getAttribute("id");
+                  String nombre = (String)request.getSession().getAttribute("nombre");
+                 %>
                <c:choose>
-               <c:when test="${tipo =='usuario'}"> 
+               <c:when test="${tipo =='Usuarios'}"> 
 	               <div class="row no-gutters">
 	               	<c:forEach var="usuario" items="${usuarios}"> 
 			            <div class="col-md-4 b-r">
@@ -454,7 +337,7 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 			         </c:forEach>   
 			         </div>
 		         </c:when>
-		         <c:when test="${tipo=='ListaRep'}">
+		         <c:when test="${tipo=='Listas de Reproduccion'}">
 	               <div class="row has-items-overlay" >
 	               		<c:forEach var="lista" items="${listas}" >
 								<div class="col-lg-3 col-md-4 col-sm-6 my-2" style="top:20px;">
@@ -462,32 +345,167 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 										<div class="img-wrapper">
 											<img src="assets/img/demo/a1.jpg" alt="/">
 											<div class="img-overlay text-white text-center">
-												<a href="obtener_info_lr?nombre=${lista.getNombre()}" >
+											<c:choose>
+					                    		<c:when test="${lista.getUsuario()==nombre }">
+							                    	<a href="obtener_info_lr?nombre=${lista.getNombre()}" >
+							                    </c:when>
+							                    <c:otherwise>
+							                    	<a href="obtener_info_lr_usuario?id=${lista.getId()}">
+							                    </c:otherwise>
+							                </c:choose>
 													<div class="figcaption mt-3">
 														<i class="icon-link s-48"></i>
 														<h5 class="mt-5">${lista.getNombre()}</h5>
 													</div>
-												</a>
+													</a>
 											</div>
 											<div class="figure-title text-center p-2">
 												<h5>${lista.getNombre()}</h5>
 											</div>
 										</div>
+										
 									</figure>
-								<div class="contenido-pestanas" style="text-align: center;">
-		                            <button class="btn btn-abrir-popup-lista icon-trash-o" 
-		                            onclick="document.getElementById('idLista').value = '${lista.getNombre()}';
-		                            document.getElementById('overlay-borrar-listas-reproduccion').classList.add('active');"></button>
-	                       		 </div>
 	                    	</div>
 						</c:forEach>                   
 	               </div>
 	           </c:when> 
-               </section>
-              
-               
-				</c:choose>	
-				
+               <c:when test="${tipo=='Canciones'}">
+               		<div class="row">
+							<div class="col-lg-10 offset-lg-1">
+								<div class="row">
+									<div class="col-md-12">
+										<div class="playlist">
+											<ul id="playlist" class="playlist list-group">
+												<c:forEach var="cancion" items="${canciones}">                    
+													<div style="margin-bottom: -1px;" class="cancion">
+														<li class="list-group-item my-1">																
+															<div class="d-flex align-items-center">
+																<div class="col-1">
+																	<a class="no-ajaxy media-url" href="${cancion.getUrl()}">
+																		<i class="icon-play s-28"></i>
+																	</a>					
+																</div>
+																<div class="col-6">
+																	<h6>${cancion.getTitulo()}</h6>${cancion.getGenero()}
+																</div>
+																<a href="#" class="snackbar ml-3" data-text="Te gusta esta canción"
+																   data-pos="top-right"
+																   data-showAction="true"
+																   data-actionText="ok"
+																   data-actionTextColor="#fff"
+																   data-backgroundColor="#0c101b"><i class="icon-thumbs-o-up s-24"></i>
+																</a>
+																<a href="#" data-toggle="control-sidebar">
+											                        <i style="position: relative;left: 10px;" class="icon-commenting-o s-24"></i>
+											                    </a>
+																<span class="ml-auto">${cancion.getGenero()}</span>								
+																<a href="anyadir_cancion_fav?idAudio=${cancion.getId()}" class="btn-favorito icon-star active" ></a>
+																<a href="#" class="btn-icono icon-list-1" onclick="rellenarCampos('${listaslr.size()}','${cancion.getId()}');
+																document.getElementById('overlay-anadir-listas-reproduccion').classList.add('active')"
+																	></a>
+															</div>
+														</li>
+													</div>								                
+												</c:forEach>
+											</ul>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+               </c:when>
+               <c:when test="${tipo=='Transmisiones'}">
+               		<div class="row has-items-overlay" >
+		               		<c:forEach var="transmision" items="${transmisiones}" >
+									<div class="col-lg-3 col-md-4 col-sm-6 my-2" style="top:20px;">
+										<figure>
+											<div class="img-wrapper">
+												<img src="assets/img/demo/a1.jpg" alt="/">
+												<div class="img-overlay text-white text-center">
+													<a href="ver_transmision?idTransmision=${transmision.getId()}">
+														<div class="figcaption mt-3">
+															<i class="icon-link s-48"></i>
+															<h5 class="mt-5">${transmision.getNombre()}</h5>
+														</div>
+													</a>
+												</div>
+												<div class="figure-title text-center p-2">
+													<h5>${transmision.getNombre()}</h5>
+												</div>
+											</div>
+										</figure>
+		                    	</div>
+							</c:forEach>                   
+		                </div> 
+               </c:when>
+               <c:when test="${tipo=='Podcasts'}">
+               		<div class="row has-items-overlay" >
+	               		<c:forEach var="podcast" items="${podcasts}" >
+								<div class="col-lg-3 col-md-4 col-sm-6 my-2" style="top:20px;">
+									<figure>
+										<div class="img-wrapper">
+											<img src="assets/img/demo/a1.jpg" alt="/">
+											<div class="img-overlay text-white text-center">
+												<c:choose>
+					                    		<c:when test="${podcast.getUsuario()==nombre }">
+							                    	<a href="obtener_info_podcast?nombre=${podcast.getNombre()}" >
+							                    </c:when>
+							                    <c:otherwise>
+							                    	<a href="obtener_info_podcast_usuario?id=${podcast.getId()}">
+							                    </c:otherwise>
+							                </c:choose>
+														<div class="figcaption mt-3">
+															<i class="icon-link s-48"></i>
+															<h5 class="mt-5">${podcast.getNombre()}</h5>
+														</div>
+														</a>
+											</div>
+											<div class="figure-title text-center p-2">
+												<h5>${podcast.getNombre()}</h5>
+											</div>
+										</div>
+									</figure>
+								
+	                    	</div>
+						</c:forEach>                   
+               		</div> 
+               </c:when> 
+               <c:when test="${tipo=='Capitulos'}">
+               		<div class="row">
+							<div class="col-lg-10 offset-lg-1">
+								<div class="row">
+									<div class="col-md-12">
+										<div class="playlist">
+											<ul id="playlist" class="playlist list-group">
+												<c:forEach var="cancion" items="${capitulos}">                    
+													<div style="margin-bottom: -1px;" class="cancion">
+														<li class="list-group-item my-1">																
+															<div class="d-flex align-items-center">
+																<div class="col-1">
+																	<a class="no-ajaxy media-url" href="${cancion.getUrl()}">
+																		<i class="icon-play s-28"></i>
+																	</a>					
+																</div>
+																<div class="col-6">
+																	<h6>${cancion.getTitulo()}</h6>${cancion.getGenero()}
+																</div>
+																<span class="ml-auto">${cancion.getGenero()}</span>
+																<a href="#" class="btn-icono icon-indent" onclick="rellenarCampos('${podcasts.size()}','${capitulo.getId()}');
+																document.getElementById('overlay-anadir-podcast').classList.add('active')";
+																	></a>
+															</div>
+														</li>
+													</div>								                
+												</c:forEach>
+											</ul>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+               </c:when>
+			</c:choose>	
+			</section>
 			
         </div>
     </div>
@@ -496,6 +514,75 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 </main><!--@Page Content-->
 </div><!--@#app-->
 
+<!-- AÑADIR CANCION A LISTA DE REPRODUCCIÓN -->
+<div class="overlay-pop-up" id="overlay-anadir-listas-reproduccion">
+    <div class="col-md-7 card p-5">
+		<a style="position: absolute;top: 20px;right: 30px;" href="#" onclick="document.getElementById('overlay-anadir-listas-reproduccion').classList.remove('active');" id="btn-cerrar-anadir-listas-reproduccion" class="btn-cerrar-popup-perfil"><i class="icon-close1"></i></a>			
+			<!-- Input -->
+				<div class="body">
+					<div class="row has-items-overlay">
+						<c:forEach var="listalr" items="${listaslr}">
+						<div class="col-lg-3 col-md-4 col-sm-6 my-2">
+							<figure>
+								<div class="img-wrapper">
+			
+									<img src="assets/img/demo/a1.jpg" alt="/">
+									
+									<div class="figure-title text-center p-2">
+										<h5>${listalr.getNombre()}</h5>
+									</div>
+								</div>
+							</figure>
+							<form class="form-material" action="anyadir_cancion_lr" method="post">
+								<input type="submit" class="btn btn-outline-primary btn-sm pl-4 pr-4" value="Añadir">
+								<input type="hidden" name="idLista" value="${listalr.getId()}">
+								<input type="hidden" name="idAudio" value="">
+								<input type="hidden" name="nombreLista" value="${listalr.getNombre()}">
+								<input type="hidden" name="tipo" value="ListaRep">
+							</form>	
+						</div>
+					</c:forEach>
+				<!-- #END# Input -->
+				</div>
+			</div>		
+	</div>
+</div>
+<!-- END AÑADIR CANCION A LISTA DE REPRODUCCIÓN -->
+
+<!-- AÑADIR CAPITULO A PODCAST -->
+<div class="overlay-pop-up" id="overlay-anadir-podcast">
+    <div class="col-md-7 card p-5">
+		<a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-anadir-podcast" class="btn-cerrar-popup-perfil"><i class="icon-close1"></i></a>			
+			<!-- Input -->
+				<div class="body">
+					<div class="row has-items-overlay">
+						<c:forEach var="podcast" items="${podcasts}">
+						<div class="col-lg-3 col-md-4 col-sm-6 my-2">
+							<figure>
+								<div class="img-wrapper">
+			
+									<img src="assets/img/demo/a1.jpg" alt="/">
+									
+									<div class="figure-title text-center p-2">
+										<h5>${podcast.getNombre()}</h5>
+									</div>
+								</div>
+							</figure>
+							<form class="form-material" action="anyadir_cancion_lr" method="post">
+								<input type="submit" class="btn btn-outline-primary btn-sm pl-4 pr-4" value="Añadir">
+								<input type="hidden" name="idLista" value="${podcast.getId()}">
+								<input type="hidden" name="idAudio" value="">
+								<input type="hidden" name="nombreLista" value="${podcast.getNombre()}">
+								<nput type="hidden" name="tipo" value="podcast">
+							</form>	
+						</div>
+					</c:forEach>
+				<!-- #END# Input -->
+				</div>
+			</div>		
+	</div>
+</div>
+<!-- END AÑADIR CAPITULO A PODCAST -->
 
 <!--/#app -->
 <script src="https://maps.googleapis.com/maps/api/js?&amp;key=AIzaSyC3YkZNNySdyR87o83QEHWglHfHD_PZqiw&amp;libraries=places"></script>

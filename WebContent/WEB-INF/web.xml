@@ -314,6 +314,8 @@
 		<url-pattern>/eliminar_favorito_android</url-pattern>
 	</servlet-mapping>
 	
+	
+	
 	<servlet>
 		<servlet-name>AndroidGet_TransmisionesServlet</servlet-name>
 		<servlet-class>com.espotify.controller.AndroidGet_TransmisionesServlet</servlet-class>
@@ -323,6 +325,59 @@
 		<url-pattern>/transmisiones_servlet</url-pattern>
 	</servlet-mapping>
 	
+	<servlet>
+		<servlet-name>AndroidFollow_BoolServlet</servlet-name>
+		<servlet-class>com.espotify.controller.AndroidFollow_BoolServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AndroidFollow_BoolServlet</servlet-name>
+		<url-pattern>/siguiendo_usuario_servlet</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>AndroidAnyadir_ComentarioServlet</servlet-name>
+		<servlet-class>com.espotify.controller.AndroidAnyadir_ComentarioServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AndroidAnyadir_ComentarioServlet</servlet-name>
+		<url-pattern>/anyadir_comentario_android</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>AndroidEliminar_ComentarioServlet</servlet-name>
+		<servlet-class>com.espotify.controller.AndroidEliminar_ComentarioServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AndroidEliminar_ComentarioServlet</servlet-name>
+		<url-pattern>/eliminar_comentario_android</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>AndroidGet_ComentariosServlet</servlet-name>
+		<servlet-class>com.espotify.controller.AndroidGet_ComentariosServlet</servlet-class>
+	</servlet>									
+	<servlet-mapping>
+		<servlet-name>AndroidGet_ComentariosServlet</servlet-name>
+		<url-pattern>/obtener_comentarios_android</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>AndroidLike_BoolServlet</servlet-name>
+		<servlet-class>com.espotify.controller.AndroidLike_BoolServlet</servlet-class>
+	</servlet>									
+	<servlet-mapping>
+		<servlet-name>AndroidLike_BoolServlet</servlet-name>
+		<url-pattern>/tiene_like_android</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>AndroidLike_Servlet</servlet-name>
+		<servlet-class>com.espotify.controller.AndroidLike_Servlet</servlet-class>
+	</servlet>									
+	<servlet-mapping>
+		<servlet-name>AndroidLike_Servlet</servlet-name>
+		<url-pattern>/like_android</url-pattern>
+	</servlet-mapping>
 	
 	<servlet>
 		<servlet-name>AndroidFollow_UsuarioServlet</servlet-name>
@@ -331,6 +386,24 @@
 	<servlet-mapping>
 		<servlet-name>AndroidFollow_UsuarioServlet</servlet-name>
 		<url-pattern>/follow_usuario_android</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>AndroidGet_OtrosProfileServlet</servlet-name>
+		<servlet-class>com.espotify.controller.AndroidGet_OtrosProfileServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AndroidGet_OtrosProfileServlet</servlet-name>
+		<url-pattern>/otros_perfil_android</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>AndroidGet_AudiosGeneroServlet</servlet-name>
+		<servlet-class>com.espotify.controller.AndroidGet_AudiosGeneroServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AndroidGet_AudiosGeneroServlet</servlet-name>
+		<url-pattern>/audios_genero_android</url-pattern>
 	</servlet-mapping>
 	
 	<servlet>

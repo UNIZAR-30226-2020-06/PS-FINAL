@@ -19,6 +19,11 @@ public class LikesDAO {
 	private final static String DELETE_LIKESLISTA_QUERY =	"DELETE FROM Reproductor_musica.LikesLista WHERE usuario = ? AND lista = ?";
 	private final static String DELETE_LIKESTRANS_QUERY =	"DELETE FROM Reproductor_musica.LikesTrans WHERE usuario = ? AND transmision = ?";
 	
+	private final static String GET_TIENE_LIKEAUDIO_QUERY =	"SELECT * FROM Reproductor_musica.LikeAudio WHERE usuario = ? AND audio = ?";
+	private final static String GET_TIENE_LIKELISTA_QUERY =	"SELECT * FROM Reproductor_musica.LikeAudio WHERE usuario = ? AND lista = ?";
+	private final static String GET_TIENE_LIKETRANS_QUERY =	"SELECT * FROM Reproductor_musica.LikeTrans WHERE usuario = ? AND transmision = ?";
+
+	
 	// --------------------------------------------------------------------------
 	//	IDEA DE USO DE LAS FUNCIONES: 
 	//		Cada vez que se pulse el boton de like se ejecutará primero 
@@ -94,6 +99,99 @@ public class LikesDAO {
 						
 			ConnectionManager.releaseConnection(conn);
 			return true;
+			
+		} catch(SQLException se) {
+			System.out.println(se.getMessage());
+			return false;
+		} catch(Exception e) {
+			e.printStackTrace(System.err);
+			return false;
+		}
+	}
+	
+	/*
+	 * Parametros: id del usuario, id del audio
+	 * Devuelve: falso si ya se le había dado like, true si el like se ha dado correctamente 
+	*/
+	public static boolean tieneLikeAudio(int usuario, int idAudio) {
+		
+		try {
+			Connection conn = ConnectionManager.getConnection();
+						
+			PreparedStatement ps = conn.prepareStatement(GET_TIENE_LIKEAUDIO_QUERY);
+			ps.setInt(1, usuario);
+			ps.setInt(2, idAudio);
+			
+			ResultSet rs = ps.executeQuery();
+			
+			if (rs.next()) {
+				return true;
+			}
+						
+			ConnectionManager.releaseConnection(conn);
+			return false;
+			
+		} catch(SQLException se) {
+			System.out.println(se.getMessage());
+			return false;
+		} catch(Exception e) {
+			e.printStackTrace(System.err);
+			return false;
+		}
+	}
+	
+	/*
+	 * Parametros: id del usuario, id del audio
+	 * Devuelve: falso si ya se le había dado like, true si el like se ha dado correctamente 
+	*/
+	public static boolean tieneLikeLista(int usuario, int idLista) {
+		
+		try {
+			Connection conn = ConnectionManager.getConnection();
+						
+			PreparedStatement ps = conn.prepareStatement(GET_TIENE_LIKELISTA_QUERY);
+			ps.setInt(1, usuario);
+			ps.setInt(2, idLista);
+			
+			ResultSet rs = ps.executeQuery();
+			
+			if (rs.next()) {
+				return true;
+			}
+						
+			ConnectionManager.releaseConnection(conn);
+			return false;
+			
+		} catch(SQLException se) {
+			System.out.println(se.getMessage());
+			return false;
+		} catch(Exception e) {
+			e.printStackTrace(System.err);
+			return false;
+		}
+	}
+	
+	/*
+	 * Parametros: id del usuario, id de la transmision
+	 * Devuelve: falso si ya se le había dado like, true si el like se ha dado correctamente 
+	*/
+	public static boolean tieneLikeTrans(int usuario, int idTrans) {
+		
+		try {
+			Connection conn = ConnectionManager.getConnection();
+						
+			PreparedStatement ps = conn.prepareStatement(GET_TIENE_LIKETRANS_QUERY);
+			ps.setInt(1, usuario);
+			ps.setInt(2, idTrans);
+			
+			ResultSet rs = ps.executeQuery();
+			
+			if (rs.next()) {
+				return true;
+			}
+						
+			ConnectionManager.releaseConnection(conn);
+			return false;
 			
 		} catch(SQLException se) {
 			System.out.println(se.getMessage());

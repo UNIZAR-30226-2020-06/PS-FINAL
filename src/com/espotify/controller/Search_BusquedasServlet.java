@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.espotify.dao.BusquedasDAO;
+import com.espotify.dao.ListaReproduccionDAO;
 import com.espotify.model.Audio;
 import com.espotify.model.ListaReproduccion;
 import com.espotify.model.Transmision;
@@ -37,6 +38,8 @@ public class Search_BusquedasServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+		HttpSession session = request.getSession();
+		int usuario = Integer.valueOf((String)session.getAttribute("id"));
 		String nombre = request.getParameter("nombre");
 		log(nombre);
 		try{
@@ -47,27 +50,10 @@ public class Search_BusquedasServlet extends HttpServlet {
 			List<ListaReproduccion> podcasts = new ArrayList<ListaReproduccion>();
 			List<Transmision> transmisiones = new ArrayList<Transmision>();
 			List<Usuario> usuarios = new ArrayList<Usuario>();
-			
+			List<ListaReproduccion> listaslr = new ListaReproduccionDAO().showLists(usuario,"ListaRep");
+			request.setAttribute("listaslr", listaslr);
 			BusquedasDAO busquedas = new BusquedasDAO();
 			busquedas.searchAll(nombre,canciones,capitulos,listas,podcasts,transmisiones,usuarios);
-			if (canciones.isEmpty()) {
-				log("No hay canciones");
-			}
-			if(capitulos.isEmpty()) {
-				log("No hay capitulos");
-			}
-			if(listas.isEmpty()) {
-				log("No hay listas");
-			}
-			if(podcasts.isEmpty()) {
-				log("No hay podcasts");
-			}
-			if(transmisiones.isEmpty()){
-				log("No hay transmisones");
-			}
-			if(usuarios.isEmpty()) {
-				log("No hay usuarios");
-			}
 			request.setAttribute("canciones", canciones);
 			request.setAttribute("capitulos", capitulos);
 			request.setAttribute("listas", listas);
@@ -75,6 +61,7 @@ public class Search_BusquedasServlet extends HttpServlet {
 			request.setAttribute("transmisiones", transmisiones);
 			request.setAttribute("usuarios", usuarios);
 			request.setAttribute("busqueda", nombre);
+			
 			//RequestDispatcher dispatcher=request.getRequestDispatcher("busqueda.jsp");
 			//dispatcher.forward(request, response);
 			request.getRequestDispatcher("buscar-general.jsp").forward(request, response);

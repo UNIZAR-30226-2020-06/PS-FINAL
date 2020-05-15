@@ -36,21 +36,23 @@ public class GetInfo_ListaRep_Usuario extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+		HttpSession session = request.getSession();
+		int usuario = Integer.valueOf((String)session.getAttribute("id"));
+		int id= Integer.valueOf(request.getParameter("id"));
 
-		int usuario = Integer.valueOf(request.getParameter("id"));
-		String nombre = request.getParameter("nombre");
-		String tipo = "ListaRep";
+
 		//String aleatorio = request.getParameter("aleatorio");
 		
 		try{
-			ListaReproduccion infoLista = new ListaReproduccionDAO().getInfoList(nombre,usuario,tipo);
-			List<Audio> audios = new ListaReproduccionDAO().getAudios(nombre,usuario,tipo);
+			ListaReproduccion infoLista = new ListaReproduccionDAO().getInfoListId(id);
+			List<Audio> audios = new ListaReproduccionDAO().getAudiosId(id);
 			
 			//if (aleatorio.equals("si")) {
 			//	Collections.shuffle(audios);
 			//}
 			
-			
+			List<ListaReproduccion> listaslr = new ListaReproduccionDAO().showLists(usuario,"ListaRep");
+			request.setAttribute("listaslr", listaslr);
 			request.setAttribute("infoLista", infoLista);
 			request.setAttribute("audios", audios);
 				

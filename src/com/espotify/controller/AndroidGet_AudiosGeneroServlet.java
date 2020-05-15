@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import com.espotify.dao.CancionDAO;
 import com.espotify.dao.JSONAdapter;
 import com.espotify.dao.ListaReproduccionDAO;
 import com.espotify.dao.UsuarioDAO;
@@ -25,16 +26,16 @@ import com.espotify.model.ListaReproduccion;
 import com.espotify.model.Usuario;
 
 /**
- * Servlet implementation class AndroidGet_ProfileServlet
+ * Servlet implementation class AndroidGet_AudiosGeneroServlet
  */
-@WebServlet("/AndroidGet_AudiosServlet")
-public class AndroidGet_AudiosServlet extends HttpServlet {
+@WebServlet("/AndroidGet_AudiosGeneroServlet")
+public class AndroidGet_AudiosGeneroServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AndroidGet_AudiosServlet() {
+    public AndroidGet_AudiosGeneroServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -46,34 +47,31 @@ public class AndroidGet_AudiosServlet extends HttpServlet {
 
         JSONObject parametrosPeticion = JSONAdapter.parsarJSON(request);
         getServletContext().log("JSON Object: " + parametrosPeticion);
-        
-        String email = parametrosPeticion.getString("email");
-        String nombrePlaylist = parametrosPeticion.getString("nombrePlaylist");
-
+        String genero = parametrosPeticion.getString("genero");
+       
         JSONObject respuestaPeticion = new JSONObject();
         
         response.setContentType("application/json");
         response.setCharacterEncoding("utf-8");
         PrintWriter out = response.getWriter();
         
-        int idUsuario = Integer.parseInt(UsuarioDAO.obtenerIdDesdeEmail(email));
-        Usuario u = new UsuarioDAO().obtenerInfo(idUsuario);
-        respuestaPeticion.put("nombreUsuario", u.getNombre());
-        respuestaPeticion.put("descripcion", u.getDescripcion());
-        respuestaPeticion.put("email", u.getCorreo());
-        
-        List<Audio> audios =  ListaReproduccionDAO.getAudios(nombrePlaylist, "3", "ListaRep");
-        getServletContext().log("Audios recibidos" + audios); 
+        CancionDAO ca = new CancionDAO();
+        List<Audio> audios =  ca.obtenerCancionesPorGenero(genero);
         
         String nombresAudio = "";
         String urlsAudio = "";
+        boolean hayAudios = false;
         
         for(Audio audio : audios) {
         	nombresAudio += audio.getTitulo() + "|";
         	urlsAudio += audio.getUrl() + "|";
+        	hayAudios = true;
         }
         
-        nombresAudio = nombresAudio.substring(0, nombresAudio.length() - 1);
+        if(hayAudios) {
+        	nombresAudio = nombresAudio.substring(0, nombresAudio.length() - 1);
+        	urlsAudio = urlsAudio.substring(0, urlsAudio.length() - 1);
+        }
         
         respuestaPeticion.put("nombresAudio", nombresAudio);
         respuestaPeticion.put("urlsAudio", urlsAudio);
