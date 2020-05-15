@@ -636,6 +636,27 @@
 		<url-pattern>/logout</url-pattern>
 	</servlet-mapping>
 	
+	
+	<servlet>
+		<servlet-name>anyadir_coment_cancion</servlet-name>
+		<servlet-class>com.espotify.controller.Anyadir_ComentarioAudioServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>anyadir_coment_cancion</servlet-name>
+		<url-pattern>/anyadir_coment_cancion</url-pattern>
+	</servlet-mapping>
+	
+	
+	<servlet>
+		<servlet-name>getall_coment_cancion</servlet-name>
+		<servlet-class>com.espotify.controller.GetAll_ComentCanServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>getall_coment_cancion</servlet-name>
+		<url-pattern>/getall_coment_cancion</url-pattern>
+	</servlet-mapping>
+	
+	
 	<servlet>
 		<servlet-name>anyadir_cancion_lr</servlet-name>
 		<servlet-class>com.espotify.controller.AnyadirAudio_ListaRepServlet</servlet-class>
