@@ -649,6 +649,16 @@
 	
 	
 	<servlet>
+		<servlet-name>anyadir_coment_transm</servlet-name>
+		<servlet-class>com.espotify.controller.Anyadir_ComentarioTransServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>anyadir_coment_transm</servlet-name>
+		<url-pattern>/anyadir_coment_transm</url-pattern>
+	</servlet-mapping>
+	
+	
+	<servlet>
 		<servlet-name>borrar_coment_cancion</servlet-name>
 		<servlet-class>com.espotify.controller.Eliminar_ComentarioAudioServlet</servlet-class>
 	</servlet>
@@ -666,6 +676,16 @@
 	<servlet-mapping>
 		<servlet-name>getall_coment_cancion</servlet-name>
 		<url-pattern>/getall_coment_cancion</url-pattern>
+	</servlet-mapping>
+	
+	
+	<servlet>
+		<servlet-name>getall_coment_transmision</servlet-name>
+		<servlet-class>com.espotify.controller.GetAll_ComentTransmServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>getall_coment_transmision</servlet-name>
+		<url-pattern>/getall_coment_transmision</url-pattern>
 	</servlet-mapping>
 	
 	
