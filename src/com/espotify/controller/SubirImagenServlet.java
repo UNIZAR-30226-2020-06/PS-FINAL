@@ -98,7 +98,8 @@ public class SubirImagenServlet extends HttpServlet {
 				
 				request.setAttribute("ruta", RUTA + idUsuario + ".jpg");
 				//out.write("<a href=\"UploadDownloadFileServlet?fileName="+fileItem.getName()+"\">Download "+fileItem.getName()+"</a>");
-			
+				//gooogle.es
+				
 			}
 			
 			request.getRequestDispatcher("obtener_contenido_perfil").forward(request, response);
