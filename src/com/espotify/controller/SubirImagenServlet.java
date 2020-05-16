@@ -28,7 +28,7 @@ import com.espotify.dao.GeneroDAO;
 import com.espotify.dao.SubirAudioDAO;
 import com.espotify.model.Genero;
 
-@WebServlet("/SubirAudioCancion_Servlet")
+@WebServlet("/SubirImagenServlet")
 public class SubirImagenServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final String ALMACEN_PATH = "/var/www/html/almacen-mp3/almacen-img/usuarios/";
