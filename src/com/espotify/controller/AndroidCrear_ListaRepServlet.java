@@ -1,8 +1,11 @@
 package com.espotify.controller;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.util.Base64;
 import java.util.Collections;
@@ -33,6 +36,7 @@ import com.espotify.model.Usuario;
 @WebServlet("/AndroidCrear_ListaRepServlet")
 public class AndroidCrear_ListaRepServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private static final String DIRECTORIO_IMAGEN_LISTA = "/var/www/html/almacen-mp3/almacen-img/listas/";
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -48,23 +52,34 @@ public class AndroidCrear_ListaRepServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
         JSONObject parametrosPeticion = JSONAdapter.parsarJSON(request);
-        getServletContext().log("PETICION RECIBIDA [CREATE_PLAYLIST]: " + parametrosPeticion); 
+        getServletContext().log("--- ~AndroidCrear_ListaRepServlet~ ---");
         
         String email = parametrosPeticion.getString("email");
         String nombreLista = parametrosPeticion.getString("nombrePlaylist");
         String descripcion = parametrosPeticion.getString("descripcion");
         String imagenCodificada = parametrosPeticion.getString("imagen");
         
-        
-         // TODO IMAGEN
-        byte[] imagenDecodificada = Base64.getDecoder().decode(new String(imagenCodificada).getBytes("UTF-8"));
-        
         String idUsuario = UsuarioDAO.obtenerIdDesdeEmail(email);
         ListaReproduccionDAO.crear(idUsuario, nombreLista, descripcion, "ListaRep");
         
+        int  idLista = ListaReproduccionDAO.obtenerIdLista(nombreLista);
+        String ficheroImagen = idLista + ".jpg";
+
+        byte[] decodedString = Base64.getDecoder().decode(new String(imagenCodificada).getBytes("UTF-8"));
+        try (OutputStream stream = new FileOutputStream(DIRECTORIO_IMAGEN_LISTA + ficheroImagen)) {
+            stream.write(decodedString);
+        }
+        
+        File ficheroImagenLocal = new File(DIRECTORIO_IMAGEN_LISTA + ficheroImagen);
+        
+        ficheroImagenLocal.setReadable(true, false);
+		ficheroImagenLocal.setExecutable(true, false);
+		ficheroImagenLocal.setWritable(true, false);
+        
         JSONObject respuestaPeticion = new JSONObject();
         respuestaPeticion.put("creado", "ok");
-        getServletContext().log("ENVIADO [GETPROFILE]: " + respuestaPeticion.toString()); 
+        getServletContext().log("Respuesta: " + respuestaPeticion.toString()); 
+        getServletContext().log("---------------------------------------");
         
         // Lanzar JSON
         PrintWriter out = response.getWriter();

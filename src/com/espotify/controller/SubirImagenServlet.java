@@ -17,6 +17,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
@@ -28,10 +29,10 @@ import com.espotify.dao.SubirAudioDAO;
 import com.espotify.model.Genero;
 
 @WebServlet("/SubirAudioCancion_Servlet")
-public class SubirAudioCancion_Servlet extends HttpServlet {
+public class SubirImagenServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static final String ALMACEN_PATH = "/var/www/html/almacen-mp3/";
-	private static final String RUTA = "https://espotify.ddns.net/almacen-mp3/";
+	private static final String ALMACEN_PATH = "/var/www/html/almacen-mp3/almacen-img/usuarios/";
+	private static final String RUTA = "https://espotify.ddns.net/almacen-mp3/almacen-img/usuarios/";
 	/*
 	 * Constructor principal
 	 * 
@@ -52,7 +53,7 @@ public class SubirAudioCancion_Servlet extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		getServletContext().log("Comienza subida de MP3...");
+		getServletContext().log("Comienza subida de imagen...");
 		if(!ServletFileUpload.isMultipartContent(request)){
 			throw new ServletException("Content type is not multipart/form-data");
 		}
@@ -61,6 +62,9 @@ public class SubirAudioCancion_Servlet extends HttpServlet {
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
 		out.write("<html><head></head><body>");
+		
+		HttpSession session = request.getSession();
+		int idUsuario = Integer.valueOf((String) session.getAttribute("id"));
 
 		try {
 			List<FileItem> fileItemsList = uploader.parseRequest(request);
@@ -71,31 +75,34 @@ public class SubirAudioCancion_Servlet extends HttpServlet {
 				getServletContext().log("FieldName="+fileItem.getFieldName());
 				getServletContext().log("FileName="+fileItem.getName());
 				getServletContext().log("Contenido="+fileItem.getContentType());
-				getServletContext().log("Tamaño (B)="+fileItem.getSize());
+				getServletContext().log("Tamaï¿½o (B)="+fileItem.getSize());
 				//getServletContext().log("Directorio fichero: " + request.getServletContext().getAttribute("FILES_DIR"));
 				getServletContext().log("Nombre fichero: " + fileItem.getName());
 				
-				String rutaAudio = ALMACEN_PATH + lastId + ".mp3";
+				String rutaImagen = ALMACEN_PATH + idUsuario + ".jpg";
 				
-				getServletContext().log("Ruta audio: " + rutaAudio);
+				getServletContext().log("Ruta audio: " + rutaImagen);
 				
-				File ficheroAudio = new File(rutaAudio);
-				getServletContext().log("Absolute Path at server="+ficheroAudio.getAbsolutePath());
+				File ficheroImagen = new File(rutaImagen);
+				getServletContext().log("Absolute Path at server="+ficheroImagen.getAbsolutePath());
 				
-				fileItem.write(ficheroAudio);
+				if(ficheroImagen.exists()) {
+					ficheroImagen.delete();
+				}
 				
-				ficheroAudio.setReadable(true, false);
-				ficheroAudio.setExecutable(true, false);
-				ficheroAudio.setWritable(true, false);
+				fileItem.write(ficheroImagen);
 				
-				request.setAttribute("ruta", RUTA + lastId + ".mp3");
+				ficheroImagen.setReadable(true, false);
+				ficheroImagen.setExecutable(true, false);
+				ficheroImagen.setWritable(true, false);
+				
+				request.setAttribute("ruta", RUTA + idUsuario + ".jpg");
 				//out.write("<a href=\"UploadDownloadFileServlet?fileName="+fileItem.getName()+"\">Download "+fileItem.getName()+"</a>");
+				//gooogle.es
+				
 			}
-			ArrayList<Genero> generos = new GeneroDAO().obtenerGeneroMusica();
-			request.setAttribute("generos", generos);
-			request.setAttribute("id_audio", "0");
-			request.setAttribute("cancion", true);
-			request.getRequestDispatcher("formulario-datos-cancion.jsp").forward(request, response);
+			
+			request.getRequestDispatcher("obtener_contenido_perfil").forward(request, response);
 
 		} catch (FileUploadException e) {
 			getServletContext().log("FAIL: " + e.toString());

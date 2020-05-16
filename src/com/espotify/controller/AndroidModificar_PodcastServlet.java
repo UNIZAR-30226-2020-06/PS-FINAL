@@ -1,8 +1,11 @@
 package com.espotify.controller;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.util.Base64;
 import java.util.Collections;
@@ -34,6 +37,7 @@ import com.espotify.model.Usuario;
 @WebServlet("/AndroidModificar_PodcastServlet")
 public class AndroidModificar_PodcastServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private static final String DIRECTORIO_IMAGEN_LISTAS = "/var/www/html/almacen-mp3/almacen-img/listas/";
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -55,11 +59,8 @@ public class AndroidModificar_PodcastServlet extends HttpServlet {
         String nombreViejoPlayList = parametrosPeticion.getString("nombrePodcastViejo");
         String nombreNuevoPlayList = parametrosPeticion.getString("nombrePodcastNuevo");
         String descripcion = parametrosPeticion.getString("descripcion");
+        String imagenCodificada = parametrosPeticion.getString("imagen");
        // String imagenCodificada = parametrosPeticion.getString("imagen");
-        
-        // TODO: Imágen
-        
-        //byte[] imagenDecodificada = Base64.getDecoder().decode(new String(imagenCodificada).getBytes("UTF-8"));
         
         String idUsuario = UsuarioDAO.obtenerIdDesdeEmail(email);
         boolean cambiado = ListaReproduccionDAO.cambiar_info(nombreViejoPlayList, nombreNuevoPlayList, idUsuario, descripcion, null, "podcast");
@@ -71,6 +72,25 @@ public class AndroidModificar_PodcastServlet extends HttpServlet {
         	respuestaPeticion.put("estado", "fail");
         }
         
+        
+        if (imagenCodificada != null) {
+        	int  idLista = ListaReproduccionDAO.obtenerIdLista(nombreNuevoPlayList);
+            String ficheroImagen = idLista + ".jpg";
+            
+            File ficheroImagenLocal = new File(DIRECTORIO_IMAGEN_LISTAS + ficheroImagen);
+            if (ficheroImagenLocal.exists()) {
+            	ficheroImagenLocal.delete();
+            }
+
+            byte[] decodedString = Base64.getDecoder().decode(new String(imagenCodificada).getBytes("UTF-8"));
+            try (OutputStream stream = new FileOutputStream(DIRECTORIO_IMAGEN_LISTAS + ficheroImagen)) {
+                stream.write(decodedString);
+            }
+            
+            ficheroImagenLocal.setReadable(true, false);
+    		ficheroImagenLocal.setExecutable(true, false);
+    		ficheroImagenLocal.setWritable(true, false);
+        }
         // Lanzar JSON
         
         PrintWriter out = response.getWriter();
