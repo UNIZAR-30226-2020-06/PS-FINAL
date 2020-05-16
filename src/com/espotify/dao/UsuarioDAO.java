@@ -23,6 +23,7 @@ import java.security.NoSuchAlgorithmException;
 
 public class UsuarioDAO {
 	private final static String INSERT_QUERY = "INSERT INTO Reproductor_musica.Usuario (mail, descripcion, nombre, password, imagen) VALUES (?,?,?,?,null)";
+	private final static String DELETE_QUERY = "DELETE FROM Reproductor_musica.Usuario WHERE id = ?";
 	private final static String INSERT_IMG_QUERY = "UPDATE Reproductor_musica.Usuario SET imagen=? WHERE mail = ?";
 	private final static String UPDATE_NOM_QUERY = "UPDATE Reproductor_musica.Usuario SET nombre=? WHERE id = ?";
 	private final static String UPDATE_DES_QUERY = "UPDATE Reproductor_musica.Usuario SET descripcion=? WHERE id = ?";
@@ -78,6 +79,29 @@ public class UsuarioDAO {
 			e.printStackTrace(System.err);
 		}
 		
+		return false;
+	}
+	
+	// Elimina la info de un usuario de la BD, y por consiguiente toda su información asociada en cascada
+	// True eliminado correctamente, False ha habido un error
+	// Parametro = idUser (id del usuario a eliminar)
+	public static boolean eliminar(String idUser) {
+		try {
+			
+			Connection conn = ConnectionManager.getConnection();
+			PreparedStatement ps = conn.prepareStatement(DELETE_QUERY);
+			ps.setString(1, idUser);
+			ps.executeUpdate();
+			
+			ConnectionManager.releaseConnection(conn);
+			return true;
+			
+		} catch(SQLException se) {
+			System.out.println(se.getMessage());
+			return false;
+		} catch(Exception e) {
+			e.printStackTrace(System.err);
+		}
 		return false;
 	}
 

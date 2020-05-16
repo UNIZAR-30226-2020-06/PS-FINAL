@@ -805,6 +805,42 @@
 		<url-pattern>/estaciones_libres</url-pattern>
 	</servlet-mapping>
 	
+	<servlet>
+		<servlet-name>eliminar_user</servlet-name>
+		<servlet-class>com.espotify.controller.eliminar_UsuarioServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>eliminar_user</servlet-name>
+		<url-pattern>/eliminar_user</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>anyadir_genero</servlet-name>
+		<servlet-class>com.espotify.controller.Anyadir_GeneroServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>anyadir_genero</servlet-name>
+		<url-pattern>/anyadir_genero</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>eliminar_genero</servlet-name>
+		<servlet-class>com.espotify.controller.Eliminar_GeneroServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>eliminar_genero</servlet-name>
+		<url-pattern>/eliminar_genero</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>modifNombre_genero</servlet-name>
+		<servlet-class>com.espotify.controller.ModifNombre_GeneroServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>modifNombre_genero</servlet-name>
+		<url-pattern>/modifNombre_genero</url-pattern>
+	</servlet-mapping>
+	
 	<context-param>
     <param-name>directorio_ficheroTmp</param-name>
     <param-value>tmpfiles</param-value>
