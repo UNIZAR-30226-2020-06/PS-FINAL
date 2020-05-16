@@ -384,7 +384,7 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 							<div class="col-lg-3 col-md-4 col-sm-6 my-2">
 								<figure>
 									<div class="img-wrapper">
-										<img src="assets/img/demo/a3.jpg" alt="/">
+										<img src=${podcast.getImagen() } alt="/">
 										<div class="img-overlay text-white text-center">
 										<!--href="obtener_info_lr?nombre=${lista.getNombre()}"-->
 											<a 	 href="obtener_info_podcast?nombre=${podcast.getNombre()}&pagina=<%=pagina %>" >

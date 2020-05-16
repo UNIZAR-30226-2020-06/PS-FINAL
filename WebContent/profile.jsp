@@ -518,7 +518,7 @@ String email = (String) session.getAttribute("email");
 							<div class="col-lg-3 col-md-4 col-sm-6 my-2">
 								<figure>
 									<div class="img-wrapper">
-										<img src="assets/img/demo/a1.jpg" alt="/">
+										<img src=${listalr.getImagen() } alt="/">
 										<div class="img-overlay text-white text-center">
 											<a href="obtener_info_lr?nombre=${listalr.getNombre()}&pagina=<%=pagina %>" >
 												<div class="figcaption mt-3">
@@ -586,8 +586,8 @@ String email = (String) session.getAttribute("email");
 											                    </a>
 															<div class="ml-auto">
 																<a href="${pageContext.request.contextPath}/ir_modificar?id_audio=${capitulo.getId()}&cancion=false&pagina=<%=pagina %>" class="btn-icono icon-pencil" ></a>
-																<a href="#" class="btn-icono icon-indent" onclick="rellenarCamposP('${podcasts.size()}','${capitulo.getId()}');
-																document.getElementById('overlay-anadir-podcast').classList.add('active')"></a>
+																<a href="#" class="btn-icono icon-indent" onclick="rellenarCamposP('${podcast.size()}','${capitulo.getId()}');
+																document.getElementById('overlay-anadir-podcast').classList.add('active');"></a>
 																<a href="${pageContext.request.contextPath}/eliminar_capitulo?id_capitulo=${capitulo.getId()}&pagina=<%=pagina %>" class="btn-icono icon-trash-o" ></a>
 															</div>
 														</div>
@@ -614,7 +614,7 @@ String email = (String) session.getAttribute("email");
 							<div class="col-lg-3 col-md-4 col-sm-6 my-2">
 								<figure>
 									<div class="img-wrapper">
-										<img src="assets/img/demo/a1.jpg" alt="/">
+										<img src=${podcast.getImagen() } alt="/">
 										<div class="img-overlay text-white text-center">
 											<a href="obtener_info_podcast?nombre=${podcast.getNombre()}&pagina=<%=pagina %>" >
 												<div class="figcaption mt-3">
@@ -784,7 +784,7 @@ String email = (String) session.getAttribute("email");
 							<figure>
 								<div class="img-wrapper">
 			
-									<img src="assets/img/demo/a1.jpg" alt="/">
+									<img src=${listalr.getImagen() } alt="/">
 									
 									<div class="figure-title text-center p-2">
 										<h5>${listalr.getNombre()}</h5>
@@ -822,7 +822,7 @@ String email = (String) session.getAttribute("email");
 							<figure>
 								<div class="img-wrapper">
 			
-									<img src="assets/img/demo/a1.jpg" alt="/">
+									<img src=${podact.getImagen() } alt="/">
 									
 									<div class="figure-title text-center p-2">
 										<h5>${podcast.getNombre()}</h5>

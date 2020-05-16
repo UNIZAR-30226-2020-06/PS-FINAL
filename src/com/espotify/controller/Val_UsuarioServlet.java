@@ -41,7 +41,7 @@ public class Val_UsuarioServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String usuario = request.getParameter("email");
+		String usuario = request.getParameter("nombre");
 		String password = request.getParameter("contrasena");
 		
 		Usuario u = new UsuarioDAO().login(usuario, password);

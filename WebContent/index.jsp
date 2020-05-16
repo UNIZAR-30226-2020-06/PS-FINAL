@@ -383,7 +383,7 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 							<div class="col-lg-3 col-md-4 col-sm-6 my-2" style="top:20px;">
 								<figure>
 									<div class="img-wrapper">
-										<img src="assets/img/demo/a1.jpg" alt="/">
+										<img src=${lista.getImagen() } alt="/">
 										<div class="img-overlay text-white text-center">
 											<a href="obtener_info_lr?nombre=${lista.getNombre()}&pagina=<%=pagina %>" >
 												<div class="figcaption mt-3">
@@ -451,7 +451,7 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 																   data-backgroundColor="#0c101b"><i class="icon-thumbs-o-up s-24"></i>
 																</a>
 																<a href="#" data-toggle="control-sidebar" onclick="document.getElementById('audioIDcomment').value = '${cancion.getId()}';">
-											                        <i style="position: relative;left: 10px;" class="icon-commenting-o s-24">${cancion.getId()}</i>
+											                        <i style="position: relative;left: 10px;" class="icon-commenting-o s-24"></i>
 											                    </a>
 																<div class="ml-auto">
 																	<a href="${pageContext.request.contextPath}/borrar_cancion_fav?idAudio=${cancion.getId()}&pagina=<%=pagina %>" class="btn-favorito icon-star active" ></a>

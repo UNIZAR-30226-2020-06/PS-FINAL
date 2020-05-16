@@ -485,7 +485,7 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 							<div class="col-lg-3 col-md-4 col-sm-6 my-2">
 								<figure>
 									<div class="img-wrapper">
-										<img src="assets/img/demo/a1.jpg" alt="/">
+										<img src=${listalr.getImagen() } alt="/">
 										<div class="img-overlay text-white text-center">
 											<a href="obtener_info_lr_usuario?id=${listalr.getId()}&pagina=10" >
 												<div class="figcaption mt-3">
@@ -568,7 +568,7 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 							<div class="col-lg-3 col-md-4 col-sm-6 my-2">
 								<figure>
 									<div class="img-wrapper">
-										<img src="assets/img/demo/a1.jpg" alt="/">
+										<img src=${podcast.getImagen() } alt="/">
 										<div class="img-overlay text-white text-center">
 											<a href="obtener_info_podcast_usuario?id=${podcast.getId()}&pagina=10" >
 												<div class="figcaption mt-3">
@@ -614,7 +614,7 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 							<figure>
 								<div class="img-wrapper">
 			
-									<img src="assets/img/demo/a1.jpg" alt="/">
+									<img src=${listalr.getImagen() } alt="/">
 									
 									<div class="figure-title text-center p-2">
 										<h5>${listalr.getNombre()}</h5>
@@ -654,7 +654,7 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 							<figure>
 								<div class="img-wrapper">
 			
-									<img src="assets/img/demo/a1.jpg" alt="/">
+									<img src=${podcast.getImagen() } alt="/">
 									
 									<div class="figure-title text-center p-2">
 										<h5>${podcast.getNombre()}</h5>
