@@ -26,7 +26,7 @@ public class ListaReproduccionDAO {
 	private final static String INSERT_QUERY = "INSERT INTO Reproductor_musica.ListasRep (usuario, nombre, descripcion, imagen, tipo) VALUES (?,?,?,?,?)";
 	private final static String UPDATE_NOM_QUERY = "UPDATE Reproductor_musica.ListasRep SET nombre=? WHERE nombre = ? AND usuario = ? AND tipo = ?";
 	private final static String UPDATE_DES_QUERY = "UPDATE Reproductor_musica.ListasRep SET descripcion=? WHERE nombre = ? AND usuario = ? AND tipo = ?";
-	private final static String UPDATE_IMG_QUERY = "UPDATE Reproductor_musica.ListasRep SET imagen=? WHERE nombre = ? AND usuario = ? AND tipo = ?";
+	private final static String UPDATE_IMG_QUERY = "UPDATE Reproductor_musica.ListasRep SET imagen = ? WHERE nombre = ?";
 	private final static String DELETE_QUERY =	"DELETE FROM Reproductor_musica.ListasRep WHERE nombre = ? AND usuario = ? AND tipo = ?";
 	private final static String GETINFOLIST_QUERY = "SELECT * FROM Reproductor_musica.ListasRep WHERE nombre = ? AND usuario = ? AND tipo = ?";
 	private final static String GETINFOLISTID_QUERY = "SELECT * FROM Reproductor_musica.ListasRep WHERE id = ?";
@@ -45,6 +45,8 @@ public class ListaReproduccionDAO {
 	private final static String GETLIST_ID_QUERY = "SELECT id FROM Reproductor_musica.ListasRep WHERE nombre = ?";
 	private final static String GETNAMES_QUERY = "SELECT nombre FROM Reproductor_musica.ListasRep WHERE usuario = ? AND tipo = ?";
 	private final static String GETALL_PODCAST = "SELECT * FROM Reproductor_musica.ListasRep WHERE tipo = " + ATRIBUTO_PODCAST;
+	private static final String ALMACEN_LISTAS = "https://espotify.ddns.net/almacen-mp3/almacen-img/listas/";
+
 	
 	public static boolean crear(int usuario, String nombre, String descripcion, String tipo) {
 		try {
@@ -64,6 +66,12 @@ public class ListaReproduccionDAO {
             
 			ps.executeUpdate();
 			
+			PreparedStatement ps2 = conn.prepareStatement(UPDATE_IMG_QUERY);
+			String rutaImagen = ALMACEN_LISTAS + obtenerIdLista(nombre) + ".jpg";
+			ps2.setString(1, rutaImagen);
+			ps2.setString(2, nombre);
+			ps2.executeUpdate();
+			
 			ConnectionManager.releaseConnection(conn);
 			return true;
 			
@@ -77,7 +85,7 @@ public class ListaReproduccionDAO {
 	}
 	
 	public static boolean crear(String usuario, String nombre, String descripcion, String tipo) {
-
+		
 		
 		try {
 			Connection conn = ConnectionManager.getConnection();
@@ -95,6 +103,12 @@ public class ListaReproduccionDAO {
             }
             
 			ps.executeUpdate();
+			
+			PreparedStatement ps2 = conn.prepareStatement(UPDATE_IMG_QUERY);
+			String rutaImagen = ALMACEN_LISTAS + obtenerIdLista(nombre) + ".jpg";
+			ps2.setString(1, rutaImagen);
+			ps2.setString(2, nombre);
+			ps2.executeUpdate();
 			
 			ConnectionManager.releaseConnection(conn);
 			return true;

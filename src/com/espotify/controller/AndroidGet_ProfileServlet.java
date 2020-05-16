@@ -8,6 +8,7 @@ import java.sql.Blob;
 import java.sql.SQLException;
 import java.util.Enumeration;
 import java.util.List;
+import java.util.Random;
 
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
@@ -93,10 +94,13 @@ public class AndroidGet_ProfileServlet extends HttpServlet {
         //getServletContext().log("Listas recibidas: " + respuestaPeticion.toString()); 
         String listasReproduccion = "";
         String listasDescripcion = "";
+        String listasImagenes = "";
         String audiosUsuarioTitulo = "";
         String audiosUsuarioUrls = "";
+        
         String podcasts = "";
         String podcastsUsuarioDescripcion = "";
+        String podcastsImagenes = "";
         
         boolean tieneListas = false;
         boolean tieneAudios = false;
@@ -105,6 +109,12 @@ public class AndroidGet_ProfileServlet extends HttpServlet {
         for(ListaReproduccion lista : listas) {
         	listasReproduccion += lista.getNombre() + "|";
         	listasDescripcion += lista.getDescripcion() + "|";
+        	if (lista.getImagen().equals("")) {
+        		listasImagenes += lista.getImagen()  + "|";
+        	} else {
+        		listasImagenes += lista.getImagen()  + "?consultaMuyLarga=${" + generarAleatorio() + "}|";
+        	}
+        	
         	tieneListas = true;
         }
         
@@ -117,6 +127,11 @@ public class AndroidGet_ProfileServlet extends HttpServlet {
         for (ListaReproduccion podcast : pocasts) {
         	podcasts += podcast.getNombre() + "|";
         	podcastsUsuarioDescripcion += podcast.getDescripcion() + "|";
+        	if (podcast.getImagen().equals("")) {
+        		podcastsImagenes += podcast.getImagen() + "|";
+        	} else {
+        		podcastsImagenes += podcast.getImagen()  + "?consultaMuyLarga=${" + generarAleatorio() + "}|";
+        	}
         	tienePodcasts = true;
         } 
         
@@ -124,6 +139,7 @@ public class AndroidGet_ProfileServlet extends HttpServlet {
         if(tieneListas) {
         	listasDescripcion = listasDescripcion.substring(0, listasDescripcion.length() - 1);
         	listasReproduccion = listasReproduccion.substring(0, listasReproduccion.length() - 1);
+        	listasImagenes = listasImagenes.substring(0, listasImagenes.length() - 1);
         } 
         
     	if (tieneAudios) {
@@ -134,14 +150,18 @@ public class AndroidGet_ProfileServlet extends HttpServlet {
     	if (tienePodcasts) {
     		podcasts = podcasts.substring(0, podcasts.length() - 1);
     		podcastsUsuarioDescripcion = podcastsUsuarioDescripcion.substring(0, podcastsUsuarioDescripcion.length() - 1);
+    		podcastsImagenes = podcastsImagenes.substring(0, podcastsImagenes.length() - 1);
+
     	} 
     	
         respuestaPeticion.put("lista", listasReproduccion);
         respuestaPeticion.put("listaDescripcion", listasDescripcion);
         respuestaPeticion.put("audiosTitulo", audiosUsuarioTitulo);
         respuestaPeticion.put("audiosUrl", audiosUsuarioUrls);
+        respuestaPeticion.put("imagenesPlaylists", listasImagenes);
         respuestaPeticion.put("podcasts", podcasts);
         respuestaPeticion.put("podcastsDescripcion", podcastsUsuarioDescripcion);
+        respuestaPeticion.put("imagenesPodcasts", podcastsImagenes);
         respuestaPeticion.put("numSeguidores", nSeguidores);
         getServletContext().log("Respuesta: " + respuestaPeticion.toString());
         getServletContext().log("-------------------------------------------");
@@ -155,6 +175,11 @@ public class AndroidGet_ProfileServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
+	}
+	
+	private int generarAleatorio() {
+		 Random r = new Random(); 
+		 return r.nextInt() * (999999 - 1) + 1;
 	}
 
 }

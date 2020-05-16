@@ -84,11 +84,11 @@ public class AndroidReg_UsuarioServlet extends HttpServlet {
             stream.write(decodedString);
         }
         
-        File ficheroAudio = new File(DIRECTORIO_IMAGEN_USUARIO + ficheroImagen);
+        File ficheroImagenLocal = new File(DIRECTORIO_IMAGEN_USUARIO + ficheroImagen);
         
-        ficheroAudio.setReadable(true, false);
-		ficheroAudio.setExecutable(true, false);
-		ficheroAudio.setWritable(true, false);
+        ficheroImagenLocal.setReadable(true, false);
+		ficheroImagenLocal.setExecutable(true, false);
+		ficheroImagenLocal.setWritable(true, false);
         
         response.setContentType("application/json");
         response.setCharacterEncoding("utf-8");

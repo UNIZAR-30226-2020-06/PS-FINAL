@@ -118,6 +118,43 @@ pageEncoding="UTF-8"%>
 </aside>
 <!-- ACABA MENU DE LA IZQUIERDA-->
 
+<!-- MENU DONDE ESTAN LOS COMENTARIOS (DERECHA) -->
+<aside class="control-sidebar fixed ">
+    <div class="slimScroll">
+        <div class="sidebar-header" style="margin-bottom: 1rem !important;">
+            <h4>Comentarios</h4>
+            <a href="#" data-toggle="control-sidebar" class="paper-nav-toggle  active"><i></i></a>
+        </div>
+        <div class="p-3">
+        	<div id="listaComentariosCancion"></div>
+        	
+            <form action="anyadir_coment_cancion">
+			<div class="row">
+                 <div class="col-lg-12">
+                     <div class="form-group">
+                         <div class="form-line">
+                               <textarea id="textarea" style="color: white;" rows="5" class="form-control r-0"
+                                         placeholder="Escribir comentario..."></textarea>
+                         </div>
+                     </div>
+
+                 </div>
+             </div>
+             <input type="hidden" id="audioIDcomment" name="nombre" value="">
+             <div class="row text-center">
+                 <div class="col-lg-12">
+                 	<a id="publicar" href="#"  class="btn btn-primary" style="border-radius: 7px;position: relative;left: 95px;">Publicar</a>
+                 </div>
+             </div>
+             </form>
+        </div>
+    </div>
+</aside>
+
+<!-- Add the sidebar's background. This div must be placed
+         immediately after the control sidebar -->
+<div class="control-sidebar-bg shadow  fixed"></div>
+<!-- END MENU DONDE ESTAN LOS COMENTARIOS (DERECHA) -->
 
 <svg class="d-none">
     <defs>
@@ -377,25 +414,27 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 										<div class="playlist">
 											<ul id="playlist" class="playlist list-group">
 												<c:forEach var="cancion" items="${canciones}">                    
-												<div style="margin-bottom: -1px;" class="cancion">
-													<li class="list-group-item my-1">
-														<div class="d-flex align-items-center">
-															<div class="col-1">
-																<a class="no-ajaxy media-url" href="${cancion.getUrl()}">
-																	<i class="icon-play s-28"></i>
-																</a>					
-															</div>
-															<div class="col-6">
-																<h6>${cancion.getTitulo()}</h6>${cancion.getGenero()}
-															</div>
-															<a href="#" class="snackbar ml-3" data-text="Te gusta esta canción"
+
+													<div style="margin-bottom: -1px;" class="cancion">
+														<li class="list-group-item my-1">																
+															<div class="d-flex align-items-center">
+																<div class="col-1">
+																	<a class="no-ajaxy media-url" href="${cancion.getUrl()}">
+																		<i id='iconoPlay' class='icon-play s-28'></i>
+																	</a>					
+																</div>
+																<div class="col-6">
+																	<h6>${cancion.getTitulo()}</h6>${cancion.getGenero()}
+																</div>
+																<a href="#" class="snackbar ml-3" data-text="Te gusta esta canción"
+
 																   data-pos="top-right"
 																   data-showAction="true"
 																   data-actionText="ok"
 																   data-actionTextColor="#fff"
 																   data-backgroundColor="#0c101b"><i class="icon-thumbs-o-up s-24"></i>
 																</a>
-																<a href="#" data-toggle="control-sidebar">
+																<a href="#" data-toggle="control-sidebar" onclick="document.getElementById('audioIDcomment').value = '${cancion.getId()}';">
 											                        <i style="position: relative;left: 10px;" class="icon-commenting-o s-24"></i>
 											                    </a>
 															<div class="ml-auto">
@@ -505,6 +544,7 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 																		<a href="#" class="btn-icono icon-indent" onclick="rellenarCampos('${podcasts.size()}','${capitulo.getId()}');
 																		document.getElementById('overlay-anadir-podcast').classList.add('active');"></a>													
 																	</div>
+
 																</div>
 														</div>
 													</li>								                
@@ -602,6 +642,29 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 </div>
 <!-- END AÑADIR CAPITULO A PODCAST -->
 
+
+<!-- BORRAR COMENTARIO DE CANCION -->	
+	<div class="overlay-pop-up" id="overlay-borrar-coment-cancion">	
+	    <div class="col-md-7 card p-5">	
+	        <a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-borrar-coment-cancion" class="btn-cerrar-popup-perfil"	
+	        class="btn btn-outline-primary btn-sm pl-4 pr-4"  onclick="document.getElementById('overlay-borrar-coment-cancion').classList.remove('active');"><i class="icon-close1"></i></a>	
+			<form class="form-material" action="borrar_coment_cancion">	
+				<!-- Input -->	
+				<div class="body">	
+					<header class="relative nav-sticky card">	
+	                    <h3>Vas a borrar este comentario.</h3>
+	                    <h5>¿Estás seguro?</h5>	
+					</header>	
+		
+					<input type="hidden" id="comentarioID" name=idComentario value="">	
+					<a id="borrarComentario" href="#" onclick="document.getElementById('overlay-borrar-coment-cancion').classList.remove('active');" class="btn btn-outline-primary btn-sm pl-4 pr-4">Aceptar</a>
+				</div>	
+				<!-- #END# Input -->	
+	        </form>	
+		</div>	
+	</div>	
+<!-- END BORRAR COMENTARIO DE CANCION -->
+
 <!--/#app -->
 <script src="https://maps.googleapis.com/maps/api/js?&amp;key=AIzaSyC3YkZNNySdyR87o83QEHWglHfHD_PZqiw&amp;libraries=places"></script>
 <script src="assets/js/app.js"></script>
@@ -652,6 +715,55 @@ String hayfoto = (String) session.getAttribute("hayfoto");
     	  	document.getElementsByName("idAudioP")[i].value = song;
     	}
     }
+    </script>
+    <script>
+    $(document).ready(function() {
+    	$('#iconoPlay').replaceWith("<i id='iconoPlay' class='icon-play s-28'></i>")
+    	$('.playlist a').click(function(event) { // cargar los comentarios de cancion
+			var audioId = $('#audioIDcomment').val();
+			console.log(audioId);
+			$.get('getall_coment_cancion', {
+				idAudio: audioId
+			}, function(data){
+				$('#listaComentariosCancion').html(data);
+			});
+		});
+    	$('#publicar').click(function(event) { // publicar comentario en cancion
+			var textarea = $('#textarea').val();
+			var audioId = $('#audioIDcomment').val();
+			var idUsuarioVar = <%=session.getAttribute("id")%>;
+			console.log(textarea);
+			console.log(audioId);
+			console.log(idUsuarioVar);
+			if(textarea != ""){
+				$.get('anyadir_coment_cancion', {
+					descripcion : textarea,
+					idUsuario : idUsuarioVar,
+					idAudio: audioId
+				}, function(){
+					document.getElementById('textarea').value="";
+					$('.playlist a').ready(function(event) { // cargar los comentarios de cancion
+						var audioId = $('#audioIDcomment').val();
+						console.log(audioId);
+						$.get('getall_coment_cancion', {
+							idAudio: audioId
+						}, function(data){
+							$('#listaComentariosCancion').html(data);
+						});
+					});
+				});
+			}
+		});
+    	$('#borrarComentario').click(function(event) { // borrar comentario en cancion
+			var idComentario = $('#comentarioID').val();
+			console.log(idComentario);
+			$.get('borrar_coment_cancion', {
+				idComentario: idComentario
+			}, function(responseText){
+				$('#contenido').html(responseText);
+			});
+		});
+    });
     </script>
 
 

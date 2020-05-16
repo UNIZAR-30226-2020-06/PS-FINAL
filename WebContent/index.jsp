@@ -219,7 +219,7 @@ String hayfoto = (String) session.getAttribute("hayfoto");
         <!--Top Menu Start -->
 		<div class="navbar-custom-menu">
 			<ul class="nav navbar-nav">
-
+				<li id="contenido"></li>
 				<!-- Right Sidebar Toggle Button -->
 				<li class="searchOverlay-wrap">
 					<a href="#" id="btn-searchOverlay" class="nav-link mr-3 btn--searchOverlay no-ajaxy">
@@ -432,11 +432,11 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 																	<%
 																	if(pagina == 0) {%>
 																	<a class="no-ajaxy media-url" href="${cancion.getUrl()}">
-																		<i class="icon-play s-28"></i>
+																		<i id="iconoPlay" class="icon-play s-28"></i>
 																	</a>
 																	<%} else {%>
 																	<a href="Inicio?pagina=0" onclick="setTimeout(location.reload.bind(location), 1)">
-																		<i class="icon-play s-28"></i>
+																		<i id="iconoPlay" class="icon-play s-28"></i>
 																	</a>
 																	<%} %>						
 																</div>
@@ -485,7 +485,27 @@ String hayfoto = (String) session.getAttribute("hayfoto");
     </div>
 </div>
 
-
+<!-- BORRAR COMENTARIO DE CANCION -->	
+	<div class="overlay-pop-up" id="overlay-borrar-coment-cancion">	
+	    <div class="col-md-7 card p-5">	
+	        <a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-borrar-coment-cancion" class="btn-cerrar-popup-perfil"	
+	        class="btn btn-outline-primary btn-sm pl-4 pr-4"  onclick="document.getElementById('overlay-borrar-coment-cancion').classList.remove('active');"><i class="icon-close1"></i></a>	
+			<form class="form-material" action="borrar_coment_cancion">	
+				<!-- Input -->	
+				<div class="body">	
+					<header class="relative nav-sticky card">	
+	                    <h3>Vas a borrar este comentario.</h3>
+	                    <h5>¿Estás seguro?</h5>	
+					</header>	
+		
+					<input type="hidden" id="comentarioID" name=idComentario value="">	
+					<a id="borrarComentario" href="#" onclick="document.getElementById('overlay-borrar-coment-cancion').classList.remove('active');" class="btn btn-outline-primary btn-sm pl-4 pr-4">Aceptar</a>
+				</div>	
+				<!-- #END# Input -->	
+	        </form>	
+		</div>	
+	</div>	
+<!-- END BORRAR COMENTARIO DE CANCION -->
 
 </main><!--@Page Content-->
 </div><!--@#app-->
@@ -497,6 +517,7 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 <script  src="assets/js/mostrar-popup.js"></script>
 <script>
     $(document).ready(function() {
+    	$('#iconoPlay').replaceWith("<i id='iconoPlay' class='icon-play s-28'></i>")
     	$('.playlist a').click(function(event) { // cargar los comentarios de cancion
 			var audioId = $('#audioIDcomment').val();
 			console.log(audioId);
@@ -531,6 +552,15 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 					});
 				});
 			}
+		});
+    	$('#borrarComentario').click(function(event) { // borrar comentario en cancion
+			var idComentario = $('#comentarioID').val();
+			console.log(idComentario);
+			$.get('borrar_coment_cancion', {
+				idComentario: idComentario
+			}, function(responseText){
+				$('#contenido').html(responseText);
+			});
 		});
     });
     </script>
