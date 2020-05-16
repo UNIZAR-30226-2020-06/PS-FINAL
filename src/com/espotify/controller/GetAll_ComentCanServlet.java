@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.espotify.dao.ComentariosDAO;
 import com.espotify.dao.ListaReproduccionDAO;
@@ -39,6 +40,8 @@ public class GetAll_ComentCanServlet extends HttpServlet {
 		response.setContentType( "text/html; charset=iso-8859-1" );
 		PrintWriter out = response.getWriter();
 		
+		HttpSession session = request.getSession();
+		String nombre = (String) session.getAttribute("nombre");
 		int idAudio = Integer.valueOf(request.getParameter("idAudio"));
 		
 		new ComentariosDAO();
@@ -49,8 +52,24 @@ public class GetAll_ComentCanServlet extends HttpServlet {
 		for(int i=0; i<comentarios.size(); i++){
 			out.println("<div class='media my-5 ' style='margin-top: -1rem !important;margin-bottom: 2rem !important;'>");
 				out.println("<div class='media-body'>");
-					out.println("<h6 class='mt-0'>" + comentarios.get(i).getUsuario() + "</h6>");System.out.println(comentarios.get(i).getUsuario());
+					out.println("<h6 class='mt-0'>" + comentarios.get(i).getUsuario() + "</h6>");
+					if(nombre.equals(comentarios.get(i).getUsuario())) {
+						out.println("<a id=\"deleteComentCancion\" style='position: absolute;left: 290px;' href=\"#\" data-toggle=\"control-sidebar\""
+								+ "onclick=\"document.getElementById(\'comentarioID').value=\'" + comentarios.get(i).getId() + "\';"
+										+ "document.getElementById('overlay-borrar-coment-cancion').classList.add('active');\">");
+						
+						
+						
+						//out.println("<a id='deleteComentCancion' href='#' data-toggle='control-sidebar' onclick='document.getElementById('comentarioID').value = \'" + comentarios.get(i).getId() + "';"
+						//		+ "document.getElementById('overlay-borrar-coment-cancion').classList.add('active');\'>");
+						out.println("<i class='icon-trash-o'></i>");
+						out.println("</a>");
+					}
+					
+					out.println("<div class='form-line'><textarea readonly='' rows='5' class='form-control r-0' style='resize: none;width: 80%;border-color: transparent;height: 62px;' color:=''>");
 					out.println(comentarios.get(i).getDescripcion());
+					out.println("</textarea></div>");
+					
 				out.println("</div>");
 			out.println("</div>");
 		}

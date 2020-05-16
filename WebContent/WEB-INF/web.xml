@@ -649,6 +649,17 @@
 	
 	
 	<servlet>
+		<servlet-name>borrar_coment_cancion</servlet-name>
+		<servlet-class>com.espotify.controller.Eliminar_ComentarioAudioServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>borrar_coment_cancion</servlet-name>
+		<url-pattern>/borrar_coment_cancion</url-pattern>
+	</servlet-mapping>
+	
+	
+	
+	<servlet>
 		<servlet-name>getall_coment_cancion</servlet-name>
 		<servlet-class>com.espotify.controller.GetAll_ComentCanServlet</servlet-class>
 	</servlet>

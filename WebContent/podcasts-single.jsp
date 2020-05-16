@@ -501,11 +501,11 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 																	<%
 																	if(pagina == 5) {%>
 																	<a class="no-ajaxy media-url" href="${cancion.getUrl()}">
-																		<i class="icon-play s-28"></i>
+																		<i id="iconoPlay" class="icon-play s-28"></i>
 																	</a>
 																	<%} else { String nombre = (String) request.getParameter("nombre");%>
 																	<a href="obtener_info_podcast?nombre=<%=nombre%>&pagina=5" onclick="setTimeout(location.reload.bind(location), 1)">
-																		<i class="icon-play s-28"></i>
+																		<i id="iconoPlay" class="icon-play s-28"></i>
 																	</a>
 																	<%} %>					
 																</div>
