@@ -547,8 +547,8 @@ String imagen = (String) session.getAttribute("imagen");
 						<div class="col-lg-10 offset-lg-1">
 							<div class="row">
 								<div class="col-md-12">
-									<div class="playlist2">
-										<ul id="playlist2" class="playlist2 list-group">
+									<div class="playlist">
+										<ul id="playlist" class="playlist list-group">
 											<c:forEach var="capitulo" items="${capitulos}">                    
 												<div style="margin-bottom: -1px;" class="cancion">
 													<li class="list-group-item my-1">

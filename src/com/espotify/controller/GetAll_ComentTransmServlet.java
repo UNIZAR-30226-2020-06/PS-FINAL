@@ -12,22 +12,19 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.espotify.dao.ComentariosDAO;
-import com.espotify.dao.ListaReproduccionDAO;
 import com.espotify.model.Comentario;
-import com.espotify.model.ListaReproduccion;
-
 
 /**
- * Servlet implementation class GetAll_ComentCanServlet
+ * Servlet implementation class GetAll_ComentTransmServlet
  */
-@WebServlet("/GetAll_ComentCanServlet")
-public class GetAll_ComentCanServlet extends HttpServlet {
+@WebServlet("/GetAll_ComentTransmServlet")
+public class GetAll_ComentTransmServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public GetAll_ComentCanServlet() {
+    public GetAll_ComentTransmServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -36,16 +33,16 @@ public class GetAll_ComentCanServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("Mostrar comentarios cancion");
+		System.out.println("Mostrar comentarios transmision");
 		response.setContentType( "text/html; charset=iso-8859-1" );
 		PrintWriter out = response.getWriter();
 		
 		HttpSession session = request.getSession();
 		String nombre = (String) session.getAttribute("nombre");
-		int idAudio = Integer.valueOf(request.getParameter("idAudio"));
+		int idAudio = Integer.valueOf(request.getParameter("idTransmision"));
 		
 		new ComentariosDAO();
-		List<Comentario> comentarios = ComentariosDAO.getComentariosAudio(idAudio);
+		List<Comentario> comentarios = ComentariosDAO.getComentariosTrans(idAudio);
 		
 		//request.setAttribute("comentCancion", comentarios);
 		if(comentarios.size() != 0) {
@@ -53,14 +50,7 @@ public class GetAll_ComentCanServlet extends HttpServlet {
 				out.println("<div class='media my-5 ' style='margin-top: -1rem !important;margin-bottom: 2rem !important;'>");
 					out.println("<div class='media-body'>");
 						out.println("<h6 class='mt-0'>" + comentarios.get(i).getUsuario() + "</h6>");
-						if(nombre.equals(comentarios.get(i).getUsuario())) {
-							out.println("<a id=\"deleteComentCancion\" style='position: absolute;left: 290px;' href=\"#\" data-toggle=\"control-sidebar\""
-											+ "onclick=\"document.getElementById(\'comentarioID').value=\'" + comentarios.get(i).getId() + "\';"
-											+ "document.getElementById('overlay-borrar-coment-cancion').classList.add('active');\">");
-								out.println("<i class='icon-trash-o'></i>");
-							out.println("</a>");
-						}
-						out.println("<div class='form-line'><textarea readonly='' rows='5' class='form-control r-0' style='resize: none;width: 80%;border-color: transparent;height: 62px;' color:=''>");
+						out.println("<div class='form-line'><textarea readonly='' rows='5' class='form-control r-0' style='resize: none;width: 80%;background-color: transparent;border-color: transparent;height: 62px;' color:=''>");
 							out.println(comentarios.get(i).getDescripcion());
 						out.println("</textarea></div>");
 					out.println("</div>");

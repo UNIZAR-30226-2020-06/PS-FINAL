@@ -87,7 +87,7 @@ String nombre = (String) session.getAttribute("nombre");
 <aside class="main-sidebar fixed offcanvas shadow" data-toggle='offcanvas'>
     <div class="sidebar">
         <ul class="sidebar-menu">
-            <li><a class="ajaxifyPage active" href="Inicio?pagina=10" >
+            <li><a class="ajaxifyPage active" href="Inicio?pagina=0" onclick="setTimeout(location.reload.bind(location), 1)">
                     <i class="icon icon-home-1 s-24"></i> <span>Inicio</span>
                 </a>
             </li>
@@ -105,16 +105,16 @@ String nombre = (String) session.getAttribute("nombre");
                 </ul>
             </li>
             
-            <li><a class="ajaxifyPage" href="mostrar_lrs?tipo=ListaRep&pagina=10"">
+            <li><a class="ajaxifyPage" href="mostrar_lrs?tipo=ListaRep&pagina=10" onclick="setTimeout(location.reload.bind(location), 1)">
                     <i class="icon icon-compact-disc-1 s-24"></i> <span>Mis listas de reproduccion</span>
                 </a>
             </li>
             
-            <li><a class="ajaxifyPage" href="mostrar_podcasts?tipo=podcasts&pagina=10" >
+            <li><a class="ajaxifyPage" href="mostrar_podcasts?tipo=podcasts&pagina=10" onclick="setTimeout(location.reload.bind(location), 1)">
                     <i class="icon icon-headphones s-24"></i> <span>Mis podcasts</span>
                 </a>
             </li>
-            <li><a class="ajaxifyPage" href="obtener_info_fav?pagina=10" >
+            <li><a class="ajaxifyPage" href="obtener_info_fav?pagina=1" onclick="setTimeout(location.reload.bind(location), 1)">
             		<i class="icon icon-star s-24"></i> <span>Mis favoritos</span>
             	</a>
             </li>
@@ -123,100 +123,7 @@ String nombre = (String) session.getAttribute("nombre");
 </aside>
 <!-- ACABA MENU DE LA IZQUIERDA-->
 
-<!-- MENU DONDE ESTAN LAS CANCIONES EN LA COLA (DERECHA) -->
-<aside class="control-sidebar fixed ">
-    <div class="slimScroll">
-        <div class="sidebar-header">
-            <h4>PlayList</h4>
-            <p>Awesome Collection for you</p>
-            <a href="#" data-toggle="control-sidebar" class="paper-nav-toggle  active"><i></i></a>
-        </div>
-        <div class="p-3">
-            <ul id="playlist" class="playlist list-group">
-                <li class="list-group-item my-1">
-                    <a class="no-ajaxy media-url" href="assets/media/track1.mp3"  data-wave="assets/media/track1.json">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <i class="icon-play s-28"></i>
-                            <figure class="avatar-md float-left mr-3 mt-1">
-                                <img class="r-5" src="assets/img/demo/a1.jpg" alt="">
-                            </figure>
-                            <div>
-                                <h6>alexander Pierce</h6>Atif Aslam
-                            </div>
-                            <span class="badge badge-primary badge-pill"> 5:03</span>
-                        </div>
-                    </a>
-                </li>
-                <li class="list-group-item my-1">
-                    <a class="no-ajaxy media-url" href="assets/media/track2.mp3" data-wave="assets/media/track2.json">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <i class="icon-play s-28"></i>
-                            <figure class="avatar-md float-left mr-3 mt-1">
-                                <img class="r-5" src="assets/img/demo/a2.jpg" alt="">
-                            </figure>
-                            <div>
-                                <h6>alexander Pierce</h6>Atif Aslam
-                            </div>
-                            <span class="badge badge-primary badge-pill"> 5:03</span>
-                        </div>
-                    </a>
-                </li>
-                <li class="list-group-item my-1">
-                    <a class="no-ajaxy media-url" href="assets/media/track3.mp3" data-wave="assets/media/track3.json">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <i class="icon-play s-28"></i>
-                            <figure class="avatar-md float-left mr-3 mt-1">
-                                <img class="r-5" src="assets/img/demo/a4.jpg" alt="">
-                            </figure>
-                            <div>
-                                <h6>alexander Pierce</h6>Atif Aslam
-                            </div>
-                            <span class="badge badge-primary badge-pill"> 5:03</span>
-                        </div>
-                    </a>
-                </li>
 
-                <li class="list-group-item my-1">
-                    <a class="no-ajaxy media-url" href="assets/media/track1.mp3"  data-wave="assets/media/track1.json">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <i class="icon-play s-28"></i>
-                            <figure class="avatar-md float-left mr-3 mt-1">
-                                <img class="r-5" src="assets/img/demo/a5.jpg" alt="">
-                            </figure>
-                            <div>
-                                <h6>alexander Pierce</h6>Atif Aslam
-                            </div>
-                            <span class="badge badge-primary badge-pill"> 5:03</span>
-                        </div>
-                    </a>
-                </li>
-
-                <li class="list-group-item my-1">
-                    <a class="no-ajaxy media-url" href="assets/media/track2.mp3" data-wave="assets/media/track2.json">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <i class="icon-play s-28"></i>
-                            <figure class="avatar-md float-left mr-3 mt-1">
-                                <img class="r-5" src="assets/img/demo/a6.jpg" alt="">
-                            </figure>
-                            <div>
-                                <h6>alexander Pierce</h6>Atif Aslam
-                            </div>
-                            <span class="badge badge-primary badge-pill"> 5:03</span>
-                        </div>
-                    </a>
-                </li>
-
-
-            </ul>
-
-        </div>
-    </div>
-</aside>
-
-<!-- Add the sidebar's background. This div must be placed
-         immediately after the control sidebar -->
-<div class="control-sidebar-bg shadow  fixed"></div>
-<!-- ACABA MENU DERECHA -->
 
 
 <svg class="d-none">
@@ -274,7 +181,7 @@ String imagen = (String) session.getAttribute("imagen");
             </a>
             <a class="navbar-brand d-none d-lg-block" href="Inicio?pagina=10" >
                 <div class="d-flex align-items-center s-14 l-s-2">
-                    <a style="position: absolute;width: 12%;" href="Inicio?pagina=10" ><img  src="assets/img/logo.png"></a>
+                    <a style="position: absolute;width: 12%;" href="Inicio?pagina=0" onclick="setTimeout(location.reload.bind(location), 1)"><img  src="assets/img/logo.png"></a>
                 </div>
             </a>
         </div>
@@ -416,21 +323,38 @@ String imagen = (String) session.getAttribute("imagen");
             </div>
 			
             <!-- COMENTARIOS -->
-			<div class="text-center p-5 mt-5">
+			<div class="col-md-8">
 				<div class="p5 b-b">
-					<div class="playlist">
-						<textarea class="formulario-subir-cancion" >COMENTARIO</textarea>
+					<div class="p-4" style="height: 472px;">
+						<div class="sidebar-header" style="margin-bottom: 1rem !important;">
+				            <h4><b>Comentarios</b></h4>
+				        </div>
+				        <script type="text/javascript">
+						$(".slimScroll").slimscroll({
+							height: "285px"
+						});
+						</script>
+						<div class="slimScroll" style="overflow: hidden; width: auto; height: 285px;">
+					        <div class="p-3">
+					        	<div id="listaComentariosTransmision"></div> <!-- DONDE SE MUESTRAN LOS COMENTARIOS -->
+					        </div>
+					    </div>
+					    <form action="anyadir_coment_transmision" style="position: absolute;top: 378px;">
+							<div class="row">
+				                 <div class="col-lg-12">
+				                     <div class="form-group">
+				                         <div class="form-line" style="display: inline-block;width: auto;margin: auto;text-align: left;padding: 20px, 20px;">
+				                               <textarea id="textarea" style="color: black;height: 43px;display: inline-block;width: auto;margin: auto;text-align: left;width: 546px;" rows="5" class="form-control r-0" placeholder="Escribir comentario..."></textarea>
+				                               <a id="publicar" href="#" class="btn btn-primary" style="border-radius: 7px;position: relative;
+				                               			display: inline-block;width: auto;margin: auto;text-align: left;top: -13px;left: 24px;">Publicar</a>
+				                         </div>
+				                     </div>
+				
+				                 </div>
+				             </div>
+				             <input type="hidden" id="transmIDcomment" name="nombre" value="${transmision.getId()}">
+			             </form>
 					</div>
-					<div class="playlist">
-						<textarea class="formulario-subir-cancion" >COMENTARIO</textarea>
-					</div>
-					<div class="playlist">
-						<textarea class="formulario-subir-cancion" >COMENTARIO</textarea>
-					</div>
-				</div>
-				<input type="text" name="comentario" class="formulario-subir-cancion" placeholder="COMENTA" required=""/>			
-				<div="p-4">
-					<input type="submit" class="btn btn-outline-primary btn-sm  mt-3" value="COMENTAR">
 				</div>
 			</div>
 			<!-- COMENTARIOS -->
@@ -445,6 +369,58 @@ String imagen = (String) session.getAttribute("imagen");
 <script src="https://maps.googleapis.com/maps/api/js?&amp;key=AIzaSyC3YkZNNySdyR87o83QEHWglHfHD_PZqiw&amp;libraries=places"></script>
 <script src="assets/js/app.js"></script>
 <script>
+    $(document).ready(function() {
+    	setTimeout(recargar,1000);
+    	$(".slimScroll").slimscroll({
+			height: "285px"
+		});
+		var audioId = $('#transmIDcomment').val();
+		console.log(audioId);
+		$.get('getall_coment_transmision', {
+			idTransmision: audioId
+		}, function(data){
+			$('#listaComentariosTransmision').html(data);
+		});
+		
+    	$('#publicar').click(function(event) { // publicar comentario
+			var textarea = $('#textarea').val();
+			var audioId = $('#transmIDcomment').val();
+			var idUsuarioVar = <%=session.getAttribute("id")%>;
+			console.log(textarea);
+			console.log(audioId);
+			console.log(idUsuarioVar);
+			if(textarea != ""){
+				$.get('anyadir_coment_transm', {
+					descripcion : textarea,
+					idUsuario : idUsuarioVar,
+					idTransmision: audioId
+				}, function(){
+					document.getElementById('textarea').value="";
+					$('.playlist a').ready(function(event) { // cargar los comentarios
+						var audioId = $('#transmIDcomment').val();
+						console.log(audioId);
+						$.get('getall_coment_transmision', {
+							idTransmision: audioId
+						}, function(data){
+							$('#listaComentariosTransmision').html(data);
+						});
+					});
+				});
+			}
+		});
+    });
+    </script>
+<script>
+function recargar(){
+	var audioId = $('#transmIDcomment').val();
+		console.log(audioId);
+		$.get('getall_coment_transmision', {
+			idTransmision: audioId
+		}, function(data){
+			$('#listaComentariosTransmision').html(data);
+		});
+		setTimeout(recargar,1000);
+}
 	function loopAudio(){
 		var audio = document.getElementsByTagName("audio")[0];
 		if(audio.loop){

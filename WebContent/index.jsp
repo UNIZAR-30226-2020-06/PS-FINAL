@@ -349,7 +349,7 @@ String imagen = (String) session.getAttribute("imagen");
 									<div class="img-wrapper">
 										<img src="assets/img/demo/a1.jpg" alt="/">
 										<div class="img-overlay text-white text-center">
-											<a href="ver_transmision?idTransmision=${transmision.getId()}&pagina=<%=pagina %>">
+											<a href="ver_transmision?idTransmision=${transmision.getId()}&pagina=<%=pagina %>" onclick="setTimeout(location.reload.bind(location), 1)">
 												<div class="figcaption mt-3">
 													<i class="icon-link s-48"></i>
 													<h5 class="mt-5">${transmision.getNombre()}</h5>
