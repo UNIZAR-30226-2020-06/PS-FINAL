@@ -181,50 +181,6 @@ String nombre = (String) request.getParameter("nombre");
 <div class="control-sidebar-bg shadow  fixed"></div>
 <!-- END MENU DONDE ESTAN LOS COMENTARIOS (DERECHA) -->
 
-<!-- MENU DONDE ESTAN LAS CANCIONES EN LA COLA (DERECHA) -->
-<aside class="control-sidebar fixed ">
-    <div class="slimScroll">
-        <div class="sidebar-header" style="margin-bottom: 1rem !important;">
-            <h4>Comentarios</h4>
-            <a href="#" data-toggle="control-sidebar" class="paper-nav-toggle  active"><i></i></a>
-        </div>
-        <div class="p-3">
-            <div class="media my-5 " style="margin-top: -1rem !important;margin-bottom: 2rem !important;">
-                <div class="media-body">
-                    <h6 class="mt-0">Ami Fro</h6>
-                    Cras sit amet nibh libero, in gravida nulla.
-                </div>
-            </div>
-            <div class="media my-5 " style="margin-top: -1rem !important;margin-bottom: 2rem !important;">
-                <div class="media-body">
-                    <h6 class="mt-0">Mohamed secame</h6>
-                    Basura es esta?
-                </div>
-            </div>
-            
-			<div class="row">
-                 <div class="col-lg-12">
-                     <div class="form-group">
-                         <div class="form-line">
-                               <textarea style="color: white;" rows="5" class="form-control r-0"
-                                         placeholder="Escribir comentario..."></textarea>
-                         </div>
-                     </div>
-
-                 </div>
-             </div>
-             <div class="row text-center">
-                 <div class="col-lg-12"><input type="submit" class="btn btn-primary"
-                                               value="Publicar" style="border-radius: 7px;position: relative;left: 95px;"></div>
-             </div>
-        </div>
-    </div>
-</aside>
-
-<!-- Add the sidebar's background. This div must be placed
-         immediately after the control sidebar -->
-<div class="control-sidebar-bg shadow  fixed"></div>
-<!-- END MENU DONDE ESTAN LAS CANCIONES EN LA COLA (DERECHA) -->
 
 <!-- ALGO RANDOM DE LA PARTE DERECHA -->									
 <svg class="d-none">
@@ -434,7 +390,27 @@ String imagen = (String) session.getAttribute("imagen");
 										<div class="text-orange my-2">
 											<p>Todas tus canciones favoritas en una playlist única</p>
 										</div>
-
+										<!-- BORRAR COMENTARIO DE CANCION -->	
+											<div class="overlay-pop-up" id="overlay-borrar-coment-cancion">	
+											    <div class="col-md-7 card p-5">	
+											        <a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-borrar-coment-cancion" class="btn-cerrar-popup-perfil"	
+											        class="btn btn-outline-primary btn-sm pl-4 pr-4"  onclick="document.getElementById('overlay-borrar-coment-cancion').classList.remove('active');"><i class="icon-close1"></i></a>	
+													<form class="form-material" action="borrar_coment_cancion">	
+														<!-- Input -->	
+														<div class="body">	
+															<header class="relative nav-sticky card">	
+											                    <h3>Vas a borrar este comentario.</h3>
+											                    <h5>¿Estás seguro?</h5>	
+															</header>	
+												
+															<input type="hidden" id="comentarioID" name=idComentario value="">	
+															<a id="borrarComentario" href="#" onclick="document.getElementById('overlay-borrar-coment-cancion').classList.remove('active');" class="btn btn-outline-primary btn-sm pl-4 pr-4">Aceptar</a>
+														</div>	
+														<!-- #END# Input -->	
+											        </form>	
+												</div>	
+											</div>	
+											<!-- END BORRAR COMENTARIO DE CANCION -->
 									</div>
 								</div>
 							</div>
@@ -477,7 +453,7 @@ String imagen = (String) session.getAttribute("imagen");
 																   data-actionTextColor="#fff"
 																   data-backgroundColor="#0c101b"><i class="icon-thumbs-o-up s-24"></i>
 																</a>
-																<a href="#" data-toggle="control-sidebar">
+																<a href="#" data-toggle="control-sidebar" onclick="document.getElementById('audioIDcomment').value = '${cancion.getId()}';">
 											                        <i style="position: relative;left: 10px;" class="icon-commenting-o s-24"></i>
 											                    </a>
 																<div class="ml-auto">
@@ -512,8 +488,8 @@ String imagen = (String) session.getAttribute("imagen");
 										<div class="d-md-flex align-items-center justify-content-between">
 											<h1 class="my-3 text-orange">${infoLista.getNombre()}</h1>
 											<div class="ml-auto mb-2">
-												<a onClick="document.getElementById('overlay-foto').classList.add('active');" 
-												class="btn btn-abrir-popup btn-sm  mt-3" id="abrir-popup-foto">Cambiar foto</a>
+												<a href="#" onClick="document.getElementById('overlay-foto').classList.add('active');" 
+													class="btn btn-abrir-popup btn-sm  mt-3" id="abrir-popup-foto" style="position: relative;left: -4px;bottom: 13px;">Cambiar foto</a>
 												<a href="#" class="snackbar ml-3" data-text="Te gusta esta lista"
 												   data-pos="top-right"
 												   data-showAction="true"
@@ -524,6 +500,7 @@ String imagen = (String) session.getAttribute("imagen");
 											    <a style="color: #fd7e14;position: relative;left: 10px;bottom: 13px;" 
 													class="btn btn-abrir-popupl btn-sm  mt-3" 
 													id="abrir-popup-lista"
+													href="#"
 													onclick="document.getElementById('overlay-mod-listas-reproduccion').classList.add('active');">
 													<i class="icon-edit  s-24"></i>Editar
 												</a>
@@ -603,7 +580,8 @@ String imagen = (String) session.getAttribute("imagen");
 											<!-- CAMBIAR FOTO -->
 											<div class="overlay-pop-up" id="overlay-foto">
 											    <div class="col-md-7 card p-5">
-													<a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-foto" class="btn-cerrar-popup-perfil"><i class="icon-close1"></i></a>
+													<a href="#" style="position: absolute;top: 20px;right: 30px;"
+													 onClick="document.getElementById('overlay-foto').classList.remove('active');"  id="btn-cerrar-foto" class="btn-cerrar-popup-perfil"><i class="icon-close1"></i></a>
 													<form class="form-material" action="modImagenLista" method=POST enctype=multipart/form-data>
 														<!-- Input -->
 														<div class="body">
@@ -624,6 +602,27 @@ String imagen = (String) session.getAttribute("imagen");
 											</div>
 											
 											<!-- END CAMBIAR FOTO -->
+											<!-- BORRAR COMENTARIO DE CANCION -->	
+											<div class="overlay-pop-up" id="overlay-borrar-coment-cancion">	
+											    <div class="col-md-7 card p-5">	
+											        <a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-borrar-coment-cancion" class="btn-cerrar-popup-perfil"	
+											        class="btn btn-outline-primary btn-sm pl-4 pr-4"  onclick="document.getElementById('overlay-borrar-coment-cancion').classList.remove('active');"><i class="icon-close1"></i></a>	
+													<form class="form-material" action="borrar_coment_cancion">	
+														<!-- Input -->	
+														<div class="body">	
+															<header class="relative nav-sticky card">	
+											                    <h3>Vas a borrar este comentario.</h3>
+											                    <h5>¿Estás seguro?</h5>	
+															</header>	
+												
+															<input type="hidden" id="comentarioID" name=idComentario value="">	
+															<a id="borrarComentario" href="#" onclick="document.getElementById('overlay-borrar-coment-cancion').classList.remove('active');" class="btn btn-outline-primary btn-sm pl-4 pr-4">Aceptar</a>
+														</div>	
+														<!-- #END# Input -->	
+											        </form>	
+												</div>	
+											</div>	
+											<!-- END BORRAR COMENTARIO DE CANCION -->
 										</div>
 									
 										<div class="text-orange my-2">
@@ -701,72 +700,22 @@ String imagen = (String) session.getAttribute("imagen");
 	</div>
 
 
-
-
-<!-- AÑADIR CANCION A LISTA DE REPRODUCCI�N -->
-<div class="overlay-pop-up" id="overlay-anadir-listas-reproduccion">
-    <div class="col-md-7 card p-5">
-		<a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-anadir-listas-reproduccion" class="btn-cerrar-popup-perfil"><i class="icon-close1"
-		onclick="document.getElementById('overlay-anadir-listas-reproduccion').classList.remove('active');"></i></a>			
-			<!-- Input -->
-				<div class="body">
-					<div class="row has-items-overlay">
-						<c:forEach var="listalr" items="${listaslr}">
-						<div class="col-lg-3 col-md-4 col-sm-6 my-2">
-							<figure>
-								<div class="img-wrapper">
-			
-									<img src="assets/img/demo/a1.jpg" alt="/">
-									
-									<div class="figure-title text-center p-2">
-										<h5>${listalr.getNombre()}</h5>
-									</div>
-								</div>
-							</figure>
-							<form class="form-material" action="anyadir_cancion_lr" method="post">
-								<input type="hidden" name="idLista" id="idLista" value="${listalr.getId()}">
-								<input type="hidden" name="idAudio" id="idAudio" value="">
-								<input type="hidden" name="nombreLista" id="nombreLista" value="${listalr.getNombre()}">
-								<input type="hidden" name="tipo" id="tipo" value="ListRep">
-								<a id="submit2" href="Inicio?pagina=<%=pagina %>" class="btn btn-outline-primary btn-sm pl-4 pr-4">Añadir</a>
-							</form>	
-						</div>
-					</c:forEach>
-				<!-- #END# Input -->
-				</div>
-			</div>		
-	</div>
-</div>
-<!-- END AÑADIR CANCION A LISTA DE REPRODUCCI�N -->
-
-<!-- BORRAR COMENTARIO DE CANCION -->	
-	<div class="overlay-pop-up" id="overlay-borrar-coment-cancion">	
-	    <div class="col-md-7 card p-5">	
-	        <a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-borrar-coment-cancion" class="btn-cerrar-popup-perfil"	
-	        class="btn btn-outline-primary btn-sm pl-4 pr-4"  onclick="document.getElementById('overlay-borrar-coment-cancion').classList.remove('active');"><i class="icon-close1"></i></a>	
-			<form class="form-material" action="borrar_coment_cancion">	
-				<!-- Input -->	
-				<div class="body">	
-					<header class="relative nav-sticky card">	
-	                    <h3>Vas a borrar este comentario.</h3>
-	                    <h5>¿Estás seguro?</h5>	
-					</header>	
-		
-					<input type="hidden" id="comentarioID" name=idComentario value="">	
-					<a id="borrarComentario" href="#" onclick="document.getElementById('overlay-borrar-coment-cancion').classList.remove('active');" class="btn btn-outline-primary btn-sm pl-4 pr-4">Aceptar</a>
-				</div>	
-				<!-- #END# Input -->	
-	        </form>	
-		</div>	
-	</div>	
-<!-- END BORRAR COMENTARIO DE CANCION -->
-
-
-
-
-
-
 <%session.setAttribute("fav", 0); %>
+<script>
+    $(document).ready(function() {
+    	$('#iconoPlay').replaceWith("<i id='iconoPlay' class='icon-play s-28'></i>")
+    	$('#playlist a').click(function(event) { // cargar los comentarios de cancion
+			var audioId = $('#audioIDcomment').val();
+			console.log(audioId);
+			$.get('getall_coment_cancion', {
+				idAudio: audioId
+			}, function(data){
+				$('#listaComentariosCancion').html(data);
+			});
+		});
+
+    });
+    </script>
 <script>
     $(document).ready(function() {
     	$('#submit').click(function(event) {
@@ -797,51 +746,6 @@ String imagen = (String) session.getAttribute("imagen");
 				idAudio : idAudioVar,
 				nombreLista : nombreListaVar,
 				tipo : tipoVar
-			});
-		});
-    	$('#iconoPlay').replaceWith("<i id='iconoPlay' class='icon-play s-28'></i>")
-    	$('.playlist a').click(function(event) { // cargar los comentarios de cancion
-			var audioId = $('#audioIDcomment').val();
-			console.log(audioId);
-			$.get('getall_coment_cancion', {
-				idAudio: audioId
-			}, function(data){
-				$('#listaComentariosCancion').html(data);
-			});
-		});
-    	$('#publicar').click(function(event) { // publicar comentario en cancion
-			var textarea = $('#textarea').val();
-			var audioId = $('#audioIDcomment').val();
-			var idUsuarioVar = <%=session.getAttribute("id")%>;
-			console.log(textarea);
-			console.log(audioId);
-			console.log(idUsuarioVar);
-			if(textarea != ""){
-				$.get('anyadir_coment_cancion', {
-					descripcion : textarea,
-					idUsuario : idUsuarioVar,
-					idAudio: audioId
-				}, function(){
-					document.getElementById('textarea').value="";
-					$('.playlist a').ready(function(event) { // cargar los comentarios de cancion
-						var audioId = $('#audioIDcomment').val();
-						console.log(audioId);
-						$.get('getall_coment_cancion', {
-							idAudio: audioId
-						}, function(data){
-							$('#listaComentariosCancion').html(data);
-						});
-					});
-				});
-			}
-		});
-    	$('#borrarComentario').click(function(event) { // borrar comentario en cancion
-			var idComentario = $('#comentarioID').val();
-			console.log(idComentario);
-			$.get('borrar_coment_cancion', {
-				idComentario: idComentario
-			}, function(responseText){
-				$('#contenido').html(responseText);
 			});
 		});
     });
@@ -891,6 +795,58 @@ String imagen = (String) session.getAttribute("imagen");
 
     }
     </script>
+    
+    <script>
+    $(document).ready(function() {
+    	$('#iconoPlay').replaceWith("<i id='iconoPlay' class='icon-play s-28'></i>")
+    	$('#playlist a').click(function(event) { // cargar los comentarios de cancion
+			var audioId = $('#audioIDcomment').val();
+			console.log(audioId);
+			$.get('getall_coment_cancion', {
+				idAudio: audioId
+			}, function(data){
+				$('#listaComentariosCancion').html(data);
+			});
+		});
+    	$('#publicar').click(function(event) { // publicar comentario en cancion
+			var textarea = $('#textarea').val();
+			var audioId = $('#audioIDcomment').val();
+			var idUsuarioVar = <%=session.getAttribute("id")%>;
+			console.log(textarea);
+			console.log(audioId);
+			console.log(idUsuarioVar);
+			if(textarea != ""){
+				$.get('anyadir_coment_cancion', {
+					descripcion : textarea,
+					idUsuario : idUsuarioVar,
+					idAudio: audioId
+				}, function(){
+					document.getElementById('textarea').value="";
+					$('.playlist a').ready(function(event) { // cargar los comentarios de cancion
+						var audioId = $('#audioIDcomment').val();
+						console.log(audioId);
+						$.get('getall_coment_cancion', {
+							idAudio: audioId
+						}, function(data){
+							$('#listaComentariosCancion').html(data);
+						});
+					});
+				});
+			}
+		});
+    	$('#borrarComentario').click(function(event) { // borrar comentario en cancion
+			var idComentario = $('#comentarioID').val();
+			console.log(idComentario);
+			$.get('borrar_coment_cancion', {
+				idComentario: idComentario
+			}, function(responseText){
+				$('#contenido').html(responseText);
+			});
+		});
+    	
+    });
+    </script>
+    
 </body>
 
 </html>

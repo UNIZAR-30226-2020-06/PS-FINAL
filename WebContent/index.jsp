@@ -508,6 +508,21 @@ String imagen = (String) session.getAttribute("imagen");
 	</div>	
 <!-- END BORRAR COMENTARIO DE CANCION -->
 
+<script>
+    $(document).ready(function() {
+    	$('#iconoPlay').replaceWith("<i id='iconoPlay' class='icon-play s-28'></i>")
+    	$('#playlist a').click(function(event) { // cargar los comentarios de cancion
+			var audioId = $('#audioIDcomment').val();
+			console.log(audioId);
+			$.get('getall_coment_cancion', {
+				idAudio: audioId
+			}, function(data){
+				$('#listaComentariosCancion').html(data);
+			});
+		});
+    });
+    </script>
+
 </main><!--@Page Content-->
 </div><!--@#app-->
 
@@ -516,10 +531,50 @@ String imagen = (String) session.getAttribute("imagen");
 <script src="https://maps.googleapis.com/maps/api/js?&amp;key=AIzaSyC3YkZNNySdyR87o83QEHWglHfHD_PZqiw&amp;libraries=places"></script>
 <script src="assets/js/app.js"></script>
 <script  src="assets/js/mostrar-popup.js"></script>
-<script>
+
+    <script>
+	function loopAudio(){
+		var audio = document.getElementsByTagName("audio")[0];
+		if(audio.loop){
+			audio.loop = false;
+		}else{
+			audio.loop = true;
+		}
+		//audio.load();
+	}
+	
+	function subirVol(){
+		var audio = document.getElementsByTagName("audio")[0];
+		audio.volume+=0.1;
+	}
+	
+	function bajarVol(){
+		var audio = document.getElementsByTagName("audio")[0];
+		audio.volume-=0.1;
+	}
+	
+	function muteVol(){
+		var audio = document.getElementsByTagName("audio")[0];
+		if(audio.muted){
+			audio.muted = false;
+		}else{
+			audio.muted = true;
+		}
+	}
+	</script>
+	<script>
+    function rellenarCampos(size,song) {
+    	var i;
+    	for (i=0; i <size; i++){
+    	  	document.getElementsByName("idAudio")[i].value = song;
+    	}
+
+    }
+    </script>
+	<script>
     $(document).ready(function() {
     	$('#iconoPlay').replaceWith("<i id='iconoPlay' class='icon-play s-28'></i>")
-    	$('.playlist a').click(function(event) { // cargar los comentarios de cancion
+    	$('#playlist a').click(function(event) { // cargar los comentarios de cancion
 			var audioId = $('#audioIDcomment').val();
 			console.log(audioId);
 			$.get('getall_coment_cancion', {
@@ -565,46 +620,6 @@ String imagen = (String) session.getAttribute("imagen");
 		});
     });
     </script>
-    <script>
-	function loopAudio(){
-		var audio = document.getElementsByTagName("audio")[0];
-		if(audio.loop){
-			audio.loop = false;
-		}else{
-			audio.loop = true;
-		}
-		//audio.load();
-	}
-	
-	function subirVol(){
-		var audio = document.getElementsByTagName("audio")[0];
-		audio.volume+=0.1;
-	}
-	
-	function bajarVol(){
-		var audio = document.getElementsByTagName("audio")[0];
-		audio.volume-=0.1;
-	}
-	
-	function muteVol(){
-		var audio = document.getElementsByTagName("audio")[0];
-		if(audio.muted){
-			audio.muted = false;
-		}else{
-			audio.muted = true;
-		}
-	}
-	</script>
-	<script>
-    function rellenarCampos(size,song) {
-    	var i;
-    	for (i=0; i <size; i++){
-    	  	document.getElementsByName("idAudio")[i].value = song;
-    	}
-
-    }
-    </script>
-
 
 </body>
 

@@ -1168,8 +1168,38 @@ String imagen = (String) session.getAttribute("imagen");
 				location.href="mostrar_podcasts?tipo=podcasts&pagina=10";
 			});
 		});
+    });
+
+    function rellenarCamposP(size,song) {
+    	var i;
+    	for (i=0; i <size; i++){
+    	  	document.getElementsByName("idAudioP")[i].value = song;
+    	}
+    }
+
+    </script>
+    <script>
+    $(document).ready(function() {
     	$('#iconoPlay').replaceWith("<i id='iconoPlay' class='icon-play s-28'></i>")
-    	$('.playlist a').click(function(event) { // cargar los comentarios de cancion
+    	$('#playlist a').click(function(event) { // cargar los comentarios de cancion
+			var audioId = $('#audioIDcomment').val();
+			console.log(audioId);
+			$.get('getall_coment_cancion', {
+				idAudio: audioId
+			}, function(data){
+				$('#listaComentariosCancion').html(data);
+			});
+		});
+    });
+    </script>
+    
+    </main><!--@Page Content-->
+</div><!--@#app-->
+
+<script>
+    $(document).ready(function() {
+    	$('#iconoPlay').replaceWith("<i id='iconoPlay' class='icon-play s-28'></i>")
+    	$('#playlist a').click(function(event) { // cargar los comentarios de cancion
 			var audioId = $('#audioIDcomment').val();
 			console.log(audioId);
 			$.get('getall_coment_cancion', {
@@ -1214,17 +1244,7 @@ String imagen = (String) session.getAttribute("imagen");
 			});
 		});
     });
-
-    function rellenarCamposP(size,song) {
-    	var i;
-    	for (i=0; i <size; i++){
-    	  	document.getElementsByName("idAudioP")[i].value = song;
-    	}
-    }
-
     </script>
-    
-    </main><!--@Page Content-->
-</div><!--@#app-->
+
 </body>
 </html>

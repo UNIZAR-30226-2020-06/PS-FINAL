@@ -660,7 +660,20 @@ String imagen = (String) session.getAttribute("imagen");
     </div>
 </div>
 
-
+<script>
+    $(document).ready(function() {
+    	$('#iconoPlay').replaceWith("<i id='iconoPlay' class='icon-play s-28'></i>")
+    	$('#playlist a').click(function(event) { // cargar los comentarios de cancion
+			var audioId = $('#audioIDcomment').val();
+			console.log(audioId);
+			$.get('getall_coment_cancion', {
+				idAudio: audioId
+			}, function(data){
+				$('#listaComentariosCancion').html(data);
+			});
+		});
+    });
+    </script>
 
 </main><!--@Page Content-->
 </div><!--@#app-->
@@ -817,7 +830,7 @@ String imagen = (String) session.getAttribute("imagen");
     <script>
     $(document).ready(function() {
     	$('#iconoPlay').replaceWith("<i id='iconoPlay' class='icon-play s-28'></i>")
-    	$('.playlist a').click(function(event) { // cargar los comentarios de cancion
+    	$('#playlist a').click(function(event) { // cargar los comentarios de cancion
 			var audioId = $('#audioIDcomment').val();
 			console.log(audioId);
 			$.get('getall_coment_cancion', {
