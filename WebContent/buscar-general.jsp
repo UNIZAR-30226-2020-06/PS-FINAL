@@ -199,6 +199,7 @@ pageEncoding="UTF-8"%>
 
 <%
 String hayfoto = (String) session.getAttribute("hayfoto");
+String imagen = (String) session.getAttribute("imagen");
 %>
 
 <!-- BARRA DE ARRIBA FIJA -->
@@ -231,7 +232,7 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 					<a href="#" class="nav-link" data-toggle="dropdown">
 						<figure class="avatar">
 							<%if (hayfoto!=null){ %>
-	                    	<img src="${pageContext.request.contextPath}/cargar_imagen">
+	                    	<img src=<%=imagen %>>
 	                    	<%} else {%>
 	                    	<img src="assets/img/fondo1.jpg">
 	                    	<%} %>
@@ -367,7 +368,7 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 				                </c:choose>
 				                    	<c:choose>
 				                    		<c:when test="${usuario.getImagen()!=null}">
-				                    			<img src="${pageContext.request.contextPath}/cargar_imagen">
+				                    			<img src=${usuario.getImagen() }>
 				                    		</c:when>
 				                    		<c:otherwise>
 				                    			<img src="assets/img/demo/u7.jpg" alt="">
@@ -407,7 +408,7 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 							<div class="col-lg-3 col-md-4 col-sm-6 my-2" style="top:20px;">
 								<figure>
 									<div class="img-wrapper">
-										<img src="assets/img/demo/a1.jpg" alt="/">
+										<img src=${lista.getImagen() } alt="/">
 										<div class="img-overlay text-white text-center">
 											<c:choose>
 					                    		<c:when test="${lista.getUsuario()==nombre }">
@@ -563,7 +564,7 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 							<div class="col-lg-3 col-md-4 col-sm-6 my-2" style="top:20px;">
 								<figure>
 									<div class="img-wrapper">
-										<img src="assets/img/demo/a1.jpg" alt="/">
+										<img src=${podcast.getImagen() } alt="/">
 										<div class="img-overlay text-white text-center">
 											<c:choose>
 					                    		<c:when test="${podcast.getUsuario()==nombre }">
@@ -640,7 +641,7 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 																<a href="#" class="btn-icono icon-indent" onclick="rellenarCampos('${podcasts.size()}','${capitulo.getId()}');
 
 																document.getElementById('overlay-anadir-podcast').classList.add('active')";
-																></a>
+																	></a>
 															</div>
 														</div>
 													</li>
@@ -678,7 +679,7 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 							<figure>
 								<div class="img-wrapper">
 			
-									<img src="assets/img/demo/a1.jpg" alt="/">
+									<img src=${listalr.getImagen() } alt="/">
 									
 									<div class="figure-title text-center p-2">
 										<h5>${listalr.getNombre()}</h5>
@@ -716,7 +717,7 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 							<figure>
 								<div class="img-wrapper">
 			
-									<img src="assets/img/demo/a1.jpg" alt="/">
+									<img src=${podcast.getImagen() } alt="/">
 									
 									<div class="figure-title text-center p-2">
 										<h5>${podcast.getNombre()}</h5>

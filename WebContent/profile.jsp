@@ -203,9 +203,16 @@ int pagina = Integer.valueOf((String) request.getParameter("pagina"));
 </div>
 <!-- ACABA BUSCADOR (LUPA) -->
 
-<%
+<!-- Obtener datos usuario -->
+<% 
 String hayfoto = (String) session.getAttribute("hayfoto");
+
+String nombre = (String) session.getAttribute("nombre");
+String descripcion = (String) session.getAttribute("descripcion");
+String email = (String) session.getAttribute("email");
+String imagen = (String) session.getAttribute("imagen");
 %>
+<!-- END Obtener datos usuario -->
 
 <!-- BARRA DE ARRIBA FIJA -->
 <nav class="navbar-wrapper shadow">
@@ -237,7 +244,7 @@ String hayfoto = (String) session.getAttribute("hayfoto");
                     <a href="#" class="nav-link" data-toggle="dropdown">
                         <figure class="avatar">
                             <%if (hayfoto!=null){ %>
-	                    	<img src="${pageContext.request.contextPath}/cargar_imagen">
+	                    	<img src=<%=imagen %>>
 	                    	<%} else {%>
 	                    	<img src="assets/img/fondo1.jpg">
 	                    	<%} %>
@@ -327,13 +334,7 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 ########################################################################
 -->
 
-<!-- Obtener datos usuario -->
-<% 
-String nombre = (String) session.getAttribute("nombre");
-String descripcion = (String) session.getAttribute("descripcion");
-String email = (String) session.getAttribute("email");
-%>
-<!-- END Obtener datos usuario -->
+
 
 <!--CONTENIDO NO AJAX-->
 <main id="pageContent" class="page has-sidebar">
@@ -348,7 +349,7 @@ String email = (String) session.getAttribute("email");
 					
                     <figure style="width: 130px;height: 130px;width-max: 50%;" class="avatar avatar-xl">
                     	<%if (hayfoto!=null){ %>
-                    	<img src="${pageContext.request.contextPath}/cargar_imagen">
+                    	<img src=<%=imagen %>>
                     	<%} else {%>
                     	<img src="assets/img/fondo1.jpg">
                     	<%} %>
@@ -688,7 +689,7 @@ String email = (String) session.getAttribute("email");
 <div class="overlay-pop-up" id="overlay-foto">
     <div class="col-md-7 card p-5">
 		<a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-foto" class="btn-cerrar-popup-perfil"><i class="icon-close1"></i></a>
-		<form class="form-material" action="modinfo" method=POST enctype=multipart/form-data>
+		<form class="form-material" action="modImagenUsuario" method=POST enctype=multipart/form-data>
 			<!-- Input -->
 			<div class="body">
 				<header class="relative nav-sticky card">
@@ -789,7 +790,7 @@ String email = (String) session.getAttribute("email");
 								<input type="hidden" name="idAudio" id="idAudio" value="">
 								<input type="hidden" name="nombreLista" id="nombreLista" value="${listalr.getNombre()}">
 								<input type="hidden" name="tipo" id="tipo2" value="ListRep">
-								<a id="submit4" href="#" class="btn btn-outline-primary btn-sm pl-4 pr-4">Añadir</a>
+								<a id="submit4" href="#" class="btn btn-outline-primary btn-sm pl-4 pr-4" >Añadir</a>
 							</form>	
 						</div>
 					</c:forEach>

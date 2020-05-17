@@ -270,6 +270,7 @@ String nombre = (String) request.getParameter("nombre");
 
 <%
 String hayfoto = (String) session.getAttribute("hayfoto");
+String imagen = (String) session.getAttribute("imagen");
 %>
 <!-- BARRA DE ARRIBA FIJA -->
 <nav class="navbar-wrapper shadow">
@@ -309,7 +310,7 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 					<a href="#" class="nav-link" data-toggle="dropdown">
 						<figure class="avatar">
 							<%if (hayfoto!=null){ %>
-	                    	<img src="${pageContext.request.contextPath}/cargar_imagen">
+	                    	<img src=<%=imagen %>>
 	                    	<%} else {%>
 	                    	<img src="assets/img/fondo1.jpg">
 	                    	<%} %>
@@ -511,6 +512,8 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 										<div class="d-md-flex align-items-center justify-content-between">
 											<h1 class="my-3 text-orange">${infoLista.getNombre()}</h1>
 											<div class="ml-auto mb-2">
+												<a onClick="document.getElementById('overlay-foto').classList.add('active');" 
+												class="btn btn-abrir-popup btn-sm  mt-3" id="abrir-popup-foto">Cambiar foto</a>
 												<a href="#" class="snackbar ml-3" data-text="Te gusta esta lista"
 												   data-pos="top-right"
 												   data-showAction="true"
@@ -524,6 +527,7 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 													onclick="document.getElementById('overlay-mod-listas-reproduccion').classList.add('active');">
 													<i class="icon-edit  s-24"></i>Editar
 												</a>
+												
 											</div>
 											<!-- AÑADIR CANCION A LISTA DE REPRODUCCI�N -->
 											<div class="overlay-pop-up" id="overlay-anadir-listas-reproduccion">
@@ -596,7 +600,30 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 												</div>
 											</div>
 											<!-- END EDICION LISTA DE REPRODUCCION -->
-
+											<!-- CAMBIAR FOTO -->
+											<div class="overlay-pop-up" id="overlay-foto">
+											    <div class="col-md-7 card p-5">
+													<a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-foto" class="btn-cerrar-popup-perfil"><i class="icon-close1"></i></a>
+													<form class="form-material" action="modImagenLista" method=POST enctype=multipart/form-data>
+														<!-- Input -->
+														<div class="body">
+															<header class="relative nav-sticky card">
+																<h3>SUBIR FOTO</h3>
+															</header>
+															<div class="contenedor-inputs">
+																<input type="file" class="btn btn-outline-primary btn-sm  mt-3" name="imagen" accept="image/jpeg"> 
+																<input type="hidden" name="idLista" id="idLista" value=${infoLista.getId() }>
+															</div>
+											
+															<input type="submit" class="btn btn-outline-primary btn-sm pl-4 pr-4"
+																   value="Aceptar">
+														</div>
+														<!-- #END# Input -->
+													</form>
+												</div>
+											</div>
+											
+											<!-- END CAMBIAR FOTO -->
 										</div>
 									
 										<div class="text-orange my-2">
@@ -674,6 +701,8 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 	</div>
 
 
+
+
 <!-- AÑADIR CANCION A LISTA DE REPRODUCCI�N -->
 <div class="overlay-pop-up" id="overlay-anadir-listas-reproduccion">
     <div class="col-md-7 card p-5">
@@ -731,6 +760,11 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 		</div>	
 	</div>	
 <!-- END BORRAR COMENTARIO DE CANCION -->
+
+
+
+
+
 
 <%session.setAttribute("fav", 0); %>
 <script>

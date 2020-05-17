@@ -263,7 +263,9 @@ int pagina = Integer.valueOf((String) request.getParameter("pagina"));
     
 </div>
 <!-- ACABA BUSCADOR (LUPA) -->
-<% String hayfoto = (String) session.getAttribute("hayfoto");  %>
+<% String hayfoto = (String) session.getAttribute("hayfoto"); 
+String imagen = (String) session.getAttribute("imagen");
+%>
 
 
 
@@ -298,7 +300,7 @@ int pagina = Integer.valueOf((String) request.getParameter("pagina"));
 					<a href="#" class="nav-link" data-toggle="dropdown">
 						<figure class="avatar">
 						<%if (hayfoto!=null){ %>
-	                    	<img src="${pageContext.request.contextPath}/cargar_imagen">
+	                    	<img src=<%=imagen %>>
 	                    	<%} else { %>
 	                    	<img src="assets/img/fondo1.jpg">
 	                    	<%} %>

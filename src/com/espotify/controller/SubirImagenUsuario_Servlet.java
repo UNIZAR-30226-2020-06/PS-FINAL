@@ -28,8 +28,8 @@ import com.espotify.dao.GeneroDAO;
 import com.espotify.dao.SubirAudioDAO;
 import com.espotify.model.Genero;
 
-@WebServlet("/SubirAudioCancion_Servlet")
-public class SubirImagenServlet extends HttpServlet {
+@WebServlet("/SubirImagenUsuario_Servlet")
+public class SubirImagenUsuario_Servlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final String ALMACEN_PATH = "/var/www/html/almacen-mp3/almacen-img/usuarios/";
 	private static final String RUTA = "https://espotify.ddns.net/almacen-mp3/almacen-img/usuarios/";

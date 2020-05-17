@@ -19,7 +19,7 @@ import com.espotify.model.Transmision;
 /**
  * Servlet implementation class IniciarTransimision_Servlet
  */
-@WebServlet("/IniciarTransimision_Servlet")
+@WebServlet("/eliminar_UsuarioServlet")
 public class eliminar_UsuarioServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

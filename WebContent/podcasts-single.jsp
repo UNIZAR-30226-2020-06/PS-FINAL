@@ -259,6 +259,7 @@ int pagina = Integer.valueOf((String) request.getParameter("pagina"));
 
 <%
 String hayfoto = (String) session.getAttribute("hayfoto");
+String imagen = (String) session.getAttribute("imagen");
 %>
 
 <!-- BARRA DE ARRIBA FIJA -->
@@ -299,7 +300,7 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 					<a href="#" class="nav-link" data-toggle="dropdown">
 						<figure class="avatar">
 							<%if (hayfoto!=null){ %>
-	                    	<img src="${pageContext.request.contextPath}/cargar_imagen">
+	                    	<img src=<%=imagen %>>
 	                    	<%} else {%>
 	                    	<img src="assets/img/fondo1.jpg">
 	                    	<%} %>
@@ -419,6 +420,8 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 										<div class="d-md-flex align-items-center justify-content-between">
 											<h1 class="my-3 text-orange">${infoPodcast.getNombre()}</h1>
 											<div class="ml-auto mb-2">
+											<a onClick="document.getElementById('overlay-foto').classList.add('active');" 
+												class="btn btn-abrir-popup btn-sm  mt-3" id="abrir-popup-foto">Cambiar foto</a>
 												<a href="#" class="snackbar ml-3" data-text="Te gusta este podcast"
 												   data-pos="top-right"
 												   data-showAction="true"
@@ -470,6 +473,31 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 												</div>
 											</div>
 											<!-- END EDICION PODCAST -->
+											
+											<!-- CAMBIAR FOTO -->
+											<div class="overlay-pop-up" id="overlay-foto">
+											    <div class="col-md-7 card p-5">
+													<a style="position: absolute;top: 20px;right: 30px;" onClick="document.getElementById('overlay-foto').classList.remove('active');"  id="btn-cerrar-foto" class="btn-cerrar-popup-perfil"><i class="icon-close1"></i></a>
+													<form class="form-material" action="modImagenPodcast" method=POST enctype=multipart/form-data>
+														<!-- Input -->
+														<div class="body">
+															<header class="relative nav-sticky card">
+																<h3>SUBIR FOTO</h3>
+															</header>
+															<div class="contenedor-inputs">
+																<input type="file" class="btn btn-outline-primary btn-sm  mt-3" name="imagen" accept="image/jpeg"> 
+																<input type="hidden" name="idPodcast" id="idPodcast" value=${infoLista.getId() }>
+															</div>
+											
+															<input type="submit" class="btn btn-outline-primary btn-sm pl-4 pr-4"
+																   value="Aceptar">
+														</div>
+														<!-- #END# Input -->
+													</form>
+												</div>
+											</div>
+											
+											<!-- END CAMBIAR FOTO -->
 
 										</div>
 									
