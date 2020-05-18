@@ -76,7 +76,7 @@ public class Val_UsuarioServlet extends HttpServlet {
 			} else {
 				session.setAttribute("hayfoto", null);
 			}
-			List<Transmision> transmisiones = new TransmisionDAO().getTransmisionPorNombre("PruebaEscuchar");
+			List<Transmision> transmisiones = new TransmisionDAO().getTransmisionesUsersSeguidos(Integer.parseInt(u.getId()));
 			request.setAttribute("transmisiones", transmisiones);
 			
 			request.getRequestDispatcher("index.jsp?pagina=0").forward( request, response );

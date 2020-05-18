@@ -470,13 +470,17 @@ String imagen = (String) session.getAttribute("imagen");
 																<div class="col-6">
 																	<h6>${cancion.getTitulo()}</h6>${cancion.getGenero()}
 																</div>
-																<a href="#" class="snackbar ml-3" data-text="Te gusta esta canción"
-																   data-pos="top-right"
-																   data-showAction="true"
-																   data-actionText="ok"
-																   data-actionTextColor="#fff"
-																   data-backgroundColor="#0c101b"><i class="icon-thumbs-o-up s-24"></i>
-																</a>
+																<form action="like_lista">
+																	<input type="hidden" id="idListaLike" name="idListaLike" value=${cancion.getId() }>
+																	<input type="hidden" id="likeLista" name="likeLista" value="false">
+																	<a href="#" id="accion_like_lista" class="snackbar ml-3" data-text="Te gusta esta canción"
+																	   data-pos="top-right"
+																	   data-showAction="true"
+																	   data-actionText="ok"
+																	   data-actionTextColor="#fff"
+																	   data-backgroundColor="#0c101b"><i class="icon-thumbs-o-up s-24"></i>
+																	</a>
+																</form>
 																<a href="#" data-toggle="control-sidebar">
 											                        <i style="position: relative;left: 10px;" class="icon-commenting-o s-24"></i>
 											                    </a>
@@ -809,6 +813,19 @@ String imagen = (String) session.getAttribute("imagen");
 				$('#listaComentariosCancion').html(data);
 			});
 		});
+    	
+    	$('#accion_like_lista').click(function(event) {//dar like a una lista
+		 	var listaId = $('#idListaLike').val();
+            var like = $('#likeLista').val();
+            console.log("REALIZAR ACCION");
+            console.log(audioId);
+            console.log(follow);
+			$.get('like_lista', {
+               idLista: listaId,
+                like : like
+    			});
+	   });
+    	
     	$('#publicar').click(function(event) { // publicar comentario en cancion
 			var textarea = $('#textarea').val();
 			var audioId = $('#audioIDcomment').val();

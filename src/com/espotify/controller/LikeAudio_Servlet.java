@@ -6,45 +6,50 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-import com.espotify.dao.TransmisionDAO;
-import com.espotify.dao.UsuarioDAO;
-import com.espotify.model.Transmision;
-import com.espotify.model.Usuario;
+import com.espotify.dao.LikesDAO;
 
 /**
- * Servlet implementation class VerTransmision_Servlet
+ * Servlet implementation class LikeAudio_Servlet
  */
-@WebServlet("/VerTransmision_Servlet")
-public class VerTransmision_Servlet extends HttpServlet {
+@WebServlet("/LikeAudio_Servlet")
+public class LikeAudio_Servlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public VerTransmision_Servlet() {
+    public LikeAudio_Servlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int id = Integer.parseInt((String) request.getParameter("idTransmision"));
-		Transmision transmision = new TransmisionDAO().getTransmisionPorId(id);
-		Usuario usuario = new UsuarioDAO().obtenerInfo(transmision.getUsuario());
-		request.setAttribute("usuario", usuario);
-		request.setAttribute("transmision", transmision);
-		request.getRequestDispatcher("ver-transmision.jsp").forward(request, response);
-
+		LikesDAO likesDAO = new LikesDAO();
+		Boolean resultado = false;
+		
+		System.out.println("ENTROOOOOO  AQUII");
+		
+		HttpSession session = request.getSession();
+		int id = Integer.parseInt((String) session.getAttribute("id"));
+		
+		Boolean like = Boolean.parseBoolean((String) request.getParameter("like"));
+		int idAudio = Integer.parseInt((String) request.getParameter("idAudio"));
+		
+		if(like) {
+			resultado = likesDAO.quitarLikeAudio(id, idAudio);
+		} else {
+			resultado = likesDAO.anyadirLikeAudio(id, idAudio);
+		}		
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

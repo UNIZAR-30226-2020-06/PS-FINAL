@@ -451,13 +451,17 @@ String imagen = (String) session.getAttribute("imagen");
 															<div class="col-6">
 																<h6>${cancion.getTitulo()}</h6>${cancion.getGenero()}
 															</div>
-															<a href="#" class="snackbar ml-3" data-text="Te gusta esta canción"
-															   data-pos="top-right"
-															   data-showAction="true"
-															   data-actionText="ok"
-															   data-actionTextColor="#fff"
-															   data-backgroundColor="#0c101b"><i class="icon-thumbs-o-up s-24"></i>
-															</a>
+															<form action="like_audio">
+																<input type="hidden" id="idAudio" name="idAudio" value=${cancion.getId() }>
+																<input type="hidden" id="like" name="seguido" value="false">
+																<a href="#" id="accion_like" class="snackbar ml-3" data-text="Te gusta esta canción"
+																   data-pos="top-right"
+																   data-showAction="true"
+																   data-actionText="ok"
+																   data-actionTextColor="#fff"
+																   data-backgroundColor="#0c101b"><i class="icon-thumbs-o-up s-24"></i>
+																</a>
+															</form>
 															<a href="#" data-toggle="control-sidebar" onclick="document.getElementById('audioIDcomment').value = '${cancion.getId()}';">
 										                        <i style="position: relative;left: 10px;" class="icon-commenting-o s-24"></i>
 										                    </a>
@@ -1178,6 +1182,18 @@ String imagen = (String) session.getAttribute("imagen");
 				$('#listaComentariosCancion').html(data);
 			});
 		});
+    	
+    	 $('#accion_like').click(function(event) {//dar like a una cancion
+    		 	var audioId = $('#idAudio').val();
+	            var like = $('#like').val();
+	            console.log(audioId);
+	            console.log(follow);
+				$.get('like_audio', {
+	               idAudio: audioId,
+	                like : like
+	    			});
+    	   });
+    	
     	$('#publicar').click(function(event) { // publicar comentario en cancion
 			var textarea = $('#textarea').val();
 			var audioId = $('#audioIDcomment').val();
@@ -1221,6 +1237,7 @@ String imagen = (String) session.getAttribute("imagen");
     	  	document.getElementsByName("idAudioP")[i].value = song;
     	}
     }
+    
 
     </script>
     

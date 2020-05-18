@@ -6,45 +6,49 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-import com.espotify.dao.TransmisionDAO;
-import com.espotify.dao.UsuarioDAO;
-import com.espotify.model.Transmision;
-import com.espotify.model.Usuario;
+import com.espotify.dao.SeguirDAO;
 
 /**
- * Servlet implementation class VerTransmision_Servlet
+ * Servlet implementation class SeguirUsuario_Servlet
  */
-@WebServlet("/VerTransmision_Servlet")
-public class VerTransmision_Servlet extends HttpServlet {
+@WebServlet("/SeguirUsuario_Servlet")
+public class SeguirUsuario_Servlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public VerTransmision_Servlet() {
+    public SeguirUsuario_Servlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int id = Integer.parseInt((String) request.getParameter("idTransmision"));
-		Transmision transmision = new TransmisionDAO().getTransmisionPorId(id);
-		Usuario usuario = new UsuarioDAO().obtenerInfo(transmision.getUsuario());
-		request.setAttribute("usuario", usuario);
-		request.setAttribute("transmision", transmision);
-		request.getRequestDispatcher("ver-transmision.jsp").forward(request, response);
-
+		SeguirDAO seguirDAO = new SeguirDAO();
+		Boolean resultado = false;
+		
+		HttpSession session = request.getSession();
+		int id = Integer.parseInt((String) session.getAttribute("id"));
+		int idUsuarioSeguido = Integer.parseInt((String) request.getParameter("idUsuario"));
+		Boolean seguido = Boolean.valueOf((String) request.getParameter("seguido"));
+		
+		if(seguido) {
+			
+			resultado = seguirDAO.unfollowUser(id, idUsuarioSeguido);
+		} else {
+			resultado = seguirDAO.followUser(id, idUsuarioSeguido);
+		}
+		request.getRequestDispatcher("obtener_usuario?nombre="+ idUsuarioSeguido).forward(request, response);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

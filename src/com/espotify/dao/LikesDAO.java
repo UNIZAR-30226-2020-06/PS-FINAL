@@ -26,14 +26,14 @@ public class LikesDAO {
 	
 	// --------------------------------------------------------------------------
 	//	IDEA DE USO DE LAS FUNCIONES: 
-	//		Cada vez que se pulse el boton de like se ejecutará primero 
-	//		la función de añadir, si el resultado es falso entonces se 
-	//		ejecutará la de eliminar.
+	//		Cada vez que se pulse el boton de like se ejecutarï¿½ primero 
+	//		la funciï¿½n de aï¿½adir, si el resultado es falso entonces se 
+	//		ejecutarï¿½ la de eliminar.
 	// --------------------------------------------------------------------------
 	
 	/*
 	 * Parametros: id del usuario, id del audio
-	 * Devuelve: falso si ya se le había dado like, true si el like se ha dado correctamente 
+	 * Devuelve: falso si ya se le habï¿½a dado like, true si el like se ha dado correctamente 
 	*/
 	public static boolean anyadirLikeAudio(int usuario, int idAudio) {
 		
@@ -58,8 +58,8 @@ public class LikesDAO {
 	}
 	
 	/*
-	 * Parametros: id del usuario, id de la lista de reproducción
-	 * Devuelve: falso si ya se le había dado like, true si el like se ha dado correctamente 
+	 * Parametros: id del usuario, id de la lista de reproducciï¿½n
+	 * Devuelve: falso si ya se le habï¿½a dado like, true si el like se ha dado correctamente 
 	*/
 	public static boolean anyadirLikeLista(int usuario, int idLista) {
 		
@@ -85,7 +85,7 @@ public class LikesDAO {
 	
 	/*
 	 * Parametros: id del usuario, id de la transmision en vivo
-	 * Devuelve: falso si ya se le había dado like, true si el like se ha dado correctamente 
+	 * Devuelve: falso si ya se le habï¿½a dado like, true si el like se ha dado correctamente 
 	*/
 	public static boolean anyadirLikeTrans(int usuario, int idTransmision) {
 		
@@ -111,7 +111,7 @@ public class LikesDAO {
 	
 	/*
 	 * Parametros: id del usuario, id del audio
-	 * Devuelve: falso si ya se le había dado like, true si el like se ha dado correctamente 
+	 * Devuelve: falso si ya se le habï¿½a dado like, true si el like se ha dado correctamente 
 	*/
 	public static boolean tieneLikeAudio(int usuario, int idAudio) {
 		
@@ -142,7 +142,7 @@ public class LikesDAO {
 	
 	/*
 	 * Parametros: id del usuario, id del audio
-	 * Devuelve: falso si ya se le había dado like, true si el like se ha dado correctamente 
+	 * Devuelve: falso si ya se le habï¿½a dado like, true si el like se ha dado correctamente 
 	*/
 	public static boolean tieneLikeLista(int usuario, int idLista) {
 		
@@ -173,7 +173,7 @@ public class LikesDAO {
 	
 	/*
 	 * Parametros: id del usuario, id de la transmision
-	 * Devuelve: falso si ya se le había dado like, true si el like se ha dado correctamente 
+	 * Devuelve: falso si ya se le habï¿½a dado like, true si el like se ha dado correctamente 
 	*/
 	public static boolean tieneLikeTrans(int usuario, int idTrans) {
 		
@@ -204,7 +204,7 @@ public class LikesDAO {
 	
 	/*
 	 * Parametros: id del usuario, id del audio
-	 * Devuelve: falso si ya se había quitado el like, true si el like se ha quitado correctamente 
+	 * Devuelve: falso si ya se habï¿½a quitado el like, true si el like se ha quitado correctamente 
 	*/
 	public static boolean quitarLikeAudio(int usuario, int idAudio) {
 		
@@ -229,8 +229,8 @@ public class LikesDAO {
 	}
 	
 	/*
-	 * Parametros: id del usuario, id de la lista de reproducción
-	 * Devuelve: falso si ya se había quitado el like, true si el like se ha quitado correctamente  
+	 * Parametros: id del usuario, id de la lista de reproducciï¿½n
+	 * Devuelve: falso si ya se habï¿½a quitado el like, true si el like se ha quitado correctamente  
 	*/
 	public static boolean quitarLikeLista(int usuario, int idLista) {
 		
@@ -256,7 +256,7 @@ public class LikesDAO {
 	
 	/*
 	 * Parametros: id del usuario, id de la transmision en vivo
-	 * Devuelve: falso si ya se había quitado el like, true si el like se ha quitado correctamente 
+	 * Devuelve: falso si ya se habï¿½a quitado el like, true si el like se ha quitado correctamente 
 	*/
 	public static boolean quitarLikeTrans(int usuario, int idTransmision) {
 		
@@ -279,31 +279,4 @@ public class LikesDAO {
 			return false;
 		}
 	}
-	
-    // Prubas con la base de datos
- 	public static void main(String[] args) throws SQLException, IOException{
- 		/*
- 		boolean anyadido,quitado = false;
- 		
- 		anyadido = anyadirLikeAudio(1,1);
- 		if (anyadido) System.out.println("Like Audio añadido");
- 		
- 		anyadido = anyadirLikeLista(1,14);
- 		if (anyadido) System.out.println("Like Lista añadido");
- 		
- 		anyadido = anyadirLikeTrans(1,1);
- 		if (anyadido) System.out.println("Like Trasnmision añadido");
- 		
- 		// ----------------------------------------------------------
- 		
- 		quitado = quitarLikeAudio(1,1);
- 		if (quitado) System.out.println("Like Audio quitado");
- 		
- 		quitado = quitarLikeLista(1,14);
- 		if (quitado) System.out.println("Like Lista quitado");
- 		
- 		quitado = quitarLikeTrans(1,1);
- 		if (quitado) System.out.println("Like Transmision quitado");
- 		*/
- 	}
 }

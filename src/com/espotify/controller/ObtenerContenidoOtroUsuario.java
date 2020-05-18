@@ -15,6 +15,7 @@ import com.espotify.dao.CancionDAO;
 import com.espotify.dao.CapituloPodcastDAO;
 import com.espotify.dao.GeneroDAO;
 import com.espotify.dao.ListaReproduccionDAO;
+import com.espotify.dao.SeguirDAO;
 import com.espotify.dao.UsuarioDAO;
 import com.espotify.model.Audio;
 import com.espotify.model.Genero;
@@ -49,10 +50,18 @@ public class ObtenerContenidoOtroUsuario extends HttpServlet {
 		System.out.printf("%d", idUsuario);
 		Usuario usuario = new UsuarioDAO().obtenerInfo(idUsuario);
 		log(usuario.getNombre());
-		request.setAttribute("nombre", usuario.getNombre());
+		/*request.setAttribute("nombre", usuario.getNombre());
 		request.setAttribute("descripcion", usuario.getDescripcion());
 		request.setAttribute("email", usuario.getCorreo());
-		request.setAttribute("imagen", usuario.getImagen());
+		request.setAttribute("imagen", usuario.getImagen());*/
+		request.setAttribute("usuario", usuario);
+		
+		Boolean seguido = new SeguirDAO().isFollowing(id, idUsuario);
+		if(seguido) {
+			request.setAttribute("seguido", "seguido");
+		}else {
+			request.setAttribute("seguido", "");
+		}
 		
 		ArrayList<Audio> canciones = new CancionDAO().obtenerCancionesUsuario(idUsuario);
 		request.setAttribute("canciones", canciones);

@@ -60,7 +60,7 @@ public class GetInfo_IndexServlet extends HttpServlet {
 			request.setAttribute("audios",fav);
 		}
 
-		List<Transmision> transmisiones = new TransmisionDAO().getTransmisionPorNombre("PruebaEscuchar");
+		List<Transmision> transmisiones = new TransmisionDAO().getTransmisionesUsersSeguidos(usuario);
 		request.setAttribute("transmisiones", transmisiones);
 		request.getRequestDispatcher("index.jsp").forward( request, response );
 		//response.sendRedirect("index.jsp");

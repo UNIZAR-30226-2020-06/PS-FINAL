@@ -321,7 +321,7 @@ public class UsuarioDAO {
 			ResultSet rs = ps.executeQuery();
 
 			if(rs.first()){
-				result = new Usuario(rs.getString("nombre"), rs.getString("descripcion"), rs.getString("mail"), null, rs.getString("imagen"));
+				result = new Usuario(rs.getString("nombre"), rs.getString("descripcion"), rs.getString("mail"), String.valueOf(id), rs.getString("imagen"));
 			}
 			
 			ConnectionManager.releaseConnection(conn);
