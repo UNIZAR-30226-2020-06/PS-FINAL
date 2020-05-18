@@ -51,8 +51,8 @@ public class AndroidAnyadir_AudioListaServlet extends HttpServlet {
 		JSONObject parametrosPeticion = JSONAdapter.parsarJSON(request);
         getServletContext().log(JSONAdapter.obtenerParametros(request)); 
         
-        String nombreAudio = parametrosPeticion.getString("nombreCapitulo");
-        String nombreLista = parametrosPeticion.getString("nombrePodcast");
+        String nombreAudio = parametrosPeticion.getString("nombreAudio");
+        String nombreLista = parametrosPeticion.getString("nombreLista");
         
         CancionDAO cancion = new CancionDAO();
         int idAudio = cancion.obtenerIdCancion(nombreAudio);

@@ -17,16 +17,16 @@ import com.espotify.model.ListaReproduccion;
 
 
 /**
- * Servlet implementation class AndroidGet_PodcastServlet
+ * Servlet implementation class AndroidGet_AllListaRepServlet
  */
-@WebServlet("/AndroidGet_PodcastServlet")
-public class AndroidGet_PodcastServlet extends HttpServlet {
+@WebServlet("/AndroidGet_AllListaRepServlet")
+public class AndroidGet_AllListaRepServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AndroidGet_PodcastServlet() {
+    public AndroidGet_AllListaRepServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -36,22 +36,21 @@ public class AndroidGet_PodcastServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		getServletContext().log("--- ~AndroidGet_PodcastServlet~ ---");
+		getServletContext().log("--- ~AndroidGet_AllListaRepServlet~ ---");
         
+		List<ListaReproduccion> listasReproduccion = ListaReproduccionDAO.showAllLists("ListaRep");
 		
-		List<ListaReproduccion> listaPodcasts = ListaReproduccionDAO.showAllLists("podcast");
+		getServletContext().log("Exito: " + listasReproduccion);
 		
-		getServletContext().log("Exito: " + listaPodcasts);
-		
-        String nombresPodcast = "";
-        String descripcionesPodcast = "";
-        String imagenesPodcast = "";
+        String nombrePlaylist = "";
+        String descripcionPlaylist = "";
+        String imagenPlaylist = "";
        
-        boolean hayPodcasts = false;
+        boolean hayListas = false;
         
-        for(ListaReproduccion lista : listaPodcasts) {
-        	nombresPodcast += lista.getNombre() + "|";
-        	descripcionesPodcast += lista.getDescripcion() + "|";
+        for(ListaReproduccion lista : listasReproduccion) {
+        	nombrePlaylist += lista.getNombre() + "|";
+        	descripcionPlaylist += lista.getDescripcion() + "|";
         	
         	if(lista.getImagen() != null && !lista.getImagen().equals("")) {
         		URL obj = new URL(lista.getImagen());
@@ -61,29 +60,28 @@ public class AndroidGet_PodcastServlet extends HttpServlet {
         		int responseCode = con.getResponseCode();
         		
         		if(responseCode == 200) {
-        			imagenesPodcast += lista.getImagen() + "|";
+        			imagenPlaylist += lista.getImagen() + "|";
         		} else {
-        			imagenesPodcast += "|";
+        			imagenPlaylist += "|";
         		}
         	} else {
-        		imagenesPodcast += "|";
+        		imagenPlaylist += "|";
         	}
-        	
-        	hayPodcasts = true;
+        	hayListas = true;
         }
         
         
-        if(hayPodcasts) {
-        	nombresPodcast = nombresPodcast.substring(0, nombresPodcast.length() - 1);
-        	descripcionesPodcast = descripcionesPodcast.substring(0, descripcionesPodcast.length() - 1);
-        	imagenesPodcast = imagenesPodcast.substring(0, imagenesPodcast.length() - 1);
+        if(hayListas) {
+        	nombrePlaylist = nombrePlaylist.substring(0, nombrePlaylist.length() - 1);
+        	descripcionPlaylist = descripcionPlaylist.substring(0, descripcionPlaylist.length() - 1);
+        	imagenPlaylist = imagenPlaylist.substring(0, imagenPlaylist.length() - 1);
         }
     	
         
         JSONObject respuestaPeticion = new JSONObject();
-        respuestaPeticion.put("lista", nombresPodcast);
-        respuestaPeticion.put("listaDescripcion", descripcionesPodcast);
-        respuestaPeticion.put("listaImagen", imagenesPodcast);
+        respuestaPeticion.put("lista", nombrePlaylist);
+        respuestaPeticion.put("listaDescripcion", descripcionPlaylist);
+        respuestaPeticion.put("listaImagen", imagenPlaylist);
         
         // Lanzar JSON
         PrintWriter out = response.getWriter();
