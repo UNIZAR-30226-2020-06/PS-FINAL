@@ -7,7 +7,7 @@ pageEncoding="UTF-8"%>
 
 <% 
 int pagina = Integer.valueOf((String) request.getParameter("pagina"));
-String nombre = (String) request.getParameter("nombre");
+String id = (String) request.getParameter("id");
 %>
 
 <!--  
@@ -390,7 +390,7 @@ String imagen = (String) session.getAttribute("imagen");
 																		<i id="iconoPlay" class="icon-play s-28"></i>
 																	</a>
 																	<% } else {%>
-																	<a href="obtener_info_lr?nombre=<%=nombre%>&pagina=5" onclick="setTimeout(location.reload.bind(location), 1)">
+																	<a href="obtener_info_lr_usuario?id=<%=id%>&pagina=5" onclick="setTimeout(location.reload.bind(location), 1)">
 																		<i id="iconoPlay" class="icon-play s-28"></i>
 																	</a>
 																	<%} %>					
@@ -409,7 +409,7 @@ String imagen = (String) session.getAttribute("imagen");
 											                        <i style="position: relative;left: 10px;" class="icon-commenting-o s-24"></i>
 											                    </a>
 																<div class="ml-auto">
-																	<a href="anyadir_cancion_fav?idAudio=${cancion.getId()}&pagina=<%=pagina %>" class="btn-favorito icon-star active"></a>
+																	<a href="anyadir_cancion_fav?idAudio=${cancion.getId()}&pagina=<%=pagina %>" class="btn-favorito icon-star"></a>
 																	<a href="#" class="btn-icono icon-indent" onclick="rellenarCampos('${listaslr.size()}','${cancion.getId()}');
 																document.getElementById('overlay-anadir-listas-reproduccion').classList.add('active')";></a>
 																</div>
@@ -506,51 +506,6 @@ String imagen = (String) session.getAttribute("imagen");
 				tipo : tipoVar
 			});
 		});
-    	$('#iconoPlay').replaceWith("<i id='iconoPlay' class='icon-play s-28'></i>")
-    	$('.playlist a').click(function(event) { // cargar los comentarios de cancion
-			var audioId = $('#audioIDcomment').val();
-			console.log(audioId);
-			$.get('getall_coment_cancion', {
-				idAudio: audioId
-			}, function(data){
-				$('#listaComentariosCancion').html(data);
-			});
-		});
-    	$('#publicar').click(function(event) { // publicar comentario en cancion
-			var textarea = $('#textarea').val();
-			var audioId = $('#audioIDcomment').val();
-			var idUsuarioVar = <%=session.getAttribute("id")%>;
-			console.log(textarea);
-			console.log(audioId);
-			console.log(idUsuarioVar);
-			if(textarea != ""){
-				$.get('anyadir_coment_cancion', {
-					descripcion : textarea,
-					idUsuario : idUsuarioVar,
-					idAudio: audioId
-				}, function(){
-					document.getElementById('textarea').value="";
-					$('.playlist a').ready(function(event) { // cargar los comentarios de cancion
-						var audioId = $('#audioIDcomment').val();
-						console.log(audioId);
-						$.get('getall_coment_cancion', {
-							idAudio: audioId
-						}, function(data){
-							$('#listaComentariosCancion').html(data);
-						});
-					});
-				});
-			}
-		});
-    	$('#borrarComentario').click(function(event) { // borrar comentario en cancion
-			var idComentario = $('#comentarioID').val();
-			console.log(idComentario);
-			$.get('borrar_coment_cancion', {
-				idComentario: idComentario
-			}, function(responseText){
-				$('#contenido').html(responseText);
-			});
-		});
     });
     </script>
 </main><!--@Page Content-->
@@ -597,6 +552,55 @@ String imagen = (String) session.getAttribute("imagen");
     	}
 
     }
+    </script>
+    <script>
+    $(document).ready(function() {
+    	$('#iconoPlay').replaceWith("<i id='iconoPlay' class='icon-play s-28'></i>")
+    	$('#playlist a').click(function(event) { // cargar los comentarios de cancion
+			var audioId = $('#audioIDcomment').val();
+			console.log(audioId);
+			$.get('getall_coment_cancion', {
+				idAudio: audioId
+			}, function(data){
+				$('#listaComentariosCancion').html(data);
+			});
+		});
+    	$('#publicar').click(function(event) { // publicar comentario en cancion
+			var textarea = $('#textarea').val();
+			var audioId = $('#audioIDcomment').val();
+			var idUsuarioVar = <%=session.getAttribute("id")%>;
+			console.log(textarea);
+			console.log(audioId);
+			console.log(idUsuarioVar);
+			if(textarea != ""){
+				$.get('anyadir_coment_cancion', {
+					descripcion : textarea,
+					idUsuario : idUsuarioVar,
+					idAudio: audioId
+				}, function(){
+					document.getElementById('textarea').value="";
+					$('.playlist a').ready(function(event) { // cargar los comentarios de cancion
+						var audioId = $('#audioIDcomment').val();
+						console.log(audioId);
+						$.get('getall_coment_cancion', {
+							idAudio: audioId
+						}, function(data){
+							$('#listaComentariosCancion').html(data);
+						});
+					});
+				});
+			}
+		});
+    	$('#borrarComentario').click(function(event) { // borrar comentario en cancion
+			var idComentario = $('#comentarioID').val();
+			console.log(idComentario);
+			$.get('borrar_coment_cancion', {
+				idComentario: idComentario
+			}, function(responseText){
+				$('#contenido').html(responseText);
+			});
+		});
+    });
     </script>
 </body>
 

@@ -412,7 +412,7 @@ String imagen = (String) session.getAttribute("imagen");
 									<div class="img-wrapper">
 										<img src=${lista.getImagen() } alt="/">
 										<div class="img-overlay text-white text-center">
-											<a href="obtener_info_lr?nombre=${lista.getNombre()}&pagina=<%=pagina %>" >
+											<a class="ajaxifyPage" href="${pageContext.request.contextPath}/obtener_info_lr?nombre=${lista.getNombre()}&pagina=<%=pagina %>" >
 												<div class="figcaption mt-3">
 													<i class="icon-link s-48"></i>
 													<h5 class="mt-5">${lista.getNombre()}</h5>
