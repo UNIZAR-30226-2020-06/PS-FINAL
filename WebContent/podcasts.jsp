@@ -535,5 +535,90 @@ String imagen = (String) session.getAttribute("imagen");
 		}
 	}
 	</script>
+	<!-- CREAR PODCAST-->
+<div class="overlay-pop-up" id="overlay-podcast">
+    <div class="col-md-7 card p-5">
+		<a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-podcast" class="btn-cerrar-popup-perfil" onClick="document.getElementById('overlay-podcast').classList.remove('active');"><i class="icon-close1"></i></a>
+		<form class="form-material" action="crear_lr">
+			<!-- Input -->
+			<div class="body">
+				<header class="relative nav-sticky card">
+					<h3>CREAR PODCAST</h3>
+				</header>
+				<div class="contenedor-inputs">
+					<h4>Añadir imagen</h4>
+					<!--  <input type="file" class="btn btn-outline-primary btn-sm  mt-3" name="fileName" /> -->
+					<input type="text" name="nombre" placeholder="Nombre" id="nombre-listas-reproduccion" required/>
+					<input type="text" name="descripcion" placeholder="Descripcion" id="descripcion-listas-reproduccion"/>
+					<input type="hidden" name="tipo" id="tipo1" value="podcast">
+				</div>
+
+				<a id="submit1" href="#" class="btn btn-outline-primary btn-sm pl-4 pr-4">Aceptar</a>
+			</div>
+			<!-- #END# Input -->
+		</form>
+	</div>
+</div>
+<!-- END CREAR PODCAST -->
+
+
+
+
+<!-- BORRAR PODCAST -->	
+	<div class="overlay-pop-up" id="overlay-borrar-listas-reproduccion">	
+	    <div class="col-md-7 card p-5">	
+	        <a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-borrar-listas-reproduccion" class="btn-cerrar-popup-perfil"	
+	        class="btn btn-outline-primary btn-sm pl-4 pr-4"  onclick="document.getElementById('overlay-borrar-listas-reproduccion').classList.remove('active');"><i class="icon-close1"></i></a>	
+			<form class="form-material" action="borrar_lr">	
+				<!-- Input -->	
+				<div class="body">	
+					<header class="relative nav-sticky card">	
+	                    <h3>¿Estas seguro?</h3>	
+	                    <h5>Vas a borrar esta Podcast para siempre, no hay vuelta atras</h5>	
+					</header>	
+		
+					<input type="hidden" id="idLista" name="nombre" value="">
+					<input type="hidden" name="tipo" id="tipo2" value="podcast">	
+					<a id="submit2" href="#" class="btn btn-outline-primary btn-sm pl-4 pr-4">Aceptar</a>
+				</div>	
+				<!-- #END# Input -->	
+	        </form>	
+		</div>	
+	</div>	
+<!-- END BORRAR PODCAST -->
+
+<script>
+    $(document).ready(function() {
+    	$('#submit1').click(function(event) {
+			var idListaVar = $('#nombre-listas-reproduccion').val();
+			var descripcionVar = $('#descripcion-listas-reproduccion').val();
+			var tipoVar = $('#tipo1').val();
+			console.log(idListaVar);
+			console.log(tipoVar);
+			console.log(descripcionVar);
+			// Si en vez de por post lo queremos hacer por get, cambiamos el $.post por $.get
+			$.get('crear_lr', {
+				nombre : idListaVar,
+				tipo : tipoVar,
+				descripcion : descripcionVar
+			}, function(){
+				location.href="mostrar_podcasts?tipo=podcasts&pagina=10";
+			});
+		});
+    	$('#submit2').click(function(event) {
+			var idListaVar = $('#idLista').val();
+			var tipoVar = $('#tipo2').val();
+			console.log(idListaVar);
+			console.log(tipoVar);
+			// Si en vez de por post lo queremos hacer por get, cambiamos el $.post por $.get
+			$.get('borrar_lr', {
+				nombre : idListaVar,
+				tipo : tipoVar
+			}, function(){
+				location.href="mostrar_podcasts?tipo=podcasts&pagina=10";
+			});
+		});
+    });
+    </script>
 </body>
 </html>
