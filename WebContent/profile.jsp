@@ -203,9 +203,16 @@ int pagina = Integer.valueOf((String) request.getParameter("pagina"));
 </div>
 <!-- ACABA BUSCADOR (LUPA) -->
 
-<%
+<!-- Obtener datos usuario -->
+<% 
 String hayfoto = (String) session.getAttribute("hayfoto");
+
+String nombre = (String) session.getAttribute("nombre");
+String descripcion = (String) session.getAttribute("descripcion");
+String email = (String) session.getAttribute("email");
+String imagen = (String) session.getAttribute("imagen");
 %>
+<!-- END Obtener datos usuario -->
 
 <!-- BARRA DE ARRIBA FIJA -->
 <nav class="navbar-wrapper shadow">
@@ -237,7 +244,7 @@ String hayfoto = (String) session.getAttribute("hayfoto");
                     <a href="#" class="nav-link" data-toggle="dropdown">
                         <figure class="avatar">
                             <%if (hayfoto!=null){ %>
-	                    	<img src="${pageContext.request.contextPath}/cargar_imagen">
+	                    	<img src=<%=imagen %>>
 	                    	<%} else {%>
 	                    	<img src="assets/img/fondo1.jpg">
 	                    	<%} %>
@@ -327,13 +334,7 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 ########################################################################
 -->
 
-<!-- Obtener datos usuario -->
-<% 
-String nombre = (String) session.getAttribute("nombre");
-String descripcion = (String) session.getAttribute("descripcion");
-String email = (String) session.getAttribute("email");
-%>
-<!-- END Obtener datos usuario -->
+
 
 <!--CONTENIDO NO AJAX-->
 <main id="pageContent" class="page has-sidebar">
@@ -348,7 +349,7 @@ String email = (String) session.getAttribute("email");
 					
                     <figure style="width: 130px;height: 130px;width-max: 50%;" class="avatar avatar-xl">
                     	<%if (hayfoto!=null){ %>
-                    	<img src="${pageContext.request.contextPath}/cargar_imagen">
+                    	<img src=<%=imagen %>>
                     	<%} else {%>
                     	<img src="assets/img/fondo1.jpg">
                     	<%} %>
@@ -464,7 +465,8 @@ String email = (String) session.getAttribute("email");
 																<a href="anyadir_cancion_fav?idAudio=${cancion.getId()}&pagina=<%=pagina %>" class="btn-favorito icon-star" ></a>
 																<a href="${pageContext.request.contextPath}/ir_modificar?id_audio=${cancion.getId()}&cancion=true&pagina=<%=pagina %>" class="btn-icono icon-pencil" ></a>
 																<a href="#" class="btn-icono icon-indent" onclick="rellenarCampos('${listaslr.size()}','${cancion.getId()}');
-																document.getElementById('overlay-anadir-listas-reproduccion').classList.add('active')"
+																document.getElementById('overlay-anadir-listas-reproduccion').classList.add('active');"
+
 																	></a>
 																<a href="${pageContext.request.contextPath}/eliminar_cancion?id_cancion=${cancion.getId()}&pagina=<%=pagina %>" class="btn-icono icon-trash-o" ></a>
 															</div>
@@ -510,7 +512,7 @@ String email = (String) session.getAttribute("email");
 							<div class="col-lg-3 col-md-4 col-sm-6 my-2">
 								<figure>
 									<div class="img-wrapper">
-										<img src="assets/img/demo/a1.jpg" alt="/">
+										<img src=${listalr.getImagen() } alt="/">
 										<div class="img-overlay text-white text-center">
 											<a href="obtener_info_lr?nombre=${listalr.getNombre()}&pagina=<%=pagina %>" >
 												<div class="figcaption mt-3">
@@ -578,8 +580,8 @@ String email = (String) session.getAttribute("email");
 										                    </a>
 															<div class="ml-auto">
 																<a href="${pageContext.request.contextPath}/ir_modificar?id_audio=${capitulo.getId()}&cancion=false&pagina=<%=pagina %>" class="btn-icono icon-pencil" ></a>
-																<a href="#" class="btn-icono icon-indent" onclick="rellenarCamposP('${podcasts.size()}','${capitulo.getId()}');
-																document.getElementById('overlay-anadir-podcast').classList.add('active')"></a>
+																<a href="#" class="btn-icono icon-indent" onclick="rellenarCamposP('${podcast.size()}','${capitulo.getId()}');
+																document.getElementById('overlay-anadir-podcast').classList.add('active');"></a>
 																<a href="${pageContext.request.contextPath}/eliminar_capitulo?id_capitulo=${capitulo.getId()}&pagina=<%=pagina %>" class="btn-icono icon-trash-o" ></a>
 															</div>
 														</div>
@@ -606,7 +608,7 @@ String email = (String) session.getAttribute("email");
 							<div class="col-lg-3 col-md-4 col-sm-6 my-2">
 								<figure>
 									<div class="img-wrapper">
-										<img src="assets/img/demo/a1.jpg" alt="/">
+										<img src=${podcast.getImagen() } alt="/">
 										<div class="img-overlay text-white text-center">
 											<a href="obtener_info_podcast?nombre=${podcast.getNombre()}&pagina=<%=pagina %>" >
 												<div class="figcaption mt-3">
@@ -687,7 +689,7 @@ String email = (String) session.getAttribute("email");
 <div class="overlay-pop-up" id="overlay-foto">
     <div class="col-md-7 card p-5">
 		<a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-foto" class="btn-cerrar-popup-perfil"><i class="icon-close1"></i></a>
-		<form class="form-material" action="modinfo" method=POST enctype=multipart/form-data>
+		<form class="form-material" action="modImagenUsuario" method=POST enctype=multipart/form-data>
 			<!-- Input -->
 			<div class="body">
 				<header class="relative nav-sticky card">
@@ -776,7 +778,7 @@ String email = (String) session.getAttribute("email");
 							<figure>
 								<div class="img-wrapper">
 			
-									<img src="assets/img/demo/a1.jpg" alt="/">
+									<img src=${listalr.getImagen() } alt="/">
 									
 									<div class="figure-title text-center p-2">
 										<h5>${listalr.getNombre()}</h5>
@@ -788,7 +790,7 @@ String email = (String) session.getAttribute("email");
 								<input type="hidden" name="idAudio" id="idAudio" value="">
 								<input type="hidden" name="nombreLista" id="nombreLista" value="${listalr.getNombre()}">
 								<input type="hidden" name="tipo" id="tipo2" value="ListRep">
-								<a id="submit4" href="#" class="btn btn-outline-primary btn-sm pl-4 pr-4">Añadir</a>
+								<a id="submit4" href="#" class="btn btn-outline-primary btn-sm pl-4 pr-4" >Añadir</a>
 							</form>	
 						</div>
 					</c:forEach>
@@ -814,12 +816,13 @@ String email = (String) session.getAttribute("email");
 							<figure>
 								<div class="img-wrapper">
 			
-									<img src="assets/img/demo/a1.jpg" alt="/">
+									<img src=${podact.getImagen() } alt="/">
 									
 									<div class="figure-title text-center p-2">
 										<h5>${podcast.getNombre()}</h5>
 									</div>
 								</div>
+
 							</figure>
 							<form class="form-material" action="anyadir_cancion_lr">
 								<input type="hidden" name="idLista" id="idLista2" value="${podcast.getId()}">
@@ -827,6 +830,7 @@ String email = (String) session.getAttribute("email");
 								<input type="hidden" name="nombreLista" id="nombreLista2" value="${podcast.getNombre()}">
 								<input type="hidden" name="tipo" id="tipo3" value="podcast">
 								<a id="submit5" href="#" class="btn btn-outline-primary btn-sm pl-4 pr-4">Añadir</a>
+
 							</form>	
 						</div>
 					</c:forEach>
@@ -1164,8 +1168,38 @@ String email = (String) session.getAttribute("email");
 				location.href="mostrar_podcasts?tipo=podcasts&pagina=10";
 			});
 		});
+    });
+
+    function rellenarCamposP(size,song) {
+    	var i;
+    	for (i=0; i <size; i++){
+    	  	document.getElementsByName("idAudioP")[i].value = song;
+    	}
+    }
+
+    </script>
+    <script>
+    $(document).ready(function() {
     	$('#iconoPlay').replaceWith("<i id='iconoPlay' class='icon-play s-28'></i>")
-    	$('.playlist a').click(function(event) { // cargar los comentarios de cancion
+    	$('#playlist a').click(function(event) { // cargar los comentarios de cancion
+			var audioId = $('#audioIDcomment').val();
+			console.log(audioId);
+			$.get('getall_coment_cancion', {
+				idAudio: audioId
+			}, function(data){
+				$('#listaComentariosCancion').html(data);
+			});
+		});
+    });
+    </script>
+    
+    </main><!--@Page Content-->
+</div><!--@#app-->
+
+<script>
+    $(document).ready(function() {
+    	$('#iconoPlay').replaceWith("<i id='iconoPlay' class='icon-play s-28'></i>")
+    	$('#playlist a').click(function(event) { // cargar los comentarios de cancion
 			var audioId = $('#audioIDcomment').val();
 			console.log(audioId);
 			$.get('getall_coment_cancion', {
@@ -1210,17 +1244,7 @@ String email = (String) session.getAttribute("email");
 			});
 		});
     });
-
-    function rellenarCamposP(size,song) {
-    	var i;
-    	for (i=0; i <size; i++){
-    	  	document.getElementsByName("idAudioP")[i].value = song;
-    	}
-    }
-
     </script>
-    
-    </main><!--@Page Content-->
-</div><!--@#app-->
+
 </body>
 </html>

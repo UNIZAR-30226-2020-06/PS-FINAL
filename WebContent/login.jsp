@@ -114,8 +114,8 @@ pageEncoding="UTF-8"%>
                                 <div class="body">
                                     <div class="form-group form-float">
                                         <div class="form-line">
-                                            <input type="text" name="email" class="form-control">
-                                            <label class="form-label">Email</label>
+                                            <input type="text" name="nombre" class="form-control">
+                                            <label class="form-label">Nombre de usuario</label>
                                         </div>
                                     </div>
                                     <div class="form-group form-float">
@@ -131,7 +131,7 @@ pageEncoding="UTF-8"%>
                                     <%
 									if (aux!=null) {
 									%>
-									<h1 style="color: #F00;font-size: 14px;" >Email o contraseña incorrectos.</h1>
+									<h1 style="color: #F00;font-size: 14px;" >Nombre de usuario o contraseña incorrectos.</h1>
 									<% } %>
 
                                 </div>

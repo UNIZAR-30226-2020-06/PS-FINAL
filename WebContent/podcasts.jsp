@@ -250,6 +250,7 @@ int pagina = Integer.valueOf((String) request.getParameter("pagina"));
 
 <%
 String hayfoto = (String) session.getAttribute("hayfoto");
+String imagen = (String) session.getAttribute("imagen");
 %>
 
 <!-- BARRA DE ARRIBA FIJA -->
@@ -282,7 +283,7 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 					<a href="#" class="nav-link" data-toggle="dropdown">
 						<figure class="avatar">
 							<%if (hayfoto!=null){ %>
-	                    	<img src="${pageContext.request.contextPath}/cargar_imagen">
+	                    	<img src=<%=imagen %>>
 	                    	<%} else {%>
 	                    	<img src="assets/img/fondo1.jpg">
 	                    	<%} %>
@@ -384,7 +385,7 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 							<div class="col-lg-3 col-md-4 col-sm-6 my-2">
 								<figure>
 									<div class="img-wrapper">
-										<img src="assets/img/demo/a3.jpg" alt="/">
+										<img src=${podcast.getImagen() } alt="/">
 										<div class="img-overlay text-white text-center">
 										<!--href="obtener_info_lr?nombre=${lista.getNombre()}"-->
 											<a 	 href="obtener_info_podcast?nombre=${podcast.getNombre()}&pagina=<%=pagina %>" >

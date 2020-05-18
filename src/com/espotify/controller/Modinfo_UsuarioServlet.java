@@ -54,11 +54,8 @@ public class Modinfo_UsuarioServlet extends HttpServlet {
 			if(email != null && !email.equals("")) session.setAttribute("email", email);
 			if(descripcion != null) session.setAttribute("descripcion", descripcion);
 			if(imagen != null && !imagen.equals("")) {
-				FileInputStream imagenBinaria = new FileInputStream(imagen);
-				byte[] bytes = IOUtils.toByteArray(imagenBinaria);
-				session.setAttribute("imagen", bytes); // Se pasa la imagen como un Blob
+				session.setAttribute("imagen", imagen); // Se pasa la imagen como un Blob
 				session.setAttribute("hayfoto", "si");
-				imagenBinaria.close();
 			}
 			
 			//request.getRequestDispatcher("usuario.jsp").forward(request, response);

@@ -232,6 +232,7 @@ pageEncoding="UTF-8"%>
 
 <%
 String hayfoto = (String) session.getAttribute("hayfoto");
+String imagen = (String) session.getAttribute("imagen");
 %>
 
 <!-- BARRA DE ARRIBA FIJA -->
@@ -264,7 +265,7 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 					<a href="#" class="nav-link" data-toggle="dropdown">
 						<figure class="avatar">
 							<%if (hayfoto!=null){ %>
-	                    	<img src="${pageContext.request.contextPath}/cargar_imagen">
+	                    	<img src=<%=imagen %>>
 	                    	<%} else {%>
 	                    	<img src="assets/img/fondo1.jpg">
 	                    	<%} %>
@@ -371,7 +372,7 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 								<div class="row my-5 pt-5">
 
 									<div class="col-md-3">
-										<img src="assets/img/demo/a3.jpg" alt="/">
+										<img src=${infoPodcast.getImagen() } alt="/">
 									</div>
 									<div class="col-md-9">
 										<div class="d-md-flex align-items-center justify-content-between">
@@ -447,7 +448,7 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 			</div>
 		</div>
 	</div>
-</div>
+
 
 <!-- AÑADIR CAPITULO A PODCAST -->
 <div class="overlay-pop-up" id="overlay-anadir-listas-reproduccion">
@@ -482,7 +483,21 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 	</div>
 </div>
 <!-- END AÑADIR CAPITULO A PODCAST -->
+<script>
+    $(document).ready(function() {
+    	$('#iconoPlay').replaceWith("<i id='iconoPlay' class='icon-play s-28'></i>")
+    	$('#playlist a').click(function(event) { // cargar los comentarios de cancion
+			var audioId = $('#audioIDcomment').val();
+			console.log(audioId);
+			$.get('getall_coment_cancion', {
+				idAudio: audioId
+			}, function(data){
+				$('#listaComentariosCancion').html(data);
+			});
+		});
 
+    });
+    </script>
 
 </main><!--@Page Content-->
 </div><!--@#app-->
@@ -528,6 +543,55 @@ String hayfoto = (String) session.getAttribute("hayfoto");
     	}
 
     }
+    </script>
+    <script>
+    $(document).ready(function() {
+    	$('#iconoPlay').replaceWith("<i id='iconoPlay' class='icon-play s-28'></i>")
+    	$('#playlist a').click(function(event) { // cargar los comentarios de cancion
+			var audioId = $('#audioIDcomment').val();
+			console.log(audioId);
+			$.get('getall_coment_cancion', {
+				idAudio: audioId
+			}, function(data){
+				$('#listaComentariosCancion').html(data);
+			});
+		});
+    	$('#publicar').click(function(event) { // publicar comentario en cancion
+			var textarea = $('#textarea').val();
+			var audioId = $('#audioIDcomment').val();
+			var idUsuarioVar = <%=session.getAttribute("id")%>;
+			console.log(textarea);
+			console.log(audioId);
+			console.log(idUsuarioVar);
+			if(textarea != ""){
+				$.get('anyadir_coment_cancion', {
+					descripcion : textarea,
+					idUsuario : idUsuarioVar,
+					idAudio: audioId
+				}, function(){
+					document.getElementById('textarea').value="";
+					$('.playlist a').ready(function(event) { // cargar los comentarios de cancion
+						var audioId = $('#audioIDcomment').val();
+						console.log(audioId);
+						$.get('getall_coment_cancion', {
+							idAudio: audioId
+						}, function(data){
+							$('#listaComentariosCancion').html(data);
+						});
+					});
+				});
+			}
+		});
+    	$('#borrarComentario').click(function(event) { // borrar comentario en cancion
+			var idComentario = $('#comentarioID').val();
+			console.log(idComentario);
+			$.get('borrar_coment_cancion', {
+				idComentario: idComentario
+			}, function(responseText){
+				$('#contenido').html(responseText);
+			});
+		});
+    });
     </script>
 </body>
 

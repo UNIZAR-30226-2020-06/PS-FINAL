@@ -619,6 +619,33 @@
 	</servlet-mapping>
 	
 	<servlet>
+        <servlet-name>modImagenUsuario</servlet-name>
+	    <servlet-class>com.espotify.controller.SubirImagenUsuario_Servlet</servlet-class>
+	</servlet>
+	    <servlet-mapping>
+		 	<servlet-name>modImagenUsuario</servlet-name>
+	       	<url-pattern>/modImagenUsuario</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+        <servlet-name>modImagenLista</servlet-name>
+	    <servlet-class>com.espotify.controller.SubirImagenListRep_Servlet</servlet-class>
+	</servlet>
+	    <servlet-mapping>
+		 	<servlet-name>modImagenLista</servlet-name>
+	       	<url-pattern>/modImagenLista</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+        <servlet-name>modImagenPodcast</servlet-name>
+	    <servlet-class>com.espotify.controller.SubirImagenPodcast_Servlet</servlet-class>
+	</servlet>
+	    <servlet-mapping>
+		 	<servlet-name>modImagenPodcast</servlet-name>
+	       	<url-pattern>/modImagenPodcast</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
         <servlet-name>iniciar_transmision</servlet-name>
 	    <servlet-class>com.espotify.controller.IniciarTransimision_Servlet</servlet-class>
 	</servlet>
@@ -886,6 +913,8 @@
 		<servlet-name>modifNombre_genero</servlet-name>
 		<url-pattern>/modifNombre_genero</url-pattern>
 	</servlet-mapping>
+	
+	
 	
 	<context-param>
     <param-name>directorio_ficheroTmp</param-name>

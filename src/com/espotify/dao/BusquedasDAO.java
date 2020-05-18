@@ -138,7 +138,7 @@ public class BusquedasDAO {
 												+ "WHERE users.nombre LIKE ? "
 												+ "AND users.id NOT IN (SELECT usuario2 FROM Reproductor_musica.Sigue))";
 	/*
-	 * Parametros: nombre o parte del nombre del título de una canción
+	 * Parametros: nombre o parte del nombre del tï¿½tulo de una canciï¿½n
 	 * Funcionalidad: Completa la lista de datos tipo Audio (id,url,titulo cancion,nombre del autor,nombre del genero al que pertenece)	
 	 */
 	public static void searchCanciones(String nombre,List<Audio> audios,Connection conn) {
@@ -164,7 +164,7 @@ public class BusquedasDAO {
 	}
 	
 	/*
-	 * Parametros: nombre o parte del nombre del título de una canción
+	 * Parametros: nombre o parte del nombre del tï¿½tulo de una canciï¿½n
 	 * Funcionalidad: Completa la lista de datos tipo Audio (id,url,titulo cancion,nombre del autor,nombre del genero al que pertenece)	
 	 */
 	public static void searchCancionesCompletas(String nombre,List<Audio> audios) {
@@ -190,7 +190,7 @@ public class BusquedasDAO {
 	}
 	
 	/*
-	 * Parametros: nombre o parte del nombre del título de un capítulo Podcast
+	 * Parametros: nombre o parte del nombre del tï¿½tulo de un capï¿½tulo Podcast
 	 * Funcionalidad: Completa la lista de datos tipo Audio (id,url,titulo capitulo,nombre del autor,nombre del genero al que pertenece)	
 	 */
 	public static void searchCapitulos(String nombre,List<Audio> audios,Connection conn) {
@@ -215,7 +215,7 @@ public class BusquedasDAO {
 		}
 	}
 	/*
-	 * Parametros: nombre o parte del nombre del título de un capítulo Podcast
+	 * Parametros: nombre o parte del nombre del tï¿½tulo de un capï¿½tulo Podcast
 	 * Funcionalidad: Completa la lista de datos tipo Audio (id,url,titulo capitulo,nombre del autor,nombre del genero al que pertenece)	
 	 */
 	public static void searchCapitulosCompletas(String nombre,List<Audio> audios) {
@@ -241,7 +241,7 @@ public class BusquedasDAO {
 	}
 	
 	/*
-	 * Parametros: nombre o parte del nombre del título de una Lista de reproducción
+	 * Parametros: nombre o parte del nombre del tï¿½tulo de una Lista de reproducciï¿½n
 	 * Funcionalidad: Completa la lista de datos tipo ListaReproduccion (id,nombre del creador,titulo,descripcion,URL de la imagen,tipo de lista)	
 	 */
 	public static void searchListas(String nombre,List<ListaReproduccion> listas,Connection conn) {
@@ -266,7 +266,7 @@ public class BusquedasDAO {
 		}
 	}
 	/*
-	 * Parametros: nombre o parte del nombre del título de una Lista de reproducción
+	 * Parametros: nombre o parte del nombre del tï¿½tulo de una Lista de reproducciï¿½n
 	 * Funcionalidad: Completa la lista de datos tipo ListaReproduccion (id,nombre del creador,titulo,descripcion,URL de la imagen,tipo de lista)	
 	 */
 	public static void searchListasCompletas(String nombre,List<ListaReproduccion> listas) {
@@ -292,7 +292,7 @@ public class BusquedasDAO {
 	}
 	
 	/*
-	 * Parametros: nombre o parte del nombre del título de un Podcast
+	 * Parametros: nombre o parte del nombre del tï¿½tulo de un Podcast
 	 * Funcionalidad: Completa la lista de datos tipo ListaReproduccion (id,nombre del creador,titulo,descripcion,URL de la imagen,tipo de lista)	
 	 */
 	public static void searchPodcasts(String nombre,List<ListaReproduccion> podcasts,Connection conn) {
@@ -317,7 +317,7 @@ public class BusquedasDAO {
 		}
 	}
 	/*
-	 * Parametros: nombre o parte del nombre del título de un Podcast
+	 * Parametros: nombre o parte del nombre del tï¿½tulo de un Podcast
 	 * Funcionalidad: Completa la lista de datos tipo ListaReproduccion (id,nombre del creador,titulo,descripcion,URL de la imagen,tipo de lista)	
 	 */
 	public static void searchPodcastsCompletas(String nombre,List<ListaReproduccion> podcasts) {
@@ -343,7 +343,7 @@ public class BusquedasDAO {
 	}
     
 	/*
-	 * Parametros: nombre o parte del nombre del título de una Transmisión en Vivo
+	 * Parametros: nombre o parte del nombre del tï¿½tulo de una Transmisiï¿½n en Vivo
 	 * Funcionalidad: Completa la lista de datos tipo Transmision (id,titulo,descripcion,booleano para indicar si esta activa,id del creador,URL de la estacion)	
 	 */
 	public static void searchTransmisiones(String nombre,List<Transmision> transmisiones,Connection conn) {
@@ -368,7 +368,7 @@ public class BusquedasDAO {
 		}
 	}
 	/*
-	 * Parametros: nombre o parte del nombre del título de una Transmisión en Vivo
+	 * Parametros: nombre o parte del nombre del tï¿½tulo de una Transmisiï¿½n en Vivo
 	 * Funcionalidad: Completa la lista de datos tipo Transmision (id,titulo,descripcion,booleano para indicar si esta activa,id del creador,URL de la estacion)	
 	 */
 	public static void searchTransmisionesCompletas(String nombre,List<Transmision> transmisiones) {
@@ -409,7 +409,9 @@ public class BusquedasDAO {
 			while(rs.next()){
 				Usuario result = new Usuario(rs.getString("nombre"), rs.getString("descripcion"), 
 										rs.getString("mail"), rs.getString("id"), rs.getString("imagen"));
-				usuarios.add(result);
+				
+				String id = rs.getString("id");
+				if (!id.equals("100")) usuarios.add(result);
 			}
 						
 		} catch(SQLException se) {
@@ -431,8 +433,9 @@ public class BusquedasDAO {
 			while(rs.next()){
 				Usuario result = new Usuario(rs.getString("nombre"), rs.getString("descripcion"), 
 						rs.getString("mail"), rs.getString("id"), rs.getString("imagen"));
-				usuarios.add(result);
 				
+				String id = rs.getString("id");
+				if (!id.equals("100")) usuarios.add(result);
 			}
 						
 		} catch(SQLException se) {
@@ -443,8 +446,8 @@ public class BusquedasDAO {
 	}
 	/*
 	 * Parametros: nombre o parte de un nombre, lista de canciones, lista de capitulos, lista de listas,
-	 * 			   lista de podcasts, lista de transmisiones, lista de usuarios (todas vacías con valor null)
-	 * Funcionalidad: Asigna a las listas vacías los resultados de buscar por nombre
+	 * 			   lista de podcasts, lista de transmisiones, lista de usuarios (todas vacï¿½as con valor null)
+	 * Funcionalidad: Asigna a las listas vacï¿½as los resultados de buscar por nombre
 	 */
 	public static void searchAll(String nombre, List<Audio> canciones, List<Audio> capitulos, 
 					List<ListaReproduccion> listas, List<ListaReproduccion> podcasts,

@@ -200,6 +200,7 @@ int pagina = Integer.valueOf((String) request.getParameter("pagina"));
 
 <%
 String hayfoto = (String) session.getAttribute("hayfoto");
+String imagen = (String) session.getAttribute("imagen");
 %>
 
 <!-- BARRA DE ARRIBA FIJA -->
@@ -232,7 +233,7 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 					<a href="#" class="nav-link" data-toggle="dropdown">
 						<figure class="avatar">
 							<%if (hayfoto!=null){ %>
-	                    	<img src="${pageContext.request.contextPath}/cargar_imagen">
+	                    	<img src=<%=imagen %>>
 	                    	<%} else {%>
 	                    	<img src="assets/img/fondo1.jpg">
 	                    	<%} %>
@@ -383,7 +384,7 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 							<div class="col-lg-3 col-md-4 col-sm-6 my-2" style="top:20px;">
 								<figure>
 									<div class="img-wrapper">
-										<img src="assets/img/demo/a1.jpg" alt="/">
+										<img src=${lista.getImagen() } alt="/">
 										<div class="img-overlay text-white text-center">
 											<a href="obtener_info_lr?nombre=${lista.getNombre()}&pagina=<%=pagina %>" >
 												<div class="figcaption mt-3">
@@ -507,6 +508,21 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 	</div>	
 <!-- END BORRAR COMENTARIO DE CANCION -->
 
+<script>
+    $(document).ready(function() {
+    	$('#iconoPlay').replaceWith("<i id='iconoPlay' class='icon-play s-28'></i>")
+    	$('#playlist a').click(function(event) { // cargar los comentarios de cancion
+			var audioId = $('#audioIDcomment').val();
+			console.log(audioId);
+			$.get('getall_coment_cancion', {
+				idAudio: audioId
+			}, function(data){
+				$('#listaComentariosCancion').html(data);
+			});
+		});
+    });
+    </script>
+
 </main><!--@Page Content-->
 </div><!--@#app-->
 
@@ -515,10 +531,50 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 <script src="https://maps.googleapis.com/maps/api/js?&amp;key=AIzaSyC3YkZNNySdyR87o83QEHWglHfHD_PZqiw&amp;libraries=places"></script>
 <script src="assets/js/app.js"></script>
 <script  src="assets/js/mostrar-popup.js"></script>
-<script>
+
+    <script>
+	function loopAudio(){
+		var audio = document.getElementsByTagName("audio")[0];
+		if(audio.loop){
+			audio.loop = false;
+		}else{
+			audio.loop = true;
+		}
+		//audio.load();
+	}
+	
+	function subirVol(){
+		var audio = document.getElementsByTagName("audio")[0];
+		audio.volume+=0.1;
+	}
+	
+	function bajarVol(){
+		var audio = document.getElementsByTagName("audio")[0];
+		audio.volume-=0.1;
+	}
+	
+	function muteVol(){
+		var audio = document.getElementsByTagName("audio")[0];
+		if(audio.muted){
+			audio.muted = false;
+		}else{
+			audio.muted = true;
+		}
+	}
+	</script>
+	<script>
+    function rellenarCampos(size,song) {
+    	var i;
+    	for (i=0; i <size; i++){
+    	  	document.getElementsByName("idAudio")[i].value = song;
+    	}
+
+    }
+    </script>
+	<script>
     $(document).ready(function() {
     	$('#iconoPlay').replaceWith("<i id='iconoPlay' class='icon-play s-28'></i>")
-    	$('.playlist a').click(function(event) { // cargar los comentarios de cancion
+    	$('#playlist a').click(function(event) { // cargar los comentarios de cancion
 			var audioId = $('#audioIDcomment').val();
 			console.log(audioId);
 			$.get('getall_coment_cancion', {
@@ -564,46 +620,6 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 		});
     });
     </script>
-    <script>
-	function loopAudio(){
-		var audio = document.getElementsByTagName("audio")[0];
-		if(audio.loop){
-			audio.loop = false;
-		}else{
-			audio.loop = true;
-		}
-		//audio.load();
-	}
-	
-	function subirVol(){
-		var audio = document.getElementsByTagName("audio")[0];
-		audio.volume+=0.1;
-	}
-	
-	function bajarVol(){
-		var audio = document.getElementsByTagName("audio")[0];
-		audio.volume-=0.1;
-	}
-	
-	function muteVol(){
-		var audio = document.getElementsByTagName("audio")[0];
-		if(audio.muted){
-			audio.muted = false;
-		}else{
-			audio.muted = true;
-		}
-	}
-	</script>
-	<script>
-    function rellenarCampos(size,song) {
-    	var i;
-    	for (i=0; i <size; i++){
-    	  	document.getElementsByName("idAudio")[i].value = song;
-    	}
-
-    }
-    </script>
-
 
 </body>
 

@@ -169,6 +169,7 @@ String nombre = (String) session.getAttribute("nombre");
 
 <%
 String hayfoto = (String) session.getAttribute("hayfoto");
+String imagen = (String) session.getAttribute("imagen");
 %>
 
 <!-- BARRA DE ARRIBA FIJA -->
@@ -201,9 +202,9 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 					<a href="#" class="nav-link" data-toggle="dropdown">
 						<figure class="avatar">
 							<%if (hayfoto!=null){ %>
-	                    	<img src="${pageContext.request.contextPath}/cargar_imagen">
-	                    	<%} else {%>
-	                    	<img src="assets/img/fondo1.jpg">
+								<img src=<%=imagen %>>	                    	
+							<%} else {%>
+	                    		<img src="assets/img/fondo1.jpg">
 	                    	<%} %>
 						</figure>
 						<i class="icon-more_vert "></i>

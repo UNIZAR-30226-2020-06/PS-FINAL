@@ -198,6 +198,7 @@ pageEncoding="UTF-8"%>
 
 <%
 String hayfoto = (String) session.getAttribute("hayfoto");
+String imagen = (String) session.getAttribute("imagen");
 %>
 
 <!-- BARRA DE ARRIBA FIJA -->
@@ -230,7 +231,7 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 					<a href="#" class="nav-link" data-toggle="dropdown">
 						<figure class="avatar">
 							<%if (hayfoto!=null){ %>
-	                    	<img src="${pageContext.request.contextPath}/cargar_imagen">
+	                    	<img src=<%=imagen %>>
 	                    	<%} else {%>
 	                    	<img src="assets/img/fondo1.jpg">
 	                    	<%} %>
@@ -358,7 +359,7 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 					                </c:choose>
 					                    	<c:choose>
 					                    		<c:when test="${usuario.getImagen()!=null}">
-					                    			<img src="${pageContext.request.contextPath}/cargar_imagen">
+					                    			<img src=${usuario.getImagen() }>
 					                    		</c:when>
 					                    		<c:otherwise>
 					                    			<img src="assets/img/demo/u7.jpg" alt="">
@@ -380,7 +381,7 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 								<div class="col-lg-3 col-md-4 col-sm-6 my-2" style="top:20px;">
 									<figure>
 										<div class="img-wrapper">
-											<img src="assets/img/demo/a1.jpg" alt="/">
+											<img src=${lista.getImagen() } alt="/">
 											<div class="img-overlay text-white text-center">
 											<c:choose>
 					                    		<c:when test="${lista.getUsuario()==nombre }">
@@ -414,18 +415,18 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 										<div class="playlist">
 											<ul id="playlist" class="playlist list-group">
 												<c:forEach var="cancion" items="${canciones}">                    
-													<div style="margin-bottom: -1px;" class="cancion">
-														<li class="list-group-item my-1">																
-															<div class="d-flex align-items-center">
-																<div class="col-1">
-																	<a class="no-ajaxy media-url" href="${cancion.getUrl()}">
-																		<i id='iconoPlay' class='icon-play s-28'></i>
-																	</a>					
-																</div>
-																<div class="col-6">
-																	<h6>${cancion.getTitulo()}</h6>${cancion.getGenero()}
-																</div>
-																<a href="#" class="snackbar ml-3" data-text="Te gusta esta canción"
+												<div style="margin-bottom: -1px;" class="cancion">
+													<li class="list-group-item my-1">
+														<div class="d-flex align-items-center">
+															<div class="col-1">
+																<a class="no-ajaxy media-url" href="${cancion.getUrl()}">
+																	<i class="icon-play s-28"></i>
+																</a>					
+															</div>
+															<div class="col-6">
+																<h6>${cancion.getTitulo()}</h6>${cancion.getGenero()}
+															</div>
+															<a href="#" class="snackbar ml-3" data-text="Te gusta esta canción"
 																   data-pos="top-right"
 																   data-showAction="true"
 																   data-actionText="ok"
@@ -435,16 +436,16 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 																<a href="#" data-toggle="control-sidebar" onclick="document.getElementById('audioIDcomment').value = '${cancion.getId()}';">
 											                        <i style="position: relative;left: 10px;" class="icon-commenting-o s-24"></i>
 											                    </a>
-											                    <div class="ml-auto">
-																	<a href="anyadir_cancion_fav?idAudio=${cancion.getId()}" class="btn-favorito icon-star" ></a>
-																	<a href="#" class="btn-icono icon-indent" onclick="rellenarCampos('${listaslr.size()}','${cancion.getId()}');
-																	document.getElementById('overlay-anadir-listas-reproduccion').classList.add('active')"
-																		></a>
-																</div>
+															<div class="ml-auto">
+																<a href="anyadir_cancion_fav?idAudio=${cancion.getId()}" class="btn-favorito icon-star" ></a>
+																<a href="#" class="btn-icono icon-indent" onclick="rellenarCampos('${listaslr.size()}','${cancion.getId()}');
+																document.getElementById('overlay-anadir-listas-reproduccion').classList.add('active')";
+																	></a>
 															</div>
-														</li>
-													</div>								                
-												</c:forEach>
+														</div>
+													</li>
+												</div>								                
+											</c:forEach>
 											</ul>
 										</div>
 									</div>
@@ -482,7 +483,7 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 								<div class="col-lg-3 col-md-4 col-sm-6 my-2" style="top:20px;">
 									<figure>
 										<div class="img-wrapper">
-											<img src="assets/img/demo/a1.jpg" alt="/">
+											<img src=${podcast.getImagen() } alt="/">
 											<div class="img-overlay text-white text-center">
 												<c:choose>
 					                    		<c:when test="${podcast.getUsuario()==nombre }">
@@ -515,36 +516,36 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 									<div class="col-md-12">
 										<div class="playlist">
 											<ul id="playlist" class="playlist list-group">
-												<c:forEach var="cancion" items="${capitulos}">                    
-													<div style="margin-bottom: -1px;" class="cancion">
-														<li class="list-group-item my-1">																
-															<div class="d-flex align-items-center">
-																<div class="col-1">
-																	<a class="no-ajaxy media-url" href="${cancion.getUrl()}">
-																		<i id="iconoPlay" class="icon-play s-28"></i>
-																	</a>					
+												<c:forEach var="capitulo" items="${capitulos}"> 
+													<li class="list-group-item my-1">                   
+														<div style="margin-bottom: -1px;" class="cancion">
+															
+																<div class="d-flex align-items-center">
+																	<div class="col-1">
+																		<a class="no-ajaxy media-url" href="${capitulo.getUrl()}">
+																			<i class="icon-play s-28"></i>
+																		</a>					
+																	</div>
+																	<div class="col-6">
+																		<h6>${capitulo.getTitulo()}</h6>${capitulo.getGenero()}
+																	</div>
+																	<a href="#" class="snackbar ml-3" data-text="Te gusta esta canción"
+																		   data-pos="top-right"
+																		   data-showAction="true"
+																		   data-actionText="ok"
+																		   data-actionTextColor="#fff"
+																		   data-backgroundColor="#0c101b"><i class="icon-thumbs-o-up s-24"></i>
+																		</a>
+																		<a href="#" data-toggle="control-sidebar">
+													                        <i style="position: relative;left: 10px;" class="icon-commenting-o s-24"></i>
+													                    </a>															
+																	<div class="ml-auto">
+																		<a href="#" class="btn-icono icon-indent" onclick="rellenarCampos('${podcasts.size()}','${capitulo.getId()}');
+																		document.getElementById('overlay-anadir-podcast').classList.add('active');"></a>													
+																	</div>
 																</div>
-																<div class="col-6">
-																	<h6>${cancion.getTitulo()}</h6>${cancion.getGenero()}
-																</div>
-																<a href="#" class="snackbar ml-3" data-text="Te gusta esta canción"
-																   data-pos="top-right"
-																   data-showAction="true"
-																   data-actionText="ok"
-																   data-actionTextColor="#fff"
-																   data-backgroundColor="#0c101b"><i class="icon-thumbs-o-up s-24"></i>
-																</a>
-																<a href="#" data-toggle="control-sidebar">
-												                        <i style="position: relative;left: 10px;" class="icon-commenting-o s-24"></i>
-												                    </a>
-																<div class="ml-auto">
-																	<a href="#" class="btn-icono icon-indent" onclick="rellenarCamposP('${podcastslr.size()}','${capitulo.getId()}');
-																	document.getElementById('overlay-anadir-podcast').classList.add('active')";
-																		></a>
-																</div>
-															</div>
-														</li>
-													</div>								                
+														</div>
+													</li>								                
 												</c:forEach>
 											</ul>
 										</div>
@@ -559,6 +560,20 @@ String hayfoto = (String) session.getAttribute("hayfoto");
         </div>
     </div>
 
+<script>
+    $(document).ready(function() {
+    	$('#iconoPlay').replaceWith("<i id='iconoPlay' class='icon-play s-28'></i>")
+    	$('#playlist a').click(function(event) { // cargar los comentarios de cancion
+			var audioId = $('#audioIDcomment').val();
+			console.log(audioId);
+			$.get('getall_coment_cancion', {
+				idAudio: audioId
+			}, function(data){
+				$('#listaComentariosCancion').html(data);
+			});
+		});
+    });
+    </script>
 
 </main><!--@Page Content-->
 </div><!--@#app-->
@@ -577,7 +592,7 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 							<figure>
 								<div class="img-wrapper">
 			
-									<img src="assets/img/demo/a1.jpg" alt="/">
+									<img src=${listalr.getImagen() } alt="/">
 									
 									<div class="figure-title text-center p-2">
 										<h5>${listalr.getNombre()}</h5>
@@ -615,7 +630,7 @@ String hayfoto = (String) session.getAttribute("hayfoto");
 							<figure>
 								<div class="img-wrapper">
 			
-									<img src="assets/img/demo/a1.jpg" alt="/">
+									<img src=${podcast.getImagen() } alt="/">
 									
 									<div class="figure-title text-center p-2">
 										<h5>${podcast.getNombre()}</h5>
@@ -716,7 +731,7 @@ String hayfoto = (String) session.getAttribute("hayfoto");
     <script>
     $(document).ready(function() {
     	$('#iconoPlay').replaceWith("<i id='iconoPlay' class='icon-play s-28'></i>")
-    	$('.playlist a').click(function(event) { // cargar los comentarios de cancion
+    	$('#playlist a').click(function(event) { // cargar los comentarios de cancion
 			var audioId = $('#audioIDcomment').val();
 			console.log(audioId);
 			$.get('getall_coment_cancion', {
