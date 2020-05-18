@@ -3,8 +3,6 @@ package com.espotify.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -52,23 +50,7 @@ public class AndroidGet_PodcastServlet extends HttpServlet {
         for(ListaReproduccion lista : listaPodcasts) {
         	nombresPodcast += lista.getNombre() + "|";
         	descripcionesPodcast += lista.getDescripcion() + "|";
-        	
-        	if(lista.getImagen() != null && !lista.getImagen().equals("")) {
-        		URL obj = new URL(lista.getImagen());
-        		HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-        		con.setRequestMethod("GET");
-
-        		int responseCode = con.getResponseCode();
-        		
-        		if(responseCode == 200) {
-        			imagenesPodcast += lista.getImagen() + "|";
-        		} else {
-        			imagenesPodcast += "|";
-        		}
-        	} else {
-        		imagenesPodcast += "|";
-        	}
-        	
+        	imagenesPodcast += lista.getImagen() + "|";
         	hayPodcasts = true;
         }
         

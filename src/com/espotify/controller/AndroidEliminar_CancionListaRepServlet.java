@@ -75,8 +75,6 @@ public class AndroidEliminar_CancionListaRepServlet extends HttpServlet {
         	respuestaPeticion.put("estado", "fail");
         }
         
-        
-        
         PrintWriter out = response.getWriter();
         response.setContentType("application/json");
         response.setCharacterEncoding("utf-8");

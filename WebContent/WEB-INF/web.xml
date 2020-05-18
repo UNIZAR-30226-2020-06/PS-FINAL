@@ -92,6 +92,24 @@
 		<url-pattern>/obtener_randomaudios_android</url-pattern>
 	</servlet-mapping>
 	
+	<servlet>
+		<servlet-name>AndroidGet_AllCapitulosPodcastServlet</servlet-name>
+		<servlet-class>com.espotify.controller.AndroidGet_AllCapitulosPodcastServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AndroidGet_AllCapitulosPodcastServlet</servlet-name>
+		<url-pattern>/todos_capitulos_android</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>AndroidGet_AllListaRepServlet</servlet-name>
+		<servlet-class>com.espotify.controller.AndroidGet_AllListaRepServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AndroidGet_AllListaRepServlet</servlet-name>
+		<url-pattern>/todas_listas_android</url-pattern>
+	</servlet-mapping>
+	
 	
 	<servlet>
 		<servlet-name>AndroidSubir_CancionServlet</servlet-name>
@@ -165,6 +183,14 @@
 		<url-pattern>/anyadir_capitulo_android</url-pattern>
 	</servlet-mapping>
 	
+	<servlet>
+		<servlet-name>AndroiEliminar_UsuarioServlet</servlet-name>
+		<servlet-class>com.espotify.controller.AndroiEliminar_UsuarioServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AndroiEliminar_UsuarioServlet</servlet-name>
+		<url-pattern>/eliminar_usuario_android</url-pattern>
+	</servlet-mapping>
 	
 	<servlet>
 		<servlet-name>AndroidModificar_CapituloServlet</servlet-name>
