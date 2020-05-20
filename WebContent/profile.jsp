@@ -343,8 +343,8 @@ String imagen = (String) session.getAttribute("imagen");
     <div class="card no-b shadow no-r">
         <div class="row no-gutters">
 			<div class="col-md-4 b-r">
-			<button style="position: absolute;left: 10px;border-color: transparent;color: #fd7e14;background-color: #fd7e1400;" class="btn btn-abrir-popup-perfil btn-sm  mt-3" id="abrir-popup-perfil"><i class="icon-edit  s-24"></i>Editar perfil</button>
-			<button style="position: absolute;left: 130px;border-color: transparent;color: #fd7e14;background-color: #fd7e1400;" class="btn btn-abrir-popup-perfil btn-sm  mt-3" id="abrir-popup-cuenta"><i class="icon-cog  s-24"></i>Cambiar contraseña</button>
+				<button style="position: absolute;left: 10px;border-color: transparent;color: #fd7e14;background-color: #fd7e1400;" class="btn btn-abrir-popup-perfil btn-sm  mt-3" id="abrir-popup-perfil"><i class="icon-edit  s-24"></i>Editar perfil</button>
+				<button style="position: absolute;left: 130px;border-color: transparent;color: #fd7e14;background-color: #fd7e1400;" class="btn btn-abrir-popup-perfil btn-sm  mt-3" id="abrir-popup-cuenta"><i class="icon-cog  s-24"></i>Cambiar contraseña</button>
                 <div class="text-center p-5 mt-5">
 					
                     <figure style="width: 130px;height: 130px;width-max: 50%;" class="avatar avatar-xl">
@@ -451,24 +451,24 @@ String imagen = (String) session.getAttribute("imagen");
 															<div class="col-6">
 																<h6>${cancion.getTitulo()}</h6>${cancion.getGenero()}
 															</div>
-															<a href="#" class="snackbar ml-3" data-text="Te gusta esta canción"
+															<a title="Like" href="#" class="snackbar ml-3" data-text="Te gusta esta canción"
 															   data-pos="top-right"
 															   data-showAction="true"
 															   data-actionText="ok"
 															   data-actionTextColor="#fff"
 															   data-backgroundColor="#0c101b"><i class="icon-thumbs-o-up s-24"></i>
 															</a>
-															<a href="#" data-toggle="control-sidebar" onclick="document.getElementById('audioIDcomment').value = '${cancion.getId()}';">
+															<a title="Comentarios" href="#" data-toggle="control-sidebar" onclick="document.getElementById('audioIDcomment').value = '${cancion.getId()}';">
 										                        <i style="position: relative;left: 10px;" class="icon-commenting-o s-24"></i>
 										                    </a>
 															<div class="ml-auto">
-																<a href="anyadir_cancion_fav?idAudio=${cancion.getId()}&pagina=<%=pagina %>" class="btn-favorito icon-star" ></a>
-																<a href="${pageContext.request.contextPath}/ir_modificar?id_audio=${cancion.getId()}&cancion=true&pagina=<%=pagina %>" class="btn-icono icon-pencil" ></a>
-																<a href="#" class="btn-icono icon-indent" onclick="rellenarCampos('${listaslr.size()}','${cancion.getId()}');
+																<a title="Favoritos" href="anyadir_cancion_fav?idAudio=${cancion.getId()}&pagina=<%=pagina %>" class="btn-favorito icon-star" ></a>
+																<a title="Editar información" href="${pageContext.request.contextPath}/ir_modificar?id_audio=${cancion.getId()}&cancion=true&pagina=<%=pagina %>" class="btn-icono icon-pencil" ></a>
+																<a title="Añadir a lista de reproducción" href="#" class="btn-icono icon-indent" onclick="rellenarCampos('${listaslr.size()}','${cancion.getId()}');
 																document.getElementById('overlay-anadir-listas-reproduccion').classList.add('active');"
 
 																	></a>
-																<a href="${pageContext.request.contextPath}/eliminar_cancion?id_cancion=${cancion.getId()}&pagina=<%=pagina %>" class="btn-icono icon-trash-o" ></a>
+																<a title="Borrar canción del perfil" href="${pageContext.request.contextPath}/eliminar_cancion?id_cancion=${cancion.getId()}&pagina=<%=pagina %>" class="btn-icono icon-trash-o" ></a>
 															</div>
 														</div>
 													</li>
@@ -582,7 +582,9 @@ String imagen = (String) session.getAttribute("imagen");
 																<a href="${pageContext.request.contextPath}/ir_modificar?id_audio=${capitulo.getId()}&cancion=false&pagina=<%=pagina %>" class="btn-icono icon-pencil" ></a>
 																<a href="#" class="btn-icono icon-indent" onclick="rellenarCamposP('${podcast.size()}','${capitulo.getId()}');
 																document.getElementById('overlay-anadir-podcast').classList.add('active');"></a>
-																<a href="${pageContext.request.contextPath}/eliminar_capitulo?id_capitulo=${capitulo.getId()}&pagina=<%=pagina %>" class="btn-icono icon-trash-o" ></a>
+																<a href="#" 
+																onclick="document.getElementById('capituloIDborrar').value = '${capitulo.getId()}';
+																document.getElementById('overlay-borrar-capitulo').classList.add('active');" class="btn-icono icon-trash-o" ></a>
 															</div>
 														</div>
 													</li>
@@ -664,7 +666,30 @@ String imagen = (String) session.getAttribute("imagen");
 		</form>
 	</div>
 </div>
-<!-- END Bloque de subir cancion-->		
+<!-- END Bloque de subir cancion-->
+
+<!-- BORRAR CANCION -->
+	<div class="overlay-pop-up" id="overlay-borrar-cancion">	
+	    <div class="col-md-7 card p-5">	
+	        <a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-borrar-cancion" class="btn-cerrar-popup-perfil"	
+	        class="btn btn-outline-primary btn-sm pl-4 pr-4"  onclick="document.getElementById('overlay-borrar-cancion').classList.remove('active');"><i class="icon-close1"></i></a>	
+			<form class="form-material" action="borrar_lr">	
+				<!-- Input -->	
+				<div class="body">	
+					<header class="relative nav-sticky card">	
+	                    <h3>¿Estas seguro?</h3>	
+	                    <h5>Vas a borrar esta lista de reproduccion para siempre, no hay vuelta atras</h5>	
+					</header>	
+		
+					<input type="hidden" id="idLista6" name="nombre" value="">
+					<input type="hidden" name="tipo" id="tipo6" value="ListaRep">	
+					<a id="submit6" href="#" class="btn btn-outline-primary btn-sm pl-4 pr-4">Aceptar</a>	
+	             </div>   
+				<!-- #END# Input -->	
+	        </form>	
+		</div>	
+	</div>	
+<!-- END BORRAR CANCION -->
 
 <!-- Bloque de subir capitulo-->
 <div class="overlay-pop-up" id="overlay-subir-capitulo">
@@ -684,6 +709,40 @@ String imagen = (String) session.getAttribute("imagen");
 </div>
 <!-- END Bloque de subir capitulo-->									 
 
+<!-- BORRAR CAPITULO PODCAST -->
+	<div class="overlay-pop-up" id="overlay-borrar-capitulo">	
+	    <div class="col-md-7 card p-5">	
+	        <a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-borrar-capitulo" class="btn-cerrar-popup-perfil"	
+	        class="btn btn-outline-primary btn-sm pl-4 pr-4"  onclick="document.getElementById('overlay-borrar-capitulo').classList.remove('active');"><i class="icon-close1"></i></a>	
+			<form class="form-material" action="eliminar_capitulo">	
+				<!-- Input -->	
+				<div class="body">	
+					<header class="relative nav-sticky card">	
+	                    <h3>¿Estás seguro?</h3>	
+	                    <h5>Vas a borrar este capítulo de tu perfil.</h5>	
+					</header>	
+		
+					<input type="hidden" id="capituloIDborrar" value="">
+					<a id="borrarCapitulo" href="obtener_contenido_perfil?pagina=<%=pagina %>" class="btn btn-outline-primary btn-sm pl-4 pr-4">Aceptar</a>	
+	             </div>   
+				<!-- #END# Input -->	
+	        </form>	
+		</div>	
+	</div>	
+<!-- END BORRAR CAPITULO PODCAST -->
+<script>
+    $(document).ready(function() {
+    	$('#borrarCapitulo').click(function(event) { // cargar los comentarios de cancion
+			var capituloId = $('#capituloIDborrar').val();
+			console.log(capituloId);
+			//$.get('eliminar_capitulo', {
+			//	id_capitulo: capituloId
+			//}, function(data){
+			//	$('#contenido').html(data);
+			//});
+		});
+    });
+    </script>
 
 <!-- CAMBIAR FOTO -->
 <div class="overlay-pop-up" id="overlay-foto">
@@ -869,7 +928,7 @@ String imagen = (String) session.getAttribute("imagen");
 	<div class="overlay-pop-up" id="overlay-borrar-podcast">	
 	    <div class="col-md-7 card p-5">	
 	        <a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-borrar-listas-reproduccion" class="btn-cerrar-popup-perfil"	
-	        class="btn btn-outline-primary btn-sm pl-4 pr-4"  onclick="document.getElementById('overlay-borrar-listas-reproduccion').classList.remove('active');"><i class="icon-close1"></i></a>	
+	        class="btn btn-outline-primary btn-sm pl-4 pr-4"  onclick="document.getElementById('overlay-borrar-podcast').classList.remove('active');"><i class="icon-close1"></i></a>	
 			<form class="form-material" action="borrar_lr" method="post">	
 				<!-- Input -->	
 				<div class="body">	
@@ -1062,7 +1121,7 @@ String imagen = (String) session.getAttribute("imagen");
     </script>
     <script>
     $(document).ready(function() {
-    	$('#submit1').click(function(event) { // cambiar info imagen
+    	$('#submit1').click(function(event) { // cambiar info usuario
 			var nombreVar = $('#nombre').val();
 			var descripcionVar = $('#descripcion').val();
 			var emailVar = $('#email').val();
@@ -1079,7 +1138,6 @@ String imagen = (String) session.getAttribute("imagen");
 			var contrasena1Var = $('#contrasena1').val();
 			var contrasena2Var = $('#contrasena2').val();
 			var contrasena3Var = $('#contrasena3').val();
-			// Si en vez de por post lo queremos hacer por get, cambiamos el $.post por $.get
 			$.get('modpass', {
 				contrasena1 : contrasena1Var,
 				contrasena2 : contrasena2Var,
@@ -1215,7 +1273,7 @@ String imagen = (String) session.getAttribute("imagen");
 			console.log(textarea);
 			console.log(audioId);
 			console.log(idUsuarioVar);
-			if(textarea != ""){
+			if(textarea.length <=0){
 				$.get('anyadir_coment_cancion', {
 					descripcion : textarea,
 					idUsuario : idUsuarioVar,
@@ -1232,6 +1290,16 @@ String imagen = (String) session.getAttribute("imagen");
 						});
 					});
 				});
+			}
+			else{
+				console.log("else");
+				var contenido = "<div class=\"alert alert-danger alert-dismissible fade show\" role=\"alert\">";
+				contenido = contenido + "<strong>Ha ocurrido un error. </strong> Vuelva a intentarlo.";
+				contenido = contenido + "<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\">";
+				contenido = contenido + "<span aria-hidden='true'>&times;</span>";
+				contenido = contenido + "</button>";
+				contenido = contenido + "</div>";
+				$('#contenido').html(contenido);
 			}
 		});
     	$('#borrarComentario').click(function(event) { // borrar comentario en cancion

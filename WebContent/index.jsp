@@ -220,10 +220,10 @@ String imagen = (String) session.getAttribute("imagen");
         <!--Top Menu Start -->
 		<div class="navbar-custom-menu">
 			<ul class="nav navbar-nav">
-				<li id="contenido"></li>
+				<li id="contenido" style="position: relative;right: 300px;top: 10px;"></li>
 				<!-- Right Sidebar Toggle Button -->
 				<li class="searchOverlay-wrap">
-					<a href="#" id="btn-searchOverlay" class="nav-link mr-3 btn--searchOverlay no-ajaxy">
+					<a title="Buscador" href="#" id="btn-searchOverlay" class="nav-link mr-3 btn--searchOverlay no-ajaxy">
 						<i class="icon icon-search s-24"></i>
 					</a>
 
@@ -272,20 +272,20 @@ String imagen = (String) session.getAttribute("imagen");
             <!-- BOTONES ANTERIOR, PAUSE, SIGUIENTE -->
                 <div class="col">
                     <div class="d-flex align-items-center">
-                        <button id="shuffleTrack" class="btn btn-link d-none d-sm-block" onClick="document.getElementById('shuffleTrack').classList.add('active');">
+                        <button title="Aleatorio" id="shuffleTrack" class="btn btn-link d-none d-sm-block" onClick="document.getElementById('shuffleTrack').classList.add('active');">
                             <i class="icon-shuffle s-18"></i>
                         </button>
-                        <button id="previousTrack" class="btn btn-link d-none d-sm-block">
+                        <button title="Canción anterior" id="previousTrack" class="btn btn-link d-none d-sm-block">
                             <i class="icon-back s-18"></i>
                         </button>
                         <button class=" btn btn-link" id="playPause">
-                            <span id="play" style=""><i class="icon-play s-36"></i></span>
-                            <span id="pause" style="display: none;"><i class="icon-pause s-36 text-primary"></i></span>
+                            <span title="Reproducir" id="play" style=""><i class="icon-play s-36"></i></span>
+                            <span title="Parar" id="pause" style="display: none;"><i class="icon-pause s-36 text-primary"></i></span>
                         </button>
-                        <button id="nextTrack" class="btn btn-link d-none d-sm-block">
+                        <button title="Siguiente canción" id="nextTrack" class="btn btn-link d-none d-sm-block">
                             <i class="icon-next s-18"></i>
                         </button>
-                        <button class=" btn btn-control" id="btn-loop" onclick="loopAudio();document.getElementById('btn-loop').classList.add('active');"">
+                        <button title="Bucle" class="btn btn-link" onclick="loopAudio();">
                             <i class="icon-repeat s-18"></i>
                         </button>
                     </div>
@@ -300,13 +300,13 @@ String imagen = (String) session.getAttribute("imagen");
                     <small class="track-time mr-2 text-primary align-middle"></small>
                 </div> 
                 
-                <button class="btn btn-link d-none d-sm-block" style="position: fixed;right: 78px;" onclick="muteVol();">
+                <button title="Silenciar" class="btn btn-link d-none d-sm-block" style="position: fixed;right: 78px;" onclick="muteVol();">
                     <i class="icon-mute s-18"></i>
                 </button>
-                <button class="btn btn-link d-none d-sm-block" style="position: fixed;right: 49px;" onclick="bajarVol();">
+                <button title="Bajar volumen" class="btn btn-link d-none d-sm-block" style="position: fixed;right: 49px;" onclick="bajarVol();">
                     <i class="icon-volume-down s-18"></i>
                 </button>
-                <button class="btn btn-link d-none d-sm-block" style="position: fixed;right: 14px;" onclick="subirVol();">
+                <button title="Subir volumen" class="btn btn-link d-none d-sm-block" style="position: fixed;right: 14px;" onclick="subirVol();">
                     <i class="icon-volume-up s-18"></i>
                 </button>
             </div>
@@ -444,18 +444,18 @@ String imagen = (String) session.getAttribute("imagen");
 																<div class="col-6">
 																	<h6>${cancion.getTitulo()}</h6>${cancion.getGenero()}
 																</div>
-																<a href="#" class="snackbar ml-3" data-text="Te gusta esta canción"
+																<a title="Like" href="#" class="snackbar ml-3" data-text="Te gusta esta canción"
 																   data-pos="top-right"
 																   data-showAction="true"
 																   data-actionText="ok"
 																   data-actionTextColor="#fff"
 																   data-backgroundColor="#0c101b"><i class="icon-thumbs-o-up s-24"></i>
 																</a>
-																<a href="#" data-toggle="control-sidebar" onclick="document.getElementById('audioIDcomment').value = '${cancion.getId()}';">
+																<a title="Comentarios" href="#" data-toggle="control-sidebar" onclick="document.getElementById('audioIDcomment').value = '${cancion.getId()}';">
 											                        <i style="position: relative;left: 10px;" class="icon-commenting-o s-24"></i>
 											                    </a>
 																<div class="ml-auto">
-																	<a href="${pageContext.request.contextPath}/borrar_cancion_fav?idAudio=${cancion.getId()}&pagina=<%=pagina %>" class="btn-favorito icon-star active" ></a>
+																	<a title="Favoritos" href="${pageContext.request.contextPath}/borrar_cancion_fav?idAudio=${cancion.getId()}&pagina=<%=pagina %>" class="btn-favorito icon-star active" ></a>
 																</div>
 															</div>
 														</li>
@@ -590,7 +590,7 @@ String imagen = (String) session.getAttribute("imagen");
 			console.log(textarea);
 			console.log(audioId);
 			console.log(idUsuarioVar);
-			if(textarea != ""){
+			if(textarea.length !=0){
 				$.get('anyadir_coment_cancion', {
 					descripcion : textarea,
 					idUsuario : idUsuarioVar,
@@ -607,6 +607,16 @@ String imagen = (String) session.getAttribute("imagen");
 						});
 					});
 				});
+			}
+			else{
+				console.log("else");
+				var contenido = "<div class=\"alert alert-danger alert-dismissible fade show\" role=\"alert\">";
+				contenido = contenido + "<strong>No se ha podido publicar el comentario. </strong> Comentario vacío.";
+				contenido = contenido + "<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\">";
+				contenido = contenido + "<span aria-hidden='true'>&times;</span>";
+				contenido = contenido + "</button>";
+				contenido = contenido + "</div>";
+				$('#contenido').html(contenido);
 			}
 		});
     	$('#borrarComentario').click(function(event) { // borrar comentario en cancion
