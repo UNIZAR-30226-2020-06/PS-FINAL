@@ -8,6 +8,7 @@ public class Cancion {
 	private int id_autor;
 	private String titulo;
 	private String url;
+	private Boolean likeUsuario;
 	
 	public Cancion() {
 		

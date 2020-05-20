@@ -170,6 +170,7 @@ String nombre = (String) session.getAttribute("nombre");
 <%
 String hayfoto = (String) session.getAttribute("hayfoto");
 String imagen = (String) session.getAttribute("imagen");
+String like = (String) request.getAttribute("like");
 %>
 
 <!-- BARRA DE ARRIBA FIJA -->
@@ -303,6 +304,8 @@ String imagen = (String) session.getAttribute("imagen");
                     <div>
                         <h4 class="p-t-10">${usuario.getNombre()}</h4>
                     </div>
+                    <h3>${transmision.getNombre()}</h3>
+					<h6>${transmision.getDescripcion()}</h6>
                    <ul id="transmision" class="playlist list-group">
                    	<li class="list-group-item my-1">
               			<div class="d-flex align-items-center">
@@ -312,8 +315,28 @@ String imagen = (String) session.getAttribute("imagen");
 								</a>					
 							</div>
 							<div class="col-6">
-								<h3>${transmision.getNombre()}</h3>
-								<h6>${transmision.getDescripcion()}</h6>
+								<form action="like_transmision">
+	                                  <input type="hidden" id="idTransmisionLike" name=""idTransmisionLike"" value="${transmision.getId()}">
+	                                 <%if(like == null){%>
+		                                  <input type="hidden" id="likeTransmision" name="likeTransmision" value="false">
+		                                  <a href="#" id="accion_like_transmision" class="btn-favorito"  data-text="Te gusta esta transmision"
+		                                     data-pos="top-right"
+		                                     data-showAction="true"
+		                                     data-actionText="ok"
+		                                     data-actionTextColor="#fff"
+		                                     data-backgroundColor="#0c101b"><i class="icon-thumbs-o-up s-24"></i>
+		                                  </a>
+	                                 <%}else{ %>
+	                                  		<input type="hidden" id="likeTransmision" name="likeTransmision" value="true">
+		                                  <a href="#" id="accion_like_transmision" class="btn-favorito" style="background-color: #fd7e14; color: #fff" data-text="No te gusta esta transmision"
+		                                     data-pos="top-right"
+		                                     data-showAction="true"
+		                                     data-actionText="ok"
+		                                     data-actionTextColor="#fff"
+		                                     data-backgroundColor="#0c101b"><i class="icon-thumbs-o-up s-24"></i>
+		                                   </a>
+	                                  <%} %>
+								</form>
 							</div>
 							<span class="ml-auto">${transmision.getActiva()}</span>
 						</div>
@@ -363,11 +386,42 @@ String imagen = (String) session.getAttribute("imagen");
 
 </div>
 
+<script>
+$(document).ready(function() {
+        $('#accion_like_transmision').click(function(event) { // dar like a transmision
+            var transmsionId = $('#idTransmisionLike').val();
+            var like = $('#likeTransmision').val();
+            console.log(like);
+            console.log(transmsionId);
+            $.get('like_transmision', {
+                    idTransmision : transmsionId,
+                    like : like
+            });
+        });
+});
+</script>
+
 </main><!--@Page Content-->
 </div><!--@#app-->
 <!--/#app -->
 <script src="https://maps.googleapis.com/maps/api/js?&amp;key=AIzaSyC3YkZNNySdyR87o83QEHWglHfHD_PZqiw&amp;libraries=places"></script>
 <script src="assets/js/app.js"></script>
+
+<script>
+$(document).ready(function() {
+        $('#accion_like_transmision').click(function(event) { // dar like a lista
+            var transmsionId = $('#idTransmisionLike').val();
+            var like = $('#likeTransmision').val();
+            console.log(like);
+            console.log(transmsionId);
+            $.get('like_transmision', {
+                    idTransmision : transmsionId,
+                    like : like
+            });
+        });
+});
+</script>
+
 <script>
     $(document).ready(function() {
     	setTimeout(recargar,1000);

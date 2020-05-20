@@ -19,9 +19,9 @@ public class LikesDAO {
 	private final static String DELETE_LIKESLISTA_QUERY =	"DELETE FROM Reproductor_musica.LikesLista WHERE usuario = ? AND lista = ?";
 	private final static String DELETE_LIKESTRANS_QUERY =	"DELETE FROM Reproductor_musica.LikesTrans WHERE usuario = ? AND transmision = ?";
 	
-	private final static String GET_TIENE_LIKEAUDIO_QUERY =	"SELECT * FROM Reproductor_musica.LikeAudio WHERE usuario = ? AND audio = ?";
-	private final static String GET_TIENE_LIKELISTA_QUERY =	"SELECT * FROM Reproductor_musica.LikeAudio WHERE usuario = ? AND lista = ?";
-	private final static String GET_TIENE_LIKETRANS_QUERY =	"SELECT * FROM Reproductor_musica.LikeTrans WHERE usuario = ? AND transmision = ?";
+	private final static String GET_TIENE_LIKEAUDIO_QUERY =	"SELECT * FROM Reproductor_musica.LikesAudio WHERE usuario = ? AND audio = ?";
+	private final static String GET_TIENE_LIKELISTA_QUERY =	"SELECT * FROM Reproductor_musica.LikesLista WHERE usuario = ? AND lista = ?";
+	private final static String GET_TIENE_LIKETRANS_QUERY =	"SELECT * FROM Reproductor_musica.LikesTrans WHERE usuario = ? AND transmision = ?"; 
 
 	
 	// --------------------------------------------------------------------------
@@ -156,6 +156,7 @@ public class LikesDAO {
 			ResultSet rs = ps.executeQuery();
 			
 			if (rs.next()) {
+				System.out.println("ENTRO-----------------------");
 				return true;
 			}
 						
@@ -175,8 +176,7 @@ public class LikesDAO {
 	 * Parametros: id del usuario, id de la transmision
 	 * Devuelve: falso si ya se le hab�a dado like, true si el like se ha dado correctamente 
 	*/
-	public static boolean tieneLikeTrans(int usuario, int idTrans) {
-		
+	public static boolean tieneLikeTrans(int usuario, int idTrans) {		
 		try {
 			Connection conn = ConnectionManager.getConnection();
 						
@@ -189,7 +189,7 @@ public class LikesDAO {
 			if (rs.next()) {
 				return true;
 			}
-						
+
 			ConnectionManager.releaseConnection(conn);
 			return false;
 			

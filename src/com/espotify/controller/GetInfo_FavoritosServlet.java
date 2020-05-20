@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.espotify.dao.FavoritosDAO;
+import com.espotify.dao.LikesDAO;
 import com.espotify.model.Audio;
 
 import java.util.ArrayList;
@@ -38,6 +39,7 @@ public class GetInfo_FavoritosServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		int usuario = Integer.valueOf((String) session.getAttribute("id"));
 		//String aleatorio = request.getParameter("aleatorio");
+		LikesDAO likesDAO = new LikesDAO();
 		
 		try{
 			List<Audio> audios = new FavoritosDAO().getAudios(usuario);
@@ -45,6 +47,14 @@ public class GetInfo_FavoritosServlet extends HttpServlet {
 			//if (aleatorio.equals("si")) {
 			//	Collections.shuffle(audios);
 			//}
+			for(Audio audio :  audios) {
+				if(likesDAO.tieneLikeAudio(usuario, audio.getId())) {
+					audio.setLikeUsuario("like");
+				} else {
+					audio.setLikeUsuario(null);
+				}
+				
+			}
 
 			session.setAttribute("audios", audios);
 			session.setAttribute("fav", 1);

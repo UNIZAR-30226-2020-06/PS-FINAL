@@ -725,6 +725,15 @@
 	</servlet-mapping>
 	
 	<servlet>
+		<servlet-name>like_transmision</servlet-name>
+		<servlet-class>com.espotify.controller.LikeTransmision_Servlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>like_transmision</servlet-name>
+		<url-pattern>/like_transmision</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
 		<servlet-name>like_audio</servlet-name>
 		<servlet-class>com.espotify.controller.LikeAudio_Servlet</servlet-class>
 	</servlet>

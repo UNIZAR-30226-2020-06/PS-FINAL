@@ -31,7 +31,7 @@ public class LikeAudio_Servlet extends HttpServlet {
 		LikesDAO likesDAO = new LikesDAO();
 		Boolean resultado = false;
 		
-		System.out.println("ENTROOOOOO  AQUII");
+		System.out.println("ENTROOOOOO  EN AUDIO");
 		
 		HttpSession session = request.getSession();
 		int id = Integer.parseInt((String) session.getAttribute("id"));
@@ -42,6 +42,7 @@ public class LikeAudio_Servlet extends HttpServlet {
 		if(like) {
 			resultado = likesDAO.quitarLikeAudio(id, idAudio);
 		} else {
+			System.out.println("ENTREEEE");
 			resultado = likesDAO.anyadirLikeAudio(id, idAudio);
 		}		
 	}
