@@ -21,22 +21,20 @@ import org.json.JSONObject;
 import com.espotify.dao.CancionDAO;
 import com.espotify.dao.FavoritosDAO;
 import com.espotify.dao.JSONAdapter;
-import com.espotify.dao.LikesDAO;
 import com.espotify.dao.ListaReproduccionDAO;
-import com.espotify.dao.TransmisionDAO;
 import com.espotify.dao.UsuarioDAO;
 import com.espotify.model.Audio;
 import com.espotify.model.ListaReproduccion;
 import com.espotify.model.Usuario;
 
 /**
- * Servlet implementation class AndroidVal
+ * Servlet implementation class AndroidEliminar_FavoritosServlet
  */
-@WebServlet("/AndroidLike_Servlet")
-public class AndroidLike_Servlet extends HttpServlet {
+@WebServlet("/AndroidEliminar_UsuarioServlet")
+public class AndroidEliminar_UsuarioServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
-    public AndroidLike_Servlet() {
+    public AndroidEliminar_UsuarioServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -45,61 +43,23 @@ public class AndroidLike_Servlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		getServletContext().log("--- ~AndroidLikeServlet~ ---");
+		getServletContext().log("--- ~AndroidEliminar_UsuarioServlet~ ---");
 		
 		JSONObject parametrosPeticion = JSONAdapter.parsarJSON(request);
         getServletContext().log("Parametros: " + parametrosPeticion); 
         
-        String nombre = parametrosPeticion.getString("titulo");
         String email = parametrosPeticion.getString("email");
-        String tipo = parametrosPeticion.getString("tipo");
         
-        int idUsuario = Integer.parseInt(UsuarioDAO.obtenerIdDesdeEmail(email));
+        String idUsuario = UsuarioDAO.obtenerIdDesdeEmail(email);
+        UsuarioDAO.eliminar(idUsuario);
         
-        switch (tipo) {
-        	case "lista":
-        		gestionarLikeLista(nombre, idUsuario);
-        		break;
-        		
-        	case "audio":
-        		gestionarLikeAudio(nombre, idUsuario);
-        		break;
-        		
-        	case "transmision":
-        		gestionarLikeTransmision(nombre, idUsuario);
-        		break;
-        }
-        
+        // Lanzar JSON
+        PrintWriter out = response.getWriter();
+        response.setContentType("application/json");
+        response.setCharacterEncoding("utf-8");
         
         getServletContext().log("-------------------------------------------");
 	}
-	
-	private void gestionarLikeLista(String nombre, int idUsuario) {
-		int idLista = ListaReproduccionDAO.obtenerIdLista(nombre);
-		
-		if(!LikesDAO.anyadirLikeLista(idUsuario, idLista)) {
-			LikesDAO.quitarLikeLista(idUsuario, idLista);
-		}
-	}
-	
-	private void gestionarLikeAudio(String nombre, int idUsuario) {
-		CancionDAO ca = new CancionDAO();
-		int idAudio = ca.obtenerIdCancion(nombre);
-		
-		if(!LikesDAO.anyadirLikeAudio(idUsuario, idAudio)) {
-			LikesDAO.quitarLikeAudio(idUsuario, idAudio);
-		}
-	}
-	
-	private void gestionarLikeTransmision(String nombre, int idUsuario) {
-
-		int idTransmision = TransmisionDAO.getIdTransmision(nombre);
-		
-		if(!LikesDAO.anyadirLikeTrans(idUsuario, idTransmision)) {
-			LikesDAO.anyadirLikeTrans(idUsuario, idTransmision);
-		}
-	}
-	
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

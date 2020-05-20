@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import com.espotify.dao.CapituloPodcastDAO;
 import com.espotify.dao.JSONAdapter;
 import com.espotify.dao.ListaReproduccionDAO;
 import com.espotify.dao.UsuarioDAO;
@@ -25,16 +26,16 @@ import com.espotify.model.ListaReproduccion;
 import com.espotify.model.Usuario;
 
 /**
- * Servlet implementation class AndroidGet_ProfileServlet
+ * Servlet implementation class AndroidGet_AllCapitulosPodcastServlet
  */
-@WebServlet("/AndroidGet_AudiosServlet")
-public class AndroidGet_AudiosServlet extends HttpServlet {
+@WebServlet("/AndroidGet_AllCapitulosPodcastServlet")
+public class AndroidGet_AllCapitulosPodcastServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AndroidGet_AudiosServlet() {
+    public AndroidGet_AllCapitulosPodcastServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -43,47 +44,43 @@ public class AndroidGet_AudiosServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		
+		getServletContext().log("--- ~AndroidGet_AllCapitulosPodcastServlet~ ---");
         JSONObject parametrosPeticion = JSONAdapter.parsarJSON(request);
-        getServletContext().log("JSON Object: " + parametrosPeticion);
-        
-        String email = parametrosPeticion.getString("email");
-        String nombrePlaylist = parametrosPeticion.getString("nombrePlaylist");
-
-        JSONObject respuestaPeticion = new JSONObject();
+        getServletContext().log("Parametros: " + parametrosPeticion);
         
         response.setContentType("application/json");
         response.setCharacterEncoding("utf-8");
+        
+
+        CapituloPodcastDAO cpd = new CapituloPodcastDAO();
+        List<Audio> capitulosPodcastLista = cpd.obtenerTodosCapitulos();
+        
+        String nombresPodcast = "";
+        String urlsPodcast = "";
+        
+        boolean tieneCapitulos = false;
+        
+        for (Audio podcast : capitulosPodcastLista) {
+        	nombresPodcast += podcast.getTitulo() + "|";
+        	urlsPodcast += podcast.getUrl() + "|";
+        	tieneCapitulos = true;
+        }
+        
+        if(tieneCapitulos) {
+        	nombresPodcast = nombresPodcast.substring(0, nombresPodcast.length() - 1);
+        	urlsPodcast = urlsPodcast.substring(0, urlsPodcast.length() - 1);
+        }
+        
+        JSONObject respuestaPeticion =new JSONObject();
+        respuestaPeticion.put("nombresPodcast", nombresPodcast);
+        respuestaPeticion.put("urlsPodcast", urlsPodcast);
+        
+        getServletContext().log("Respuesta: " + respuestaPeticion);
         PrintWriter out = response.getWriter();
+        response.setContentType("application/json");
+        response.setCharacterEncoding("utf-8");
         
-        int idUsuario = Integer.parseInt(UsuarioDAO.obtenerIdDesdeEmail(email));
-        Usuario u = new UsuarioDAO().obtenerInfo(idUsuario);
-        respuestaPeticion.put("nombreUsuario", u.getNombre());
-        respuestaPeticion.put("descripcion", u.getDescripcion());
-        respuestaPeticion.put("email", u.getCorreo());
-        
-        List<Audio> audios =  ListaReproduccionDAO.getAudios(nombrePlaylist, "3", "ListaRep");
-        getServletContext().log("Audios recibidos" + audios); 
-        
-        String nombresAudio = "";
-        String urlsAudio = "";
-        
-        boolean hayAudios = false;
-        for(Audio audio : audios) {
-        	nombresAudio += audio.getTitulo() + "|";
-        	urlsAudio += audio.getUrl() + "|";
-        	hayAudios = true;
-        }
-        
-        if (hayAudios) {
-        	nombresAudio = nombresAudio.substring(0, nombresAudio.length() - 1);
-        }
-        
-        respuestaPeticion.put("nombresAudio", nombresAudio);
-        respuestaPeticion.put("urlsAudio", urlsAudio);
-        
-        
-        // finally output the json string       
         out.print(respuestaPeticion.toString());
 	}
 

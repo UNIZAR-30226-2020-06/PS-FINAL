@@ -60,6 +60,7 @@ public class AndroidGet_CapitulosPodcastServlet extends HttpServlet {
         
         String nombresPodcast = "";
         String urlsPodcast = "";
+        String imagen = "";
         
         boolean tieneCapitulos = false;
         

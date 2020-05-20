@@ -60,31 +60,37 @@ public class AndroidLike_BoolServlet extends HttpServlet {
         
         
         JSONObject respuestaPeticion = new JSONObject();
-        boolean tieneLike = false;
+        String tieneLike = "false";
         
         switch (tipo) {
 	    	case "lista":
-	    		tieneLike = tieneLikeAudio(titulo, idUsuario);
+	    		if(tieneLikeLista(titulo, idUsuario)) {
+	    			tieneLike = "true";
+	    		} 
 	    		break;
 	    		
 	    	case "audio":
-	    		tieneLike = tieneLikeLista(titulo, idUsuario);
+	    		if(tieneLikeAudio(titulo, idUsuario)) {
+	    			tieneLike = "true";
+	    		}
 	    		break;
 	    		
 	    	case "transmision":
-	    		tieneLike = tieneLikeTransmision(titulo, idUsuario);
+	    		if(tieneLikeTransmision(titulo, idUsuario)) {
+	    			tieneLike = "true";
+	    		}
 	    		break;
         }
         
         respuestaPeticion.put("likeado", tieneLike);
-        
+        getServletContext().log("Respuesta: " + respuestaPeticion);
+        getServletContext().log("---------------------------------");
         response.setContentType("application/json");
         response.setCharacterEncoding("utf-8");
         PrintWriter out = response.getWriter();
         out.print(respuestaPeticion.toString());
 
         // finally output the json string       
-        out.print(respuestaPeticion.toString());
 	}
 
 	/**
@@ -99,7 +105,10 @@ public class AndroidLike_BoolServlet extends HttpServlet {
 	private boolean tieneLikeAudio(String titulo, int idUsuario) {
 		CancionDAO ca = new CancionDAO();
 		int idAudio = ca.obtenerIdCancion(titulo);
-		return LikesDAO.tieneLikeAudio(idUsuario, idAudio);
+		getServletContext().log("ID AUDIO A COMPROBAR LIKE: " + idAudio);
+		boolean tieneLike = LikesDAO.tieneLikeAudio(idUsuario, idAudio);
+		getServletContext().log("Tiene like LIKE: " + tieneLike);
+		return tieneLike;
 	}
 	
 	private boolean tieneLikeLista(String titulo, int idUsuario) {

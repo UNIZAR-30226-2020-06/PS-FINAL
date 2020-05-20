@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.sql.Blob;
 import java.sql.SQLException;
 import java.util.Enumeration;
@@ -109,10 +111,20 @@ public class AndroidGet_ProfileServlet extends HttpServlet {
         for(ListaReproduccion lista : listas) {
         	listasReproduccion += lista.getNombre() + "|";
         	listasDescripcion += lista.getDescripcion() + "|";
-        	if (lista.getImagen().equals("")) {
-        		listasImagenes += lista.getImagen()  + "|";
+        	if(lista.getImagen() != null && !lista.getImagen().equals("")) {
+        		URL obj = new URL(lista.getImagen());
+        		HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+        		con.setRequestMethod("GET");
+
+        		int responseCode = con.getResponseCode();
+        		
+        		if(responseCode == 200) {
+        			listasImagenes += lista.getImagen() + "|";
+        		} else {
+        			listasImagenes += "|";
+        		}
         	} else {
-        		listasImagenes += lista.getImagen()  + "?consultaMuyLarga=${" + generarAleatorio() + "}|";
+        		listasImagenes += "|";
         	}
         	
         	tieneListas = true;
@@ -127,10 +139,20 @@ public class AndroidGet_ProfileServlet extends HttpServlet {
         for (ListaReproduccion podcast : pocasts) {
         	podcasts += podcast.getNombre() + "|";
         	podcastsUsuarioDescripcion += podcast.getDescripcion() + "|";
-        	if (podcast.getImagen().equals("")) {
-        		podcastsImagenes += podcast.getImagen() + "|";
+        	if(podcast.getImagen() != null && !podcast.getImagen().equals("")) {
+        		URL obj = new URL(podcast.getImagen());
+        		HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+        		con.setRequestMethod("GET");
+
+        		int responseCode = con.getResponseCode();
+        		
+        		if(responseCode == 200) {
+        			podcastsImagenes += podcast.getImagen() + "|";
+        		} else {
+        			podcastsImagenes += "|";
+        		}
         	} else {
-        		podcastsImagenes += podcast.getImagen()  + "?consultaMuyLarga=${" + generarAleatorio() + "}|";
+        		podcastsImagenes += "|";
         	}
         	tienePodcasts = true;
         } 
