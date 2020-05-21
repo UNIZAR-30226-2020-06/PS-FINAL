@@ -25,7 +25,7 @@ import java.util.ListIterator;
  */
 public class Search_BusquedasServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+    private static final int ADMIN = 100;
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -63,10 +63,13 @@ public class Search_BusquedasServlet extends HttpServlet {
 			request.setAttribute("transmisiones", transmisiones);
 			request.setAttribute("usuarios", usuarios);
 			request.setAttribute("busqueda", nombre);
-			
-			//RequestDispatcher dispatcher=request.getRequestDispatcher("busqueda.jsp");
-			//dispatcher.forward(request, response);
-			request.getRequestDispatcher("buscar-general.jsp").forward(request, response);
+			if (usuario ==ADMIN) {
+				request.getRequestDispatcher("buscar-general-admin.jsp").forward(request, response);
+			}else {
+				//RequestDispatcher dispatcher=request.getRequestDispatcher("busqueda.jsp");
+				//dispatcher.forward(request, response);
+				request.getRequestDispatcher("buscar-general.jsp").forward(request, response);
+			}
 		}catch(Throwable theException) {
 			//response.sendRedirect("inicio.jsp");
 		}

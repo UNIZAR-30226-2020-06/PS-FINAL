@@ -241,7 +241,7 @@ String imagen = (String) session.getAttribute("imagen");
 					<div class="dropdown-menu p-4 dropdown-menu-right">
 						<div class="row box justify-content-between my-4">
 							<div class="col text-center">
-								<a class="ajaxifyPage" href="obtener_contenido_perfil" >
+								<a class="ajaxifyPage" href="obtener_contenido_perfil?pagina=10" >
 									<i class="icon-user-4  s-24"></i>
 									<div class="pt-1">Mi perfil</div>
 								</a>
@@ -351,10 +351,10 @@ String imagen = (String) session.getAttribute("imagen");
 			                    <figure class="avatar avatar-xl">
 			                    	<c:choose>
 			                    		<c:when test="${usuario.getId()==id }">
-					                    	<a href="obtener_contenido_perfil">
+					                    	<a href="obtener_contenido_perfil?pagina=10">
 					                    </c:when>
 					                    <c:otherwise>
-					                    	<a href="obtener_usuario?nombre=${usuario.getId()}">
+					                    	<a href="obtener_usuario?nombre=${usuario.getId()}&pagina=10">
 					                    </c:otherwise>
 					                </c:choose>
 					                    	<c:choose>
@@ -385,10 +385,10 @@ String imagen = (String) session.getAttribute("imagen");
 											<div class="img-overlay text-white text-center">
 											<c:choose>
 					                    		<c:when test="${lista.getUsuario()==nombre }">
-							                    	<a href="obtener_info_lr?nombre=${lista.getNombre()}" >
+							                    	<a href="obtener_info_lr?nombre=${lista.getNombre()}&pagina=10" >
 							                    </c:when>
 							                    <c:otherwise>
-							                    	<a href="obtener_info_lr_usuario?id=${lista.getId()}">
+							                    	<a href="obtener_info_lr_usuario?id=${lista.getId()}&pagina=10">
 							                    </c:otherwise>
 							                </c:choose>
 													<div class="figcaption mt-3">
@@ -461,7 +461,7 @@ String imagen = (String) session.getAttribute("imagen");
 											<div class="img-wrapper">
 												<img src="assets/img/demo/a1.jpg" alt="/">
 												<div class="img-overlay text-white text-center">
-													<a href="ver_transmision?idTransmision=${transmision.getId()}">
+													<a href="ver_transmision?idTransmision=${transmision.getId()}&pagina=10">
 														<div class="figcaption mt-3">
 															<i class="icon-link s-48"></i>
 															<h5 class="mt-5">${transmision.getNombre()}</h5>
@@ -487,10 +487,10 @@ String imagen = (String) session.getAttribute("imagen");
 											<div class="img-overlay text-white text-center">
 												<c:choose>
 					                    		<c:when test="${podcast.getUsuario()==nombre }">
-							                    	<a href="obtener_info_podcast?nombre=${podcast.getNombre()}" >
+							                    	<a href="obtener_info_podcast?nombre=${podcast.getNombre()}&pagina=10" >
 							                    </c:when>
 							                    <c:otherwise>
-							                    	<a href="obtener_info_podcast_usuario?id=${podcast.getId()}">
+							                    	<a href="obtener_info_podcast_usuario?id=${podcast.getId()}&pagina=10">
 							                    </c:otherwise>
 							                </c:choose>
 														<div class="figcaption mt-3">

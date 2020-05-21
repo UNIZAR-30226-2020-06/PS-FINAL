@@ -77,7 +77,7 @@ public class GeneroDAO {
 			Connection conn = ConnectionManager.getConnection();
 			PreparedStatement ps = conn.prepareStatement(UPDATE_NOMBRE_QUERY);
 			ps.setString(1, newName);
-			ps.setInt(1, idGenero);
+			ps.setInt(2, idGenero);
 			ps.executeUpdate();
 			
 			ConnectionManager.releaseConnection(conn);

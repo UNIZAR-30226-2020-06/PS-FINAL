@@ -27,7 +27,7 @@ import com.mysql.cj.Session;
  */
 public class ObtenerContenidoOtroUsuario extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+    private static final int ADMIN = 100;
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -63,14 +63,18 @@ public class ObtenerContenidoOtroUsuario extends HttpServlet {
 		List<ListaReproduccion> podcasts = new ListaReproduccionDAO().showLists(idUsuario,"podcast");
 		request.setAttribute("podcasts", podcasts);
 		
-		List<ListaReproduccion> mislistas = new ListaReproduccionDAO().showLists(id,"ListaRep");
-		request.setAttribute("mislistas", mislistas);
+		if (id == ADMIN){
+			request.getRequestDispatcher("perfil_usuario_admin.jsp?pagina=10").forward(request, response);
+		}else {
+			List<ListaReproduccion> mislistas = new ListaReproduccionDAO().showLists(id,"ListaRep");
+			request.setAttribute("mislistas", mislistas);
+			
+			List<ListaReproduccion> misPodcasts = new ListaReproduccionDAO().showLists(id,"podcast");
+			request.setAttribute("misPodcasts", misPodcasts);
 		
-		List<ListaReproduccion> misPodcasts = new ListaReproduccionDAO().showLists(id,"podcast");
-		request.setAttribute("misPodcasts", misPodcasts);
 
-
-		request.getRequestDispatcher("perfil_usuario.jsp").forward(request, response);
+			request.getRequestDispatcher("perfil_usuario.jsp").forward(request, response);
+		}
 	}
 
 	/**

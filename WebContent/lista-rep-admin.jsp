@@ -10,7 +10,10 @@ pageEncoding="UTF-8"%>
 ############### BASE DE TODAS LAS PAGINAS    ###########################
 ########################################################################
 -->
-
+<% 
+int pagina = Integer.valueOf((String) request.getParameter("pagina"));
+String nombre = (String) request.getParameter("nombre");
+%>
 <!-- NOMBRE DE LA PESTAÃA -->
 <head>
     <meta charset="utf-8">
@@ -83,11 +86,17 @@ pageEncoding="UTF-8"%>
 <aside class="main-sidebar fixed offcanvas shadow" data-toggle='offcanvas'>
     <div class="sidebar">
         <ul class="sidebar-menu">
-            <li><a class="ajaxifyPage active" href="Inicio?pagina=10" >
+        	<%if(pagina == 5){ %>
+            <li><a class="ajaxifyPage active"href="perfil_usuario_admin.jsp?pagina=10" >
                     <i class="icon icon-home-1 s-24"></i> <span>Inicio</span>
                 </a>
             </li>
-            
+            <%} else{%>
+            <li><a class="ajaxifyPage active"href="perfil_usuario_admin.jsp?pagina="<%=pagina %>" >
+                    <i class="icon icon-home-1 s-24"></i> <span>Inicio</span>
+                </a>
+            </li>
+            <%}%>
             <li class="menu-item-has-children">
                 <a href="#">
                     <i class="icon icon-layers s-24"></i> <span>Categorías</span>
@@ -100,7 +109,7 @@ pageEncoding="UTF-8"%>
 
                 </ul>
             </li>
-            
+            <%if(pagina == 5){ %>
             <li><a class="ajaxifyPage" href="mostrar_lrs?tipo=ListaRep&pagina=10" >
                     <i class="icon icon-compact-disc-1 s-24"></i> <span>Mis listas de reproduccion</span>
                 </a>
@@ -110,40 +119,31 @@ pageEncoding="UTF-8"%>
                     <i class="icon icon-headphones s-24"></i> <span>Mis podcasts</span>
                 </a>
             </li>
-            <li><a class="ajaxifyPage" href="obtener_info_fav&pagina=10" >
+            <li><a class="ajaxifyPage" href="obtener_info_fav?pagina=10" >
             		<i class="icon icon-star s-24"></i> <span>Mis favoritos</span>
             	</a>
             </li>
+            <%} else{%>
+            <li><a class="ajaxifyPage" href="mostrar_lrs?tipo=ListaRep&pagina=<%=pagina %>" >
+                    <i class="icon icon-compact-disc-1 s-24"></i> <span>Mis listas de reproduccion</span>
+                </a>
+            </li>
+            
+            <li><a class="ajaxifyPage" href="mostrar_podcasts?tipo=podcasts&pagina=<%=pagina %>" >
+                    <i class="icon icon-headphones s-24"></i> <span>Mis podcasts</span>
+                </a>
+            </li>
+            <li><a class="ajaxifyPage" href="obtener_info_fav?pagina=<%=pagina %>" >
+            		<i class="icon icon-star s-24"></i> <span>Mis favoritos</span>
+            	</a>
+            </li>
+            <%}%>
         </ul>
     </div>
 </aside>
 <!-- END MENU DE LA IZQUIERDA-->
 
-<!-- MENU DONDE ESTAN LAS CANCIONES EN LA COLA (DERECHA) -->
-<aside class="control-sidebar fixed ">
-    <div class="slimScroll">
-        <div class="sidebar-header">
-            <h4>PlayList</h4>
-            <p>Awesome Collection for you</p>
-            <a href="#" data-toggle="control-sidebar" class="paper-nav-toggle  active"><i></i></a>
-        </div>
-        <div class="p-3">
-            <ul id="playlist" class="playlist list-group">
-                
-
-
-            </ul>
-
-        </div>
-    </div>
-</aside>
-
-<!-- Add the sidebar's background. This div must be placed
-         immediately after the control sidebar -->
-<div class="control-sidebar-bg shadow  fixed"></div>
-<!-- END MENU DONDE ESTAN LAS CANCIONES EN LA COLA (DERECHA) -->
-
-<!-- MENU DONDE ESTAN LAS CANCIONES EN LA COLA (DERECHA) -->
+<!-- MENU DONDE ESTAN LOS COMENTARIOS (DERECHA) -->
 <aside class="control-sidebar fixed ">
     <div class="slimScroll">
         <div class="sidebar-header" style="margin-bottom: 1rem !important;">
@@ -151,34 +151,27 @@ pageEncoding="UTF-8"%>
             <a href="#" data-toggle="control-sidebar" class="paper-nav-toggle  active"><i></i></a>
         </div>
         <div class="p-3">
-            <div class="media my-5 " style="margin-top: -1rem !important;margin-bottom: 2rem !important;">
-                <div class="media-body">
-                    <h6 class="mt-0">Ami Fro</h6>
-                    Cras sit amet nibh libero, in gravida nulla.
-                </div>
-            </div>
-            <div class="media my-5 " style="margin-top: -1rem !important;margin-bottom: 2rem !important;">
-                <div class="media-body">
-                    <h6 class="mt-0">Mohamed secame</h6>
-                    Basura es esta?
-                </div>
-            </div>
-            
+        	<div id="listaComentariosCancion"></div>
+        	
+            <form action="anyadir_coment_cancion">
 			<div class="row">
                  <div class="col-lg-12">
                      <div class="form-group">
                          <div class="form-line">
-                               <textarea style="color: white;" rows="5" class="form-control r-0"
+                               <textarea id="textarea" style="color: white;" rows="5" class="form-control r-0"
                                          placeholder="Escribir comentario..."></textarea>
                          </div>
                      </div>
 
                  </div>
              </div>
+             <input type="hidden" id="audioIDcomment" name="nombre" value="">
              <div class="row text-center">
-                 <div class="col-lg-12"><input type="submit" class="btn btn-primary"
-                                               value="Publicar" style="border-radius: 7px;position: relative;left: 95px;"></div>
+                 <div class="col-lg-12">
+                 	<a id="publicar" href="#"  class="btn btn-primary" style="border-radius: 7px;position: relative;left: 95px;">Publicar</a>
+                 </div>
              </div>
+             </form>
         </div>
     </div>
 </aside>
@@ -186,7 +179,8 @@ pageEncoding="UTF-8"%>
 <!-- Add the sidebar's background. This div must be placed
          immediately after the control sidebar -->
 <div class="control-sidebar-bg shadow  fixed"></div>
-<!-- END MENU DONDE ESTAN LAS CANCIONES EN LA COLA (DERECHA) -->
+<!-- END MENU DONDE ESTAN LOS COMENTARIOS (DERECHA) -->
+
 
 <!-- ALGO RANDOM DE LA PARTE DERECHA -->									
 <svg class="d-none">
@@ -234,7 +228,6 @@ pageEncoding="UTF-8"%>
 String hayfoto = (String) session.getAttribute("hayfoto");
 String imagen = (String) session.getAttribute("imagen");
 %>
-
 <!-- BARRA DE ARRIBA FIJA -->
 <nav class="navbar-wrapper shadow">
     <div class="navbar navbar-expand player-header justify-content-between  bd-navbar">
@@ -242,13 +235,21 @@ String imagen = (String) session.getAttribute("imagen");
             <a href="#" data-toggle="push-menu" class="paper-nav-toggle pp-nav-toggle ml-2 mr-2">
                 <i></i>
             </a>
-            <a class="navbar-brand d-none d-lg-block" href="Inicio?pagina=10" >
+            <%if(pagina == 5){ %>
+            <a class="navbar-brand d-none d-lg-block" href="perfil_usuario_admin.jsp?pagina=10" >
                 <div class="d-flex align-items-center s-14 l-s-2">
-                    <a style="position: absolute;width: 12%;" href="Inicio?pagina=10" ><img  src="assets/img/logo.png"></a>
+                    <a style="position: absolute;width: 12%;" href="perfil_usuario_admin.jsp?pagina=10" ><img  src="assets/img/logo.png"></a>
                 </div>
             </a>
+            <%} else{%>
+            <a class="navbar-brand d-none d-lg-block" href="perfil_usuario_admin.jsp?pagina=<%=pagina %>" >
+                <div class="d-flex align-items-center s-14 l-s-2">
+                    <a style="position: absolute;width: 12%;" href="perfil_usuario_admin.jsp?pagina=<%=pagina %>" ><img  src="assets/img/logo.png"></a>
+                </div>
+            </a>
+            <%}%>
         </div>
-        
+        <h2 style="color:black">ADMINISTRADOR</h2>
         <!--Top Menu Start -->
 		<div class="navbar-custom-menu">
 			<ul class="nav navbar-nav">
@@ -275,10 +276,17 @@ String imagen = (String) session.getAttribute("imagen");
 					<div class="dropdown-menu p-4 dropdown-menu-right">
 						<div class="row box justify-content-between my-4">
 							<div class="col text-center">
-								<a class="ajaxifyPage" href="obtener_contenido_perfil?pagina=10" >
+								<%if(pagina == 5){ %>
+					            <a class="ajaxifyPage" href="perfil_usuario_admin.jsp?pagina=10" >
 									<i class="icon-user-4  s-24"></i>
 									<div class="pt-1">Mi perfil</div>
 								</a>
+					            <%} else{%>
+					            <a class="ajaxifyPage" href="perfil_usuario_admin.jsp?pagina=<%=pagina %>" >
+									<i class="icon-user-4  s-24"></i>
+									<div class="pt-1">Mi perfil</div>
+								</a>
+					            <%}%>
 							</div>
 							<div class="col text-center">
 								<a class="ajaxifyPage" href="logout" >
@@ -354,44 +362,180 @@ String imagen = (String) session.getAttribute("imagen");
 ############### ACABA BASE DE TODAS LAS PAGINAS    #####################
 ########################################################################
 -->
-</nav>
 
 
-<!-- PODCAST -->
 
+<!-- LISTA DE REPRODUCCION-->
 <!--Page Content-->
 <main id="pageContent" class="page has-sidebar">
 <div class="container-fluid relative p-lg-5">								
 	<div class="container-fluid relative p-0">
-		<div class="card no-b shadow no-r">
-				<!--Banner-->
-
-					<div class="has-bottom-gradient">
+		<div class="card no-b shadow no-r">				
+				<div class="has-bottom-gradient">
 						<div class="row pt-5 ml-lg-5 mr-lg-5">
 							<div class="col-md-10 offset-1">
 								<div class="row my-5 pt-5">
 
 									<div class="col-md-3">
-										<img src=${infoPodcast.getImagen() } alt="/">
+										<img src=${infoLista.getImagen() } alt="/">
 									</div>
 									<div class="col-md-9">
 										<div class="d-md-flex align-items-center justify-content-between">
-											<h1 class="my-3 text-orange">${infoPodcast.getNombre()}</h1>
+											<h1 class="my-3 text-orange">${infoLista.getNombre()}</h1>
 											<div class="ml-auto mb-2">
-												<a href="#" class="snackbar ml-3" data-text="Te gusta este podcast"
-												   data-pos="top-right"
-												   data-showAction="true"
-												   data-actionText="ok"
-												   data-actionTextColor="#fff"
-												   data-backgroundColor="#0c101b"><i class="icon-thumbs-o-up s-24"></i>
+												<a href="#" onClick="document.getElementById('overlay-foto').classList.add('active');" 
+													class="btn btn-abrir-popup btn-sm  mt-3" id="abrir-popup-foto" style="position: relative;left: -4px;bottom: 13px;">Cambiar foto</a>
+											    <a style="color: #fd7e14;position: relative;left: 10px;bottom: 13px;" 
+													class="btn btn-abrir-popupl btn-sm  mt-3" 
+													id="abrir-popup-lista"
+													href="#"
+													onclick="document.getElementById('overlay-mod-listas-reproduccion').classList.add('active');">
+													<i class="icon-edit  s-24"></i>Editar
 												</a>
+												
+											</div>
+											<!-- BORRAR COMENTARIO DE CANCION -->	
+											<div class="overlay-pop-up" id="overlay-borrar-coment-cancion">	
+											    <div class="col-md-7 card p-5">	
+											        <a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-borrar-coment-cancion" class="btn-cerrar-popup-perfil"	
+											        class="btn btn-outline-primary btn-sm pl-4 pr-4"  onclick="document.getElementById('overlay-borrar-coment-cancion').classList.remove('active');"><i class="icon-close1"></i></a>	
+													<form class="form-material" action="borrar_coment_cancion">	
+														<!-- Input -->	
+														<div class="body">	
+															<header class="relative nav-sticky card">	
+											                    <h3>Vas a borrar este comentario.</h3>
+											                    <h5>¿Estás seguro?</h5>	
+															</header>	
+												
+															<input type="hidden" id="comentarioID" name=idComentario value="">	
+															<a id="borrarComentario" href="#" onclick="document.getElementById('overlay-borrar-coment-cancion').classList.remove('active');" class="btn btn-outline-primary btn-sm pl-4 pr-4">Aceptar</a>
+														</div>	
+														<!-- #END# Input -->	
+											        </form>	
+												</div>	
+											</div>	
+											<!-- END BORRAR COMENTARIO DE CANCION -->
+											<!-- AÑADIR CANCION A LISTA DE REPRODUCCI�N -->
+											<div class="overlay-pop-up" id="overlay-anadir-listas-reproduccion">
+											    <div class="col-md-7 card p-5">
+													<a style="position: absolute;top: 20px;right: 30px;" href="#" onclick="document.getElementById('overlay-anadir-listas-reproduccion').classList.remove('active');" id="btn-cerrar-anadir-listas-reproduccion" class="btn-cerrar-popup-perfil"><i class="icon-close1"></i></a>			
+														<!-- Input -->
+															<div class="body">
+																<div class="row has-items-overlay">
+																	<c:forEach var="listalr" items="${listaslr}">
+																	<div class="col-lg-3 col-md-4 col-sm-6 my-2">
+																		<figure>
+																			<div class="img-wrapper">
+														
+																				<img src="assets/img/demo/a1.jpg" alt="/">
+																				
+																				<div class="figure-title text-center p-2">
+																					<h5>${listalr.getNombre()}</h5>
+																				</div>
+																			</div>
+																		</figure>
+																		<form class="form-material" action="anyadir_cancion_lr" method="post">
+																			<input type="submit" class="btn btn-outline-primary btn-sm pl-4 pr-4" value="Añadir">
+																			<input type="hidden" name="idLista" value="${listalr.getId()}">
+																			<input type="hidden" name="idAudio" value="">
+																			<input type="hidden" name="nombreLista" value="${listalr.getNombre()}">
+																			<input type="hidden" name="tipo" value="ListaRep">
+																		</form>	
+																	</div>
+																</c:forEach>
+															<!-- #END# Input -->
+															</div>
+														</div>		
+												</div>
+											</div>
+											<!-- END AÑADIR CANCION A LISTA DE REPRODUCCI�N -->
+											<!-- EDICION LISTA DE REPRODUCCION -->
+											<div class="overlay-pop-up" id="overlay-mod-listas-reproduccion">
+											    <div class="col-md-7 card p-5">
+														<a style="position: absolute;top: 20px;right: 30px;" href="#" 
+														class="btn-cerrar-popup-perfil"
+														onclick="document.getElementById('overlay-mod-listas-reproduccion').classList.remove('active');">
+															<i class="icon-close1"></i>
+														</a>
+														<header class="relative nav-sticky card">
+															<h3>CAMBIAR INFORMACIÓN DE LISTA</h3>
+														</header>
+														<form  action="modlr" method="post">
+															<!-- Input -->
+															<div class="body">
+																<input type="hidden" name="tipo" id="tipo" value="ListaRep">
+																<div class="form-group form-float">
+																	<div class="form-line">
+																		<input type="text" name="nombreNew" id="nombreNew" class="form-control" value="${infoLista.getNombre()}">
+																		<label class="form-label">Nombre</label>
+																	</div>
+																</div>
+											
+																<div class="form-group form-float">
+																	<div class="form-line">
+																		<input type="text" name="descripcion" id="descripcion" class="form-control" value="${infoLista.getDescripcion()}">
+																		<label class="form-label">Descripción</label>
+																	</div>
+																</div>
+																<input type="hidden" name="nombreOld" id="nombreOld" value="${infoLista.getNombre()}">
+											
+																<input type="submit"class="btn btn-outline-primary btn-sm pl-4 pr-4" value="Cambiar informacion">
+															</div>
+														</form>
+														<!-- #END# Input -->
+												</div>
+											</div>
+											<!-- END EDICION LISTA DE REPRODUCCION -->
+											<!-- CAMBIAR FOTO -->
+											<div class="overlay-pop-up" id="overlay-foto">
+											    <div class="col-md-7 card p-5">
+													<a href="#" style="position: absolute;top: 20px;right: 30px;"
+													 onClick="document.getElementById('overlay-foto').classList.remove('active');"  id="btn-cerrar-foto" class="btn-cerrar-popup-perfil"><i class="icon-close1"></i></a>
+													<form class="form-material" action="modImagenLista" method=POST enctype=multipart/form-data>
+														<!-- Input -->
+														<div class="body">
+															<header class="relative nav-sticky card">
+																<h3>SUBIR FOTO</h3>
+															</header>
+															<div class="contenedor-inputs">
+																<input type="file" class="btn btn-outline-primary btn-sm  mt-3" name="imagen" accept="image/jpeg"> 
+																<input type="hidden" name="idLista" id="idLista" value=${infoLista.getId() }>
+															</div>
+											
+															<input type="submit" class="btn btn-outline-primary btn-sm pl-4 pr-4"
+																   value="Aceptar">
+														</div>
+														<!-- #END# Input -->
+													</form>
+												</div>
 											</div>
 											
-
+											<!-- END CAMBIAR FOTO -->
+											<!-- BORRAR COMENTARIO DE CANCION -->	
+											<div class="overlay-pop-up" id="overlay-borrar-coment-cancion">	
+											    <div class="col-md-7 card p-5">	
+											        <a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-borrar-coment-cancion" class="btn-cerrar-popup-perfil"	
+											        class="btn btn-outline-primary btn-sm pl-4 pr-4"  onclick="document.getElementById('overlay-borrar-coment-cancion').classList.remove('active');"><i class="icon-close1"></i></a>	
+													<form class="form-material" action="borrar_coment_cancion">	
+														<!-- Input -->	
+														<div class="body">	
+															<header class="relative nav-sticky card">	
+											                    <h3>Vas a borrar este comentario.</h3>
+											                    <h5>¿Estás seguro?</h5>	
+															</header>	
+												
+															<input type="hidden" id="comentarioID" name=idComentario value="">	
+															<a id="borrarComentario" href="#" onclick="document.getElementById('overlay-borrar-coment-cancion').classList.remove('active');" class="btn btn-outline-primary btn-sm pl-4 pr-4">Aceptar</a>
+														</div>	
+														<!-- #END# Input -->	
+											        </form>	
+												</div>	
+											</div>	
+											<!-- END BORRAR COMENTARIO DE CANCION -->
 										</div>
 									
 										<div class="text-orange my-2">
-											<p>${infoPodcast.getDescripcion()}</p>
+											<p>${infoLista.getDescripcion()}</p>
 										</div>
 
 									</div>
@@ -415,23 +559,26 @@ String imagen = (String) session.getAttribute("imagen");
 														<li class="list-group-item my-1">
 															<div class="d-flex align-items-center">
 																<div class="col-1">
+																	<%if(pagina == 5) {%>
 																	<a class="no-ajaxy media-url" href="${cancion.getUrl()}">
-																		<i class="icon-play s-28"></i>
-																	</a>					
+																		<i id="iconoPlay" class="icon-play s-28"></i>
+																	</a>
+																	<% } else {%>
+																	<a href="obtener_info_lr?nombre=<%=nombre%>&pagina=5" onclick="setTimeout(location.reload.bind(location), 1)">
+																		<i id="iconoPlay" class="icon-play s-28"></i>
+																	</a>
+																	<%} %>				
 																</div>
 																<div class="col-6">
 																	<h6>${cancion.getTitulo()}</h6>${cancion.getGenero()}
 																</div>
-																<a href="#" class="snackbar ml-3" data-text="Te gusta este programa"
-																   data-pos="top-right"
-																   data-showAction="true"
-																   data-actionText="ok"
-																   data-actionTextColor="#fff"
-																   data-backgroundColor="#0c101b"><i class="icon-thumbs-o-up s-24"></i>
-																</a>
-																<a href="#" data-toggle="control-sidebar">
+																<a href="#" data-toggle="control-sidebar" onclick="document.getElementById('audioIDcomment').value = '${cancion.getId()}';">
 											                        <i style="position: relative;left: 10px;" class="icon-commenting-o s-24"></i>
 											                    </a>
+																<div class="ml-auto">
+																	<a href="${pageContext.request.contextPath}/ir_modificar?id_audio=${cancion.getId()}&cancion=true&pagina=10" class="btn-icono icon-pencil" ></a>
+																	<a href="${pageContext.request.contextPath}/borrar_cancion_lr?idAudio=${cancion.getId()}&idLista=${infoLista.getId()}&nombreLista=${infoLista.getNombre()}&tipo=ListaRep&pagina=<%=pagina %>" class="btn-icono icon-trash-o" ></a>
+																</div>
 															</div>
 														</li>
 													</div>								                
@@ -449,40 +596,6 @@ String imagen = (String) session.getAttribute("imagen");
 		</div>
 	</div>
 
-
-<!-- AÑADIR CAPITULO A PODCAST -->
-<div class="overlay-pop-up" id="overlay-anadir-listas-reproduccion">
-    <div class="col-md-7 card p-5">
-		<a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-anadir-listas-reproduccion" class="btn-cerrar-popup-perfil"><i class="icon-close1"></i></a>			
-			<!-- Input -->
-				<div class="body">
-					<div class="row has-items-overlay">
-						<c:forEach var="listalr" items="${podcasts}">
-						<div class="col-lg-3 col-md-4 col-sm-6 my-2">
-							<figure>
-								<div class="img-wrapper">
-			
-									<img src="assets/img/demo/a1.jpg" alt="/">
-									
-									<div class="figure-title text-center p-2">
-										<h5>${listalr.getNombre()}</h5>
-									</div>
-								</div>
-							</figure>
-							<form class="form-material" action="anyadir_cancion_lr" method="post">
-								<input type="submit" class="btn btn-outline-primary btn-sm pl-4 pr-4" value="Añadir">
-								<input type="hidden" name="idLista" value="${listalr.getId()}">
-								<input type="hidden" name="idAudio" value="">
-								<input type="hidden" name="nombreLista" value="${listalr.getNombre()}">
-							</form>	
-						</div>
-					</c:forEach>
-				<!-- #END# Input -->
-				</div>
-			</div>		
-	</div>
-</div>
-<!-- END AÑADIR CAPITULO A PODCAST -->
 <script>
     $(document).ready(function() {
     	$('#iconoPlay').replaceWith("<i id='iconoPlay' class='icon-play s-28'></i>")
@@ -498,7 +611,40 @@ String imagen = (String) session.getAttribute("imagen");
 
     });
     </script>
-
+<script>
+    $(document).ready(function() {
+    	$('#submit').click(function(event) {
+			var tipoVar = $('#tipo').val();
+			var nombreNewVar = $('#nombreNew').val();
+			var descripcionVar = $('#descripcion').val();
+			var nombreOldVar = $('#nombreOld').val();
+			console.log(tipoVar);
+			console.log(nombreNewVar);
+			console.log(descripcionVar);
+			console.log(nombreOldVar);
+			// Si en vez de por post lo queremos hacer por get, cambiamos el $.post por $.get
+			$.get('modlr', {
+				tipo : tipoVar,
+				nombreNew : nombreNewVar,
+				descripcion : descripcionVar,
+				nombreOld : nombreOldVar
+			});
+		});
+    	$('#submit2').click(function(event) {
+			var idListaVar = $('#idLista').val();
+			var idAudioVar = $('#idAudio').val();
+			var nombreListaVar = $('#nombreLista').val();
+			var tipoVar = $('#tipo').val();
+			// Si en vez de por post lo queremos hacer por get, cambiamos el $.post por $.get
+			$.get('anyadir_cancion_lr', {
+				idLista : idListaVar,
+				idAudio : idAudioVar,
+				nombreLista : nombreListaVar,
+				tipo : tipoVar
+			});
+		});
+    });
+    </script>
 </main><!--@Page Content-->
 </div><!--@#app-->
 <!--/#app -->
@@ -544,6 +690,7 @@ String imagen = (String) session.getAttribute("imagen");
 
     }
     </script>
+    
     <script>
     $(document).ready(function() {
     	$('#iconoPlay').replaceWith("<i id='iconoPlay' class='icon-play s-28'></i>")
@@ -591,8 +738,10 @@ String imagen = (String) session.getAttribute("imagen");
 				$('#contenido').html(responseText);
 			});
 		});
+    	
     });
     </script>
+    
 </body>
 
 </html>

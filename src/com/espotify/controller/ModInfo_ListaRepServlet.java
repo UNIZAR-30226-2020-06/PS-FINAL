@@ -19,7 +19,7 @@ import com.espotify.model.ListaReproduccion;
  */
 public class ModInfo_ListaRepServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+	private static final int ADMIN = 100;    
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -42,6 +42,7 @@ public class ModInfo_ListaRepServlet extends HttpServlet {
 		
 		Boolean cambiada = new ListaReproduccionDAO().cambiar_info(nombreOld,nombreNew,usuario,descripcion,imagen,tipo);
 		if(cambiada) {
+			log("PUES VA");
 			try{
 				ListaReproduccion infoLista = new ListaReproduccionDAO().getInfoList(nombreNew,usuario,tipo);
 				List<Audio> audios = new ListaReproduccionDAO().getAudios(nombreNew,usuario,tipo);
@@ -56,13 +57,21 @@ public class ModInfo_ListaRepServlet extends HttpServlet {
 					System.out.println("ENTRO");
 					log("PODCAST");
 					request.setAttribute("infoPodcast", infoLista);
-					redir = "obtener_info_podcast?nombre=" + nombreNew;
-					request.getRequestDispatcher("redir").forward(request, response);
+					if (usuario == ADMIN) {
+						request.getRequestDispatcher("obtener_info_podcast_usuario?id="+infoLista.getId()+"&pagina=10").forward(request, response);
+					}else {
+						redir = "obtener_info_podcast?nombre=" + nombreNew;
+						request.getRequestDispatcher("redir").forward(request, response);
+					}
 				} else {
 					log("LISTA");
 					request.setAttribute("infoLista", infoLista);
-					redir = "obtener_info_lr?nombre=" + nombreNew;
-					request.getRequestDispatcher("redir").forward(request, response);
+					if (usuario == ADMIN) {
+						request.getRequestDispatcher("obtener_info_lr_usuario?id="+infoLista.getId()+"&pagina=10").forward(request, response);
+					}else {
+						redir = "obtener_info_lr?nombre=" + nombreNew;
+						request.getRequestDispatcher("redir").forward(request, response);
+					}
 				}
 				
 				
@@ -70,6 +79,8 @@ public class ModInfo_ListaRepServlet extends HttpServlet {
 				//response.sendRedirect("modifListaRep.jsp");
 				System.out.println("ERROR EN SERVLET");
 			}
+		}else {
+			log("Pues NO VA");
 		}
 		
 	}

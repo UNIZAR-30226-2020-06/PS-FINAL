@@ -82,7 +82,7 @@ pageEncoding="UTF-8"%>
 <aside class="main-sidebar fixed offcanvas shadow" data-toggle='offcanvas'>
     <div class="sidebar">
         <ul class="sidebar-menu">
-            <li><a class="ajaxifyPage active" href="Inicio?pagina=10" >
+            <li><a class="ajaxifyPage active" href="perfil_usuario_admin.jsp?pagina=10" >
                     <i class="icon icon-home-1 s-24"></i> <span>Inicio</span>
                 </a>
             </li>
@@ -211,11 +211,11 @@ String imagen = (String) session.getAttribute("imagen");
             </a>
             <a class="navbar-brand d-none d-lg-block" href="Inicio?pagina=10" >
                 <div class="d-flex align-items-center s-14 l-s-2">
-                    <a style="position: absolute;width: 12%;" href="Inicio?pagina=10" ><img  src="assets/img/logo.png"></a>
+                    <a style="position: absolute;width: 12%;" href="perfil_usuario_admin.jsp?pagina=10" ><img  src="assets/img/logo.png"></a>
                 </div>
             </a>
         </div>
-        
+        <h2 style="color:black">ADMINISTRADOR</h2>
         <!--Top Menu Start -->
 		<div class="navbar-custom-menu">
 			<ul class="nav navbar-nav">
@@ -242,7 +242,7 @@ String imagen = (String) session.getAttribute("imagen");
 					<div class="dropdown-menu p-4 dropdown-menu-right">
 						<div class="row box justify-content-between my-4">
 							<div class="col text-center">
-								<a class="ajaxifyPage" href="obtener_contenido_perfil?pagina=10" >
+								<a class="ajaxifyPage" href="perfil_usuario_admin.jsp?pagina=10" >
 									<i class="icon-user-4  s-24"></i>
 									<div class="pt-1">Mi perfil</div>
 								</a>
@@ -333,6 +333,7 @@ String imagen = (String) session.getAttribute("imagen");
         <!--@Banner Slider-->
         <div class="p-md-5 p-3  ">
         	<h1 style="color:black;text-align:center;">Resultados de "${busqueda}"</h1>
+        	<!-- USUARIOS -->
         	<section class="section">
                 <div class="d-flex relative align-items-center justify-content-between" style="background-color:black; top:20px;">
 	                    <div class="mb-4">
@@ -357,15 +358,8 @@ String imagen = (String) session.getAttribute("imagen");
                	<c:forEach var="usuario" items="${usuarios}"> 
 		            <div class="col-md-4 b-r">
 		                <div class="text-center p-5 mt-5">
-		                    <figure class="avatar avatar-xl">
-		                    	<c:choose>
-		                    		<c:when test="${usuario.getId()==id }">
-				                    	<a href="obtener_contenido_perfil?pagina=10">
-				                    </c:when>
-				                    <c:otherwise>
-				                    	<a href="obtener_usuario?nombre=${usuario.getId()}&pagina=10">
-				                    </c:otherwise>
-				                </c:choose>
+		                    <figure class="avatar avatar-xl">		                    	
+				                    <a href="obtener_usuario?nombre=${usuario.getId()}&pagina=10">				                    
 				                    	<c:choose>
 				                    		<c:when test="${usuario.getImagen()!=null}">
 				                    			<img src=${usuario.getImagen() }>
@@ -384,7 +378,7 @@ String imagen = (String) session.getAttribute("imagen");
 		         </c:forEach>   
 		         </div>
              </section>
-              
+             <!-- LISTAS REPRODUCCION -->
             <!--New Releases-->
             <section class="section">
                 <div class="d-flex relative align-items-center justify-content-between" style="background-color:black;">
@@ -410,15 +404,7 @@ String imagen = (String) session.getAttribute("imagen");
 									<div class="img-wrapper">
 										<img src=${lista.getImagen() } alt="/">
 										<div class="img-overlay text-white text-center">
-											<c:choose>
-					                    		<c:when test="${lista.getUsuario()==nombre }">
-							                    	<a href="obtener_info_lr?nombre=${lista.getNombre()}&pagina=10" >
-							                    </c:when>
-							                    <c:otherwise>
-							                    	<a href="obtener_info_lr_usuario?id=${lista.getId()}&pagina=10">
-							                    </c:otherwise>
-							                </c:choose>
-											
+							                 <a href="obtener_info_lr_usuario?id=${lista.getId()}&pagina=10">
 												<div class="figcaption mt-3">
 													<i class="icon-link s-48"></i>
 													<h5 class="mt-5">${lista.getNombre()}</h5>
@@ -435,7 +421,7 @@ String imagen = (String) session.getAttribute("imagen");
 					</c:forEach>                   
                </div> 
                </section>
-              
+              <!--  CANCIONES -->
                <div class="d-flex relative align-items-center justify-content-between" style="background-color:black;">
                     <div class="mb-4">
                         <h2 style="color:orange;">Canciones</h2>
@@ -473,21 +459,12 @@ String imagen = (String) session.getAttribute("imagen");
 															<div class="col-6">
 																<h6>${cancion.getTitulo()}</h6>${cancion.getGenero()}
 															</div>
-															<a href="#" class="snackbar ml-3" data-text="Te gusta esta canción"
-																   data-pos="top-right"
-																   data-showAction="true"
-																   data-actionText="ok"
-																   data-actionTextColor="#fff"
-																   data-backgroundColor="#0c101b"><i class="icon-thumbs-o-up s-24"></i>
-																</a>
 																<a href="#" data-toggle="control-sidebar" onclick="document.getElementById('audioIDcomment').value = '${cancion.getId()}';">
 											                        <i style="position: relative;left: 10px;" class="icon-commenting-o s-24"></i>
 											                    </a>
 															<div class="ml-auto">
-																<a href="anyadir_cancion_fav?idAudio=${cancion.getId()}" class="btn-favorito icon-star" ></a>
-																<a href="#" class="btn-icono icon-indent" onclick="rellenarCampos('${listaslr.size()}','${cancion.getId()}');
-																document.getElementById('overlay-anadir-listas-reproduccion').classList.add('active')";
-																></a>
+																<a href="${pageContext.request.contextPath}/ir_modificar?id_audio=${cancion.getId()}&cancion=true&pagina=10" class="btn-icono icon-pencil" ></a>
+																<a href="${pageContext.request.contextPath}/eliminar_cancion?id_cancion=${cancion.getId()}&pagina=10" class="btn-icono icon-trash-o" ></a>
 															</div>
 														</div>
 													</li>
@@ -502,6 +479,7 @@ String imagen = (String) session.getAttribute("imagen");
 					</section>
 					<!--@New Releases-->
 				</div>
+				<!--  TRANSMISIONES -->
 				<section class="section">
 	                <div class="d-flex relative align-items-center justify-content-between" style="background-color:black;">
 		                    <div class="mb-4">
@@ -542,6 +520,7 @@ String imagen = (String) session.getAttribute("imagen");
 							</c:forEach>                   
 		                </div> 
                 	</section>
+                <!-- PODCASTS -->	
 				<section class="section">	
 					<div class="d-flex relative align-items-center justify-content-between" style="background-color:black;">
 	                    <div class="mb-4">
@@ -566,14 +545,7 @@ String imagen = (String) session.getAttribute("imagen");
 									<div class="img-wrapper">
 										<img src=${podcast.getImagen() } alt="/">
 										<div class="img-overlay text-white text-center">
-											<c:choose>
-					                    		<c:when test="${podcast.getUsuario()==nombre }">
-							                    	<a href="obtener_info_podcast?nombre=${podcast.getNombre()}&pagina=10" >
-							                    </c:when>
-							                    <c:otherwise>
-							                    	<a href="obtener_info_podcast_usuario?id=${podcast.getId()}&pagina=10">
-							                    </c:otherwise>
-							                </c:choose>
+							                    <a href="obtener_info_podcast_usuario?id=${podcast.getId()}&pagina=10">
 													<div class="figcaption mt-3">
 														<i class="icon-link s-48"></i>
 														<h5 class="mt-5">${podcast.getNombre()}</h5>
@@ -584,11 +556,11 @@ String imagen = (String) session.getAttribute("imagen");
 											<h5>${podcast.getNombre()}</h5>
 										</div>
 									</div>
-								</figure>
-							
+								</figure>							
                     	</div>
 					</c:forEach>                   
                </div> 
+               <!--  CAPITULOS  -->
                 </section>
                 <section class="section">
 	                <div class="d-flex relative align-items-center justify-content-between" style="background-color:black;">
@@ -607,6 +579,7 @@ String imagen = (String) session.getAttribute("imagen");
 			                    </c:otherwise>
 		                    </c:choose>    
 	                </div>
+	                
 	                <div class="p-3 p-lg-5">
 					<section>
 						<div class="row">
@@ -627,19 +600,12 @@ String imagen = (String) session.getAttribute("imagen");
 															<div class="col-6">
 																<h6>${capitulo.getTitulo()}</h6>${capitulo.getGenero()}
 															</div>
-															<a href="#" class="snackbar ml-3" data-text="Te gusta esta canción"
-																   data-pos="top-right"
-																   data-showAction="true"
-																   data-actionText="ok"
-																   data-actionTextColor="#fff"
-																   data-backgroundColor="#0c101b"><i class="icon-thumbs-o-up s-24"></i>
-																</a>
 																<a href="#" data-toggle="control-sidebar">
 											                        <i style="position: relative;left: 10px;" class="icon-commenting-o s-24"></i>
 											                    </a>															
-															<div class="ml-auto">
-																<a href="#" class="btn-icono icon-indent" onclick="rellenarCamposP('${podcastslr.size()}','${capitulo.getId()}');
-																	document.getElementById('overlay-anadir-podcast').classList.add('active');"></a>
+															<div class="ml-auto">																
+																<a href="${pageContext.request.contextPath}/ir_modificar?id_audio=${capitulo.getId()}&cancion=false&pagina=10" class="btn-icono icon-pencil" ></a>
+																<a href="${pageContext.request.contextPath}/eliminar_capitulo?id_capitulo=${capitulo.getId()}&pagina=10" class="btn-icono icon-trash-o" ></a>
 															</div>
 														</div>
 													</li>
@@ -657,100 +623,6 @@ String imagen = (String) session.getAttribute("imagen");
         </div>
     </div>
 </div>
-
-<script>
-    $(document).ready(function() {
-    	$('#iconoPlay').replaceWith("<i id='iconoPlay' class='icon-play s-28'></i>")
-    	$('#playlist a').click(function(event) { // cargar los comentarios de cancion
-			var audioId = $('#audioIDcomment').val();
-			console.log(audioId);
-			$.get('getall_coment_cancion', {
-				idAudio: audioId
-			}, function(data){
-				$('#listaComentariosCancion').html(data);
-			});
-		});
-    });
-    </script>
-
-</main><!--@Page Content-->
-</div><!--@#app-->
-
-<!-- AÑADIR CANCION A LISTA DE REPRODUCCIÓN -->
-<div class="overlay-pop-up" id="overlay-anadir-listas-reproduccion">
-    <div class="col-md-7 card p-5">
-		<a style="position: absolute;top: 20px;right: 30px;" href="#" onclick="document.getElementById('overlay-anadir-listas-reproduccion').classList.remove('active');"id="btn-cerrar-anadir-listas-reproduccion" class="btn-cerrar-popup-perfil"><i class="icon-close1"></i></a>			
-			<!-- Input -->
-				<div class="body">
-					<div class="row has-items-overlay">
-					<c:choose ><c:when test="${listaslr.isEmpty()}"><h2>Parece que no tienes ninguna lista...</h2></c:when>
-						<c:otherwise>
-						<c:forEach var="listalr" items="${listaslr}">
-						<div class="col-lg-3 col-md-4 col-sm-6 my-2">
-							<figure>
-								<div class="img-wrapper">
-			
-									<img src=${listalr.getImagen() } alt="/">
-									
-									<div class="figure-title text-center p-2">
-										<h5>${listalr.getNombre()}</h5>
-									</div>
-								</div>
-							</figure>
-							<form class="form-material" action="anyadir_cancion_lr" method="post">
-								<input type="submit" class="btn btn-outline-primary btn-sm pl-4 pr-4" value="Añadir">
-								<input type="hidden" name="idLista" value="${listalr.getId()}">
-								<input type="hidden" name="idAudio" value="">
-								<input type="hidden" name="nombreLista" value="${listalr.getNombre()}">
-								<input type="hidden" name="tipo" value="ListaRep">
-							</form>	
-						</div>
-					</c:forEach>
-					</c:otherwise></c:choose>
-				<!-- #END# Input -->
-				</div>
-			</div>		
-	</div>
-</div>
-<!-- END AÑADIR CANCION A LISTA DE REPRODUCCIÓN -->
-
-<!-- AÑADIR CAPITULO A PODCAST -->
-<div class="overlay-pop-up" id="overlay-anadir-podcast">
-    <div class="col-md-7 card p-5">
-		<a style="position: absolute;top: 20px;right: 30px;" href="#" onclick="document.getElementById('overlay-anadir-podcast').classList.remove('active');" id="btn-cerrar-anadir-podcast" class="btn-cerrar-popup-perfil"><i class="icon-close1"></i></a>			
-			<!-- Input -->
-				<div class="body">
-					<div class="row has-items-overlay">
-						<c:choose ><c:when test="${podcastslr.isEmpty()}"><h2>Parece que no tienes ningun podcast...</h2></c:when>
-						<c:otherwise>
-						<c:forEach var="podcast" items="${podcastslr}">
-						<div class="col-lg-3 col-md-4 col-sm-6 my-2">
-							<figure>
-								<div class="img-wrapper">
-			
-									<img src=${podcast.getImagen() } alt="/">
-									
-									<div class="figure-title text-center p-2">
-										<h5>${podcast.getNombre()}</h5>
-									</div>
-								</div>
-							</figure>
-							<form class="form-material" action="anyadir_cancion_lr" method="post">
-								<input type="submit" class="btn btn-outline-primary btn-sm pl-4 pr-4" value="Añadir">
-								<input type="hidden" name="idLista" value="${podcast.getId()}">
-								<input type="hidden" name="idAudioP" value="">
-								<input type="hidden" name="nombreLista" value="${podcast.getNombre()}">
-								<input type="hidden" name="tipo" value="podcast">
-							</form>	
-						</div>
-					</c:forEach>
-					</c:otherwise></c:choose>
-				<!-- #END# Input -->
-				</div>
-			</div>		
-	</div>
-</div>
-<!-- END AÑADIR CAPITULO A PODCAST -->
 
 <!-- BORRAR COMENTARIO DE CANCION -->	
 	<div class="overlay-pop-up" id="overlay-borrar-coment-cancion">	
@@ -775,6 +647,25 @@ String imagen = (String) session.getAttribute("imagen");
 <!-- END BORRAR COMENTARIO DE CANCION -->
 
 <!--/#app -->
+
+<script>
+    $(document).ready(function() {
+    	$('#iconoPlay').replaceWith("<i id='iconoPlay' class='icon-play s-28'></i>")
+    	$('#playlist a').click(function(event) { // cargar los comentarios de cancion
+			var audioId = $('#audioIDcomment').val();
+			console.log(audioId);
+			$.get('getall_coment_cancion', {
+				idAudio: audioId
+			}, function(data){
+				$('#listaComentariosCancion').html(data);
+			});
+		});
+    });
+    </script>
+
+</main><!--@Page Content-->
+</div><!--@#app-->
+
 <script src="https://maps.googleapis.com/maps/api/js?&amp;key=AIzaSyC3YkZNNySdyR87o83QEHWglHfHD_PZqiw&amp;libraries=places"></script>
 <script src="assets/js/app.js"></script>
 <script  src="assets/js/mostrar-popup.js"></script>

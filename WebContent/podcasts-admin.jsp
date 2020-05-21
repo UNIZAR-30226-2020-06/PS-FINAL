@@ -83,7 +83,7 @@ pageEncoding="UTF-8"%>
 <aside class="main-sidebar fixed offcanvas shadow" data-toggle='offcanvas'>
     <div class="sidebar">
         <ul class="sidebar-menu">
-            <li><a class="ajaxifyPage active" href="Inicio?pagina=10" >
+            <li><a class="ajaxifyPage active" href="perfil_usuario_admin.jsp?pagina=10" >
                     <i class="icon icon-home-1 s-24"></i> <span>Inicio</span>
                 </a>
             </li>
@@ -101,16 +101,16 @@ pageEncoding="UTF-8"%>
                 </ul>
             </li>
             
-            <li><a class="ajaxifyPage" href="mostrar_lrs?tipo=ListaRep&pagina=10" >
+            <li><a class="ajaxifyPage" href="mostrar_lrs?tipo=ListaRep" >
                     <i class="icon icon-compact-disc-1 s-24"></i> <span>Mis listas de reproduccion</span>
                 </a>
             </li>
             
-            <li><a class="ajaxifyPage" href="mostrar_podcasts?tipo=podcasts&pagina=10" >
+            <li><a class="ajaxifyPage" href="mostrar_podcasts?tipo=podcasts" >
                     <i class="icon icon-headphones s-24"></i> <span>Mis podcasts</span>
                 </a>
             </li>
-            <li><a class="ajaxifyPage" href="obtener_info_fav&pagina=10" >
+            <li><a class="ajaxifyPage" href="obtener_info_fav" >
             		<i class="icon icon-star s-24"></i> <span>Mis favoritos</span>
             	</a>
             </li>
@@ -242,9 +242,9 @@ String imagen = (String) session.getAttribute("imagen");
             <a href="#" data-toggle="push-menu" class="paper-nav-toggle pp-nav-toggle ml-2 mr-2">
                 <i></i>
             </a>
-            <a class="navbar-brand d-none d-lg-block" href="Inicio?pagina=10" >
+            <a class="navbar-brand d-none d-lg-block" href="perfil_usuario_admin.jsp?pagina=10" >
                 <div class="d-flex align-items-center s-14 l-s-2">
-                    <a style="position: absolute;width: 12%;" href="Inicio?pagina=10" ><img  src="assets/img/logo.png"></a>
+                    <a style="position: absolute;width: 12%;" href="perfil_usuario_admin.jsp?pagina=10" ><img  src="assets/img/logo.png"></a>
                 </div>
             </a>
         </div>
@@ -275,7 +275,7 @@ String imagen = (String) session.getAttribute("imagen");
 					<div class="dropdown-menu p-4 dropdown-menu-right">
 						<div class="row box justify-content-between my-4">
 							<div class="col text-center">
-								<a class="ajaxifyPage" href="obtener_contenido_perfil?pagina=10" >
+								<a class="ajaxifyPage" href="perfil_usuario_admin.jsp?pagina=10" >
 									<i class="icon-user-4  s-24"></i>
 									<div class="pt-1">Mi perfil</div>
 								</a>
@@ -376,18 +376,7 @@ String imagen = (String) session.getAttribute("imagen");
 									</div>
 									<div class="col-md-9">
 										<div class="d-md-flex align-items-center justify-content-between">
-											<h1 class="my-3 text-orange">${infoPodcast.getNombre()}</h1>
-											<div class="ml-auto mb-2">
-												<a href="#" class="snackbar ml-3" data-text="Te gusta este podcast"
-												   data-pos="top-right"
-												   data-showAction="true"
-												   data-actionText="ok"
-												   data-actionTextColor="#fff"
-												   data-backgroundColor="#0c101b"><i class="icon-thumbs-o-up s-24"></i>
-												</a>
-											</div>
-											
-
+											<h1 class="my-3 text-orange">${infoPodcast.getNombre()}</h1>											
 										</div>
 									
 										<div class="text-orange my-2">
@@ -422,17 +411,14 @@ String imagen = (String) session.getAttribute("imagen");
 																<div class="col-6">
 																	<h6>${cancion.getTitulo()}</h6>${cancion.getGenero()}
 																</div>
-																<a href="#" class="snackbar ml-3" data-text="Te gusta este programa"
-																   data-pos="top-right"
-																   data-showAction="true"
-																   data-actionText="ok"
-																   data-actionTextColor="#fff"
-																   data-backgroundColor="#0c101b"><i class="icon-thumbs-o-up s-24"></i>
-																</a>
 																<a href="#" data-toggle="control-sidebar">
 											                        <i style="position: relative;left: 10px;" class="icon-commenting-o s-24"></i>
 											                    </a>
-															</div>
+											                    <div class="ml-auto">
+																	<a href="${pageContext.request.contextPath}/ir_modificar?id_audio=${cancion.getId()}&cancion=false&pagina=10" class="btn-icono icon-pencil" ></a>
+																	<a href="${pageContext.request.contextPath}/eliminar_capitulo?id_capitulo=${cancion.getId()}&pagina=10" class="btn-icono icon-trash-o" ></a>
+																</div>
+											                 </div>
 														</li>
 													</div>								                
 												</c:forEach>

@@ -28,7 +28,7 @@ import com.espotify.model.Usuario;
 @WebServlet("/Val_UsuarioServlet")
 public class Val_UsuarioServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+    private final String ADMIN = "100";
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -56,30 +56,36 @@ public class Val_UsuarioServlet extends HttpServlet {
 			session.setAttribute("imagen", u.getImagen());
 			ArrayList<Genero> generos = new GeneroDAO().obtenerGeneroMusica();
 			session.setAttribute("generos", generos);
-			List<ListaReproduccion> listas = new ListaReproduccionDAO().showLists(u.getId(),"ListaRep");
-			if (listas.size() > 4) {
-				listas = listas.subList(0, 5);
-				request.setAttribute("listas",listas);
-			} else {
-				request.setAttribute("listas", listas);
+			ArrayList<Genero> categorias = new GeneroDAO().obtenerGeneroCapitulo();
+			session.setAttribute("categorias", categorias);
+			if (u.getId().equals(ADMIN)) {
+				request.getRequestDispatcher("perfil_admin.jsp?pagina=0").forward( request, response );
+			}else {
+				List<ListaReproduccion> listas = new ListaReproduccionDAO().showLists(u.getId(),"ListaRep");
+				if (listas.size() > 4) {
+					listas = listas.subList(0, 5);
+					request.setAttribute("listas",listas);
+				} else {
+					request.setAttribute("listas", listas);
+				}
+				List<Audio> fav = new FavoritosDAO().getAudios(Integer.valueOf(u.getId()));
+				if (fav.size() > 4) {
+					List<Audio>audios = fav.subList(0, 5);
+					request.setAttribute("audios",audios);
+				} else {
+					request.setAttribute("audios",fav);
+				}
+				
+				if(u.getImagen()!=null) {
+					session.setAttribute("hayfoto", "si");
+				} else {
+					session.setAttribute("hayfoto", null);
+				}
+				List<Transmision> transmisiones = new TransmisionDAO().getTransmisionPorNombre("PruebaEscuchar");
+				request.setAttribute("transmisiones", transmisiones);
+				
+				request.getRequestDispatcher("index.jsp?pagina=0").forward( request, response );
 			}
-			List<Audio> fav = new FavoritosDAO().getAudios(Integer.valueOf(u.getId()));
-			if (fav.size() > 4) {
-				List<Audio>audios = fav.subList(0, 5);
-				request.setAttribute("audios",audios);
-			} else {
-				request.setAttribute("audios",fav);
-			}
-			
-			if(u.getImagen()!=null) {
-				session.setAttribute("hayfoto", "si");
-			} else {
-				session.setAttribute("hayfoto", null);
-			}
-			List<Transmision> transmisiones = new TransmisionDAO().getTransmisionPorNombre("PruebaEscuchar");
-			request.setAttribute("transmisiones", transmisiones);
-			
-			request.getRequestDispatcher("index.jsp?pagina=0").forward( request, response );
 			//response.sendRedirect("index.jsp");
 		}else {
 			//response.getWriter().println("<div class='popup' id='popup'><a href='#' id='btn-cerrar-popup' class='btn-cerrar-popup'><i class='fas fa-times'></i></a><h3>Datos incorrectos</h3><h4>Email o contrase�a incorrectos, int�ntelo de nuevo.</h4><form action=''><div class='contenedor-inputs'></div><input type='submit' class='btn-cerrar-popup' value='Entendido'></form></div>");

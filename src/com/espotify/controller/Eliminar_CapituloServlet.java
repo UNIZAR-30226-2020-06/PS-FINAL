@@ -6,6 +6,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.espotify.dao.CapituloPodcastDAO;
 
@@ -15,7 +16,7 @@ import com.espotify.dao.CapituloPodcastDAO;
 @WebServlet("/Eliminar_CapituloServlet")
 public class Eliminar_CapituloServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+	private static final int ADMIN = 100;     
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -32,7 +33,13 @@ public class Eliminar_CapituloServlet extends HttpServlet {
 		CapituloPodcastDAO cancion = new CapituloPodcastDAO();
 		if (cancion.borrarCapituloPodcast(id_capitulo)) {
 			System.out.println("Entro");
-			request.getRequestDispatcher("/obtener_contenido_perfil").forward(request, response);
+			HttpSession session = request.getSession();
+			int usuario = Integer.valueOf((String) session.getAttribute("id"));
+			if (usuario == ADMIN) {
+				request.getRequestDispatcher("perfil_admin.jsp?pagina=10").forward(request, response);
+			}else {
+				request.getRequestDispatcher("/obtener_contenido_perfil").forward(request, response);
+			}
 		}else {
 			System.out.println("Error al eliminar cancion");
 		}

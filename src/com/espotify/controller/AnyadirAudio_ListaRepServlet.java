@@ -34,15 +34,15 @@ public class AnyadirAudio_ListaRepServlet extends HttpServlet {
 		String lista = request.getParameter("idLista");
 		String nombre = request.getParameter("nombreLista");
 		String tipo = request.getParameter("tipo");
-
+		log(lista);
+		log(nombre);
+		log(tipo);
 
 		int idLista = Integer.valueOf(lista);
 		
 		Boolean anyadida=false;	
 		String redir="";
-		log(lista);
-		log(nombre);
-		log(tipo);
+		
 		if (tipo.equals("ListaRep")) {
 			String audio = request.getParameter("idAudio");
 			int idAudio = Integer.valueOf(audio);		
