@@ -466,9 +466,10 @@ String imagen = (String) session.getAttribute("imagen");
 																<a title="Editar información" href="${pageContext.request.contextPath}/ir_modificar?id_audio=${cancion.getId()}&cancion=true&pagina=<%=pagina %>" class="btn-icono icon-pencil" ></a>
 																<a title="Añadir a lista de reproducción" href="#" class="btn-icono icon-indent" onclick="rellenarCampos('${listaslr.size()}','${cancion.getId()}');
 																document.getElementById('overlay-anadir-listas-reproduccion').classList.add('active');"
-
 																	></a>
-																<a title="Borrar canción del perfil" href="${pageContext.request.contextPath}/eliminar_cancion?id_cancion=${cancion.getId()}&pagina=<%=pagina %>" class="btn-icono icon-trash-o" ></a>
+																<a href="#" 
+																onclick="document.getElementById('cancionIDborrar').value = '${cancion.getId()}';
+																document.getElementById('overlay-borrar-cancion').classList.add('active');" class="btn-icono icon-trash-o" ></a>
 															</div>
 														</div>
 													</li>
@@ -673,23 +674,35 @@ String imagen = (String) session.getAttribute("imagen");
 	    <div class="col-md-7 card p-5">	
 	        <a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-borrar-cancion" class="btn-cerrar-popup-perfil"	
 	        class="btn btn-outline-primary btn-sm pl-4 pr-4"  onclick="document.getElementById('overlay-borrar-cancion').classList.remove('active');"><i class="icon-close1"></i></a>	
-			<form class="form-material" action="borrar_lr">	
+			<form class="form-material" action="eliminar_cancion">	
 				<!-- Input -->	
 				<div class="body">	
 					<header class="relative nav-sticky card">	
-	                    <h3>¿Estas seguro?</h3>	
-	                    <h5>Vas a borrar esta lista de reproduccion para siempre, no hay vuelta atras</h5>	
+	                    <h3>¿Estás seguro?</h3>	
+	                    <h5>Vas a borrar este capítulo de tu perfil.</h5>	
 					</header>	
 		
-					<input type="hidden" id="idLista6" name="nombre" value="">
-					<input type="hidden" name="tipo" id="tipo6" value="ListaRep">	
-					<a id="submit6" href="#" class="btn btn-outline-primary btn-sm pl-4 pr-4">Aceptar</a>	
+					<input type="hidden" id="cancionIDborrar" value="">
+					<a id="borrarCancion" href="obtener_contenido_perfil?pagina=<%=pagina %>" class="btn btn-outline-primary btn-sm pl-4 pr-4">Aceptar</a>	
 	             </div>   
 				<!-- #END# Input -->	
 	        </form>	
 		</div>	
 	</div>	
 <!-- END BORRAR CANCION -->
+<script>
+    $(document).ready(function() {
+    	$('#borrarCancion').click(function(event) { // cargar los comentarios de cancion
+			var cancionId = $('#cancionIDborrar').val();
+			console.log(cancionId);
+			$.get('eliminar_cancion', {
+				id_cancion: cancionId
+			}, function(data){
+				$('#contenido').html(data);
+			});
+		});
+    });
+    </script>
 
 <!-- Bloque de subir capitulo-->
 <div class="overlay-pop-up" id="overlay-subir-capitulo">
@@ -735,11 +748,11 @@ String imagen = (String) session.getAttribute("imagen");
     	$('#borrarCapitulo').click(function(event) { // cargar los comentarios de cancion
 			var capituloId = $('#capituloIDborrar').val();
 			console.log(capituloId);
-			//$.get('eliminar_capitulo', {
-			//	id_capitulo: capituloId
-			//}, function(data){
-			//	$('#contenido').html(data);
-			//});
+			$.get('eliminar_capitulo', {
+				id_capitulo: capituloId
+			}, function(data){
+				$('#contenido').html(data);
+			});
 		});
     });
     </script>
