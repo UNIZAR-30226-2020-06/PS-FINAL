@@ -124,101 +124,6 @@ String nombre = (String) session.getAttribute("nombre");
 </aside>
 <!-- ACABA MENU DE LA IZQUIERDA-->
 
-<!-- MENU DONDE ESTAN LAS CANCIONES EN LA COLA (DERECHA) -->
-<aside class="control-sidebar fixed ">
-    <div class="slimScroll">
-        <div class="sidebar-header">
-            <h4>PlayList</h4>
-            <p>Awesome Collection for you</p>
-            <a href="#" data-toggle="control-sidebar" class="paper-nav-toggle  active"><i></i></a>
-        </div>
-        <div class="p-3">
-            <ul id="playlist" class="playlist list-group">
-                <li class="list-group-item my-1">
-                    <a class="no-ajaxy media-url" href="assets/media/track1.mp3"  data-wave="assets/media/track1.json">
-                        <div class="d-flex justify-content-between align-items-center">
-                            
-                            <figure class="avatar-md float-left mr-3 mt-1">
-                                <img class="r-5" src="assets/img/demo/a1.jpg" alt="">
-                            </figure>
-                            <div>
-                                <h6>alexander Pierce</h6>Atif Aslam
-                            </div>
-                            <span class="badge badge-primary badge-pill"> 5:03</span>
-                        </div>
-                    </a>
-                </li>
-                <li class="list-group-item my-1">
-                    <a class="no-ajaxy media-url" href="assets/media/track2.mp3" data-wave="assets/media/track2.json">
-                        <div class="d-flex justify-content-between align-items-center">
-                            
-                            <figure class="avatar-md float-left mr-3 mt-1">
-                                <img class="r-5" src="assets/img/demo/a2.jpg" alt="">
-                            </figure>
-                            <div>
-                                <h6>alexander Pierce</h6>Atif Aslam
-                            </div>
-                            <span class="badge badge-primary badge-pill"> 5:03</span>
-                        </div>
-                    </a>
-                </li>
-                <li class="list-group-item my-1">
-                    <a class="no-ajaxy media-url" href="assets/media/track3.mp3" data-wave="assets/media/track3.json">
-                        <div class="d-flex justify-content-between align-items-center">
-                            
-                            <figure class="avatar-md float-left mr-3 mt-1">
-                                <img class="r-5" src="assets/img/demo/a4.jpg" alt="">
-                            </figure>
-                            <div>
-                                <h6>alexander Pierce</h6>Atif Aslam
-                            </div>
-                            <span class="badge badge-primary badge-pill"> 5:03</span>
-                        </div>
-                    </a>
-                </li>
-
-                <li class="list-group-item my-1">
-                    <a class="no-ajaxy media-url" href="assets/media/track1.mp3"  data-wave="assets/media/track1.json">
-                        <div class="d-flex justify-content-between align-items-center">
-                            
-                            <figure class="avatar-md float-left mr-3 mt-1">
-                                <img class="r-5" src="assets/img/demo/a5.jpg" alt="">
-                            </figure>
-                            <div>
-                                <h6>alexander Pierce</h6>Atif Aslam
-                            </div>
-                            <span class="badge badge-primary badge-pill"> 5:03</span>
-                        </div>
-                    </a>
-                </li>
-
-                <li class="list-group-item my-1">
-                    <a class="no-ajaxy media-url" href="assets/media/track2.mp3" data-wave="assets/media/track2.json">
-                        <div class="d-flex justify-content-between align-items-center">
-                            
-                            <figure class="avatar-md float-left mr-3 mt-1">
-                                <img class="r-5" src="assets/img/demo/a6.jpg" alt="">
-                            </figure>
-                            <div>
-                                <h6>alexander Pierce</h6>Atif Aslam
-                            </div>
-                            <span class="badge badge-primary badge-pill"> 5:03</span>
-                        </div>
-                    </a>
-                </li>
-
-
-            </ul>
-
-        </div>
-    </div>
-</aside>
-
-<!-- Add the sidebar's background. This div must be placed
-         immediately after the control sidebar -->
-<div class="control-sidebar-bg shadow  fixed"></div>
-<!-- ACABA MENU DERECHA -->
-
 
 <svg class="d-none">
     <defs>
@@ -388,6 +293,7 @@ String imagen = (String) session.getAttribute("imagen");
 <!--Page Content-->
 <main id="pageContent" class="page has-sidebar">
 <div class="container-fluid relative animatedParent animateOnce p-lg-5">
+	<!-- INFORMACIÓN TRANSMISIÓN  -->
     <div class="card no-b shadow no-r">
         <div class="row no-gutters">
             <div class="col-md-4 b-r">
@@ -400,8 +306,9 @@ String imagen = (String) session.getAttribute("imagen");
                 </div>
             </div>
 
-		<!-- INFORMACION MODIFICAR Y FINALIZAR -->
-            <div class="text-center p-5 mt-5">
+			<!-- INFORMACION MODIFICAR Y FINALIZAR -->
+			<div class="col-md-8">
+			<div class="p-4">
             	<form action="modificar_transmision">
 	                <div class="text-center p-5 mt-5">
 						<div class="p5 b-b">
@@ -409,45 +316,85 @@ String imagen = (String) session.getAttribute("imagen");
 							<h5>La contraseña para la retransmision es: hackme</h5>
 							<h5>Introduce esta url en tu capturador para poder emitir el sonido en la retransmisión iniciada: </h5>
 							<label  name="url" >${transmision.getUrl() }</label>
-							<input type="hidden" name="idTransmision" value=${ transmision.getId()}>
-							<input type="text" name="nombre" class="formulario-subir-cancion" placeholder="Nombre de la transmisión" value=${ transmision.getNombre()}/>
-							<input type="text" name="descripcion" class="formulario-subir-cancion" placeholder="Descripcion" value=${ transmision.getDescripcion()}/>
+							<input type="hidden" id="transmIDcomment" name="idTransmision" value="${ transmision.getId()}">
+							<input type="text" name="nombre" class="formulario-subir-cancion" placeholder="Nombre de la transmisión" value="${ transmision.getNombre()}"/>
+							<input type="text" name="descripcion" class="formulario-subir-cancion" placeholder="Descripcion" value="${ transmision.getDescripcion()}"/>
 						</div>
-						<div="p-4">
+						<div class="p-4">
 							<input type="submit" class="btn btn-outline-primary btn-sm  mt-3" value="MODIFICAR INFORMACIÓN">
 							<a href="finalizar_transmision?idTransmision=${transmision.getId()}&url=${transmision.getUrl()}&pagina=10" class="btn btn-outline-primary btn-sm  mt-3">FINALIZAR</a>
 						</div>
 					</div>
 				</form>
 			</div>
-		<!-- END INFORMACION MODIFICAR Y FINALIZAR -->
-			
+			</div>
+			<!-- END INFORMACION MODIFICAR Y FINALIZAR -->
+        </div>
+    </div>
+    <!-- END INFORMACIÓN TRANSMISIÓN  -->
+    
+    <!-- COMENTARIOS TRANSMISIÓN -->
+    <div class="card no-b shadow no-r" style="margin-top: 30px;">
+        <div class="row no-gutters">
             <!-- COMENTARIOS -->
-			<div class="text-center p-5 mt-5">
+			<div class="col-md-8">
 				<div class="p5 b-b">
-					<div class="playlist">
-						<textarea class="formulario-subir-cancion" >COMENTARIO</textarea>
-					</div>
-					<div class="playlist">
-						<textarea class="formulario-subir-cancion" >COMENTARIO</textarea>
-					</div>
-					<div class="playlist">
-						<textarea class="formulario-subir-cancion" >COMENTARIO</textarea>
+					<div class="p-4" style="height: 472px;">
+						<div class="sidebar-header" style="margin-bottom: 1rem !important;">
+				            <h4><b>Comentarios</b></h4>
+				        </div>
+				        <script type="text/javascript">
+						$(".slimScroll").slimscroll({
+							height: "285px"
+						});
+						</script>
+						<div class="slimScroll" style="overflow: hidden; width: auto; height: 285px;">
+					        <div class="p-3">
+					        	<div id="listaComentariosTransmision"></div> <!-- DONDE SE MUESTRAN LOS COMENTARIOS -->
+					        </div>
+					    </div>
 					</div>
 				</div>
 			</div>
 			<!-- COMENTARIOS -->
         </div>
     </div>
-
+    <!-- END COMENTARIOS TRANSMISIÓN -->
 </div>
+
 
 </main><!--@Page Content-->
 </div><!--@#app-->
 <!--/#app -->
 <script src="https://maps.googleapis.com/maps/api/js?&amp;key=AIzaSyC3YkZNNySdyR87o83QEHWglHfHD_PZqiw&amp;libraries=places"></script>
 <script src="assets/js/app.js"></script>
-
+<script>
+    $(document).ready(function() {
+    	setTimeout(recargar,1000);
+    	$(".slimScroll").slimscroll({
+			height: "285px"
+		});
+		var audioId = $('#transmIDcomment').val();
+		console.log(audioId);
+		$.get('getall_coment_transmision', {
+			idTransmision: audioId
+		}, function(data){
+			$('#listaComentariosTransmision').html(data);
+		});
+    });
+    </script>
+    <script>
+	function recargar(){
+		var audioId = $('#transmIDcomment').val();
+			console.log(audioId);
+			$.get('getall_coment_transmision', {
+				idTransmision: audioId
+			}, function(data){
+				$('#listaComentariosTransmision').html(data);
+			});
+			setTimeout(recargar,3000);
+	}
+	</script>
 <script>
 	function loopAudio(){
 		var audio = document.getElementsByTagName("audio")[0];

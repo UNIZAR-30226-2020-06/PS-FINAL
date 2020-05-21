@@ -95,7 +95,7 @@ public class SubirAudioCancion_Servlet extends HttpServlet {
 			request.setAttribute("generos", generos);
 			request.setAttribute("id_audio", "0");
 			request.setAttribute("cancion", true);
-			request.getRequestDispatcher("formulario-datos-cancion.jsp").forward(request, response);
+			request.getRequestDispatcher("formulario-datos-cancion.jsp?pagina=10").forward(request, response);
 
 		} catch (FileUploadException e) {
 			getServletContext().log("FAIL: " + e.toString());
