@@ -233,6 +233,7 @@ pageEncoding="UTF-8"%>
 <%
 String hayfoto = (String) session.getAttribute("hayfoto");
 String imagen = (String) session.getAttribute("imagen");
+String likePodcast = (String) request.getAttribute("likePodcast");
 %>
 
 <!-- BARRA DE ARRIBA FIJA -->
@@ -378,13 +379,30 @@ String imagen = (String) session.getAttribute("imagen");
 										<div class="d-md-flex align-items-center justify-content-between">
 											<h1 class="my-3 text-orange">${infoPodcast.getNombre()}</h1>
 											<div class="ml-auto mb-2">
-												<a href="#" class="snackbar ml-3" data-text="Te gusta este podcast"
-												   data-pos="top-right"
-												   data-showAction="true"
-												   data-actionText="ok"
-												   data-actionTextColor="#fff"
-												   data-backgroundColor="#0c101b"><i class="icon-thumbs-o-up s-24"></i>
-												</a>
+												<form action="like_lista">
+                                                      <input type="hidden" id="idListaLike" name="idListaLike" value="${infoPodcast.getId()}">
+                                                      <%if(likePodcast == null) { %>
+		                                                      <input type="hidden" id="likeLista" name="likeLista" value="false">
+		                                                      <a href="#" id="accion_like_lista" class="snackbar ml-3" 
+		                                                      	data-text="Te gusta este podcast"
+		                                                         data-pos="top-right"
+		                                                         data-showAction="true"
+		                                                         data-actionText="ok"
+		                                                         data-actionTextColor="#fff"
+		                                                         data-backgroundColor="#0c101b"><i class="icon-thumbs-o-up s-24"></i>
+		                                                      </a>
+	                                                   <%} else { %>
+	                                                   		 <input type="hidden" id="likeLista" name="likeLista" value="true">
+	                                                      	<a href="#" id="accion_like_lista" class="snackbar ml-3" style="background-color: #fd7e14; color: #fff" 
+	                                                      		data-text="Ya no te gusta este podcast"
+		                                                         data-pos="top-right"
+		                                                         data-showAction="true"
+		                                                         data-actionText="ok"
+		                                                         data-actionTextColor="#fff"
+		                                                         data-backgroundColor="#0c101b"><i class="icon-thumbs-o-up s-24"></i>
+                                                        	</a>
+	                                                   <%} %>
+                                                  </form>
 											</div>
 											
 
@@ -495,15 +513,54 @@ String imagen = (String) session.getAttribute("imagen");
 				$('#listaComentariosCancion').html(data);
 			});
 		});
-
+    	$('#borrarComentario').click(function(event) { // borrar comentario en cancion
+			var idComentario = $('#comentarioID').val();
+			console.log(idComentario);
+			$.get('borrar_coment_cancion', {
+				idComentario: idComentario
+			}, function(responseText){
+				$('#contenido').html(responseText);
+			});
+		});
     });
     </script>
+    
+<script>
+$(document).ready(function() {
+        $('#accion_like_lista').click(function(event) { // dar like a lista
+            var listaId = $('#idListaLike').val();
+            var like = $('#likeLista').val();
+            console.log(like);
+            console.log(listaId);
+            $.get('like_lista', {
+                    idLista : listaId,
+                    like : like
+            });
+        });
+});
+</script>
 
 </main><!--@Page Content-->
 </div><!--@#app-->
 <!--/#app -->
 <script src="https://maps.googleapis.com/maps/api/js?&amp;key=AIzaSyC3YkZNNySdyR87o83QEHWglHfHD_PZqiw&amp;libraries=places"></script>
 <script src="assets/js/app.js"></script>
+
+<script>
+$(document).ready(function() {
+        $('#accion_like_lista').click(function(event) { // dar like a lista
+            var listaId = $('#idListaLike').val();
+            var like = $('#likeLista').val();
+            console.log(like);
+            console.log(listaId);
+            $.get('like_lista', {
+                    idLista : listaId,
+                    like : like
+            });
+        });
+});
+</script>
+
 <script>
 	function loopAudio(){
 		var audio = document.getElementsByTagName("audio")[0];

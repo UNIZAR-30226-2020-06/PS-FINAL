@@ -22,6 +22,7 @@ public class LikesDAO {
 	private final static String GET_TIENE_LIKEAUDIO_QUERY =	"SELECT * FROM Reproductor_musica.LikesAudio WHERE usuario = ? AND audio = ?";
 	private final static String GET_TIENE_LIKELISTA_QUERY =	"SELECT * FROM Reproductor_musica.LikesLista WHERE usuario = ? AND lista = ?";
 	private final static String GET_TIENE_LIKETRANS_QUERY =	"SELECT * FROM Reproductor_musica.LikesTrans WHERE usuario = ? AND transmision = ?";
+	
 
 	
 	// --------------------------------------------------------------------------

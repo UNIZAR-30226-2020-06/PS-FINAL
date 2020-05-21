@@ -9,55 +9,47 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.espotify.dao.LikesDAO;
-import com.espotify.dao.TransmisionDAO;
-import com.espotify.dao.UsuarioDAO;
-import com.espotify.model.Transmision;
-import com.espotify.model.Usuario;
 
 /**
- * Servlet implementation class VerTransmision_Servlet
+ * Servlet implementation class LikeLista_Servlet
  */
-@WebServlet("/VerTransmision_Servlet")
-public class VerTransmision_Servlet extends HttpServlet {
+@WebServlet("/LikeLista_Servlet")
+public class LikeLista_Servlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public VerTransmision_Servlet() {
+    public LikeLista_Servlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		LikesDAO likesDAO = new LikesDAO();
+		Boolean resultado = false;
+		
+		System.out.println("ENTROOOOOO  AQUII");
+		
 		HttpSession session = request.getSession();
 		int id = Integer.parseInt((String) session.getAttribute("id"));
 		
-		int idTransmision = Integer.parseInt((String) request.getParameter("idTransmision"));
-		Transmision transmision = new TransmisionDAO().getTransmisionPorId(idTransmision);
-		Usuario usuario = new UsuarioDAO().obtenerInfo(transmision.getUsuario());
-		LikesDAO like = new LikesDAO();
-		if(like.tieneLikeTrans(id, transmision.getId())) {
-			System.out.println("ENTRO NULL");
-			request.setAttribute("like", "like");
-		}else {
-			request.setAttribute("like", null);
-		}
+		Boolean like = Boolean.parseBoolean((String) request.getParameter("like"));
+		int idLista = Integer.parseInt((String) request.getParameter("idLista"));
 		
-		request.setAttribute("usuario", usuario);
-		request.setAttribute("transmision", transmision);
-		request.getRequestDispatcher("ver-transmision.jsp").forward(request, response);
-
+		if(like) {
+			resultado = likesDAO.quitarLikeLista(id, idLista);
+		} else {
+			resultado = likesDAO.anyadirLikeLista(id, idLista);
+		}		
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

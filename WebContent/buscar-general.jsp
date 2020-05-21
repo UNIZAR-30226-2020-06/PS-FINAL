@@ -19,7 +19,7 @@ pageEncoding="UTF-8"%>
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="icon" href="assets/img/basic/logo.ico" type="image/x-icon">
-    <title>Espotify-Búsqueda</title>
+    <title>Espotify</title>
     <!-- CSS -->
     <link rel="stylesheet" href="assets/css/app.css">
 </head>
@@ -82,7 +82,7 @@ pageEncoding="UTF-8"%>
 <aside class="main-sidebar fixed offcanvas shadow" data-toggle='offcanvas'>
     <div class="sidebar">
         <ul class="sidebar-menu">
-            <li><a class="ajaxifyPage active" href="Inicio?pagina=10" >
+            <li><a class="ajaxifyPage active" href="Inicio" >
                     <i class="icon icon-home-1 s-24"></i> <span>Inicio</span>
                 </a>
             </li>
@@ -100,16 +100,16 @@ pageEncoding="UTF-8"%>
                 </ul>
             </li>
             
-            <li><a class="ajaxifyPage" href="mostrar_lrs?tipo=ListaRep&pagina=10" >
+            <li><a class="ajaxifyPage" href="mostrar_lrs?tipo=ListaRep" >
                     <i class="icon icon-compact-disc-1 s-24"></i> <span>Mis listas de reproducción</span>
                 </a>
             </li>
             
-            <li><a class="ajaxifyPage" href="mostrar_podcasts?tipo=podcasts&pagina=10" >
+            <li><a class="ajaxifyPage" href="mostrar_podcasts?tipo=podcasts" >
                     <i class="icon icon-headphones s-24"></i> <span>Mis podcasts</span>
                 </a>
             </li>
-            <li><a class="ajaxifyPage" href="obtener_info_fav?pagina=10" >
+            <li><a class="ajaxifyPage" href="obtener_info_fav" >
             		<i class="icon icon-star s-24"></i> <span>Mis favoritos</span>
             	</a>
             </li>
@@ -155,7 +155,6 @@ pageEncoding="UTF-8"%>
          immediately after the control sidebar -->
 <div class="control-sidebar-bg shadow  fixed"></div>
 <!-- END MENU DONDE ESTAN LOS COMENTARIOS (DERECHA) -->
-
 
 <svg class="d-none">
     <defs>
@@ -209,9 +208,9 @@ String imagen = (String) session.getAttribute("imagen");
             <a href="#" data-toggle="push-menu" class="paper-nav-toggle pp-nav-toggle ml-2 mr-2">
                 <i></i>
             </a>
-            <a class="navbar-brand d-none d-lg-block" href="Inicio?pagina=10" >
+            <a class="navbar-brand d-none d-lg-block" href="Inicio" >
                 <div class="d-flex align-items-center s-14 l-s-2">
-                    <a style="position: absolute;width: 12%;" href="Inicio?pagina=10" ><img  src="assets/img/logo.png"></a>
+                    <a style="position: absolute;width: 12%;" href="Inicio" ><img  src="assets/img/logo.png"></a>
                 </div>
             </a>
         </div>
@@ -242,7 +241,7 @@ String imagen = (String) session.getAttribute("imagen");
 					<div class="dropdown-menu p-4 dropdown-menu-right">
 						<div class="row box justify-content-between my-4">
 							<div class="col text-center">
-								<a class="ajaxifyPage" href="obtener_contenido_perfil?pagina=10" >
+								<a class="ajaxifyPage" href="obtener_contenido_perfil" >
 									<i class="icon-user-4  s-24"></i>
 									<div class="pt-1">Mi perfil</div>
 								</a>
@@ -332,130 +331,84 @@ String imagen = (String) session.getAttribute("imagen");
        
         <!--@Banner Slider-->
         <div class="p-md-5 p-3  ">
-        	<h1 style="color:black;text-align:center;">Resultados de "${busqueda}"</h1>
-        	<section class="section">
-                <div class="d-flex relative align-items-center justify-content-between" style="background-color:black; top:20px;">
-	                    <div class="mb-4">
-	                        <h2 style="color:orange;">Usuarios</h2> 
-	                    </div>
-	                    <c:choose>
-	                    	<c:when test="${usuarios.isEmpty()}">
-	                    		<h2 style="color:orange;text-align:center;">No hay resultados</h2>
-                    		</c:when>
-                    		<c:otherwise>
-			                    <a style="text-align:right;" 
-		                    		href="VerMas?tipo=usuario&nombre=${busqueda}&pagina=10" >Ver más
-		                    		<i class="icon-angle-right ml-3"></i>
-			                    </a> 
-		                    </c:otherwise>
-	                    </c:choose>      
-                </div>
-                <%String id = (String)request.getSession().getAttribute("id");
-                  String nombre = (String)request.getSession().getAttribute("nombre");
-                 %>
-                <div class="row no-gutters">
-               	<c:forEach var="usuario" items="${usuarios}"> 
-		            <div class="col-md-4 b-r">
-		                <div class="text-center p-5 mt-5">
-		                    <figure class="avatar avatar-xl">
-		                    	<c:choose>
-		                    		<c:when test="${usuario.getId()==id }">
-				                    	<a href="obtener_contenido_perfil?pagina=10">
-				                    </c:when>
-				                    <c:otherwise>
-				                    	<a href="obtener_usuario?nombre=${usuario.getId()}&pagina=10">
-				                    </c:otherwise>
-				                </c:choose>
-				                    	<c:choose>
-				                    		<c:when test="${usuario.getImagen()!=null}">
-				                    			<img src=${usuario.getImagen() }>
-				                    		</c:when>
-				                    		<c:otherwise>
-				                    			<img src="assets/img/demo/u7.jpg" alt="">
-				                    		</c:otherwise>
-				                    	</c:choose>	
-				                    	</a>     
-		                    </figure>
-		                  	<div>
-		                        <h4 class="p-t-10">${usuario.getNombre()}</h4>
-		                    </div>
-		                </div>
-		            </div>
-		         </c:forEach>   
-		         </div>
-             </section>
-              
             <!--New Releases-->
+           	<h1>Más resultados de "${nombre}"</h1> 
             <section class="section">
                 <div class="d-flex relative align-items-center justify-content-between" style="background-color:black;">
 	                    <div class="mb-4">
-	                        <h2 style="color:orange;">Listas de Reproducción</h2> 
-	                    </div>
-	                    <c:choose>
-	                    	<c:when test="${listas.isEmpty()}">
-                    			<h2 style="color:orange;text-align:center;">No hay resultados</h2>	
-                    		</c:when>
-                    		<c:otherwise>
-			                    <a style="text-align:right;" 
-		                    		href="VerMas?tipo=ListaRep&nombre=${busqueda}&pagina=10" >Ver más
-		                    		<i class="icon-angle-right ml-3"></i>
-			                    </a> 
-		                    </c:otherwise>
-	                    </c:choose>     
+	                        <h2 style="color:orange;">${tipo}</h2> 
+	                    </div>    
                 </div>
-               <div class="row has-items-overlay" >
-               		<c:forEach var="lista" items="${listas}" >
-							<div class="col-lg-3 col-md-4 col-sm-6 my-2" style="top:20px;">
-								<figure>
-									<div class="img-wrapper">
-										<img src=${lista.getImagen() } alt="/">
-										<div class="img-overlay text-white text-center">
+                 <%String id = (String)request.getSession().getAttribute("id");
+                  String nombre = (String)request.getSession().getAttribute("nombre");
+                 %>
+               <c:choose>
+               <c:when test="${tipo =='Usuarios'}"> 
+	               <div class="row no-gutters">
+	               	<c:forEach var="usuario" items="${usuarios}"> 
+			            <div class="col-md-4 b-r">
+			                <div class="text-center p-5 mt-5">
+			                    <figure class="avatar avatar-xl">
+			                    	<c:choose>
+			                    		<c:when test="${usuario.getId()==id }">
+					                    	<a href="obtener_contenido_perfil">
+					                    </c:when>
+					                    <c:otherwise>
+					                    	<a href="obtener_usuario?nombre=${usuario.getId()}">
+					                    </c:otherwise>
+					                </c:choose>
+					                    	<c:choose>
+					                    		<c:when test="${usuario.getImagen()!=null}">
+					                    			<img src=${usuario.getImagen() }>
+					                    		</c:when>
+					                    		<c:otherwise>
+					                    			<img src="assets/img/demo/u7.jpg" alt="">
+					                    		</c:otherwise>
+					                    	</c:choose>	
+					                    	</a>     
+			                    </figure>
+			                  	<div>
+			                        <h4 class="p-t-10">${usuario.getNombre()}</h4>
+			                    </div>
+			                </div>
+			            </div>
+			         </c:forEach>   
+			         </div>
+		         </c:when>
+		         <c:when test="${tipo=='Listas de Reproduccion'}">
+	               <div class="row has-items-overlay" >
+	               		<c:forEach var="lista" items="${listas}" >
+								<div class="col-lg-3 col-md-4 col-sm-6 my-2" style="top:20px;">
+									<figure>
+										<div class="img-wrapper">
+											<img src=${lista.getImagen() } alt="/">
+											<div class="img-overlay text-white text-center">
 											<c:choose>
 					                    		<c:when test="${lista.getUsuario()==nombre }">
-							                    	<a href="obtener_info_lr?nombre=${lista.getNombre()}&pagina=10" >
+							                    	<a href="obtener_info_lr?nombre=${lista.getNombre()}" >
 							                    </c:when>
 							                    <c:otherwise>
-							                    	<a href="obtener_info_lr_usuario?id=${lista.getId()}&pagina=10">
+							                    	<a href="obtener_info_lr_usuario?id=${lista.getId()}">
 							                    </c:otherwise>
 							                </c:choose>
-											
-												<div class="figcaption mt-3">
-													<i class="icon-link s-48"></i>
-													<h5 class="mt-5">${lista.getNombre()}</h5>
-												</div>
-											</a>
+													<div class="figcaption mt-3">
+														<i class="icon-link s-48"></i>
+														<h5 class="mt-5">${lista.getNombre()}</h5>
+													</div>
+													</a>
+											</div>
+											<div class="figure-title text-center p-2">
+												<h5>${lista.getNombre()}</h5>
+											</div>
 										</div>
-										<div class="figure-title text-center p-2">
-											<h5>${lista.getNombre()}</h5>
-										</div>
-									</div>
-								</figure>
-							
-                    	</div>
-					</c:forEach>                   
-               </div> 
-               </section>
-              
-               <div class="d-flex relative align-items-center justify-content-between" style="background-color:black;">
-                    <div class="mb-4">
-                        <h2 style="color:orange;">Canciones</h2>
-                    </div>
-                    <c:choose>
-                    	<c:when test="${canciones.isEmpty()}">
-                   			<h2 style="color:orange;text-align:center;">No hay resultados</h2>	
-                   		</c:when>
-                   		<c:otherwise>
-		                    <a style="text-align:right;" 
-	                    		href="VerMas?tipo=cancion&nombre=${busqueda}&pagina=10" >Ver más
-	                    		<i class="icon-angle-right ml-3"></i>
-		                    </a> 
-	                    </c:otherwise>
-                    </c:choose> 
-                </div>
-               <div class="p-3 p-lg-5">
-					<!--New Releases-->
-					<section>
-						<div class="row">
+										
+									</figure>
+	                    	</div>
+						</c:forEach>                   
+	               </div>
+	           </c:when> 
+               <c:when test="${tipo=='Canciones'}">
+               		<div class="row">
 							<div class="col-lg-10 offset-lg-1">
 								<div class="row">
 									<div class="col-md-12">
@@ -487,7 +440,7 @@ String imagen = (String) session.getAttribute("imagen");
 																<a href="anyadir_cancion_fav?idAudio=${cancion.getId()}" class="btn-favorito icon-star" ></a>
 																<a href="#" class="btn-icono icon-indent" onclick="rellenarCampos('${listaslr.size()}','${cancion.getId()}');
 																document.getElementById('overlay-anadir-listas-reproduccion').classList.add('active')";
-																></a>
+																	></a>
 															</div>
 														</div>
 													</li>
@@ -499,34 +452,16 @@ String imagen = (String) session.getAttribute("imagen");
 								</div>
 							</div>
 						</div>
-					</section>
-					<!--@New Releases-->
-				</div>
-				<section class="section">
-	                <div class="d-flex relative align-items-center justify-content-between" style="background-color:black;">
-		                    <div class="mb-4">
-		                        <h2 style="color:orange;">Transmisiones</h2> 
-		                    </div>
-		                    <c:choose>
-		                    	<c:when test="${transmisiones.isEmpty()}">
-	                    			<h2 style="color:orange;text-align:center;">No hay resultados</h2>
-	                    		</c:when>
-	                    		<c:otherwise>
-				                    <a style="text-align:right;" 
-			                    		href="VerMas?tipo=transmision&nombre=${busqueda}&pagina=10" >Ver más
-			                    		<i class="icon-angle-right ml-3"></i>
-				                    </a> 
-			                    </c:otherwise>
-		                    </c:choose>     
-	                </div>
-		                <div class="row has-items-overlay" >
+               </c:when>
+               <c:when test="${tipo=='Transmisiones'}">
+               		<div class="row has-items-overlay" >
 		               		<c:forEach var="transmision" items="${transmisiones}" >
 									<div class="col-lg-3 col-md-4 col-sm-6 my-2" style="top:20px;">
 										<figure>
 											<div class="img-wrapper">
 												<img src="assets/img/demo/a1.jpg" alt="/">
 												<div class="img-overlay text-white text-center">
-													<a href="ver_transmision?idTransmision=${transmision.getId()}&pagina=10">
+													<a href="ver_transmision?idTransmision=${transmision.getId()}">
 														<div class="figcaption mt-3">
 															<i class="icon-link s-48"></i>
 															<h5 class="mt-5">${transmision.getNombre()}</h5>
@@ -541,124 +476,89 @@ String imagen = (String) session.getAttribute("imagen");
 		                    	</div>
 							</c:forEach>                   
 		                </div> 
-                	</section>
-				<section class="section">	
-					<div class="d-flex relative align-items-center justify-content-between" style="background-color:black;">
-	                    <div class="mb-4">
-	                        <h2 style="color:orange;">Podcasts</h2>
-	                    </div>
-	                    <c:choose>
-	                    	<c:when test="${podcasts.isEmpty()}">
-                    			<h2 style="color:orange;text-align:center;">No hay resultados</h2>
-                    		</c:when>
-                    		<c:otherwise>
-			                    <a style="text-align:right;" 
-		                    		href="VerMas?tipo=podcast&nombre=${busqueda}&pagina=10" >Ver más
-		                    		<i class="icon-angle-right ml-3"></i>
-			                    </a> 
-		                    </c:otherwise>
-	                    </c:choose> 
-                	</div>
-                	<div class="row has-items-overlay" >
-               		<c:forEach var="podcast" items="${podcasts}" >
-							<div class="col-lg-3 col-md-4 col-sm-6 my-2" style="top:20px;">
-								<figure>
-									<div class="img-wrapper">
-										<img src=${podcast.getImagen() } alt="/">
-										<div class="img-overlay text-white text-center">
-											<c:choose>
+               </c:when>
+               <c:when test="${tipo=='Podcasts'}">
+               		<div class="row has-items-overlay" >
+	               		<c:forEach var="podcast" items="${podcasts}" >
+								<div class="col-lg-3 col-md-4 col-sm-6 my-2" style="top:20px;">
+									<figure>
+										<div class="img-wrapper">
+											<img src=${podcast.getImagen() } alt="/">
+											<div class="img-overlay text-white text-center">
+												<c:choose>
 					                    		<c:when test="${podcast.getUsuario()==nombre }">
-							                    	<a href="obtener_info_podcast?nombre=${podcast.getNombre()}&pagina=10" >
+							                    	<a href="obtener_info_podcast?nombre=${podcast.getNombre()}" >
 							                    </c:when>
 							                    <c:otherwise>
-							                    	<a href="obtener_info_podcast_usuario?id=${podcast.getId()}&pagina=10">
+							                    	<a href="obtener_info_podcast_usuario?id=${podcast.getId()}">
 							                    </c:otherwise>
 							                </c:choose>
-													<div class="figcaption mt-3">
-														<i class="icon-link s-48"></i>
-														<h5 class="mt-5">${podcast.getNombre()}</h5>
-													</div>
-													</a>
+														<div class="figcaption mt-3">
+															<i class="icon-link s-48"></i>
+															<h5 class="mt-5">${podcast.getNombre()}</h5>
+														</div>
+														</a>
+											</div>
+											<div class="figure-title text-center p-2">
+												<h5>${podcast.getNombre()}</h5>
+											</div>
 										</div>
-										<div class="figure-title text-center p-2">
-											<h5>${podcast.getNombre()}</h5>
-										</div>
-									</div>
-								</figure>
-							
-                    	</div>
-					</c:forEach>                   
-               </div> 
-                </section>
-                <section class="section">
-	                <div class="d-flex relative align-items-center justify-content-between" style="background-color:black;">
-		                    <div class="mb-4">
-		                        <h2 style="color:orange;">Capitulos</h2> 
-		                    </div>
-		                    <c:choose>
-		                    	<c:when test="${capitulos.isEmpty()}">
-	                    			<h2 style="color:orange;text-align:center;">No hay resultados</h2>
-	                    		</c:when>
-	                    		<c:otherwise>
-				                    <a style="text-align:right;" 
-			                    		href="VerMas?tipo=capitulo&nombre=${busqueda}&pagina=10" >Ver más
-			                    		<i class="icon-angle-right ml-3"></i>
-				                    </a> 
-			                    </c:otherwise>
-		                    </c:choose>    
-	                </div>
-	                <div class="p-3 p-lg-5">
-					<section>
-						<div class="row">
+									</figure>
+								
+	                    	</div>
+						</c:forEach>                   
+               		</div> 
+               </c:when> 
+               <c:when test="${tipo=='Capitulos'}">
+               		<div class="row">
 							<div class="col-lg-10 offset-lg-1">
 								<div class="row">
 									<div class="col-md-12">
 										<div class="playlist">
 											<ul id="playlist" class="playlist list-group">
-												<c:forEach var="capitulo" items="${capitulos}">                    
-												<div style="margin-bottom: -1px;" class="cancion">
-													<li class="list-group-item my-1">
-														<div class="d-flex align-items-center">
-															<div class="col-1">
-																<a class="no-ajaxy media-url" href="${capitulo.getUrl()}">
-																	<i class="icon-play s-28"></i>
-																</a>					
-															</div>
-															<div class="col-6">
-																<h6>${capitulo.getTitulo()}</h6>${capitulo.getGenero()}
-															</div>
-															<a href="#" class="snackbar ml-3" data-text="Te gusta esta canción"
-																   data-pos="top-right"
-																   data-showAction="true"
-																   data-actionText="ok"
-																   data-actionTextColor="#fff"
-																   data-backgroundColor="#0c101b"><i class="icon-thumbs-o-up s-24"></i>
-																</a>
-																<a href="#" data-toggle="control-sidebar">
-											                        <i style="position: relative;left: 10px;" class="icon-commenting-o s-24"></i>
-											                    </a>															
-															<div class="ml-auto">
-																<a href="#" class="btn-icono icon-indent" onclick="rellenarCampos('${podcasts.size()}','${capitulo.getId()}');
-
-																document.getElementById('overlay-anadir-podcast').classList.add('active')";
-																	></a>
-															</div>
+												<c:forEach var="capitulo" items="${capitulos}"> 
+													<li class="list-group-item my-1">                   
+														<div style="margin-bottom: -1px;" class="cancion">
+															
+																<div class="d-flex align-items-center">
+																	<div class="col-1">
+																		<a class="no-ajaxy media-url" href="${capitulo.getUrl()}">
+																			<i class="icon-play s-28"></i>
+																		</a>					
+																	</div>
+																	<div class="col-6">
+																		<h6>${capitulo.getTitulo()}</h6>${capitulo.getGenero()}
+																	</div>
+																	<a href="#" class="snackbar ml-3" data-text="Te gusta esta canción"
+																		   data-pos="top-right"
+																		   data-showAction="true"
+																		   data-actionText="ok"
+																		   data-actionTextColor="#fff"
+																		   data-backgroundColor="#0c101b"><i class="icon-thumbs-o-up s-24"></i>
+																		</a>
+																		<a href="#" data-toggle="control-sidebar">
+													                        <i style="position: relative;left: 10px;" class="icon-commenting-o s-24"></i>
+													                    </a>															
+																	<div class="ml-auto">
+																		<a href="#" class="btn-icono icon-indent" onclick="rellenarCampos('${podcasts.size()}','${capitulo.getId()}');
+																		document.getElementById('overlay-anadir-podcast').classList.add('active');"></a>													
+																	</div>
+																</div>
 														</div>
-													</li>
-												</div>								                
-											</c:forEach>
+													</li>								                
+												</c:forEach>
 											</ul>
 										</div>
 									</div>
 								</div>
 							</div>
 						</div>
-					</section>
-				</div>
-	           </section>
+               </c:when>
+			</c:choose>	
+			</section>
+			
         </div>
     </div>
-</div>
 
 <script>
     $(document).ready(function() {
@@ -672,6 +572,15 @@ String imagen = (String) session.getAttribute("imagen");
 				$('#listaComentariosCancion').html(data);
 			});
 		});
+    	$('#borrarComentario').click(function(event) { // borrar comentario en cancion
+			var idComentario = $('#comentarioID').val();
+			console.log(idComentario);
+			$.get('borrar_coment_cancion', {
+				idComentario: idComentario
+			}, function(responseText){
+				$('#contenido').html(responseText);
+			});
+		});
     });
     </script>
 
@@ -681,7 +590,7 @@ String imagen = (String) session.getAttribute("imagen");
 <!-- AÑADIR CANCION A LISTA DE REPRODUCCIÓN -->
 <div class="overlay-pop-up" id="overlay-anadir-listas-reproduccion">
     <div class="col-md-7 card p-5">
-		<a style="position: absolute;top: 20px;right: 30px;" href="#" onclick="document.getElementById('overlay-anadir-listas-reproduccion').classList.remove('active');"id="btn-cerrar-anadir-listas-reproduccion" class="btn-cerrar-popup-perfil"><i class="icon-close1"></i></a>			
+		<a style="position: absolute;top: 20px;right: 30px;" href="#" onclick="document.getElementById('overlay-anadir-listas-reproduccion').classList.remove('active');" id="btn-cerrar-anadir-listas-reproduccion" class="btn-cerrar-popup-perfil"><i class="icon-close1"></i></a>			
 			<!-- Input -->
 				<div class="body">
 					<div class="row has-items-overlay">
@@ -719,7 +628,7 @@ String imagen = (String) session.getAttribute("imagen");
 <!-- AÑADIR CAPITULO A PODCAST -->
 <div class="overlay-pop-up" id="overlay-anadir-podcast">
     <div class="col-md-7 card p-5">
-		<a style="position: absolute;top: 20px;right: 30px;" href="#" onclick="document.getElementById('overlay-anadir-podcast').classList.remove('active');" id="btn-cerrar-anadir-podcast" class="btn-cerrar-popup-perfil"><i class="icon-close1"></i></a>			
+		<a style="position: absolute;top: 20px;right: 30px;" href="#" onclick="document.getElementById('overlay-anadirpodcast').classList.remove('active');" id="btn-cerrar-anadir-podcast" class="btn-cerrar-popup-perfil"><i class="icon-close1"></i></a>			
 			<!-- Input -->
 				<div class="body">
 					<div class="row has-items-overlay">
@@ -753,6 +662,7 @@ String imagen = (String) session.getAttribute("imagen");
 	</div>
 </div>
 <!-- END AÑADIR CAPITULO A PODCAST -->
+
 
 <!-- BORRAR COMENTARIO DE CANCION -->	
 	<div class="overlay-pop-up" id="overlay-borrar-coment-cancion">	

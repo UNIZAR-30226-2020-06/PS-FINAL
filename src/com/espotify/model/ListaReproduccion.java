@@ -1,12 +1,12 @@
 package com.espotify.model;
 
 /**
- * Clase que define la estructura de una lista de reproducción.
+ * Clase que define la estructura de una lista de reproducciï¿½n.
  */
 
 public class ListaReproduccion {
 	
-    private String id;
+    private int id;
 	private String usuario;
 	private String nombre;
 	private String descripcion;
@@ -15,7 +15,7 @@ public class ListaReproduccion {
 	
 	public ListaReproduccion(String id, String nombre, String usuario, String descripcion, String imagen, String tipo) {
 		super();
-        this.id = id;
+        this.id = Integer.parseInt(id);
 		this.nombre = nombre;
 		this.descripcion = descripcion;
 		this.imagen = imagen;
@@ -23,7 +23,7 @@ public class ListaReproduccion {
 		this.usuario = usuario;
 	}
 	
-    public String getId() {
+    public int getId() {
         return id;
     }
     

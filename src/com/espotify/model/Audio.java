@@ -6,22 +6,23 @@ package com.espotify.model;
 
 public class Audio {
 	
-    private String id;
+    private int id;
 	private String url;
 	private String titulo;
 	private String usuario;
 	private String genero;
+	private String likeUsuario;
 	
 	public Audio(String id, String url, String titulo, String usuario, String genero) {
 		super();
-        this.id = id;
+        this.id = Integer.parseInt(id);
 		this.url = url;
 		this.titulo = titulo;
 		this.usuario = usuario;
 		this.genero = genero;
 	}
 	
-    public String getId() {
+    public int getId() {
         return id;
     }
 	
@@ -40,4 +41,12 @@ public class Audio {
 	public String getGenero() {
         return genero;
     }
+	
+	public void setLikeUsuario(String likeUsuario) {
+		this.likeUsuario = likeUsuario;
+	}
+	
+	public String getLikeUsuario() {
+		return likeUsuario;
+	}
 }

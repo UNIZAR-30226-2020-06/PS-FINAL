@@ -113,7 +113,7 @@ String error2= (String)request.getParameter("error2");
                                     <div class="form-group form-float">
                                         <div class="form-line">
                                             <input type="text" name="nombre" class="form-control" required="">
-                                            <label class="form-label">Nombre</label>
+                                            <label class="form-label">Nombre de usuario</label>
                                         </div>
                                     </div>
 									<div class="form-group form-float">
@@ -125,26 +125,26 @@ String error2= (String)request.getParameter("error2");
                                     <div class="form-group form-float">
                                         <div class="form-line">
                                             <input type="password" name="contrasena" class="form-control" required="">
-                                            <label class="form-label">Contraseña</label>
+                                            <label class="form-label">Contraseï¿½a</label>
                                         </div>
                                     </div>
 									<div class="form-group form-float">
                                         <div class="form-line">
                                             <input type="password" name="password" class="form-control" required="">
-                                            <label class="form-label">Confirmar contraseña</label>
+                                            <label class="form-label">Confirmar contraseï¿½a</label>
                                         </div>
                                     </div>
 									<div class="form-group form-float">
                                         <div class="form-line">
                                             <input type="text" name="descripcion" class="form-control">
-                                            <label class="form-label">Descripción</label>
+                                            <label class="form-label">Descripciï¿½n</label>
                                         </div>
                                     </div>
                                     
                                     <%
 									if (error1!=null) {
 									%>
-									<h1 style="color: #F00;font-size: 14px;">Error: Las contraseñas coinciden.</h1>
+									<h1 style="color: #F00;font-size: 14px;">Error: Las contraseï¿½as coinciden.</h1>
 									<% } 
 									else if(error2!=null){
 									%>

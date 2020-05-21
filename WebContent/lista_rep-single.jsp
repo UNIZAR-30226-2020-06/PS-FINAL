@@ -13,6 +13,7 @@ pageEncoding="UTF-8"%>
 <% 
 int pagina = Integer.valueOf((String) request.getParameter("pagina"));
 String nombre = (String) request.getParameter("nombre");
+String likeLista = (String) request.getAttribute("likeLista");
 %>
 <!-- NOMBRE DE LA PESTAÃA -->
 <head>
@@ -446,13 +447,35 @@ String imagen = (String) session.getAttribute("imagen");
 																<div class="col-6">
 																	<h6>${cancion.getTitulo()}</h6>${cancion.getGenero()}
 																</div>
-																<a href="#" class="snackbar ml-3" data-text="Te gusta esta canción"
-																   data-pos="top-right"
-																   data-showAction="true"
-																   data-actionText="ok"
-																   data-actionTextColor="#fff"
-																   data-backgroundColor="#0c101b"><i class="icon-thumbs-o-up s-24"></i>
-																</a>
+																<form action="like_audio">
+																	<input type="hidden" id="idAudioLike" name="idAudioLike" value="">
+																	<c:choose>
+																		<c:when test="${cancion.getLikeUsuario() == null}">
+																				<input type="hidden" id="like" name="like" value="false">
+																				<a href="#" id="accion_like" class="snackbar ml-3" 
+																					onclick="document.getElementById('idAudioLike').value ='${cancion.getId()}';" 
+																					data-text="Te gusta esta canción"
+																				   data-pos="top-right"
+																				   data-showAction="true"
+																				   data-actionText="ok"
+																				   data-actionTextColor="#fff"
+																				   data-backgroundColor="#0c101b"><i class="icon-thumbs-o-up s-24"></i>
+																				</a>
+																		</c:when>
+																		<c:otherwise>
+																			<input type="hidden" id="like" name="like" value="true">
+																			<a href="#" id="accion_like" class="snackbar ml-3" 
+																					style="background-color: #fd7e14; color: #fff" 
+																					onclick="document.getElementById('idAudioLike').value ='${cancion.getId()}';" data-text="Ya no te gusta esta canción"
+																				   data-pos="top-right"
+																				   data-showAction="true"
+																				   data-actionText="ok"
+																				   data-actionTextColor="#fff"
+																				   data-backgroundColor="#0c101b"><i class="icon-thumbs-o-up s-24"></i>
+																				</a>
+																		</c:otherwise>																	
+																	</c:choose>
+																</form>
 																<a href="#" data-toggle="control-sidebar" onclick="document.getElementById('audioIDcomment').value = '${cancion.getId()}';">
 											                        <i style="position: relative;left: 10px;" class="icon-commenting-o s-24"></i>
 											                    </a>
@@ -475,7 +498,8 @@ String imagen = (String) session.getAttribute("imagen");
 				
 				</c:when>
 				<c:otherwise>
-				
+<!-- END FAVORITOS -->
+<!-- LISTAS DE REPRODUCCIÓN GENERAL -->
 				<div class="has-bottom-gradient">
 						<div class="row pt-5 ml-lg-5 mr-lg-5">
 							<div class="col-md-10 offset-1">
@@ -490,13 +514,31 @@ String imagen = (String) session.getAttribute("imagen");
 											<div class="ml-auto mb-2">
 												<a href="#" onClick="document.getElementById('overlay-foto').classList.add('active');" 
 													class="btn btn-abrir-popup btn-sm  mt-3" id="abrir-popup-foto" style="position: relative;left: -4px;bottom: 13px;">Cambiar foto</a>
-												<a href="#" class="snackbar ml-3" data-text="Te gusta esta lista"
-												   data-pos="top-right"
-												   data-showAction="true"
-												   data-actionText="ok"
-												   data-actionTextColor="#fff"
-												   data-backgroundColor="#0c101b"><i class="icon-thumbs-o-up s-24"></i>
-												</a>
+												
+												<form action="like_lista">
+                                                      <input type="hidden" id="idListaLike" name="idListaLike" value="${infoLista.getId()}">
+                                                      <%if(likeLista == null) { %>
+		                                                      <input type="hidden" id="likeLista" name="likeLista" value="false">
+		                                                      <a href="#" id="accion_like_lista" class="snackbar ml-3" 
+		                                                      	data-text="Te gusta esta lista de reproducción"
+		                                                         data-pos="top-right"
+		                                                         data-showAction="true"
+		                                                         data-actionText="ok"
+		                                                         data-actionTextColor="#fff"
+		                                                         data-backgroundColor="#0c101b"><i class="icon-thumbs-o-up s-24"></i>
+		                                                      </a>
+	                                                   <%} else { %>
+	                                                   		 <input type="hidden" id="likeLista" name="likeLista" value="true">
+	                                                      	<a href="#" id="accion_like_lista" class="snackbar ml-3" style="background-color: #fd7e14; color: #fff" 
+	                                                      		data-text="Ya no te gusta esta lista de reproducción"
+		                                                         data-pos="top-right"
+		                                                         data-showAction="true"
+		                                                         data-actionText="ok"
+		                                                         data-actionTextColor="#fff"
+		                                                         data-backgroundColor="#0c101b"><i class="icon-thumbs-o-up s-24"></i>
+                                                        	</a>
+	                                                   <%} %>
+                                                  </form>
 											    <a style="color: #fd7e14;position: relative;left: 10px;bottom: 13px;" 
 													class="btn btn-abrir-popupl btn-sm  mt-3" 
 													id="abrir-popup-lista"
@@ -663,13 +705,35 @@ String imagen = (String) session.getAttribute("imagen");
 																<div class="col-6">
 																	<h6>${cancion.getTitulo()}</h6>${cancion.getGenero()}
 																</div>
-																<a href="#" class="snackbar ml-3" data-text="Te gusta esta canción"
-																   data-pos="top-right"
-																   data-showAction="true"
-																   data-actionText="ok"
-																   data-actionTextColor="#fff"
-																   data-backgroundColor="#0c101b"><i class="icon-thumbs-o-up s-24"></i>
-																</a>
+																<form action="like_audio">
+																	<input type="hidden" id="idAudioLike" name="idAudioLike" value="">
+																	<c:choose>
+																		<c:when test="${cancion.getLikeUsuario() == null}">
+																				<input type="hidden" id="like" name="like" value="false">
+																				<a href="#" id="accion_like" class="snackbar ml-3" 
+																					onclick="document.getElementById('idAudioLike').value ='${cancion.getId()}';" 
+																					data-text="Te gusta esta canción"
+																				   data-pos="top-right"
+																				   data-showAction="true"
+																				   data-actionText="ok"
+																				   data-actionTextColor="#fff"
+																				   data-backgroundColor="#0c101b"><i class="icon-thumbs-o-up s-24"></i>
+																				</a>
+																		</c:when>
+																		<c:otherwise>
+																			<input type="hidden" id="like" name="like" value="true">
+																			<a href="#" id="accion_like" class="snackbar ml-3" 
+																					style="background-color: #fd7e14; color: #fff" 
+																					onclick="document.getElementById('idAudioLike').value ='${cancion.getId()}';" data-text="Ya no te gusta esta canción"
+																				   data-pos="top-right"
+																				   data-showAction="true"
+																				   data-actionText="ok"
+																				   data-actionTextColor="#fff"
+																				   data-backgroundColor="#0c101b"><i class="icon-thumbs-o-up s-24"></i>
+																				</a>
+																		</c:otherwise>																	
+																	</c:choose>
+																</form>
 																<a href="#" data-toggle="control-sidebar" onclick="document.getElementById('audioIDcomment').value = '${cancion.getId()}';">
 											                        <i style="position: relative;left: 10px;" class="icon-commenting-o s-24"></i>
 											                    </a>
@@ -713,9 +777,33 @@ String imagen = (String) session.getAttribute("imagen");
 				$('#listaComentariosCancion').html(data);
 			});
 		});
+    	$('#borrarComentario').click(function(event) { // borrar comentario en cancion
+			var idComentario = $('#comentarioID').val();
+			console.log(idComentario);
+			$.get('borrar_coment_cancion', {
+				idComentario: idComentario
+			}, function(responseText){
+				$('#contenido').html(responseText);
+			});
+		});
 
     });
     </script>
+<script>
+$(document).ready(function() {
+        $('#accion_like_lista').click(function(event) { // dar like a lista
+            var listaId = $('#idListaLike').val();
+            var like = $('#likeLista').val();
+            console.log(like);
+            console.log(listaId);
+            $.get('like_lista', {
+                    idLista : listaId,
+                    like : like
+            });
+        });
+});
+</script>
+
 <script>
     $(document).ready(function() {
     	$('#submit').click(function(event) {
@@ -750,11 +838,39 @@ String imagen = (String) session.getAttribute("imagen");
 		});
     });
     </script>
+<script>
+	$(document).ready(function() {
+	    $('#playlist a').click(function(event) {//dar like a una cancion
+		 	var audioId = $('#idAudioLike').val();
+	        var like = $('#like').val();
+	        console.log(audioId);
+	        console.log(like);
+			$.get('like_audio', {
+	           idAudio: audioId,
+	            like : like
+			});
+	   });
+	});
+</script>
 </main><!--@Page Content-->
 </div><!--@#app-->
 <!--/#app -->
 <script src="https://maps.googleapis.com/maps/api/js?&amp;key=AIzaSyC3YkZNNySdyR87o83QEHWglHfHD_PZqiw&amp;libraries=places"></script>
 <script src="assets/js/app.js"></script>
+<script>
+	$(document).ready(function() {
+	    $('#playlist a').click(function(event) {//dar like a una cancion
+		 	var audioId = $('#idAudioLike').val();
+	        var like = $('#like').val();
+	        console.log(audioId);
+	        console.log(like);
+			$.get('like_audio', {
+	           idAudio: audioId,
+	            like : like
+			});
+	   });
+	});
+</script>
 <script>
 	function loopAudio(){
 		var audio = document.getElementsByTagName("audio")[0];
@@ -795,6 +911,21 @@ String imagen = (String) session.getAttribute("imagen");
 
     }
     </script>
+
+<script>
+$(document).ready(function() {
+        $('#accion_like_lista').click(function(event) { // dar like a lista
+            var listaId = $('#idListaLike').val();
+            var like = $('#likeLista').val();
+            console.log(like);
+            console.log(listaId);
+            $.get('like_lista', {
+                    idLista : listaId,
+                    like : like
+            });
+        });
+});
+</script>
     
     <script>
     $(document).ready(function() {
@@ -843,7 +974,6 @@ String imagen = (String) session.getAttribute("imagen");
 				$('#contenido').html(responseText);
 			});
 		});
-    	
     });
     </script>
     
