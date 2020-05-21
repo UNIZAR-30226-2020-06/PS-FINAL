@@ -376,9 +376,132 @@ String imagen = (String) session.getAttribute("imagen");
 									</div>
 									<div class="col-md-9">
 										<div class="d-md-flex align-items-center justify-content-between">
-											<h1 class="my-3 text-orange">${infoPodcast.getNombre()}</h1>											
+											<h1 class="my-3 text-orange">${infoPodcast.getNombre()}</h1>	
+											<div class="ml-auto mb-2">
+												<a href="#" onClick="document.getElementById('overlay-foto').classList.add('active');" 
+												   class="btn btn-abrir-popup btn-sm  mt-3" id="abrir-popup-foto" style="position: relative;left: -4px;bottom: 13px;">Cambiar foto</a>										
+												 <button style="color: #fd7e14;position: relative;left: 10px;bottom: 13px;"
+													class="btn btn-abrir-popupl btn-sm  mt-3" 
+													id="abrir-popup-lista"
+													onclick="document.getElementById('overlay-mod-podcast').classList.add('active');">
+													<i class="icon-edit  s-24"></i>Editar
+												</button>
+												<a style="color: #fd7e14;position: relative;left: 10px;bottom: 13px;"
+													class="btn btn-abrir-popupl btn-sm  mt-3" 
+													id="abrir-popup-lista"
+													onclick="document.getElementById('overlay-borrar').classList.add('active');"
+													href="#">
+													<i class="icon-trash s-24"></i>Borrar
+												</a>	
+											</div>
+											<!--  BORRAR PODCAST -->
+											<div class="overlay-pop-up" id="overlay-borrar">	
+											    <div class="col-md-7 card p-5">	
+											        <a style="position: absolute;top: 20px;right: 30px;" href="#"  class="btn-cerrar-popup-perfil"	
+											        class="btn btn-outline-primary btn-sm pl-4 pr-4"  onclick="document.getElementById('overlay-borrar').classList.remove('active');"><i class="icon-close1"></i></a>	
+													<form class="form-material" action="borrar_lista_admin" method="post">	
+														<!-- Input -->	
+														<div class="body">	
+															<header class="relative nav-sticky card">	
+											                    <h3>Vas a borrar este podcast.</h3>
+											                    <h5>¿Estás seguro?</h5>	
+															</header>	
+												
+															<input type="hidden" name=idLista value="${infoPodcast.getId()}">	
+															<input type="submit" value="Aceptar">
+														</div>	
+														<!-- #END# Input -->	
+											        </form>	
+												</div>	
+											</div>	
+											<!--  END BORRAR PODCAST -->
+											<!-- EDICION PODCAST -->
+											<div class="overlay-pop-up" id="overlay-mod-podcast">
+											    <div class="col-md-7 card p-5">
+														<a style="position: absolute;top: 20px;right: 30px;" href="#" 
+														class="btn-cerrar-popup-perfil"
+														onclick="document.getElementById('overlay-mod-podcast').classList.remove('active');">
+															<i class="icon-close1"></i>
+														</a>
+														<header class="relative nav-sticky card">
+															<h3>CAMBIAR INFORMACIÓN DE PODCAST</h3>
+														</header>
+														<form  action="modlr" method="post">
+															<!-- Input -->
+															<div class="body">
+																<input type="hidden" name="tipo" id="tipo" value="podcast">
+																<div class="form-group form-float">
+																	<div class="form-line">
+																		<input type="text" name="nombreNew" id="nombreNew" class="form-control" value="${infoPodcast.getNombre()}">
+																		<label class="form-label">Nombre</label>
+																	</div>
+																</div>
+											
+																<div class="form-group form-float">
+																	<div class="form-line">
+																		<input type="text" name="descripcion" id="descripcion" class="form-control" value="${infoPodcast.getDescripcion()}">
+																		<label class="form-label">Descripción</label>
+																	</div>
+																</div>
+																<input type="hidden" name="nombreOld" id="nombreOld" value="${infoPodcast.getNombre()}">
+																<input type="hidden" name="idLista" value="${infoPodcast.getId()}">
+																<input type="submit">
+															</div>
+														</form>
+														<!-- #END# Input -->
+												</div>
+											</div>
+											<!-- END EDICION PODCAST -->
+											
+											<!-- CAMBIAR FOTO -->
+											<div class="overlay-pop-up" id="overlay-foto">
+											    <div class="col-md-7 card p-5">
+													<a href="#" style="position: absolute;top: 20px;right: 30px;"
+													 onClick="document.getElementById('overlay-foto').classList.remove('active');"  id="btn-cerrar-foto" class="btn-cerrar-popup-perfil"><i class="icon-close1"></i></a>
+													<form class="form-material" action="modImagenPodcast" method=POST enctype=multipart/form-data>
+														<!-- Input -->
+														<div class="body">
+															<header class="relative nav-sticky card">
+																<h3>SUBIR FOTO</h3>
+															</header>
+															<div class="contenedor-inputs">
+																<input type="file" class="btn btn-outline-primary btn-sm  mt-3" name="imagen" accept="image/jpeg"> 
+																<input type="hidden" name="idPodcast" id="idPodcast" value=${infoLista.getId() }>
+															</div>
+											
+															<input type="submit" class="btn btn-outline-primary btn-sm pl-4 pr-4"
+																   value="Aceptar">
+														</div>
+														<!-- #END# Input -->
+													</form>
+												</div>
+											</div>
+											
+											<!-- END CAMBIAR FOTO -->
+											<!-- BORRAR COMENTARIO DE CANCION -->	
+											<div class="overlay-pop-up" id="overlay-borrar-coment-cancion">	
+											    <div class="col-md-7 card p-5">	
+											        <a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-borrar-coment-cancion" class="btn-cerrar-popup-perfil"	
+											        class="btn btn-outline-primary btn-sm pl-4 pr-4"  onclick="document.getElementById('overlay-borrar-coment-cancion').classList.remove('active');"><i class="icon-close1"></i></a>	
+													<form class="form-material" action="borrar_coment_cancion">	
+														<!-- Input -->	
+														<div class="body">	
+															<header class="relative nav-sticky card">	
+											                    <h3>Vas a borrar este comentario.</h3>
+											                    <h5>¿Estás seguro?</h5>	
+															</header>	
+												
+															<input type="hidden" id="comentarioID" name=idComentario value="">	
+															<a id="borrarComentario" href="#" onclick="document.getElementById('overlay-borrar-coment-cancion').classList.remove('active');" class="btn btn-outline-primary btn-sm pl-4 pr-4">Aceptar</a>
+														</div>	
+														<!-- #END# Input -->	
+											        </form>	
+												</div>	
+											</div>	
+											<!-- END BORRAR COMENTARIO DE CANCION -->
+											
 										</div>
-									
+										
 										<div class="text-orange my-2">
 											<p>${infoPodcast.getDescripcion()}</p>
 										</div>

@@ -741,6 +741,33 @@
 		<url-pattern>/getall_coment_transmision</url-pattern>
 	</servlet-mapping>
 	
+	<servlet>
+		<servlet-name>like_lista</servlet-name>
+		<servlet-class>com.espotify.controller.LikeLista_Servlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>like_lista</servlet-name>
+		<url-pattern>/like_lista</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>like_transmision</servlet-name>
+		<servlet-class>com.espotify.controller.LikeTransmision_Servlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>like_transmision</servlet-name>
+		<url-pattern>/like_transmision</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>like_audio</servlet-name>
+		<servlet-class>com.espotify.controller.LikeAudio_Servlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>like_audio</servlet-name>
+		<url-pattern>/like_audio</url-pattern>
+	</servlet-mapping>
+	
 	
 	<servlet>
 		<servlet-name>anyadir_cancion_lr</servlet-name>
@@ -906,6 +933,15 @@
 	</servlet-mapping>
 	
 	<servlet>
+		<servlet-name>seguir_usuario</servlet-name>
+		<servlet-class>com.espotify.controller.SeguirUsuario_Servlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>seguir_usuario</servlet-name>
+		<url-pattern>/seguir_usuario</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
 		<servlet-name>modifNombre_genero</servlet-name>
 		<servlet-class>com.espotify.controller.ModifNombre_GeneroServlet</servlet-class>
 	</servlet>
@@ -914,6 +950,14 @@
 		<url-pattern>/modifNombre_genero</url-pattern>
 	</servlet-mapping>
 	
+	<servlet>
+		<servlet-name>borrar_lista_admin</servlet-name>
+		<servlet-class>com.espotify.controller.Borrar_Listas_AdminServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>borrar_lista_admin</servlet-name>
+		<url-pattern>/borrar_lista_admin</url-pattern>
+	</servlet-mapping>
 	
 	
 	<context-param>

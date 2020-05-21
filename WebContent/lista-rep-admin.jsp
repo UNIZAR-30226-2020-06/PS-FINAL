@@ -392,8 +392,34 @@ String imagen = (String) session.getAttribute("imagen");
 													onclick="document.getElementById('overlay-mod-listas-reproduccion').classList.add('active');">
 													<i class="icon-edit  s-24"></i>Editar
 												</a>
+												<a href="#" onClick="document.getElementById('overlay-borrar').classList.add('active');"
+												   class="btn btn-abrir-popupl btn-sm  mt-3"
+												   style="color: #fd7e14;position: relative;left: 10px;bottom: 13px;">
+												   <i class="icon-trash s-24"></i>Borrar
+												</a>
 												
 											</div>
+											<!-- BORRAR LISTA DE REPRODUCCION -->
+											<div class="overlay-pop-up" id="overlay-borrar">	
+											    <div class="col-md-7 card p-5">	
+											        <a style="position: absolute;top: 20px;right: 30px;" href="#" class="btn-cerrar-popup-perfil"	
+											        class="btn btn-outline-primary btn-sm pl-4 pr-4"  onclick="document.getElementById('overlay-borrar').classList.remove('active');"><i class="icon-close1"></i></a>	
+													<form class="form-material" action="borrar_lista_admin" method="post">	
+														<!-- Input -->	
+														<div class="body">	
+															<header class="relative nav-sticky card">	
+											                    <h3>Vas a borrar esta lista.</h3>
+											                    <h5>¿Estás seguro?</h5>	
+															</header>	
+												
+															<input type="hidden" id="id_lista" name=idLista value="${infoLista.getId()}">	
+															<input type="submit" value="Aceptar">
+														</div>	
+														<!-- #END# Input -->	
+											        </form>	
+												</div>	
+											</div>	
+											<!-- END BORRAR LISTA DE REPRODUCCION -->
 											<!-- BORRAR COMENTARIO DE CANCION -->	
 											<div class="overlay-pop-up" id="overlay-borrar-coment-cancion">	
 											    <div class="col-md-7 card p-5">	
@@ -478,7 +504,7 @@ String imagen = (String) session.getAttribute("imagen");
 																	</div>
 																</div>
 																<input type="hidden" name="nombreOld" id="nombreOld" value="${infoLista.getNombre()}">
-											
+																<input type="hidden" name="idLista" value="${infoLista.getId()}">
 																<input type="submit"class="btn btn-outline-primary btn-sm pl-4 pr-4" value="Cambiar informacion">
 															</div>
 														</form>

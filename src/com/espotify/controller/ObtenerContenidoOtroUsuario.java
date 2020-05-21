@@ -14,7 +14,9 @@ import javax.servlet.http.HttpSession;
 import com.espotify.dao.CancionDAO;
 import com.espotify.dao.CapituloPodcastDAO;
 import com.espotify.dao.GeneroDAO;
+import com.espotify.dao.LikesDAO;
 import com.espotify.dao.ListaReproduccionDAO;
+import com.espotify.dao.SeguirDAO;
 import com.espotify.dao.UsuarioDAO;
 import com.espotify.model.Audio;
 import com.espotify.model.Genero;
@@ -49,15 +51,43 @@ public class ObtenerContenidoOtroUsuario extends HttpServlet {
 		System.out.printf("%d", idUsuario);
 		Usuario usuario = new UsuarioDAO().obtenerInfo(idUsuario);
 		log(usuario.getNombre());
-		request.setAttribute("nombre", usuario.getNombre());
+		/*request.setAttribute("nombre", usuario.getNombre());
 		request.setAttribute("descripcion", usuario.getDescripcion());
 		request.setAttribute("email", usuario.getCorreo());
-		request.setAttribute("imagen", usuario.getImagen());
+		request.setAttribute("imagen", usuario.getImagen());*/
+		request.setAttribute("usuario", usuario);
+		
+		Boolean seguido = new SeguirDAO().isFollowing(id, idUsuario);
+		if(seguido) {
+			request.setAttribute("seguido", "seguido");
+		}else {
+			request.setAttribute("seguido", "");
+		}
 		
 		ArrayList<Audio> canciones = new CancionDAO().obtenerCancionesUsuario(idUsuario);
+		for(Audio cancion :  canciones) {
+			if(LikesDAO.tieneLikeAudio(id, cancion.getId())) {
+				System.out.println("CANCION LIKE" + cancion.getId());
+				cancion.setLikeUsuario("like");
+			} else {
+				System.out.println("CANCION NO LIKE" + cancion.getId());
+				cancion.setLikeUsuario(null);
+			}
+		}
 		request.setAttribute("canciones", canciones);
+		
 		ArrayList<Audio> capitulos = new CapituloPodcastDAO().obtenerCapitulosPodcastUsuario(idUsuario);
+		for(Audio capitulo :  capitulos) {
+			if(LikesDAO.tieneLikeAudio(id, capitulo.getId())) {
+				System.out.println("CAPITULO  LIKE" + capitulo.getId());
+				capitulo.setLikeUsuario("like");
+			} else {
+				System.out.println("CAPITULO NO LIKE" + capitulo.getId());
+				capitulo.setLikeUsuario(null);
+			}
+		}
 		request.setAttribute("capitulos", capitulos);
+		
 		List<ListaReproduccion> listaslr = new ListaReproduccionDAO().showLists(idUsuario,"ListaRep");
 		request.setAttribute("listaslr", listaslr);
 		List<ListaReproduccion> podcasts = new ListaReproduccionDAO().showLists(idUsuario,"podcast");

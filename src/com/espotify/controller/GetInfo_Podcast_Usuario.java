@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.espotify.dao.LikesDAO;
 import com.espotify.dao.ListaReproduccionDAO;
 import com.espotify.model.Audio;
 import com.espotify.model.ListaReproduccion;
@@ -33,16 +34,24 @@ public class GetInfo_Podcast_Usuario extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		int usuario = Integer.valueOf((String)session.getAttribute("id"));
 		
 		int id = Integer.valueOf(request.getParameter("id"));
-		HttpSession session = request.getSession();
-		int usuario = Integer.valueOf((String) session.getAttribute("id"));
+
+		LikesDAO likesDAO = new LikesDAO();
+
 		//String aleatorio = request.getParameter("aleatorio");
 		
 		try{
 			ListaReproduccion infoPodcast = new ListaReproduccionDAO().getInfoListId(id);
 			List<Audio> audios = new ListaReproduccionDAO().getAudiosId(id);
 			
+			if(likesDAO.tieneLikeLista(usuario, infoPodcast.getId())) {
+				request.setAttribute("likePodcast", "likePodcast");
+			} else {
+				request.setAttribute("likePodcast", null);
+			}
 			//if (aleatorio.equals("si")) {
 			//	Collections.shuffle(audios);
 			//}			

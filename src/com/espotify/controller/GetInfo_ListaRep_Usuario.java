@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.espotify.dao.LikesDAO;
 import com.espotify.dao.ListaReproduccionDAO;
 import com.espotify.model.Audio;
 import com.espotify.model.ListaReproduccion;
@@ -39,6 +40,7 @@ public class GetInfo_ListaRep_Usuario extends HttpServlet {
 		HttpSession session = request.getSession();
 		int usuario = Integer.valueOf((String)session.getAttribute("id"));
 		int id= Integer.valueOf(request.getParameter("id"));
+		LikesDAO likesDAO = new LikesDAO();
 
 
 		//String aleatorio = request.getParameter("aleatorio");
@@ -50,6 +52,12 @@ public class GetInfo_ListaRep_Usuario extends HttpServlet {
 			//if (aleatorio.equals("si")) {
 			//	Collections.shuffle(audios);
 			//}
+			
+			if(likesDAO.tieneLikeLista(usuario, infoLista.getId())) {
+				request.setAttribute("likeLista", "likeLista");
+			} else {
+				request.setAttribute("likeLista", null);
+			}
 			
 			List<ListaReproduccion> listaslr = new ListaReproduccionDAO().showLists(usuario,"ListaRep");
 			

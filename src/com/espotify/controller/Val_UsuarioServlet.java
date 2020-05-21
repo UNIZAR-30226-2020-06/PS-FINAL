@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 
 import com.espotify.dao.FavoritosDAO;
 import com.espotify.dao.GeneroDAO;
+import com.espotify.dao.LikesDAO;
 import com.espotify.dao.ListaReproduccionDAO;
 import com.espotify.dao.TransmisionDAO;
 import com.espotify.dao.UsuarioDAO;
@@ -69,6 +70,13 @@ public class Val_UsuarioServlet extends HttpServlet {
 					request.setAttribute("listas", listas);
 				}
 				List<Audio> fav = new FavoritosDAO().getAudios(Integer.valueOf(u.getId()));
+				for(Audio cancion :  fav) {
+					if(LikesDAO.tieneLikeAudio(Integer.parseInt(u.getId()), cancion.getId())) {
+						cancion.setLikeUsuario("like");
+					} else {
+						cancion.setLikeUsuario(null);
+					}
+				}
 				if (fav.size() > 4) {
 					List<Audio>audios = fav.subList(0, 5);
 					request.setAttribute("audios",audios);

@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.espotify.dao.LikesDAO;
 import com.espotify.dao.ListaReproduccionDAO;
 import com.espotify.model.Audio;
 import com.espotify.model.ListaReproduccion;
@@ -41,16 +42,31 @@ public class GetInfo_ListaRepServlet extends HttpServlet {
 		String nombre = request.getParameter("nombre");
 		String tipo = "ListaRep";
 		List<ListaReproduccion> listas = new ListaReproduccionDAO().showLists(usuario,"ListaRep");
+		LikesDAO likesDAO = new LikesDAO();
+		
 		//String aleatorio = request.getParameter("aleatorio");
 		log(nombre);
 		try{
 			ListaReproduccion infoLista = new ListaReproduccionDAO().getInfoList(nombre,usuario,tipo);
 			List<Audio> audios = new ListaReproduccionDAO().getAudios(nombre,usuario,tipo);
 			
+			for(Audio audio :  audios) {
+				if(likesDAO.tieneLikeAudio(usuario, audio.getId())) {
+					audio.setLikeUsuario("like");
+				} else {
+					audio.setLikeUsuario(null);
+				}
+				
+			}
+			
 			//if (aleatorio.equals("si")) {
 			//	Collections.shuffle(audios);
 			//}
-			
+			if(likesDAO.tieneLikeLista(usuario, infoLista.getId())) {
+				request.setAttribute("likeLista", "likeLista");
+			} else {
+				request.setAttribute("likeLista", null);
+			}
 			request.setAttribute("listaslr", listas);
 			request.setAttribute("infoLista", infoLista);
 			request.setAttribute("audios", audios);

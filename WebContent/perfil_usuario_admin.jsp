@@ -344,6 +344,10 @@ String imagen = (String) session.getAttribute("imagen");
     <div class="card no-b shadow no-r">
         <div class="row no-gutters">
 			<div class="col-md-4 b-r">
+				<button style="position: absolute;left: 10px;border-color: transparent;color: #fd7e14;background-color: #fd7e1400;" class="btn btn-abrir-popup-perfil btn-sm  mt-3" id="abrir-popup-perfil"><i class="icon-edit  s-24"></i>Editar perfil</button>
+				<button style="position: absolute;left: 130px;border-color: transparent;color: #fd7e14;background-color: #fd7e1400;" class="btn btn-abrir-popup-perfil btn-sm  mt-3" id="abrir-popup-cuenta"><i class="icon-cog  s-24"></i>Cambiar contraseña</button>
+                <button style="position: absolute;left: 130px;border-color: transparent;color: #fd7e14;background-color: #fd7e1400;" class="btn btn-abrir-popup-perfil btn-sm  mt-3"
+                		onClick="document.getElementByiD('overlay-borrar-usuario').classList.add('active')"><i class="icon-trash  s-24"></i>Borrar Cuenta</button>
                 <div class="text-center p-5 mt-5">
 					
                     <figure style="width: 130px;height: 130px;width-max: 50%;" class="avatar avatar-xl">
@@ -584,12 +588,32 @@ String imagen = (String) session.getAttribute("imagen");
 </div>
 <!-- END CABECERA CON LA INFORMACION DEL USUARIO -->
 
-
+<!--  BORRAR USUARIO -->
+	<div class="overlay-pop-up" id="overlay-borrar-usuario">	
+	    <div class="col-md-7 card p-5">	
+	        <a style="position: absolute;top: 20px;right: 30px;" href="#" class="btn-cerrar-popup-perfil"	
+	        class="btn btn-outline-primary btn-sm pl-4 pr-4"  onclick="document.getElementById('overlay-borrar-usuario').classList.remove('active');"><i class="icon-close1"></i></a>	
+			<form class="form-material" action="eliminar_user" method="post">	
+				<!-- Input -->	
+				<div class="body">	
+					<header class="relative nav-sticky card">	
+	                    <h3>¿Estas seguro?</h3>	
+	                    <h5>Vas a borrar este usuario, y todas sus aportaciones</h5>	
+					</header>	
+		
+					<input type="hidden" name="idUser" value="${usuario.getId()}">
+					<input type="submit" value="Aceptar">	
+	             </div>   
+				<!-- #END# Input -->	
+	        </form>	
+		</div>	
+	</div>	
+<!--  END BORRAR USUARIO -->
 <!-- BORRAR PODCAST -->	
 	<div class="overlay-pop-up" id="overlay-borrar-podcast">	
 	    <div class="col-md-7 card p-5">	
 	        <a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-borrar-listas-reproduccion" class="btn-cerrar-popup-perfil"	
-	        class="btn btn-outline-primary btn-sm pl-4 pr-4"  onclick="document.getElementById('overlay-borrar-listas-reproduccion').classList.remove('active');"><i class="icon-close1"></i></a>	
+	        class="btn btn-outline-primary btn-sm pl-4 pr-4"  onclick="document.getElementById('overlay-borrar-podcast').classList.remove('active');"><i class="icon-close1"></i></a>	
 			<form class="form-material" action="borrar_lr" method="post">	
 				<!-- Input -->	
 				<div class="body">	

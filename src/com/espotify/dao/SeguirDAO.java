@@ -80,7 +80,6 @@ public class SeguirDAO {
 			}
 			
 			ConnectionManager.releaseConnection(conn);
-			
 			return false;
 			
 		} catch(SQLException se) {

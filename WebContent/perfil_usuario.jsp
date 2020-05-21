@@ -158,8 +158,10 @@ String nombre = (String) request.getParameter("nombre");
                  </div>
              </div>
              <div class="row text-center">
-                 <div class="col-lg-12"><input type="submit" class="btn btn-primary"
-                                               value="Publicar" style="border-radius: 7px;position: relative;left: 95px;"></div>
+                 <div class="col-lg-12">
+                 	<input type="submit" class="btn btn-primary" value="Publicar" 
+                 		style="border-radius: 7px;position: relative;left: 95px;">
+                 	</div>
              </div>
         </div>
     </div>
@@ -214,6 +216,7 @@ String nombre = (String) request.getParameter("nombre");
 <%
 String hayfoto = (String) session.getAttribute("hayfoto");
 String imagen = (String) session.getAttribute("imagen");
+Boolean audioLike = false;
 %>
 
 <!-- BARRA DE ARRIBA FIJA -->
@@ -349,7 +352,7 @@ String imagen = (String) session.getAttribute("imagen");
                     <figure style="width: 130px;height: 130px;width-max: 50%;" class="avatar avatar-xl">
                     	<c:choose>
                     		<c:when test="${imagen!=null}">
-                    			<img src=<%=imagen %>>
+                    			<img src=${usuario.getImagen() }>
                     		</c:when>
                     		<c:otherwise>
                     			<img src="assets/img/fondo1.jpg">
@@ -357,7 +360,7 @@ String imagen = (String) session.getAttribute("imagen");
                     	</c:choose>
                     </figure>
                     <div>
-                        <h4 class="p-t-10">${nombre}</h4>
+                        <h4 class="p-t-10">${usuario.getNombre()}</h4>
                     </div>
                 </div>
             </div>
@@ -366,7 +369,7 @@ String imagen = (String) session.getAttribute("imagen");
                 <div class="p-4">
                     <div class="pl-4 mt-4">
                         <h5>Descripción</h5>
-						<span>${descripcion}</span>
+						<span>${usuario.getDescripcion()}</span>
                     </div>
                     <div class="row">
                         <div class="col-md-4">
@@ -380,6 +383,15 @@ String imagen = (String) session.getAttribute("imagen");
                             </div>
                         </div>
                     </div>
+                    <% String seguido = (String) request.getAttribute("seguido");
+                    	System.out.println(seguido);
+                    	if(seguido.equals("seguido")){
+                    		System.out.println("ESTOY SEGUIDO");
+                    %>
+                    	<a href="seguir_usuario?seguido=true&idUsuario=${usuario.getId()}&pagina=<%=pagina %>" class="btn btn-abrir-popup btn-sm  mt-3" id="seguir-usuario">Dejar de Seguir</a>
+                    <% } else { %>
+                    	<a href="seguir_usuario?seguido=false&idUsuario=${usuario.getId()}&pagina=<%=pagina %>" class="btn btn-abrir-popup btn-sm  mt-3" id="dejar-seguir-usuario">  Seguir  </a>
+                    <%} %>
                 </div>
                 
 			</div>
@@ -449,13 +461,35 @@ String imagen = (String) session.getAttribute("imagen");
 															<div class="col-6">
 																<h6>${cancion.getTitulo()}</h6>${cancion.getGenero()}
 															</div>
-															<a href="#" class="snackbar ml-3" data-text="Te gusta esta canción"
-																   data-pos="top-right"
-																   data-showAction="true"
-																   data-actionText="ok"
-																   data-actionTextColor="#fff"
-																   data-backgroundColor="#0c101b"><i class="icon-thumbs-o-up s-24"></i>
-																</a>
+															<form action="like_audio">
+																	<input type="hidden" id="idAudioLike" name="idAudioLike" value="">
+																	<input type="hidden" id="audioLike" name="audioLike" value="">
+																	<c:choose>
+																		<c:when test="${cancion.getLikeUsuario() == null}">
+																				<a href="#" id="accion_cancion_like" class="snackbar ml-3" 
+																					onclick="document.getElementById('idAudioLike').value ='${cancion.getId()}';document.getElementById('audioLike').value ='false';" 
+																					data-text="Te gusta esta canción"
+																				   data-pos="top-right"
+																				   data-showAction="true"
+																				   data-actionText="ok"
+																				   data-actionTextColor="#fff"
+																				   data-backgroundColor="#0c101b"><i class="icon-thumbs-o-up s-24"></i>
+																				</a>
+																		</c:when>
+																		<c:otherwise>
+																				<a href="#" id="accion_cancion_like" class="snackbar ml-3" 
+																						style="background-color: #fd7e14; color: #fff" 
+																						onclick="document.getElementById('idAudioLike').value ='${cancion.getId()}';document.getElementById('audioLike').value ='true';" 
+																						data-text="Ya no te gusta esta canción"
+																					   data-pos="top-right"
+																					   data-showAction="true"
+																					   data-actionText="ok"
+																					   data-actionTextColor="#fff"
+																					   data-backgroundColor="#0c101b"><i class="icon-thumbs-o-up s-24"></i>
+																				</a>
+																		</c:otherwise>																	
+																	</c:choose>
+																</form>
 																<a href="#" data-toggle="control-sidebar">
 											                        <i style="position: relative;left: 10px;" class="icon-commenting-o s-24"></i>
 											                    </a>
@@ -534,13 +568,35 @@ String imagen = (String) session.getAttribute("imagen");
 															<div class="col-6">
 																<h6>${capitulo.getTitulo()}</h6>${capitulo.getGenero()}
 															</div>
-															<a href="#" class="snackbar ml-3" data-text="Te gusta esta canción"
-															   data-pos="top-right"
-															   data-showAction="true"
-															   data-actionText="ok"
-															   data-actionTextColor="#fff"
-															   data-backgroundColor="#0c101b"><i class="icon-thumbs-o-up s-24"></i>
-															</a>
+															<form action="like_audio">
+																	<input type="hidden" id="idAudioLike" name="idAudioLike" value="">
+																	<input type="hidden" id="audioLike" name="audioLike" value="">
+																	<c:choose>
+																		<c:when test="${capitulo.getLikeUsuario() == null}">
+																				<a href="#" id="accion_capitulo_like" class="snackbar ml-3" 
+																					onclick="document.getElementById('idAudioLike').value ='${capitulo.getId()}';document.getElementById('audioLike').value ='false';" 
+																					data-text="Te gusta este capitulo"
+																				   data-pos="top-right"
+																				   data-showAction="true"
+																				   data-actionText="ok"
+																				   data-actionTextColor="#fff"
+																				   data-backgroundColor="#0c101b"><i class="icon-thumbs-o-up s-24"></i>
+																				</a>
+																		</c:when>
+																		<c:otherwise>
+																			<a href="#" id="accion_capitulo_like" class="snackbar ml-3" 
+																					style="background-color: #fd7e14; color: #fff" 
+																					onclick="document.getElementById('idAudioLike').value ='${capitulo.getId()}';document.getElementById('audioLike').value ='true';" 
+																					data-text="Ya no te gusta este capitulo"
+																				   data-pos="top-right"
+																				   data-showAction="true"
+																				   data-actionText="ok"
+																				   data-actionTextColor="#fff"
+																				   data-backgroundColor="#0c101b"><i class="icon-thumbs-o-up s-24"></i>
+																				</a>
+																		</c:otherwise>																	
+																	</c:choose>
+																</form>
 															<a href="#" data-toggle="control-sidebar">
 										                        <i style="position: relative;left: 10px;" class="icon-commenting-o s-24"></i>
 										                    </a>
@@ -756,8 +812,38 @@ String imagen = (String) session.getAttribute("imagen");
     });
     </script>
     
+    <script>
+	$(document).ready(function() {
+		$('#playlist a').click(function(event) {//dar like a un audio
+		 	var audioId = $('#idAudioLike').val();
+	        var like = $('#audioLike').val();
+	        console.log(audioId);
+	        console.log(like);
+			$.get('like_audio', {
+	           idAudio: audioId,
+	            like : like
+			});
+	   });
+	});
+</script>
+    
     </main><!--@Page Content-->
 </div><!--@#app-->
+
+<script>
+	$(document).ready(function() {
+		$('#playlist a').click(function(event) {//dar like a un audio
+		 	var audioId = $('#idAudioLike').val();
+	        var like = $('#audioLike').val();
+	        console.log(audioId);
+	        console.log(like);
+			$.get('like_audio', {
+	           idAudio: audioId,
+	            like : like
+			});
+	   });
+	});
+</script>
 
 <script>
     $(document).ready(function() {
