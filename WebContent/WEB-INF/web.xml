@@ -959,6 +959,15 @@
 		<url-pattern>/borrar_lista_admin</url-pattern>
 	</servlet-mapping>
 	
+	<servlet>
+		<servlet-name>perfil_admin</servlet-name>
+		<servlet-class>com.espotify.controller.ObtenerInfoAdminServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>perfil_admin</servlet-name>
+		<url-pattern>/perfil_admin</url-pattern>
+	</servlet-mapping>
+	
 	
 	<context-param>
     <param-name>directorio_ficheroTmp</param-name>

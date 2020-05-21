@@ -87,7 +87,7 @@ int pagina = Integer.valueOf((String) request.getParameter("pagina"));
 <aside class="main-sidebar fixed offcanvas shadow" data-toggle='offcanvas'>
     <div class="sidebar">
         <ul class="sidebar-menu">
-            <li><a class="ajaxifyPage active" href="perfil_usuario_admin.jsp?pagina=10" >
+            <li><a class="ajaxifyPage active" href="perfil_admin" >
                     <i class="icon icon-home-1 s-24"></i> <span>Inicio</span>
                 </a>
             </li>
@@ -199,9 +199,9 @@ String hayfoto = (String) session.getAttribute("hayfoto");
             <a href="#" data-toggle="push-menu" class="paper-nav-toggle pp-nav-toggle ml-2 mr-2">
                 <i></i>
             </a>
-            <a class="navbar-brand d-none d-lg-block" href="perfil_usuario_admin.jsp?pagina=10" >
+            <a class="navbar-brand d-none d-lg-block" href="perfil_admin" >
                 <div class="d-flex align-items-center s-14 l-s-2">
-                    <a style="position: absolute;width: 12%;" href="perfil_usuario_admin.jsp?pagina=10" ><img  src="assets/img/logo.png"></a>
+                    <a style="position: absolute;width: 12%;" href="perfil_admin" ><img  src="assets/img/logo.png"></a>
                 </div>
             </a>
             
@@ -233,7 +233,7 @@ String hayfoto = (String) session.getAttribute("hayfoto");
                     <div class="dropdown-menu p-4 dropdown-menu-right">
                         <div class="row box justify-content-between my-4">
                         	<div class="col text-center">
-								<a class="ajaxifyPage" href="${pageContext.request.contextPath}/obtener_contenido_perfil?pagina=<%=pagina %>" >
+								<a class="ajaxifyPage" href="perfil_admin" >
 									<i class="icon-user-4  s-24"></i>
 									<div class="pt-1">Mi perfil</div>
 								</a>

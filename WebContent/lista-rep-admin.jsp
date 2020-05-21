@@ -87,12 +87,12 @@ String nombre = (String) request.getParameter("nombre");
     <div class="sidebar">
         <ul class="sidebar-menu">
         	<%if(pagina == 5){ %>
-            <li><a class="ajaxifyPage active"href="perfil_usuario_admin.jsp?pagina=10" >
+            <li><a class="ajaxifyPage active" href="perfil_admin" >
                     <i class="icon icon-home-1 s-24"></i> <span>Inicio</span>
                 </a>
             </li>
             <%} else{%>
-            <li><a class="ajaxifyPage active"href="perfil_usuario_admin.jsp?pagina="<%=pagina %>" >
+            <li><a class="ajaxifyPage active" href="perfil_admin" >
                     <i class="icon icon-home-1 s-24"></i> <span>Inicio</span>
                 </a>
             </li>
@@ -109,35 +109,6 @@ String nombre = (String) request.getParameter("nombre");
 
                 </ul>
             </li>
-            <%if(pagina == 5){ %>
-            <li><a class="ajaxifyPage" href="mostrar_lrs?tipo=ListaRep&pagina=10" >
-                    <i class="icon icon-compact-disc-1 s-24"></i> <span>Mis listas de reproduccion</span>
-                </a>
-            </li>
-            
-            <li><a class="ajaxifyPage" href="mostrar_podcasts?tipo=podcasts&pagina=10" >
-                    <i class="icon icon-headphones s-24"></i> <span>Mis podcasts</span>
-                </a>
-            </li>
-            <li><a class="ajaxifyPage" href="obtener_info_fav?pagina=10" >
-            		<i class="icon icon-star s-24"></i> <span>Mis favoritos</span>
-            	</a>
-            </li>
-            <%} else{%>
-            <li><a class="ajaxifyPage" href="mostrar_lrs?tipo=ListaRep&pagina=<%=pagina %>" >
-                    <i class="icon icon-compact-disc-1 s-24"></i> <span>Mis listas de reproduccion</span>
-                </a>
-            </li>
-            
-            <li><a class="ajaxifyPage" href="mostrar_podcasts?tipo=podcasts&pagina=<%=pagina %>" >
-                    <i class="icon icon-headphones s-24"></i> <span>Mis podcasts</span>
-                </a>
-            </li>
-            <li><a class="ajaxifyPage" href="obtener_info_fav?pagina=<%=pagina %>" >
-            		<i class="icon icon-star s-24"></i> <span>Mis favoritos</span>
-            	</a>
-            </li>
-            <%}%>
         </ul>
     </div>
 </aside>
@@ -236,15 +207,15 @@ String imagen = (String) session.getAttribute("imagen");
                 <i></i>
             </a>
             <%if(pagina == 5){ %>
-            <a class="navbar-brand d-none d-lg-block" href="perfil_usuario_admin.jsp?pagina=10" >
+            <a class="navbar-brand d-none d-lg-block"href="perfil_admin">
                 <div class="d-flex align-items-center s-14 l-s-2">
-                    <a style="position: absolute;width: 12%;" href="perfil_usuario_admin.jsp?pagina=10" ><img  src="assets/img/logo.png"></a>
+                    <a style="position: absolute;width: 12%;" href="perfil_admin" ><img  src="assets/img/logo.png"></a>
                 </div>
             </a>
             <%} else{%>
-            <a class="navbar-brand d-none d-lg-block" href="perfil_usuario_admin.jsp?pagina=<%=pagina %>" >
+            <a class="navbar-brand d-none d-lg-block" href="perfil_admin" >
                 <div class="d-flex align-items-center s-14 l-s-2">
-                    <a style="position: absolute;width: 12%;" href="perfil_usuario_admin.jsp?pagina=<%=pagina %>" ><img  src="assets/img/logo.png"></a>
+                    <a style="position: absolute;width: 12%;" href="perfil_admin" ><img  src="assets/img/logo.png"></a>
                 </div>
             </a>
             <%}%>
@@ -277,12 +248,12 @@ String imagen = (String) session.getAttribute("imagen");
 						<div class="row box justify-content-between my-4">
 							<div class="col text-center">
 								<%if(pagina == 5){ %>
-					            <a class="ajaxifyPage" href="perfil_usuario_admin.jsp?pagina=10" >
+					            <a class="ajaxifyPage" href="perfil_admin" >
 									<i class="icon-user-4  s-24"></i>
 									<div class="pt-1">Mi perfil</div>
 								</a>
 					            <%} else{%>
-					            <a class="ajaxifyPage" href="perfil_usuario_admin.jsp?pagina=<%=pagina %>" >
+					            <a class="ajaxifyPage" href="perfil_admin" >
 									<i class="icon-user-4  s-24"></i>
 									<div class="pt-1">Mi perfil</div>
 								</a>

@@ -31,17 +31,17 @@ public class Borrar_Listas_AdminServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		HttpSession session = request.getSession();
-		int usuario = Integer.valueOf((String) session.getAttribute("id"));
+
 		int idLista = Integer.valueOf(request.getParameter("idLista"));
-		
+		log("HOLA");
 		Boolean borrada = new ListaReproduccionDAO().borrar(idLista);
 		if(borrada) {
-			
-			request.getRequestDispatcher("perfil_admin.jsp?pagina=10");
+			log("XD");
+			request.getRequestDispatcher("perfil_admin");
 			//RequestDispatcher dispatcher=request.getRequestDispatcher("user.jsp");
 	        //dispatcher.forward(request, response);
 		}else {
+			log(":(");
 			String url = request.getHeader("referer");
 			//response.sendRedirect("ListaRep.jsp");
 			request.getRequestDispatcher(url).forward(request, response);

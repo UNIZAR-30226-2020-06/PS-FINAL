@@ -53,6 +53,7 @@ public class BorrarAudio_ListaRepServlet extends HttpServlet {
 				request.getRequestDispatcher("obtener_info_lr_usuario?id="+idLista+"&pagina=10").forward(request, response);
 			}else {
 				redir = "obtener_info_lr?nombre=" + nombre;
+				request.getRequestDispatcher(redir).forward(request, response);
 			}
 		} else {
 			
@@ -60,11 +61,12 @@ public class BorrarAudio_ListaRepServlet extends HttpServlet {
 				request.getRequestDispatcher("obtener_info_podcast_usuario?id"+idLista+"&pagina=10").forward(request, response);
 			}else {
 				redir = "obtener_info_podcast?nombre=" +nombre;
+				request.getRequestDispatcher(redir).forward(request, response);
 		
 			}
 		}
 		
-		request.getRequestDispatcher(redir).forward(request, response);
+		
 		//RequestDispatcher dispatcher=request.getRequestDispatcher("audio.jsp");
         //dispatcher.forward(request, response);
 	}

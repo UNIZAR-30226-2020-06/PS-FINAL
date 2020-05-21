@@ -57,6 +57,9 @@ public class ObtenerContenidoOtroUsuario extends HttpServlet {
 		request.setAttribute("imagen", usuario.getImagen());*/
 		request.setAttribute("usuario", usuario);
 		
+		int numSeguidores = new UsuarioDAO().obtenerNumSeguidores(idUsuario);
+		request.setAttribute("numSeguidores", numSeguidores);
+		
 		Boolean seguido = new SeguirDAO().isFollowing(id, idUsuario);
 		if(seguido) {
 			request.setAttribute("seguido", "seguido");
@@ -94,7 +97,7 @@ public class ObtenerContenidoOtroUsuario extends HttpServlet {
 		request.setAttribute("podcasts", podcasts);
 		
 		if (id == ADMIN){
-			request.getRequestDispatcher("perfil_usuario_admin.jsp?pagina=10").forward(request, response);
+			request.getRequestDispatcher("perfil_usuario_admin.jsp").forward(request, response);
 		}else {
 			List<ListaReproduccion> mislistas = new ListaReproduccionDAO().showLists(id,"ListaRep");
 			request.setAttribute("mislistas", mislistas);

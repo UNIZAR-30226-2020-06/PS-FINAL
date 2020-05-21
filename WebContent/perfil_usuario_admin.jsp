@@ -89,7 +89,7 @@ String nombre = (String) request.getParameter("nombre");
 <aside class="main-sidebar fixed offcanvas shadow" data-toggle='offcanvas'>
     <div class="sidebar">
         <ul class="sidebar-menu">
-            <li><a class="ajaxifyPage active" href="perfil_usuario_admin.jsp?pagina=10" >
+            <li><a class="ajaxifyPage active" href="perfil_admin" >
                     <i class="icon icon-home-1 s-24"></i> <span>Inicio</span>
                 </a>
             </li>
@@ -107,19 +107,6 @@ String nombre = (String) request.getParameter("nombre");
                 </ul>
             </li>
             
-            <li><a class="ajaxifyPage" href="mostrar_lrs?tipo=ListaRep&pagina=10" >
-                    <i class="icon icon-compact-disc-1 s-24"></i> <span>Mis listas de reproduccion</span>
-                </a>
-            </li>
-            
-            <li><a class="ajaxifyPage" href="mostrar_podcasts?tipo=podcast&pagina=10" >
-                    <i class="icon icon-headphones s-24"></i> <span>Mis podcasts</span>
-                </a>
-            </li>
-            <li><a class="ajaxifyPage" href="obtener_info_fav?pagina=10">
-            		<i class="icon icon-star s-24"></i> <span>Mis favoritos</span>
-            	</a>
-            </li>
         </ul>
     </div>
 </aside>
@@ -223,9 +210,9 @@ String imagen = (String) session.getAttribute("imagen");
             <a href="#" data-toggle="push-menu" class="paper-nav-toggle pp-nav-toggle ml-2 mr-2">
                 <i></i>
             </a>
-            <a class="navbar-brand d-none d-lg-block" href="perfil_usuario_admin.jsp?pagina=10" >
+            <a class="navbar-brand d-none d-lg-block" href="perfil_admin" >
                 <div class="d-flex align-items-center s-14 l-s-2">
-                    <a style="position: absolute;width: 12%;" href="perfil_usuario_admin.jsp?pagina=10" ><img  src="assets/img/logo.png"></a>
+                    <a style="position: absolute;width: 12%;" href="perfil_admin" ><img  src="assets/img/logo.png"></a>
                 </div>
             </a>
         </div>
@@ -256,7 +243,7 @@ String imagen = (String) session.getAttribute("imagen");
                     <div class="dropdown-menu p-4 dropdown-menu-right">
                         <div class="row box justify-content-between my-4">
                         	<div class="col text-center">
-								<a class="ajaxifyPage" href="perfil_usuario_admin.jsp?pagina=10" >
+								<a class="ajaxifyPage" href="perfil_admin" >
 									<i class="icon-user-4  s-24"></i>
 									<div class="pt-1">Mi perfil</div>
 								</a>
@@ -346,14 +333,14 @@ String imagen = (String) session.getAttribute("imagen");
 			<div class="col-md-4 b-r">
 				<button style="position: absolute;left: 10px;border-color: transparent;color: #fd7e14;background-color: #fd7e1400;" class="btn btn-abrir-popup-perfil btn-sm  mt-3" id="abrir-popup-perfil"><i class="icon-edit  s-24"></i>Editar perfil</button>
 				<button style="position: absolute;left: 130px;border-color: transparent;color: #fd7e14;background-color: #fd7e1400;" class="btn btn-abrir-popup-perfil btn-sm  mt-3" id="abrir-popup-cuenta"><i class="icon-cog  s-24"></i>Cambiar contraseña</button>
-                <button style="position: absolute;left: 130px;border-color: transparent;color: #fd7e14;background-color: #fd7e1400;" class="btn btn-abrir-popup-perfil btn-sm  mt-3"
-                		onClick="document.getElementByiD('overlay-borrar-usuario').classList.add('active')"><i class="icon-trash  s-24"></i>Borrar Cuenta</button>
+                <button style="position: absolute;left: 280px;border-color: transparent;color: #fd7e14;background-color: #fd7e1400;" class="btn btn-abrir-popup-perfil btn-sm  mt-3"
+                		onClick="document.getElementById('overlay-borrar-usuario').classList.add('active')"><i class="icon-trash  s-24"></i>Borrar Cuenta</button>
                 <div class="text-center p-5 mt-5">
 					
                     <figure style="width: 130px;height: 130px;width-max: 50%;" class="avatar avatar-xl">
                     	<c:choose>
-                    		<c:when test="${imagen!=null}">
-                    			<img src=<%=imagen %>>
+                    		<c:when test="${usuario.getImagen()!=null}">
+                    			<img src="${usuario.getImagen()}">
                     		</c:when>
                     		<c:otherwise>
                     			<img src="assets/img/fondo1.jpg">
@@ -361,7 +348,7 @@ String imagen = (String) session.getAttribute("imagen");
                     	</c:choose>
                     </figure>
                     <div>
-                        <h4 class="p-t-10">${nombre}</h4>
+                        <h4 class="p-t-10">${usuario.getNombre()}</h4>
                     </div>
                 </div>
             </div>
@@ -370,7 +357,7 @@ String imagen = (String) session.getAttribute("imagen");
                 <div class="p-4">
                     <div class="pl-4 mt-4">
                         <h5>Descripción</h5>
-						<span>${descripcion}</span>
+						<span>${usuario.getDescripcion()}</span>
                     </div>
                     <div class="row">
                         <div class="col-md-4">
@@ -472,6 +459,7 @@ String imagen = (String) session.getAttribute("imagen");
 				<!--LISTAS REPRODUCCIÓN-->
 				<div class="tab-pane fade show text-center p-5" id="w3-tab2" role="tabpanel"
 					 aria-labelledby="w3-tab2">
+					 <div class="row has-items-overlay">
 						<c:forEach var="listalr" items="${listaslr}">
 							<div class="col-lg-3 col-md-4 col-sm-6 my-2">
 								<figure>
@@ -498,7 +486,7 @@ String imagen = (String) session.getAttribute("imagen");
 							</div>
 						</c:forEach>
 					</div>
-				</div>
+				</div>	
 				<!-- END LISTAS REPRODUCCION -->
 				
 				<!-- CAPITULOS PODCAST -->
@@ -614,7 +602,7 @@ String imagen = (String) session.getAttribute("imagen");
 	    <div class="col-md-7 card p-5">	
 	        <a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-borrar-listas-reproduccion" class="btn-cerrar-popup-perfil"	
 	        class="btn btn-outline-primary btn-sm pl-4 pr-4"  onclick="document.getElementById('overlay-borrar-podcast').classList.remove('active');"><i class="icon-close1"></i></a>	
-			<form class="form-material" action="borrar_lr" method="post">	
+			<form class="form-material" action="borrar_lista_admin" method="post">	
 				<!-- Input -->	
 				<div class="body">	
 					<header class="relative nav-sticky card">	
@@ -624,7 +612,6 @@ String imagen = (String) session.getAttribute("imagen");
 		
 					<input type="hidden" id="idPodcast8" name="nombre" value="">
 					<input type="hidden" name="tipo" id="tipo8" value="podcast">	
-					<a id="submit8" href="#" class="btn btn-outline-primary btn-sm pl-4 pr-4">Aceptar</a>	
 	             </div>   
 				<!-- #END# Input -->	
 	        </form>	
@@ -636,7 +623,7 @@ String imagen = (String) session.getAttribute("imagen");
 	    <div class="col-md-7 card p-5">	
 	        <a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-borrar-listas-reproduccion" class="btn-cerrar-popup-perfil"	
 	        class="btn btn-outline-primary btn-sm pl-4 pr-4"  onclick="document.getElementById('overlay-borrar-listas-reproduccion').classList.remove('active');"><i class="icon-close1"></i></a>	
-			<form class="form-material" action="borrar_lr">	
+			<form class="form-material" action="borrar_lista_admin">	
 				<!-- Input -->	
 				<div class="body">	
 					<header class="relative nav-sticky card">	

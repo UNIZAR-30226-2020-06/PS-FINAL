@@ -50,19 +50,19 @@ public class GetAll_ComentCanServlet extends HttpServlet {
 		//request.setAttribute("comentCancion", comentarios);
 		if(comentarios.size() != 0) {
 			for(int i=0; i<comentarios.size(); i++){
-				out.println("<div class='media my-5 ' style='margin-top: -1rem !important;margin-bottom: 2rem !important;'>");
+				out.println("<div class='media my-5 ' style='margin-top: -1rem !important;margin-bottom: -1rem !important;'>");
 					out.println("<div class='media-body'>");
 						out.println("<h6 class='mt-0'>" + comentarios.get(i).getUsuario() + "</h6>");
-						if(nombre.equals(comentarios.get(i).getUsuario())) {
-							out.println("<a id=\"deleteComentCancion\" style='position: absolute;left: 290px;' href=\"#\" data-toggle=\"control-sidebar\""
-											+ "onclick=\"document.getElementById(\'comentarioID').value=\'" + comentarios.get(i).getId() + "\';"
-											+ "document.getElementById('overlay-borrar-coment-cancion').classList.add('active');\">");
-								out.println("<i class='icon-trash-o'></i>");
-							out.println("</a>");
-						}
 						out.println("<div class='form-line'><textarea readonly='' rows='5' class='form-control r-0' style='resize: none;width: 80%;border-color: transparent;height: 62px;' color:=''>");
 							out.println(comentarios.get(i).getDescripcion());
 						out.println("</textarea></div>");
+						if(nombre.equals(comentarios.get(i).getUsuario())) {
+						out.println("<a id=\"deleteComentCancion\" style='position: relative;left: 280px;top: -70px;' href=\"#\" data-toggle=\"control-sidebar\""
+										+ "onclick=\"document.getElementById(\'comentarioID').value=\'" + comentarios.get(i).getId() + "\';"
+										+ "document.getElementById('overlay-borrar-coment-cancion').classList.add('active');\">");
+							out.println("<i class='icon-trash-o'></i>");
+						out.println("</a>");
+						}
 					out.println("</div>");
 				out.println("</div>");
 			}

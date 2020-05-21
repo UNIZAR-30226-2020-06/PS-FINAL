@@ -572,6 +572,15 @@ String imagen = (String) session.getAttribute("imagen");
 				$('#listaComentariosCancion').html(data);
 			});
 		});
+    	$('#borrarComentario').click(function(event) { // borrar comentario en cancion
+			var idComentario = $('#comentarioID').val();
+			console.log(idComentario);
+			$.get('borrar_coment_cancion', {
+				idComentario: idComentario
+			}, function(responseText){
+				$('#contenido').html(responseText);
+			});
+		});
     });
     </script>
 

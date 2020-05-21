@@ -43,6 +43,7 @@ public class eliminar_UsuarioServlet extends HttpServlet {
 		boolean eliminado = usuarioDAO.eliminar(idUser);
 				
 		if (eliminado) {
+			request.getRequestDispatcher("perfil_admin").forward(request, response);
 			//request.getRequestDispatcher("inicio.jsp").forward(request, response);
 		}else {
 			//request.getRequestDispatcher("usuario.jsp").forward(request, response);
