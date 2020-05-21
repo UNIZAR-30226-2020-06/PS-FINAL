@@ -8,6 +8,7 @@ pageEncoding="UTF-8"%>
 <% 
 int pagina = Integer.valueOf((String) request.getParameter("pagina"));
 String id = (String) request.getParameter("id");
+String likeLista = (String) request.getAttribute("likeLista");
 %>
 
 <!--  
@@ -348,15 +349,30 @@ String imagen = (String) session.getAttribute("imagen");
 									<div class="col-md-9">
 										<div class="d-md-flex align-items-center justify-content-between">
 											<h1 class="my-3 text-orange">${infoLista.getNombre()}</h1>
-											<div class="ml-auto mb-2">
-												<a href="#" class="snackbar ml-3" data-text="Te gusta esta lista"
-												   data-pos="top-right"
-												   data-showAction="true"
-												   data-actionText="ok"
-												   data-actionTextColor="#fff"
-												   data-backgroundColor="#0c101b"><i class="icon-thumbs-o-up s-24"></i>
-												</a>
-											</div>
+											<form action="like_lista">
+                                                      <input type="hidden" id="idListaLike" name="idListaLike" value="${infoLista.getId()}">
+                                                      <%if(likeLista == null) { %>
+		                                                      <input type="hidden" id="likeLista" name="likeLista" value="false">
+		                                                      <a href="#" id="accion_like_lista" class="snackbar ml-3" 
+		                                                      	data-text="Te gusta esta lista de reproducción"
+		                                                         data-pos="top-right"
+		                                                         data-showAction="true"
+		                                                         data-actionText="ok"
+		                                                         data-actionTextColor="#fff"
+		                                                         data-backgroundColor="#0c101b"><i class="icon-thumbs-o-up s-24"></i>
+		                                                      </a>
+	                                                   <%} else { %>
+	                                                   		 <input type="hidden" id="likeLista" name="likeLista" value="true">
+	                                                      	<a href="#" id="accion_like_lista" class="snackbar ml-3" style="background-color: #fd7e14; color: #fff" 
+	                                                      		data-text="Ya no te gusta esta lista de reproducción"
+		                                                         data-pos="top-right"
+		                                                         data-showAction="true"
+		                                                         data-actionText="ok"
+		                                                         data-actionTextColor="#fff"
+		                                                         data-backgroundColor="#0c101b"><i class="icon-thumbs-o-up s-24"></i>
+                                                        	</a>
+	                                                   <%} %>
+                                                  </form>
 
 										</div>
 									
@@ -508,11 +524,66 @@ String imagen = (String) session.getAttribute("imagen");
 		});
     });
     </script>
+    
+<script>
+	$(document).ready(function() {
+	        $('#accion_like_lista').click(function(event) { // dar like a lista
+	            var listaId = $('#idListaLike').val();
+	            var like = $('#likeLista').val();
+	            console.log(like);
+	            console.log(listaId);
+	            $.get('like_lista', {
+	                    idLista : listaId,
+	                    like : like
+	            });
+	        });
+	});
+</script>
+ <script>
+    $(document).ready(function() {
+    	$('#iconoPlay').replaceWith("<i id='iconoPlay' class='icon-play s-28'></i>")
+    	$('#playlist a').click(function(event) { // cargar los comentarios de cancion
+			var audioId = $('#audioIDcomment').val();
+			console.log(audioId);
+			$.get('getall_coment_cancion', {
+				idAudio: audioId
+			}, function(data){
+				$('#listaComentariosCancion').html(data);
+			});
+		});
+    	$('#borrarComentario').click(function(event) { // borrar comentario en cancion
+			var idComentario = $('#comentarioID').val();
+			console.log(idComentario);
+			$.get('borrar_coment_cancion', {
+				idComentario: idComentario
+			}, function(responseText){
+				$('#contenido').html(responseText);
+			});
+		});
+    });
+    </script>
+ 
 </main><!--@Page Content-->
 </div><!--@#app-->
 <!--/#app -->
 <script src="https://maps.googleapis.com/maps/api/js?&amp;key=AIzaSyC3YkZNNySdyR87o83QEHWglHfHD_PZqiw&amp;libraries=places"></script>
 <script src="assets/js/app.js"></script>
+
+<script>
+$(document).ready(function() {
+        $('#accion_like_lista').click(function(event) { // dar like a lista
+            var listaId = $('#idListaLike').val();
+            var like = $('#likeLista').val();
+            console.log(like);
+            console.log(listaId);
+            $.get('like_lista', {
+                    idLista : listaId,
+                    like : like
+            });
+        });
+});
+</script>
+
 <script>
 	function loopAudio(){
 		var audio = document.getElementsByTagName("audio")[0];

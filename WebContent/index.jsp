@@ -444,13 +444,35 @@ String imagen = (String) session.getAttribute("imagen");
 																<div class="col-6">
 																	<h6>${cancion.getTitulo()}</h6>${cancion.getGenero()}
 																</div>
-																<a title="Like" href="#" class="snackbar ml-3" data-text="Te gusta esta canción"
-																   data-pos="top-right"
-																   data-showAction="true"
-																   data-actionText="ok"
-																   data-actionTextColor="#fff"
-																   data-backgroundColor="#0c101b"><i class="icon-thumbs-o-up s-24"></i>
-																</a>
+																<form action="like_audio">
+																	<input type="hidden" id="idAudioLike" name="idAudioLike" value="">
+																	<c:choose>
+																		<c:when test="${cancion.getLikeUsuario() == null}">
+																				<input type="hidden" id="like" name="like" value="false">
+																				<a title="Like" href="#" id="accion_like" class="snackbar ml-3" 
+																					onclick="document.getElementById('idAudioLike').value ='${cancion.getId()}';" 
+																					data-text="Te gusta esta canción"
+																				   data-pos="top-right"
+																				   data-showAction="true"
+																				   data-actionText="ok"
+																				   data-actionTextColor="#fff"
+																				   data-backgroundColor="#0c101b"><i class="icon-thumbs-o-up s-24"></i>
+																				</a>
+																		</c:when>
+																		<c:otherwise>
+																			<input type="hidden" id="like" name="like" value="true">
+																			<a title="Like" href="#" id="accion_like" class="snackbar ml-3" 
+																					style="background-color: #fd7e14; color: #fff" 
+																					onclick="document.getElementById('idAudioLike').value ='${cancion.getId()}';" data-text="Ya no te gusta esta canción"
+																				   data-pos="top-right"
+																				   data-showAction="true"
+																				   data-actionText="ok"
+																				   data-actionTextColor="#fff"
+																				   data-backgroundColor="#0c101b"><i class="icon-thumbs-o-up s-24"></i>
+																				</a>
+																		</c:otherwise>																	
+																	</c:choose>
+																</form>
 																<a title="Comentarios" href="#" data-toggle="control-sidebar" onclick="document.getElementById('audioIDcomment').value = '${cancion.getId()}';">
 											                        <i style="position: relative;left: 10px;" class="icon-commenting-o s-24"></i>
 											                    </a>
@@ -520,8 +542,32 @@ String imagen = (String) session.getAttribute("imagen");
 				$('#listaComentariosCancion').html(data);
 			});
 		});
+    	$('#borrarComentario').click(function(event) { // borrar comentario en cancion
+			var idComentario = $('#comentarioID').val();
+			console.log(idComentario);
+			$.get('borrar_coment_cancion', {
+				idComentario: idComentario
+			}, function(responseText){
+				$('#contenido').html(responseText);
+			});
+		});
     });
     </script>
+    
+<script>
+	$(document).ready(function() {
+	    $('#playlist a').click(function(event) {//dar like a una cancion
+		 	var audioId = $('#idAudioLike').val();
+	        var like = $('#like').val();
+	        console.log(audioId);
+	        console.log(like);
+			$.get('like_audio', {
+	           idAudio: audioId,
+	            like : like
+			});
+	   });
+	});
+</script>
 
 </main><!--@Page Content-->
 </div><!--@#app-->
@@ -531,6 +577,21 @@ String imagen = (String) session.getAttribute("imagen");
 <script src="https://maps.googleapis.com/maps/api/js?&amp;key=AIzaSyC3YkZNNySdyR87o83QEHWglHfHD_PZqiw&amp;libraries=places"></script>
 <script src="assets/js/app.js"></script>
 <script  src="assets/js/mostrar-popup.js"></script>
+
+<script>
+	$(document).ready(function() {
+	    $('#playlist a').click(function(event) {//dar like a una cancion
+		 	var audioId = $('#idAudioLike').val();
+	        var like = $('#like').val();
+	        console.log(audioId);
+	        console.log(like);
+			$.get('like_audio', {
+	           idAudio: audioId,
+	            like : like
+			});
+	   });
+	});
+</script>
 
     <script>
 	function loopAudio(){

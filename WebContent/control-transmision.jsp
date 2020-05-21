@@ -299,7 +299,7 @@ String imagen = (String) session.getAttribute("imagen");
             <div class="col-md-4 b-r">
                 <div class="text-center p-5 mt-5">
                     <figure class="avatar avatar-xl">
-                        <img src="assets/img/demo/u7.jpg" alt=""></figure>
+                        <img src=<%=imagen %> alt=""></figure>
                     <div>
                         <h4 class="p-t-10"><%=nombre %></h4>
                     </div>

@@ -125,7 +125,7 @@ String nombre = (String) request.getParameter("nombre");
 </aside>
 <!-- END MENU DE LA IZQUIERDA-->
 
-<!-- MENU DONDE ESTAN LAS CANCIONES EN LA COLA (DERECHA) -->
+<!-- MENU DONDE ESTAN LOS COMENTARIOS (DERECHA) -->
 <aside class="control-sidebar fixed ">
     <div class="slimScroll">
         <div class="sidebar-header" style="margin-bottom: 1rem !important;">
@@ -133,34 +133,27 @@ String nombre = (String) request.getParameter("nombre");
             <a href="#" data-toggle="control-sidebar" class="paper-nav-toggle  active"><i></i></a>
         </div>
         <div class="p-3">
-            <div class="media my-5 " style="margin-top: -1rem !important;margin-bottom: 2rem !important;">
-                <div class="media-body">
-                    <h6 class="mt-0">Ami Fro</h6>
-                    Cras sit amet nibh libero, in gravida nulla.
-                </div>
-            </div>
-            <div class="media my-5 " style="margin-top: -1rem !important;margin-bottom: 2rem !important;">
-                <div class="media-body">
-                    <h6 class="mt-0">Mohamed secame</h6>
-                    Basura es esta?
-                </div>
-            </div>
-            
+        	<div id="listaComentariosCancion"></div>
+        	
+            <form action="anyadir_coment_cancion">
 			<div class="row">
                  <div class="col-lg-12">
                      <div class="form-group">
                          <div class="form-line">
-                               <textarea style="color: white;" rows="5" class="form-control r-0"
+                               <textarea id="textarea" style="color: white;" rows="5" class="form-control r-0"
                                          placeholder="Escribir comentario..."></textarea>
                          </div>
                      </div>
 
                  </div>
              </div>
+             <input type="hidden" id="audioIDcomment" name="nombre" value="">
              <div class="row text-center">
-                 <div class="col-lg-12"><input type="submit" class="btn btn-primary"
-                                               value="Publicar" style="border-radius: 7px;position: relative;left: 95px;"></div>
+                 <div class="col-lg-12">
+                 	<a id="publicar" href="#"  class="btn btn-primary" style="border-radius: 7px;position: relative;left: 95px;">Publicar</a>
+                 </div>
              </div>
+             </form>
         </div>
     </div>
 </aside>
@@ -168,7 +161,7 @@ String nombre = (String) request.getParameter("nombre");
 <!-- Add the sidebar's background. This div must be placed
          immediately after the control sidebar -->
 <div class="control-sidebar-bg shadow  fixed"></div>
-<!-- END MENU DONDE ESTAN LAS CANCIONES EN LA COLA (DERECHA) -->
+<!-- END MENU DONDE ESTAN LOS COMENTARIOS (DERECHA) -->
 
 <!-- ALGO RANDOM DE LA PARTE DERECHA -->									
 <svg class="d-none">
@@ -214,6 +207,7 @@ String nombre = (String) request.getParameter("nombre");
 <%
 String hayfoto = (String) session.getAttribute("hayfoto");
 String imagen = (String) session.getAttribute("imagen");
+Boolean audioLike = false;
 %>
 
 <!-- BARRA DE ARRIBA FIJA -->
@@ -349,7 +343,7 @@ String imagen = (String) session.getAttribute("imagen");
                     <figure style="width: 130px;height: 130px;width-max: 50%;" class="avatar avatar-xl">
                     	<c:choose>
                     		<c:when test="${imagen!=null}">
-                    			<img src=<%=imagen %>>
+                    			<img src=${usuario.getImagen() }>
                     		</c:when>
                     		<c:otherwise>
                     			<img src="assets/img/fondo1.jpg">
@@ -357,7 +351,7 @@ String imagen = (String) session.getAttribute("imagen");
                     	</c:choose>
                     </figure>
                     <div>
-                        <h4 class="p-t-10">${nombre}</h4>
+                        <h4 class="p-t-10">${usuario.getNombre()}</h4>
                     </div>
                 </div>
             </div>
@@ -366,7 +360,7 @@ String imagen = (String) session.getAttribute("imagen");
                 <div class="p-4">
                     <div class="pl-4 mt-4">
                         <h5>Descripción</h5>
-						<span>${descripcion}</span>
+						<span>${usuario.getDescripcion()}</span>
                     </div>
                     <div class="row">
                         <div class="col-md-4">
@@ -380,6 +374,15 @@ String imagen = (String) session.getAttribute("imagen");
                             </div>
                         </div>
                     </div>
+                    <% String seguido = (String) request.getAttribute("seguido");
+                    	System.out.println(seguido);
+                    	if(seguido.equals("seguido")){
+                    		System.out.println("ESTOY SEGUIDO");
+                    %>
+                    	<a href="seguir_usuario?seguido=true&idUsuario=${usuario.getId()}&pagina=<%=pagina %>" class="btn btn-abrir-popup btn-sm  mt-3" id="seguir-usuario">Dejar de Seguir</a>
+                    <% } else { %>
+                    	<a href="seguir_usuario?seguido=false&idUsuario=${usuario.getId()}&pagina=<%=pagina %>" class="btn btn-abrir-popup btn-sm  mt-3" id="dejar-seguir-usuario">  Seguir  </a>
+                    <%} %>
                 </div>
                 
 			</div>
@@ -438,29 +441,51 @@ String imagen = (String) session.getAttribute("imagen");
 																<%
 																if(pagina == 12) {%>
 																<a class="no-ajaxy media-url" href="${cancion.getUrl()}">
-																	<i class="icon-play s-28"></i>
+																	<i id="iconoPlay" class="icon-play s-28"></i>
 																</a>
 																<%} else {%>
 																<a href="obtener_usuario?nombre=<%=nombre %>&pagina=12" onclick="setTimeout(location.reload.bind(location), 1)">
-																	<i class="icon-play s-28"></i>
+																	<i id="iconoPlay" class="icon-play s-28"></i>
 																</a>
 																<%} %>					
 															</div>
 															<div class="col-6">
 																<h6>${cancion.getTitulo()}</h6>${cancion.getGenero()}
 															</div>
-															<a href="#" class="snackbar ml-3" data-text="Te gusta esta canción"
-																   data-pos="top-right"
-																   data-showAction="true"
-																   data-actionText="ok"
-																   data-actionTextColor="#fff"
-																   data-backgroundColor="#0c101b"><i class="icon-thumbs-o-up s-24"></i>
-																</a>
-																<a href="#" data-toggle="control-sidebar">
+															<form action="like_audio">
+																	<input type="hidden" id="idAudioLike" name="idAudioLike" value="">
+																	<input type="hidden" id="audioLike" name="audioLike" value="">
+																	<c:choose>
+																		<c:when test="${cancion.getLikeUsuario() == null}">
+																				<a href="#" id="accion_cancion_like" class="snackbar ml-3" 
+																					onclick="document.getElementById('idAudioLike').value ='${cancion.getId()}';document.getElementById('audioLike').value ='false';" 
+																					data-text="Te gusta esta canción"
+																				   data-pos="top-right"
+																				   data-showAction="true"
+																				   data-actionText="ok"
+																				   data-actionTextColor="#fff"
+																				   data-backgroundColor="#0c101b"><i class="icon-thumbs-o-up s-24"></i>
+																				</a>
+																		</c:when>
+																		<c:otherwise>
+																				<a href="#" id="accion_cancion_like" class="snackbar ml-3" 
+																						style="background-color: #fd7e14; color: #fff" 
+																						onclick="document.getElementById('idAudioLike').value ='${cancion.getId()}';document.getElementById('audioLike').value ='true';" 
+																						data-text="Ya no te gusta esta canción"
+																					   data-pos="top-right"
+																					   data-showAction="true"
+																					   data-actionText="ok"
+																					   data-actionTextColor="#fff"
+																					   data-backgroundColor="#0c101b"><i class="icon-thumbs-o-up s-24"></i>
+																				</a>
+																		</c:otherwise>																	
+																	</c:choose>
+																</form>
+																<a title="Comentarios" href="#" data-toggle="control-sidebar" onclick="document.getElementById('audioIDcomment').value = '${cancion.getId()}';">
 											                        <i style="position: relative;left: 10px;" class="icon-commenting-o s-24"></i>
 											                    </a>
 															<div class="ml-auto">
-																<a href="anyadir_cancion_fav?idAudio=${cancion.getId()}" class="btn-favorito icon-star" ></a>
+																<a href="anyadir_cancion_fav?idAudio=${cancion.getId()}&pagina=10" class="btn-favorito icon-star" ></a>
 																<a href="#" class="btn-icono icon-indent" onclick="rellenarCampos('${listaslr.size()}','${cancion.getId()}');
 																document.getElementById('overlay-anadir-listas-reproduccion').classList.add('active')";
 																	></a>
@@ -523,25 +548,47 @@ String imagen = (String) session.getAttribute("imagen");
 																<%
 																if(pagina == 14) {%>
 																<a class="no-ajaxy media-url" href="${capitulo.getUrl()}">
-																	<i class="icon-play s-28"></i>
+																	<i id="iconoPlay" class="icon-play s-28"></i>
 																</a>
 																<%} else {%>
 																<a href="obtener_usuario?nombre=<%=nombre %>&pagina=14" onclick="setTimeout(location.reload.bind(location), 1)">
-																	<i class="icon-play s-28"></i>
+																	<i id="iconoPlay" class="icon-play s-28"></i>
 																</a>
 																<%} %>					
 															</div>
 															<div class="col-6">
 																<h6>${capitulo.getTitulo()}</h6>${capitulo.getGenero()}
 															</div>
-															<a href="#" class="snackbar ml-3" data-text="Te gusta esta canción"
-															   data-pos="top-right"
-															   data-showAction="true"
-															   data-actionText="ok"
-															   data-actionTextColor="#fff"
-															   data-backgroundColor="#0c101b"><i class="icon-thumbs-o-up s-24"></i>
-															</a>
-															<a href="#" data-toggle="control-sidebar">
+															<form action="like_audio">
+																	<input type="hidden" id="idAudioLike" name="idAudioLike" value="">
+																	<input type="hidden" id="audioLike" name="audioLike" value="">
+																	<c:choose>
+																		<c:when test="${capitulo.getLikeUsuario() == null}">
+																				<a href="#" id="accion_capitulo_like" class="snackbar ml-3" 
+																					onclick="document.getElementById('idAudioLike').value ='${capitulo.getId()}';document.getElementById('audioLike').value ='false';" 
+																					data-text="Te gusta este capitulo"
+																				   data-pos="top-right"
+																				   data-showAction="true"
+																				   data-actionText="ok"
+																				   data-actionTextColor="#fff"
+																				   data-backgroundColor="#0c101b"><i class="icon-thumbs-o-up s-24"></i>
+																				</a>
+																		</c:when>
+																		<c:otherwise>
+																			<a href="#" id="accion_capitulo_like" class="snackbar ml-3" 
+																					style="background-color: #fd7e14; color: #fff" 
+																					onclick="document.getElementById('idAudioLike').value ='${capitulo.getId()}';document.getElementById('audioLike').value ='true';" 
+																					data-text="Ya no te gusta este capitulo"
+																				   data-pos="top-right"
+																				   data-showAction="true"
+																				   data-actionText="ok"
+																				   data-actionTextColor="#fff"
+																				   data-backgroundColor="#0c101b"><i class="icon-thumbs-o-up s-24"></i>
+																				</a>
+																		</c:otherwise>																	
+																	</c:choose>
+																</form>
+															<a title="Comentarios" href="#" data-toggle="control-sidebar" onclick="document.getElementById('audioIDcomment').value = '${cancion.getId()}';">
 										                        <i style="position: relative;left: 10px;" class="icon-commenting-o s-24"></i>
 										                    </a>
 															<div class="ml-auto">
@@ -679,7 +726,42 @@ String imagen = (String) session.getAttribute("imagen");
 <!-- END AÑADIR CAPITULO A PODCAST -->
 
 
+<!-- BORRAR COMENTARIO DE CANCION -->	
+	<div class="overlay-pop-up" id="overlay-borrar-coment-cancion">	
+	    <div class="col-md-7 card p-5">	
+	        <a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-borrar-coment-cancion" class="btn-cerrar-popup-perfil"	
+	        class="btn btn-outline-primary btn-sm pl-4 pr-4"  onclick="document.getElementById('overlay-borrar-coment-cancion').classList.remove('active');"><i class="icon-close1"></i></a>	
+			<form class="form-material" action="borrar_coment_cancion">	
+				<!-- Input -->	
+				<div class="body">	
+					<header class="relative nav-sticky card">	
+	                    <h3>Vas a borrar este comentario.</h3>
+	                    <h5>¿Estás seguro?</h5>	
+					</header>	
+		
+					<input type="hidden" id="comentarioID" name=idComentario value="">	
+					<a id="borrarComentario" href="#" onclick="document.getElementById('overlay-borrar-coment-cancion').classList.remove('active');" class="btn btn-outline-primary btn-sm pl-4 pr-4">Aceptar</a>
+				</div>	
+				<!-- #END# Input -->	
+	        </form>	
+		</div>	
+	</div>	
+<!-- END BORRAR COMENTARIO DE CANCION -->
 
+<script>
+    $(document).ready(function() {
+    	$('#iconoPlay').replaceWith("<i id='iconoPlay' class='icon-play s-28'></i>")
+    	$('#playlist a').click(function(event) { // cargar los comentarios de cancion
+			var audioId = $('#audioIDcomment').val();
+			console.log(audioId);
+			$.get('getall_coment_cancion', {
+				idAudio: audioId
+			}, function(data){
+				$('#listaComentariosCancion').html(data);
+			});
+		});
+    });
+    </script>
 
 
 <!--/#app -->
@@ -752,12 +834,50 @@ String imagen = (String) session.getAttribute("imagen");
 				$('#listaComentariosCancion').html(data);
 			});
 		});
-
+    	$('#borrarComentario').click(function(event) { // borrar comentario en cancion
+			var idComentario = $('#comentarioID').val();
+			console.log(idComentario);
+			$.get('borrar_coment_cancion', {
+				idComentario: idComentario
+			}, function(responseText){
+				$('#contenido').html(responseText);
+			});
+		});
     });
     </script>
     
+    <script>
+	$(document).ready(function() {
+		$('#playlist a').click(function(event) {//dar like a un audio
+		 	var audioId = $('#idAudioLike').val();
+	        var like = $('#audioLike').val();
+	        console.log(audioId);
+	        console.log(like);
+			$.get('like_audio', {
+	           idAudio: audioId,
+	            like : like
+			});
+	   });
+	});
+</script>
+    
     </main><!--@Page Content-->
 </div><!--@#app-->
+
+<script>
+	$(document).ready(function() {
+		$('#playlist a').click(function(event) {//dar like a un audio
+		 	var audioId = $('#idAudioLike').val();
+	        var like = $('#audioLike').val();
+	        console.log(audioId);
+	        console.log(like);
+			$.get('like_audio', {
+	           idAudio: audioId,
+	            like : like
+			});
+	   });
+	});
+</script>
 
 <script>
     $(document).ready(function() {

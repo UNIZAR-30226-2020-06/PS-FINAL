@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.espotify.dao.LikesDAO;
 import com.espotify.dao.ListaReproduccionDAO;
 import com.espotify.model.Audio;
 import com.espotify.model.ListaReproduccion;
@@ -37,11 +38,18 @@ public class GetInfo_PodcastServlet extends HttpServlet {
 		int usuario = Integer.valueOf((String) session.getAttribute("id"));
 		String nombre = request.getParameter("nombre");
 		String tipo = "podcast";
+		LikesDAO likesDAO = new LikesDAO();
 		//String aleatorio = request.getParameter("aleatorio");
 		
 		try{
 			ListaReproduccion infoPodcast = new ListaReproduccionDAO().getInfoList(nombre,usuario,tipo);
 			List<Audio> audios = new ListaReproduccionDAO().getAudios(nombre,usuario,tipo);
+			
+			if(likesDAO.tieneLikeLista(usuario, infoPodcast.getId())) {
+				request.setAttribute("likePodcast", "likePodcast");
+			} else {
+				request.setAttribute("likePodcast", null);
+			}
 			
 			//if (aleatorio.equals("si")) {
 			//	Collections.shuffle(audios);

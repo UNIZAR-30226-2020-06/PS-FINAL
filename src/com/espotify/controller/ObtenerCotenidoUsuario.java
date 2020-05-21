@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 import com.espotify.dao.CancionDAO;
 import com.espotify.dao.CapituloPodcastDAO;
 import com.espotify.dao.GeneroDAO;
+import com.espotify.dao.LikesDAO;
 import com.espotify.dao.ListaReproduccionDAO;
 import com.espotify.dao.TransmisionDAO;
 import com.espotify.model.Audio;
@@ -44,9 +45,27 @@ public class ObtenerCotenidoUsuario extends HttpServlet {
 		HttpSession session = request.getSession();
 		int idUsuario = Integer.valueOf((String) session.getAttribute("id"));
 		ArrayList<Audio> canciones = new CancionDAO().obtenerCancionesUsuario(idUsuario);
+		
+		for(Audio cancion :  canciones) {
+			if(LikesDAO.tieneLikeAudio(idUsuario, cancion.getId())) {
+				cancion.setLikeUsuario("like");
+			} else {
+				cancion.setLikeUsuario(null);
+			}
+		}
 		request.setAttribute("canciones", canciones);
+		
+		
 		ArrayList<Audio> capitulos = new CapituloPodcastDAO().obtenerCapitulosPodcastUsuario(idUsuario);
+		for(Audio capitulo :  capitulos) {
+			if(LikesDAO.tieneLikeAudio(idUsuario, capitulo.getId())) {
+				capitulo.setLikeUsuario("like");
+			} else {
+				capitulo.setLikeUsuario(null);
+			}
+		}
 		request.setAttribute("capitulos", capitulos);
+		
 		List<ListaReproduccion> listaslr = new ListaReproduccionDAO().showLists(idUsuario,"ListaRep");
 		request.setAttribute("listaslr", listaslr);
 		List<ListaReproduccion> podcasts = new ListaReproduccionDAO().showLists(idUsuario,"podcast");
