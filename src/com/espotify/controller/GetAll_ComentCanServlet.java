@@ -71,7 +71,7 @@ public class GetAll_ComentCanServlet extends HttpServlet {
 			out.println("<div class='media my-5 ' style='margin-top: -1rem !important;margin-bottom: 2rem !important;'>");
 			out.println("<div class='media-body'>");
 			out.println("<div class='form-line'>");
-			out.println("No hay ningún comentario todavía.");
+			out.println("No hay ningï¿½n comentario todavï¿½a.");
 			out.println("</div>");
 		}
 	}

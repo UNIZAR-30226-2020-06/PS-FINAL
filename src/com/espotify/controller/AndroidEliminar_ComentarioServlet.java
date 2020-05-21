@@ -50,18 +50,16 @@ public class AndroidEliminar_ComentarioServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		getServletContext().log("--- ~AndroidEliminar_ComentarioServlet~ ---");
-		
 		JSONObject parametrosPeticion = JSONAdapter.parsarJSON(request);
+		getServletContext().log("Parametros: " + parametrosPeticion);
         getServletContext().log(JSONAdapter.obtenerParametros(request)); 
         
         String comentario = parametrosPeticion.getString("comentario");
         String usuario = parametrosPeticion.getString("usuario");
-        String titulo = parametrosPeticion.getString("titulo");
         
         int idUsuario = UsuarioDAO.obtenerIdDesdeNombreUsuario(usuario);
-        List<Transmision> listaTransmisiones = TransmisionDAO.getTodasTransmisiones();
-        
-        int idComentario = ComentariosDAO.obtenerIdComentario(comentario, usuario);
+        int idComentario = ComentariosDAO.obtenerIdComentario(comentario, idUsuario);
+        getServletContext().log("Id usuario: " + idUsuario + " error: " + idComentario);
         ComentariosDAO.quitarComentarioAudio(idComentario);
         
         // Lanzar JSON

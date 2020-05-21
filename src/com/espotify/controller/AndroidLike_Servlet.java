@@ -53,20 +53,22 @@ public class AndroidLike_Servlet extends HttpServlet {
         String nombre = parametrosPeticion.getString("titulo");
         String email = parametrosPeticion.getString("email");
         String tipo = parametrosPeticion.getString("tipo");
+        String url = parametrosPeticion.getString("url");
         
         int idUsuario = Integer.parseInt(UsuarioDAO.obtenerIdDesdeEmail(email));
         
         switch (tipo) {
-        	case "lista":
+        	case "playlist":
         		gestionarLikeLista(nombre, idUsuario);
         		break;
         		
         	case "audio":
-        		gestionarLikeAudio(nombre, idUsuario);
-        		break;
-        		
-        	case "transmision":
-        		gestionarLikeTransmision(nombre, idUsuario);
+        		String tipoDos = url.length() > 3 ? url.substring(url.length() - 3) : url;
+        		if (tipoDos.equals("mp3")) {
+        			gestionarLikeAudio(nombre, idUsuario);
+        		} else {
+        			gestionarLikeTransmision(nombre, idUsuario);
+        		}
         		break;
         }
         
@@ -76,7 +78,6 @@ public class AndroidLike_Servlet extends HttpServlet {
 	
 	private void gestionarLikeLista(String nombre, int idUsuario) {
 		int idLista = ListaReproduccionDAO.obtenerIdLista(nombre);
-		
 		if(!LikesDAO.anyadirLikeLista(idUsuario, idLista)) {
 			LikesDAO.quitarLikeLista(idUsuario, idLista);
 		}
@@ -92,7 +93,6 @@ public class AndroidLike_Servlet extends HttpServlet {
 	}
 	
 	private void gestionarLikeTransmision(String nombre, int idUsuario) {
-
 		int idTransmision = TransmisionDAO.getIdTransmision(nombre);
 		
 		if(!LikesDAO.anyadirLikeTrans(idUsuario, idTransmision)) {

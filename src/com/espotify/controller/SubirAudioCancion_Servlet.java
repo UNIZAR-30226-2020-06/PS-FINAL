@@ -71,7 +71,7 @@ public class SubirAudioCancion_Servlet extends HttpServlet {
 				getServletContext().log("FieldName="+fileItem.getFieldName());
 				getServletContext().log("FileName="+fileItem.getName());
 				getServletContext().log("Contenido="+fileItem.getContentType());
-				getServletContext().log("Tamaño (B)="+fileItem.getSize());
+				getServletContext().log("Tamaï¿½o (B)="+fileItem.getSize());
 				//getServletContext().log("Directorio fichero: " + request.getServletContext().getAttribute("FILES_DIR"));
 				getServletContext().log("Nombre fichero: " + fileItem.getName());
 				

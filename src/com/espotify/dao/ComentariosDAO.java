@@ -29,7 +29,7 @@ public class ComentariosDAO {
 	private final static String GET_COMENTARIOSTRANS_QUERY = "SELECT com.id id, com.descripcion descrip, usr.nombre nameUsr FROM Reproductor_musica.Comentario com, Reproductor_musica.Usuario usr "
 		 													 +"WHERE com.usuario = usr.id AND com.tipo = ? AND com.transmision = ?";
 	
-	private final static String GET_IDCOMENTARIO_QUERY = "SELECT com.id id FROM Reproductor_musica.Comentario com WHERE com.descripcion = '?' AND com.usuario IN (SELECT id FROM Reproductor_musica.Usuario u WHERE nombre = '?')"; 
+	private final static String GET_IDCOMENTARIO_QUERY = "SELECT com.id id FROM Reproductor_musica.Comentario com WHERE com.descripcion = ? AND com.usuario = ?"; 
 
 
 	/*
@@ -242,26 +242,24 @@ public class ComentariosDAO {
 	 * Devuelve: una lista de datos de tipo Comentario 
 	 * 			 (id del comentario, descripcion del comentario, nombre del autor del comentario)
 	*/
-	public static int obtenerIdComentario(String descripcion, String usuario) {
+	public static int obtenerIdComentario(String descripcion, int usuario) {
 		int idComentario = -1;
 		try {
-			
 			Connection conn = ConnectionManager.getConnection();
 			PreparedStatement ps = conn.prepareStatement(GET_IDCOMENTARIO_QUERY);
 			ps.setString(1, descripcion);
-			ps.setString(2, usuario);
+			ps.setInt(2, usuario);
 			ResultSet rs = ps.executeQuery();
 			
-			ConnectionManager.releaseConnection(conn);
-			
 			while(rs.next()){
-				return idComentario;
+				idComentario = rs.getInt("id");
 			}
+			ConnectionManager.releaseConnection(conn);
 			
 		} catch(SQLException se) {
 			se.printStackTrace();
 		} catch(Exception e) {
-			e.printStackTrace(System.err);
+			e.printStackTrace();
 		}
 		
 		return idComentario;

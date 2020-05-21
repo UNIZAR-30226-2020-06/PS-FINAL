@@ -184,11 +184,11 @@
 	</servlet-mapping>
 	
 	<servlet>
-		<servlet-name>AndroiEliminar_UsuarioServlet</servlet-name>
-		<servlet-class>com.espotify.controller.AndroiEliminar_UsuarioServlet</servlet-class>
+		<servlet-name>AndroidEliminar_UsuarioServlet</servlet-name>
+		<servlet-class>com.espotify.controller.AndroidEliminar_UsuarioServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>AndroiEliminar_UsuarioServlet</servlet-name>
+		<servlet-name>AndroidEliminar_UsuarioServlet</servlet-name>
 		<url-pattern>/eliminar_usuario_android</url-pattern>
 	</servlet-mapping>
 	
@@ -209,6 +209,15 @@
 	<servlet-mapping>
 		<servlet-name>AndroidEliminar_CapituloPodcastServlet</servlet-name>
 		<url-pattern>/eliminar_capitulo_android</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>AndroidGet_OtrosCancionServlet</servlet-name>
+		<servlet-class>com.espotify.controller.AndroidGet_OtrosCancionServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AndroidGet_OtrosCancionServlet</servlet-name>
+		<url-pattern>/otros_cancion_android</url-pattern>
 	</servlet-mapping>
 	
 	<servlet>

@@ -54,30 +54,31 @@ public class AndroidLike_BoolServlet extends HttpServlet {
         String email = parametrosPeticion.getString("email");
         String titulo = parametrosPeticion.getString("titulo");
         String tipo = parametrosPeticion.getString("tipo");
+        String url = parametrosPeticion.getString("url");
 
         int idUsuario = Integer.parseInt(UsuarioDAO.obtenerIdDesdeEmail(email));
-        
-        
         
         JSONObject respuestaPeticion = new JSONObject();
         String tieneLike = "false";
         
+        
         switch (tipo) {
-	    	case "lista":
+	    	case "playlist":
 	    		if(tieneLikeLista(titulo, idUsuario)) {
 	    			tieneLike = "true";
 	    		} 
 	    		break;
 	    		
 	    	case "audio":
-	    		if(tieneLikeAudio(titulo, idUsuario)) {
-	    			tieneLike = "true";
-	    		}
-	    		break;
-	    		
-	    	case "transmision":
-	    		if(tieneLikeTransmision(titulo, idUsuario)) {
-	    			tieneLike = "true";
+	    		String tipoDos = url.length() > 3 ? url.substring(url.length() - 3) : url;
+	    		if(tipoDos.equals("mp3")) {
+		    		if(tieneLikeAudio(titulo, idUsuario)) {
+			    		tieneLike = "true";
+			    	}
+	    		} else {
+	    			if(tieneLikeAudio(titulo, idUsuario)) {
+			    		tieneLike = "true";
+			    	}
 	    		}
 	    		break;
         }

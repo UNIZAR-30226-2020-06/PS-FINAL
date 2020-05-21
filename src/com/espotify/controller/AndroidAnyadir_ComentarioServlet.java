@@ -52,19 +52,19 @@ public class AndroidAnyadir_ComentarioServlet extends HttpServlet {
 		getServletContext().log("--- ~AndroidAnyadir_ComentarioServlet~ ---");
 		
 		JSONObject parametrosPeticion = JSONAdapter.parsarJSON(request);
-        getServletContext().log(JSONAdapter.obtenerParametros(request)); 
+		getServletContext().log("Parametros: " + parametrosPeticion);
         
         String comentario = parametrosPeticion.getString("comentario");
         String usuario = parametrosPeticion.getString("usuario");
         String titulo = parametrosPeticion.getString("titulo");
         
         
-        int idUsuario = UsuarioDAO.obtenerIdDesdeNombreUsuario(usuario);
+        int idUsuario = Integer.parseInt(UsuarioDAO.obtenerIdDesdeEmail(usuario));
         List<Transmision> listaTransmisiones = TransmisionDAO.getTodasTransmisiones();
         
         boolean esComentarioTransmision = false;
         for (Transmision t : listaTransmisiones) {
-        	if(t.getNombre().contentEquals(titulo)) {
+        	if(t.getNombre().equals(titulo)) {
         		ComentariosDAO.anyadirComentarioTrans(comentario, idUsuario, t.getId());
         		esComentarioTransmision = true;
         	}
@@ -72,6 +72,7 @@ public class AndroidAnyadir_ComentarioServlet extends HttpServlet {
         
         CancionDAO cancionDAO = new CancionDAO();
         if(!esComentarioTransmision) {
+        	getServletContext().log("id Cancion: " + cancionDAO.obtenerIdCancion(titulo));
         	ComentariosDAO.anyadirComentarioAudio(comentario, idUsuario, cancionDAO.obtenerIdCancion(titulo));
         }
         

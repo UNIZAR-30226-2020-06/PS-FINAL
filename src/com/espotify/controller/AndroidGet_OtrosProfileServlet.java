@@ -81,7 +81,7 @@ public class AndroidGet_OtrosProfileServlet extends HttpServlet {
         
         respuestaPeticion.put("nombreUsuario", u.getNombre());
         respuestaPeticion.put("descripcion", u.getDescripcion());
-        respuestaPeticion.put("email", u.getCorreo());
+        respuestaPeticion.put("imagenUsuario", u.getImagen());
         
         
         int nSeguidores = SeguirDAO.getNumFollowers(idUsuario);
@@ -97,6 +97,8 @@ public class AndroidGet_OtrosProfileServlet extends HttpServlet {
         String audiosUsuarioUrls = "";
         String podcasts = "";
         String podcastsUsuarioDescripcion = "";
+        String listasImagen = "";
+        String podcastsImagen = "";
         
         boolean tieneListas = false;
         boolean tieneAudios = false;
@@ -105,6 +107,7 @@ public class AndroidGet_OtrosProfileServlet extends HttpServlet {
         for(ListaReproduccion lista : listas) {
         	listasReproduccion += lista.getNombre() + "|";
         	listasDescripcion += lista.getDescripcion() + "|";
+        	listasImagen += lista.getImagen() + "|";
         	tieneListas = true;
         }
         
@@ -117,6 +120,7 @@ public class AndroidGet_OtrosProfileServlet extends HttpServlet {
         for (ListaReproduccion podcast : pocasts) {
         	podcasts += podcast.getNombre() + "|";
         	podcastsUsuarioDescripcion += podcast.getDescripcion() + "|";
+        	podcastsImagen += podcast.getImagen() + "|";
         	tienePodcasts = true;
         } 
         
@@ -124,6 +128,7 @@ public class AndroidGet_OtrosProfileServlet extends HttpServlet {
         if(tieneListas) {
         	listasDescripcion = listasDescripcion.substring(0, listasDescripcion.length() - 1);
         	listasReproduccion = listasReproduccion.substring(0, listasReproduccion.length() - 1);
+        	listasImagen = listasImagen.substring(0, listasImagen.length() - 1);
         } 
         
     	if (tieneAudios) {
@@ -134,14 +139,18 @@ public class AndroidGet_OtrosProfileServlet extends HttpServlet {
     	if (tienePodcasts) {
     		podcasts = podcasts.substring(0, podcasts.length() - 1);
     		podcastsUsuarioDescripcion = podcastsUsuarioDescripcion.substring(0, podcastsUsuarioDescripcion.length() - 1);
+    		podcastsImagen = podcastsImagen.substring(0, podcastsImagen.length() - 1);
+
     	} 
     	
         respuestaPeticion.put("lista", listasReproduccion);
         respuestaPeticion.put("listaDescripcion", listasDescripcion);
+        respuestaPeticion.put("imagenesPlaylists", listasImagen);
         respuestaPeticion.put("audiosTitulo", audiosUsuarioTitulo);
         respuestaPeticion.put("audiosUrl", audiosUsuarioUrls);
         respuestaPeticion.put("podcasts", podcasts);
         respuestaPeticion.put("podcastsDescripcion", podcastsUsuarioDescripcion);
+        respuestaPeticion.put("imagenesPodcasts", podcastsImagen);
         respuestaPeticion.put("numSeguidores", nSeguidores);
         getServletContext().log("Respuesta: " + respuestaPeticion.toString());
         getServletContext().log("-------------------------------------------");

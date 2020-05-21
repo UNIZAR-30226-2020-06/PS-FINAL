@@ -1,2 +1,10 @@
 eclipse.preferences.version=1
+encoding//WebContent/sign_up.jsp=UTF-8
+encoding//src/com/espotify/controller/Eliminar_CancionServlet.java=UTF-8
+encoding//src/com/espotify/controller/Eliminar_CapituloServlet.java=UTF-8
+encoding//src/com/espotify/controller/GetAll_ComentCanServlet.java=UTF-8
+encoding//src/com/espotify/controller/GetAll_ComentTransmServlet.java=UTF-8
+encoding//src/com/espotify/controller/SubirAudioCancion_Servlet.java=UTF-8
+encoding//src/com/espotify/controller/SubirAudioCapitulo_Servlet.java=UTF-8
 encoding//src/com/espotify/dao/UsuarioDAO.java=UTF-8
+encoding//src/com/espotify/model/ListaReproduccion.java=UTF-8

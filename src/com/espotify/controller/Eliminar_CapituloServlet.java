@@ -46,7 +46,7 @@ public class Eliminar_CapituloServlet extends HttpServlet {
 				request.getRequestDispatcher("/obtener_contenido_perfil").forward(request, response);
 			}
 			out.println("<div class=\"alert alert-success alert-dismissible fade show\" role=\"alert\">");
-			out.println("<strong>Capítulo eliminada correctamente.</strong>");
+			out.println("<strong>Capï¿½tulo eliminada correctamente.</strong>");
 			out.println("<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\">");
 			out.println("<span aria-hidden='true'>&times;</span>");
 			out.println("</button>");
@@ -54,7 +54,7 @@ public class Eliminar_CapituloServlet extends HttpServlet {
 		}else {
 			System.out.println("Error al eliminar capitulo");
 			out.println("<div class=\"alert alert-danger alert-dismissible fade show\" role=\"alert\">");
-			out.println("<strong>Ha ocurrido un error. </strong> No se ha podido eliminar el capítulo. Vuelva a intentarlo.");
+			out.println("<strong>Ha ocurrido un error. </strong> No se ha podido eliminar el capï¿½tulo. Vuelva a intentarlo.");
 			out.println("<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\">");
 			out.println("<span aria-hidden='true'>&times;</span>");
 			out.println("</button>");
