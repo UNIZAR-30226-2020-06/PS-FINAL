@@ -57,6 +57,9 @@ public class ObtenerContenidoOtroUsuario extends HttpServlet {
 		request.setAttribute("imagen", usuario.getImagen());*/
 		request.setAttribute("usuario", usuario);
 		
+		int numSeguidores = new UsuarioDAO().obtenerNumSeguidores(idUsuario);
+		request.setAttribute("numSeguidores", numSeguidores);
+		
 		Boolean seguido = new SeguirDAO().isFollowing(id, idUsuario);
 		if(seguido) {
 			request.setAttribute("seguido", "seguido");

@@ -17,6 +17,7 @@ import com.espotify.dao.GeneroDAO;
 import com.espotify.dao.LikesDAO;
 import com.espotify.dao.ListaReproduccionDAO;
 import com.espotify.dao.TransmisionDAO;
+import com.espotify.dao.UsuarioDAO;
 import com.espotify.model.Audio;
 import com.espotify.model.Genero;
 import com.espotify.model.ListaReproduccion;
@@ -70,6 +71,9 @@ public class ObtenerCotenidoUsuario extends HttpServlet {
 		request.setAttribute("listaslr", listaslr);
 		List<ListaReproduccion> podcasts = new ListaReproduccionDAO().showLists(idUsuario,"podcast");
 		request.setAttribute("podcasts", podcasts);
+		
+		int numSeguidores = new UsuarioDAO().obtenerNumSeguidores(idUsuario);
+		request.setAttribute("numSeguidores", numSeguidores);
 
 		request.getRequestDispatcher("profile.jsp").forward(request, response);
 	}
