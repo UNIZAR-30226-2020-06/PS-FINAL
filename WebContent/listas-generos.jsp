@@ -1,10 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%><!DOCTYPE html>
 <html lang="zxx">
 
 <!-- Mirrored from xvelopers.com/demos/html/record-light/index.jsp by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 05 Apr 2020 17:21:29 GMT -->
+
+<% 
+int pagina = Integer.valueOf((String) request.getParameter("pagina"));
+String id = (String) request.getParameter("id");
+String likeLista = (String) request.getAttribute("likeLista");
+%>
 
 <!--  
 ########################################################################
@@ -12,7 +17,7 @@ pageEncoding="UTF-8"%>
 ########################################################################
 -->
 
-<!-- NOMBRE DE LA PESTAÑA -->
+<!-- NOMBRE DE LA PESTAÃA -->
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -23,12 +28,13 @@ pageEncoding="UTF-8"%>
     <!-- CSS -->
     <link rel="stylesheet" href="assets/css/app.css">
 </head>
+<!-- END PESTAÃA -->
 
 <body background="assets/img/fondo3.png" style="background-size: cover;background-repeat: no-repeat; background-position: center center;background-attachment: fixed;" class="sidebar-mini sidebar-collapse sidebar-expanded-on-hover has-preloader" style="display: none;">
 <!-- Pre loader
   To disable preloader remove 'has-preloader' from body
  -->
-
+<!-- CIRCULO DE CARGA -->
 <div id="loader" class="loader">
     <div class="loader-container">
         <div class="preloader-wrapper big active">
@@ -74,15 +80,16 @@ pageEncoding="UTF-8"%>
         </div>
     </div>
 </div>
+<!-- END CIRCULO DE CARGA -->							 
 
-<!-- @Pre loader-->
+<!-- EMPIEZA APP -->
 <div id="app">
 
 <!--MENU DE LA IZQUIERDA -->
 <aside class="main-sidebar fixed offcanvas shadow" data-toggle='offcanvas'>
     <div class="sidebar">
         <ul class="sidebar-menu">
-            <li><a class="ajaxifyPage active" href="Inicio" >
+            <li><a class="ajaxifyPage active" href="Inicio?pagina=10" >
                     <i class="icon icon-home-1 s-24"></i> <span>Inicio</span>
                 </a>
             </li>
@@ -101,7 +108,7 @@ pageEncoding="UTF-8"%>
             </li>
             
             <li><a class="ajaxifyPage" href="mostrar_lrs?tipo=ListaRep&pagina=10" >
-                    <i class="icon icon-compact-disc-1 s-24"></i> <span>Mis listas de reproducción</span>
+                    <i class="icon icon-compact-disc-1 s-24"></i> <span>Mis listas de reproduccion</span>
                 </a>
             </li>
             
@@ -109,14 +116,14 @@ pageEncoding="UTF-8"%>
                     <i class="icon icon-headphones s-24"></i> <span>Mis podcasts</span>
                 </a>
             </li>
-            <li><a class="ajaxifyPage" href="obtener_info_fav&pagina=10" >
+            <li><a class="ajaxifyPage" href="obtener_info_fav?pagina=10" >
             		<i class="icon icon-star s-24"></i> <span>Mis favoritos</span>
             	</a>
             </li>
         </ul>
     </div>
 </aside>
-<!-- ACABA MENU DE LA IZQUIERDA-->
+<!-- END MENU DE LA IZQUIERDA-->
 
 <!-- MENU DONDE ESTAN LOS COMENTARIOS (DERECHA) -->
 <aside class="control-sidebar fixed ">
@@ -156,6 +163,7 @@ pageEncoding="UTF-8"%>
 <div class="control-sidebar-bg shadow  fixed"></div>
 <!-- END MENU DONDE ESTAN LOS COMENTARIOS (DERECHA) -->
 
+<!-- ALGO RANDOM DE LA PARTE DERECHA -->									
 <svg class="d-none">
     <defs>
         <symbol id="icon-cross" viewBox="0 0 24 24">
@@ -196,6 +204,7 @@ pageEncoding="UTF-8"%>
 </div>
 <!-- ACABA BUSCADOR (LUPA) -->
 
+
 <%
 String hayfoto = (String) session.getAttribute("hayfoto");
 String imagen = (String) session.getAttribute("imagen");
@@ -208,9 +217,9 @@ String imagen = (String) session.getAttribute("imagen");
             <a href="#" data-toggle="push-menu" class="paper-nav-toggle pp-nav-toggle ml-2 mr-2">
                 <i></i>
             </a>
-            <a class="navbar-brand d-none d-lg-block" href="Inicio" >
+            <a class="navbar-brand d-none d-lg-block" href="Inicio?pagina=10" >
                 <div class="d-flex align-items-center s-14 l-s-2">
-                    <a style="position: absolute;width: 12%;" href="Inicio" ><img  src="assets/img/logo.png"></a>
+                    <a style="position: absolute;width: 12%;" href="Inicio?pagina=10" ><img  src="assets/img/logo.png"></a>
                 </div>
             </a>
         </div>
@@ -261,6 +270,7 @@ String imagen = (String) session.getAttribute("imagen");
 </nav>
 <!-- ACABA BARRA DE ARRIBA FIJA -->
 
+
 <!-- BARRA DE ABAJO FIJA-->
 <nav class="navbar-wrapper navbar-bottom-fixed shadow">
     <div class="navbar navbar-expand player-header justify-content-between  bd-navbar">
@@ -283,7 +293,7 @@ String imagen = (String) session.getAttribute("imagen");
                         <button id="nextTrack" class="btn btn-link d-none d-sm-block">
                             <i class="icon-next s-18"></i>
                         </button>
-                        <button title="Bucle" class="btn btn-link" onclick="loopAudio();">
+                        <button class=" btn btn-control" id="btn-loop" onclick="loopAudio();document.getElementById('btn-loop').classList.add('active');"">
                             <i class="icon-repeat s-18"></i>
                         </button>
                     </div>
@@ -321,112 +331,90 @@ String imagen = (String) session.getAttribute("imagen");
 -->
 
 
-
-
-<!--CONTENIDO NO AJAX-->
+<!--Page Content-->
 <main id="pageContent" class="page has-sidebar">
-<div class="container-fluid relative animatedParent animateOnce no-p">
-    <div class="animated">
-        <!--Banner Slider-->
-       
-        <!--@Banner Slider-->
-        <div class="p-md-5 p-3  ">
-            <!--New Releases-->
-           	<h1>Más resultados de "${nombre}"</h1> 
-            <section class="section">
-                <div class="d-flex relative align-items-center justify-content-between" style="background-color:black;">
-	                    <div class="mb-4">
-	                        <h2 style="color:orange;">${tipo}</h2> 
-	                    </div>    
-                </div>
-                 <%String id = (String)request.getSession().getAttribute("id");
-                  String nombre = (String)request.getSession().getAttribute("nombre");
-                 %>
-               <c:choose>
-               <c:when test="${tipo =='Usuarios'}"> 
-	               <div class="row no-gutters">
-	               	<c:forEach var="usuario" items="${usuarios}"> 
-			            <div class="col-md-4 b-r">
-			                <div class="text-center p-5 mt-5">
-			                    <figure class="avatar avatar-xl">
-			                    	<c:choose>
-			                    		<c:when test="${usuario.getId()==id }">
-					                    	<a href="obtener_contenido_perfil?pagina=10">
-					                    </c:when>
-					                    <c:otherwise>
-					                    	<a href="obtener_usuario?nombre=${usuario.getId()}&pagina=10">
-					                    </c:otherwise>
-					                </c:choose>
-					                    	<c:choose>
-					                    		<c:when test="${usuario.getImagen()!=null}">
-					                    			<img src=${usuario.getImagen() }>
-					                    		</c:when>
-					                    		<c:otherwise>
-					                    			<img src="assets/img/demo/u7.jpg" alt="">
-					                    		</c:otherwise>
-					                    	</c:choose>	
-					                    	</a>     
-			                    </figure>
-			                  	<div>
-			                        <h4 class="p-t-10">${usuario.getNombre()}</h4>
-			                    </div>
-			                </div>
-			            </div>
-			         </c:forEach>   
-			         </div>
-		         </c:when>
-		         <c:when test="${tipo=='Listas de Reproduccion'}">
-	               <div class="row has-items-overlay" >
-	               		<c:forEach var="lista" items="${listas}" >
-								<div class="col-lg-3 col-md-4 col-sm-6 my-2" style="top:20px;">
-									<figure>
-										<div class="img-wrapper">
-											<img src=${lista.getImagen() } alt="/">
-											<div class="img-overlay text-white text-center">
-											<c:choose>
-					                    		<c:when test="${lista.getUsuario()==nombre }">
-							                    	<a href="obtener_info_lr?nombre=${lista.getNombre()}&pagina=10" >
-							                    </c:when>
-							                    <c:otherwise>
-							                    	<a href="obtener_info_lr_usuario?id=${lista.getId()}&pagina=10">
-							                    </c:otherwise>
-							                </c:choose>
-													<div class="figcaption mt-3">
-														<i class="icon-link s-48"></i>
-														<h5 class="mt-5">${lista.getNombre()}</h5>
-													</div>
-													</a>
-											</div>
-											<div class="figure-title text-center p-2">
-												<h5>${lista.getNombre()}</h5>
-											</div>
+<div class="container-fluid relative p-lg-5">								
+	<div class="container-fluid relative p-0">
+		<div class="card no-b shadow no-r">
+				<!--Banner-->
+
+					<div class="has-bottom-gradient">
+						<div class="row pt-5 ml-lg-5 mr-lg-5">
+							<div class="col-md-10 offset-1">
+								<div class="row my-5 pt-5">
+
+									<div class="col-md-3">
+										<img src="assets/img/demo/a1.jpg" alt="/">
+									</div>
+									<div class="col-md-9">
+										<div class="d-md-flex align-items-center justify-content-between">
+											<h1 class="my-3 text-orange">${infoLista.getNombre()}</h1>
+											<form action="like_lista">
+                                                      <input type="hidden" id="idListaLike" name="idListaLike" value="${infoLista.getId()}">
+                                                      <%if(likeLista == null) { %>
+		                                                      <input type="hidden" id="likeLista" name="likeLista" value="false">
+		                                                      <a href="#" id="accion_like_lista" class="snackbar ml-3" 
+		                                                      	data-text="Te gusta esta lista de reproducción"
+		                                                         data-pos="top-right"
+		                                                         data-showAction="true"
+		                                                         data-actionText="ok"
+		                                                         data-actionTextColor="#fff"
+		                                                         data-backgroundColor="#0c101b"><i class="icon-thumbs-o-up s-24"></i>
+		                                                      </a>
+	                                                   <%} else { %>
+	                                                   		 <input type="hidden" id="likeLista" name="likeLista" value="true">
+	                                                      	<a href="#" id="accion_like_lista" class="snackbar ml-3" style="background-color: #fd7e14; color: #fff" 
+	                                                      		data-text="Ya no te gusta esta lista de reproducción"
+		                                                         data-pos="top-right"
+		                                                         data-showAction="true"
+		                                                         data-actionText="ok"
+		                                                         data-actionTextColor="#fff"
+		                                                         data-backgroundColor="#0c101b"><i class="icon-thumbs-o-up s-24"></i>
+                                                        	</a>
+	                                                   <%} %>
+                                                  </form>
+
 										</div>
-										
-									</figure>
-	                    	</div>
-						</c:forEach>                   
-	               </div>
-	           </c:when> 
-               <c:when test="${tipo=='Canciones'}">
-               		<div class="row">
+									
+										<div class="text-orange my-2">
+											<p>${infoLista.getDescripcion()}</p>
+										</div>
+
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				<!--@Banner-->
+
+				<div class="p-3 p-lg-5">
+					<!--New Releases-->
+					<section>
+						<div class="row">
 							<div class="col-lg-10 offset-lg-1">
 								<div class="row">
 									<div class="col-md-12">
 										<div class="playlist">
 											<ul id="playlist" class="playlist list-group">
-												<c:forEach var="cancion" items="${canciones}">                    
-												<div style="margin-bottom: -1px;" class="cancion">
-													<li class="list-group-item my-1">
-														<div class="d-flex align-items-center">
-															<div class="col-1">
-																<a class="no-ajaxy media-url" href="${cancion.getUrl()}">
-																	<i class="icon-play s-28"></i>
-																</a>					
-															</div>
-															<div class="col-6">
-																<h6>${cancion.getTitulo()}</h6>${cancion.getGenero()}
-															</div>
-															<a href="#" class="snackbar ml-3" data-text="Te gusta esta canción"
+												<c:forEach var="cancion" items="${audios}">                    
+													<div style="margin-bottom: -1px;" class="cancion">
+														<li class="list-group-item my-1">
+															<div class="d-flex align-items-center">
+																<div class="col-1">
+																	<%if(pagina == 5) {%>
+																	<a class="no-ajaxy media-url" href="${cancion.getUrl()}">
+																		<i id="iconoPlay" class="icon-play s-28"></i>
+																	</a>
+																	<% } else {%>
+																	<a href="obtener_info_lr_usuario?id=<%=id%>&pagina=5" onclick="setTimeout(location.reload.bind(location), 1)">
+																		<i id="iconoPlay" class="icon-play s-28"></i>
+																	</a>
+																	<%} %>					
+																</div>
+																<div class="col-6">
+																	<h6>${cancion.getTitulo()}</h6>${gen}
+																</div>
+																<a href="#" class="snackbar ml-3" data-text="Te gusta esta canción"
 																   data-pos="top-right"
 																   data-showAction="true"
 																   data-actionText="ok"
@@ -436,116 +424,14 @@ String imagen = (String) session.getAttribute("imagen");
 																<a href="#" data-toggle="control-sidebar" onclick="document.getElementById('audioIDcomment').value = '${cancion.getId()}';">
 											                        <i style="position: relative;left: 10px;" class="icon-commenting-o s-24"></i>
 											                    </a>
-															<div class="ml-auto">
-																<a href="anyadir_cancion_fav?idAudio=${cancion.getId()}" class="btn-favorito icon-star" ></a>
-																<a href="#" class="btn-icono icon-indent" onclick="rellenarCampos('${listaslr.size()}','${cancion.getId()}');
-																document.getElementById('overlay-anadir-listas-reproduccion').classList.add('active')";
-																	></a>
-															</div>
-														</div>
-													</li>
-												</div>								                
-											</c:forEach>
-											</ul>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-               </c:when>
-               <c:when test="${tipo=='Transmisiones'}">
-               		<div class="row has-items-overlay" >
-		               		<c:forEach var="transmision" items="${transmisiones}" >
-									<div class="col-lg-3 col-md-4 col-sm-6 my-2" style="top:20px;">
-										<figure>
-											<div class="img-wrapper">
-												<img src="assets/img/demo/a1.jpg" alt="/">
-												<div class="img-overlay text-white text-center">
-													<a href="ver_transmision?idTransmision=${transmision.getId()}&pagina=10">
-														<div class="figcaption mt-3">
-															<i class="icon-link s-48"></i>
-															<h5 class="mt-5">${transmision.getNombre()}</h5>
-														</div>
-													</a>
-												</div>
-												<div class="figure-title text-center p-2">
-													<h5>${transmision.getNombre()}</h5>
-												</div>
-											</div>
-										</figure>
-		                    	</div>
-							</c:forEach>                   
-		                </div> 
-               </c:when>
-               <c:when test="${tipo=='Podcasts'}">
-               		<div class="row has-items-overlay" >
-	               		<c:forEach var="podcast" items="${podcasts}" >
-								<div class="col-lg-3 col-md-4 col-sm-6 my-2" style="top:20px;">
-									<figure>
-										<div class="img-wrapper">
-											<img src=${podcast.getImagen() } alt="/">
-											<div class="img-overlay text-white text-center">
-												<c:choose>
-					                    		<c:when test="${podcast.getUsuario()==nombre }">
-							                    	<a href="obtener_info_podcast?nombre=${podcast.getNombre()}&pagina=10" >
-							                    </c:when>
-							                    <c:otherwise>
-							                    	<a href="obtener_info_podcast_usuario?id=${podcast.getId()}&pagina=10">
-							                    </c:otherwise>
-							                </c:choose>
-														<div class="figcaption mt-3">
-															<i class="icon-link s-48"></i>
-															<h5 class="mt-5">${podcast.getNombre()}</h5>
-														</div>
-														</a>
-											</div>
-											<div class="figure-title text-center p-2">
-												<h5>${podcast.getNombre()}</h5>
-											</div>
-										</div>
-									</figure>
-								
-	                    	</div>
-						</c:forEach>                   
-               		</div> 
-               </c:when> 
-               <c:when test="${tipo=='Capitulos'}">
-               		<div class="row">
-							<div class="col-lg-10 offset-lg-1">
-								<div class="row">
-									<div class="col-md-12">
-										<div class="playlist">
-											<ul id="playlist" class="playlist list-group">
-												<c:forEach var="capitulo" items="${capitulos}"> 
-													<li class="list-group-item my-1">                   
-														<div style="margin-bottom: -1px;" class="cancion">
-															
-																<div class="d-flex align-items-center">
-																	<div class="col-1">
-																		<a class="no-ajaxy media-url" href="${capitulo.getUrl()}">
-																			<i class="icon-play s-28"></i>
-																		</a>					
-																	</div>
-																	<div class="col-6">
-																		<h6>${capitulo.getTitulo()}</h6>${capitulo.getGenero()}
-																	</div>
-																	<a href="#" class="snackbar ml-3" data-text="Te gusta esta canción"
-																		   data-pos="top-right"
-																		   data-showAction="true"
-																		   data-actionText="ok"
-																		   data-actionTextColor="#fff"
-																		   data-backgroundColor="#0c101b"><i class="icon-thumbs-o-up s-24"></i>
-																		</a>
-																		<a href="#" data-toggle="control-sidebar">
-													                        <i style="position: relative;left: 10px;" class="icon-commenting-o s-24"></i>
-													                    </a>															
-																	<div class="ml-auto">
-																		<a href="#" class="btn-icono icon-indent" onclick="rellenarCampos('${podcasts.size()}','${capitulo.getId()}');
-																		document.getElementById('overlay-anadir-podcast').classList.add('active');"></a>													
-																	</div>
+																<div class="ml-auto">
+																	<a href="anyadir_cancion_fav?idAudio=${cancion.getId()}&pagina=<%=pagina %>" class="btn-favorito icon-star"></a>
+																	<a href="#" class="btn-icono icon-indent" onclick="rellenarCampos('${listaslr.size()}','${cancion.getId()}');
+																document.getElementById('overlay-anadir-listas-reproduccion').classList.add('active')";></a>
 																</div>
-														</div>
-													</li>								                
+															</div>
+														</li>
+													</div>								                
 												</c:forEach>
 											</ul>
 										</div>
@@ -553,55 +439,30 @@ String imagen = (String) session.getAttribute("imagen");
 								</div>
 							</div>
 						</div>
-               </c:when>
-			</c:choose>	
-			</section>
-			
-        </div>
-    </div>
+					</section>
+					<!--@New Releases-->
 
-<script>
-    $(document).ready(function() {
-    	$('#iconoPlay').replaceWith("<i id='iconoPlay' class='icon-play s-28'></i>")
-    	$('#playlist a').click(function(event) { // cargar los comentarios de cancion
-			var audioId = $('#audioIDcomment').val();
-			console.log(audioId);
-			$.get('getall_coment_cancion', {
-				idAudio: audioId
-			}, function(data){
-				$('#listaComentariosCancion').html(data);
-			});
-		});
-    	$('#borrarComentario').click(function(event) { // borrar comentario en cancion
-			var idComentario = $('#comentarioID').val();
-			console.log(idComentario);
-			$.get('borrar_coment_cancion', {
-				idComentario: idComentario
-			}, function(responseText){
-				$('#contenido').html(responseText);
-			});
-		});
-    });
-    </script>
+				</div>
 
-</main><!--@Page Content-->
-</div><!--@#app-->
+			</div>
+		</div>
+	</div>
 
-<!-- AÑADIR CANCION A LISTA DE REPRODUCCIÓN -->
+
+<!-- AÑADIR CANCION A LISTA DE REPRODUCCI�N -->
 <div class="overlay-pop-up" id="overlay-anadir-listas-reproduccion">
     <div class="col-md-7 card p-5">
-		<a style="position: absolute;top: 20px;right: 30px;" href="#" onclick="document.getElementById('overlay-anadir-listas-reproduccion').classList.remove('active');" id="btn-cerrar-anadir-listas-reproduccion" class="btn-cerrar-popup-perfil"><i class="icon-close1"></i></a>			
+		<a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-anadir-listas-reproduccion" class="btn-cerrar-popup-perfil"><i class="icon-close1"
+		onclick="document.getElementById('overlay-anadir-listas-reproduccion').classList.remove('active');"></i></a>			
 			<!-- Input -->
 				<div class="body">
 					<div class="row has-items-overlay">
-					<c:choose ><c:when test="${listaslr.isEmpty()}"><h2>Parece que no tienes ninguna lista...</h2></c:when>
-						<c:otherwise>
 						<c:forEach var="listalr" items="${listaslr}">
 						<div class="col-lg-3 col-md-4 col-sm-6 my-2">
 							<figure>
 								<div class="img-wrapper">
 			
-									<img src=${listalr.getImagen() } alt="/">
+									<img src="assets/img/demo/a1.jpg" alt="/">
 									
 									<div class="figure-title text-center p-2">
 										<h5>${listalr.getNombre()}</h5>
@@ -609,60 +470,20 @@ String imagen = (String) session.getAttribute("imagen");
 								</div>
 							</figure>
 							<form class="form-material" action="anyadir_cancion_lr" method="post">
-								<input type="submit" class="btn btn-outline-primary btn-sm pl-4 pr-4" value="Añadir">
-								<input type="hidden" name="idLista" value="${listalr.getId()}">
-								<input type="hidden" name="idAudio" value="">
-								<input type="hidden" name="nombreLista" value="${listalr.getNombre()}">
-								<input type="hidden" name="tipo" value="ListaRep">
+								<input type="hidden" name="idLista" id="idLista" value="${listalr.getId()}">
+								<input type="hidden" name="idAudio" id="idAudio" value="">
+								<input type="hidden" name="nombreLista" id="nombreLista" value="${listalr.getNombre()}">
+								<input type="hidden" name="tipo" id="tipo" value="ListRep">
+								<a id="submit2" href="Inicio?pagina=<%=pagina %>" class="btn btn-outline-primary btn-sm pl-4 pr-4">Añadir</a>
 							</form>	
 						</div>
 					</c:forEach>
-					</c:otherwise></c:choose>
 				<!-- #END# Input -->
 				</div>
 			</div>		
 	</div>
 </div>
-<!-- END AÑADIR CANCION A LISTA DE REPRODUCCIÓN -->
-
-<!-- AÑADIR CAPITULO A PODCAST -->
-<div class="overlay-pop-up" id="overlay-anadir-podcast">
-    <div class="col-md-7 card p-5">
-		<a style="position: absolute;top: 20px;right: 30px;" href="#" onclick="document.getElementById('overlay-anadirpodcast').classList.remove('active');" id="btn-cerrar-anadir-podcast" class="btn-cerrar-popup-perfil"><i class="icon-close1"></i></a>			
-			<!-- Input -->
-				<div class="body">
-					<div class="row has-items-overlay">
-						<c:choose ><c:when test="${podcastslr.isEmpty()}"><h2>Parece que no tienes ningun podcast...</h2></c:when>
-						<c:otherwise>
-						<c:forEach var="podcast" items="${podcastslr}">
-						<div class="col-lg-3 col-md-4 col-sm-6 my-2">
-							<figure>
-								<div class="img-wrapper">
-			
-									<img src=${podcast.getImagen() } alt="/">
-									
-									<div class="figure-title text-center p-2">
-										<h5>${podcast.getNombre()}</h5>
-									</div>
-								</div>
-							</figure>
-							<form class="form-material" action="anyadir_cancion_lr" method="post">
-								<input type="submit" class="btn btn-outline-primary btn-sm pl-4 pr-4" value="Añadir">
-								<input type="hidden" name="idLista" value="${podcast.getId()}">
-								<input type="hidden" name="idAudioP" value="">
-								<input type="hidden" name="nombreLista" value="${podcast.getNombre()}">
-								<input type="hidden" name="tipo" value="podcast">
-							</form>	
-						</div>
-					</c:forEach>
-					</c:otherwise></c:choose>
-				<!-- #END# Input -->
-				</div>
-			</div>		
-	</div>
-</div>
-<!-- END AÑADIR CAPITULO A PODCAST -->
-
+<!-- END AÑADIR CANCION A LISTA DE REPRODUCCI�N -->
 
 <!-- BORRAR COMENTARIO DE CANCION -->	
 	<div class="overlay-pop-up" id="overlay-borrar-coment-cancion">	
@@ -686,11 +507,84 @@ String imagen = (String) session.getAttribute("imagen");
 	</div>	
 <!-- END BORRAR COMENTARIO DE CANCION -->
 
+<script>
+    $(document).ready(function() {
+    	$('#submit2').click(function(event) {
+			var idListaVar = $('#idLista').val();
+			var idAudioVar = $('#idAudio').val();
+			var nombreListaVar = $('#nombreLista').val();
+			var tipoVar = $('#tipo').val();
+			// Si en vez de por post lo queremos hacer por get, cambiamos el $.post por $.get
+			$.get('anyadir_cancion_lr', {
+				idLista : idListaVar,
+				idAudio : idAudioVar,
+				nombreLista : nombreListaVar,
+				tipo : tipoVar
+			});
+		});
+    });
+    </script>
+    
+<script>
+	$(document).ready(function() {
+	        $('#accion_like_lista').click(function(event) { // dar like a lista
+	            var listaId = $('#idListaLike').val();
+	            var like = $('#likeLista').val();
+	            console.log(like);
+	            console.log(listaId);
+	            $.get('like_lista', {
+	                    idLista : listaId,
+	                    like : like
+	            });
+	        });
+	});
+</script>
+ <script>
+    $(document).ready(function() {
+    	$('#iconoPlay').replaceWith("<i id='iconoPlay' class='icon-play s-28'></i>")
+    	$('#playlist a').click(function(event) { // cargar los comentarios de cancion
+			var audioId = $('#audioIDcomment').val();
+			console.log(audioId);
+			$.get('getall_coment_cancion', {
+				idAudio: audioId
+			}, function(data){
+				$('#listaComentariosCancion').html(data);
+			});
+		});
+    	$('#borrarComentario').click(function(event) { // borrar comentario en cancion
+			var idComentario = $('#comentarioID').val();
+			console.log(idComentario);
+			$.get('borrar_coment_cancion', {
+				idComentario: idComentario
+			}, function(responseText){
+				$('#contenido').html(responseText);
+			});
+		});
+    });
+    </script>
+ 
+</main><!--@Page Content-->
+</div><!--@#app-->
 <!--/#app -->
 <script src="https://maps.googleapis.com/maps/api/js?&amp;key=AIzaSyC3YkZNNySdyR87o83QEHWglHfHD_PZqiw&amp;libraries=places"></script>
 <script src="assets/js/app.js"></script>
-<script  src="assets/js/mostrar-popup.js"></script>
-    <script>
+
+<script>
+$(document).ready(function() {
+        $('#accion_like_lista').click(function(event) { // dar like a lista
+            var listaId = $('#idListaLike').val();
+            var like = $('#likeLista').val();
+            console.log(like);
+            console.log(listaId);
+            $.get('like_lista', {
+                    idLista : listaId,
+                    like : like
+            });
+        });
+});
+</script>
+
+<script>
 	function loopAudio(){
 		var audio = document.getElementsByTagName("audio")[0];
 		if(audio.loop){
@@ -720,21 +614,14 @@ String imagen = (String) session.getAttribute("imagen");
 		}
 	}
 	</script>
-	<script>
+
+	 <script>
     function rellenarCampos(size,song) {
     	var i;
     	for (i=0; i <size; i++){
     	  	document.getElementsByName("idAudio")[i].value = song;
     	}
 
-    }
-    </script>
-    <script>
-    function rellenarCamposP(size,song) {
-    	var i;
-    	for (i=0; i <size; i++){
-    	  	document.getElementsByName("idAudioP")[i].value = song;
-    	}
     }
     </script>
     <script>
@@ -786,8 +673,6 @@ String imagen = (String) session.getAttribute("imagen");
 		});
     });
     </script>
-
-
 </body>
 
 </html>

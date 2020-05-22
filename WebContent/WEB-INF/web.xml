@@ -977,6 +977,15 @@
 		<url-pattern>/perfil_admin</url-pattern>
 	</servlet-mapping>
 	
+	<servlet>
+		<servlet-name>obtener_info_gen</servlet-name>
+		<servlet-class>com.espotify.controller.GetInfo_ListaGeneroServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>obtener_info_gen</servlet-name>
+		<url-pattern>/obtener_info_gen</url-pattern>
+	</servlet-mapping>
+	
 	
 	<context-param>
     <param-name>directorio_ficheroTmp</param-name>

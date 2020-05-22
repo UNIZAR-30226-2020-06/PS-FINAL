@@ -905,7 +905,7 @@ String seguidores = (String) session.getAttribute("numSeguidores");
 								<input type="hidden" name="idAudio" id="idAudio" value="">
 								<input type="hidden" name="nombreLista" id="nombreLista" value="${listalr.getNombre()}">
 								<input type="hidden" name="tipo" id="tipo2" value="ListRep">
-								<a id="submit4" href="#" class="btn btn-outline-primary btn-sm pl-4 pr-4" >Añadir</a>
+								<input type="submit" value="Añadir">
 							</form>	
 						</div>
 					</c:forEach>
@@ -944,7 +944,7 @@ String seguidores = (String) session.getAttribute("numSeguidores");
 								<input type="hidden" name="idAudio" id="idAudio2" value="">
 								<input type="hidden" name="nombreLista" id="nombreLista2" value="${podcast.getNombre()}">
 								<input type="hidden" name="tipo" id="tipo3" value="podcast">
-								<a id="submit5" href="#" class="btn btn-outline-primary btn-sm pl-4 pr-4">Añadir</a>
+								<input type="submit" value="Añadir">
 
 							</form>	
 						</div>
@@ -1226,6 +1226,9 @@ String seguidores = (String) session.getAttribute("numSeguidores");
 				idAudio : idAudioVar,
 				nombreLista : nombreListaVar,
 				tipo : tipoVar
+			},function(){
+				location.href ="obtener_info_lr?nombre="+nombreListaVar+"&pagina=10";
+			});
 			});
 		});
     	$('#submit5').click(function(event) { // añadir capitulo a podcast
