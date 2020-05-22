@@ -339,7 +339,7 @@ String imagen = (String) session.getAttribute("imagen");
                     		</c:when>
                     		<c:otherwise>
 			                    <a style="text-align:right;" 
-		                    		href="VerMas?tipo=usuario&nombre=${busqueda}&pagina=10" >Ver más
+		                    		href="VerMas?tipo=usuario&nombre=${busqueda}&pagina=10" onclick="setTimeout(location.reload.bind(location), 1)">Ver más
 		                    		<i class="icon-angle-right ml-3"></i>
 			                    </a> 
 		                    </c:otherwise>
@@ -479,7 +479,7 @@ String imagen = (String) session.getAttribute("imagen");
 											                        <i style="position: relative;left: 10px;" class="icon-commenting-o s-24"></i>
 											                    </a>
 															<div class="ml-auto">
-																<a href="anyadir_cancion_fav?idAudio=${cancion.getId()}" class="btn-favorito icon-star" ></a>
+																<a href="anyadir_cancion_fav?idAudio=${cancion.getId()}&pagina=10" class="btn-favorito icon-star" ></a>
 																<a href="#" class="btn-icono icon-indent" onclick="rellenarCampos('${listaslr.size()}','${cancion.getId()}');
 																document.getElementById('overlay-anadir-listas-reproduccion').classList.add('active')";
 																></a>

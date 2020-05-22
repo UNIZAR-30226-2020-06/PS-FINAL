@@ -272,7 +272,7 @@ String imagen = (String) session.getAttribute("imagen");
         <!--Top Menu Start -->
 		<div class="navbar-custom-menu">
 			<ul class="nav navbar-nav">
-
+				<li id="contenido" style="position: relative;right: 300px;top: 10px;"></li>
 				<!-- Right Sidebar Toggle Button -->
 				<li class="searchOverlay-wrap">
 					<a href="#" id="btn-searchOverlay" class="nav-link mr-3 btn--searchOverlay no-ajaxy">
@@ -508,7 +508,9 @@ String imagen = (String) session.getAttribute("imagen");
 		</div>	
 	</div>	
 <!-- END BORRAR LISTA DE REPRODUCCIÓN -->
-
+<script src="https://maps.googleapis.com/maps/api/js?&amp;key=AIzaSyC3YkZNNySdyR87o83QEHWglHfHD_PZqiw&amp;libraries=places"></script>
+<script src="assets/js/app.js"></script>
+<script  src="assets/js/mostrar-popup.js"></script>
 <script>
     $(document).ready(function() {
     	$('#submit1').click(function(event) {

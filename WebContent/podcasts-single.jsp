@@ -244,7 +244,7 @@ String imagen = (String) session.getAttribute("imagen");
         <!--Top Menu Start -->
 		<div class="navbar-custom-menu">
 			<ul class="nav navbar-nav">
-
+				<li id="contenido" style="position: relative;right: 300px;top: 10px;"></li>
 				<!-- Right Sidebar Toggle Button -->
 				<li class="searchOverlay-wrap">
 					<a href="#" id="btn-searchOverlay" class="nav-link mr-3 btn--searchOverlay no-ajaxy">
@@ -375,7 +375,7 @@ String imagen = (String) session.getAttribute("imagen");
 									</div>
 									<div class="col-md-9">
 										<div class="d-md-flex align-items-center justify-content-between">
-											<h1 class="my-3 text-orange">${infoPodcast.getNombre()}</h1>
+											<h1 class="my-3 text-orange" id="nombrePodcast">${infoPodcast.getNombre()}</h1>
 											<div class="ml-auto mb-2">
 												<a href="#" style="position: relative;left: -112px;bottom: 13px;" onClick="document.getElementById('overlay-foto').classList.add('active');" 
 													class="btn btn-abrir-popup btn-sm  mt-3" id="abrir-popup-foto" style="position: relative;left: -4px;bottom: 13px;">Cambiar foto</a>
@@ -441,7 +441,7 @@ String imagen = (String) session.getAttribute("imagen");
 																</div>
 																<input type="hidden" name="nombreOld" id="nombreOld" value="${infoPodcast.getNombre()}">
 											
-																<a id="submit" href="Inicio?pagina=<%=pagina %>" class="btn btn-outline-primary btn-sm pl-4 pr-4">Cambiar información</a>
+																<a id="submit1" href="#" class="btn btn-outline-primary btn-sm pl-4 pr-4">Cambiar información</a>
 															</div>
 														</form>
 														<!-- #END# Input -->
@@ -612,9 +612,14 @@ String imagen = (String) session.getAttribute("imagen");
 </div>
 <!-- END AÑADIR CAPITULO A PODCAST -->
 
+
+<script src="https://maps.googleapis.com/maps/api/js?&amp;key=AIzaSyC3YkZNNySdyR87o83QEHWglHfHD_PZqiw&amp;libraries=places"></script>
+<script src="assets/js/app.js"></script>
+<script  src="assets/js/mostrar-popup.js"></script>
 <script>
-    $(document).ready(function() {
-    	$('#submit').click(function(event) {
+<%if(pagina!=5){%>
+	$(document).ready(function() {
+    	$('#submit1').click(function(event) {
 			var tipoVar = $('#tipo').val();
 			var nombreNewVar = $('#nombreNew').val();
 			var descripcionVar = $('#descripcion').val();
@@ -623,13 +628,33 @@ String imagen = (String) session.getAttribute("imagen");
 			console.log(nombreNewVar);
 			console.log(descripcionVar);
 			console.log(nombreOldVar);
-			// Si en vez de por post lo queremos hacer por get, cambiamos el $.post por $.get
-			$.get('modlr', {
-				tipo : tipoVar,
-				nombreNew : nombreNewVar,
-				descripcion : descripcionVar,
-				nombreOld : nombreOldVar
-			});
+			if(nombreNewVar != ""){
+				$.get('modlr', {
+					tipo : tipoVar,
+					nombreNew : nombreNewVar,
+					descripcion : descripcionVar,
+					nombreOld : nombreOldVar
+				}, function(){
+					var contenido = "<div class=\"alert alert-success alert-dismissible fade show\" role=\"alert\">";
+					contenido = "<strong>Cambios realizados correctamente!</strong>";
+					contenido = "<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\">";
+					contenido = "<span aria-hidden='true'>&times;</span>";
+					contenido = "</button>";
+					contenido = "</div>";
+					$('#contenido').html(contenido);
+					$('#nombrePodcast').text(nombreNewVar);
+				});
+			}
+			else{
+				console.log("else");
+				var contenido = "<div class=\"alert alert-danger alert-dismissible fade show\" role=\"alert\">";
+				contenido = contenido + "<strong>Es necesario poner un nombre al podcast. </strong> Campo vacío.";
+				contenido = contenido + "<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\">";
+				contenido = contenido + "<span aria-hidden='true'>&times;</span>";
+				contenido = contenido + "</button>";
+				contenido = contenido + "</div>";
+				$('#contenido').html(contenido);
+			}
 		});
     	$('#submit2').click(function(event) {
 			var idListaVar = $('#idLista').val();
@@ -645,6 +670,7 @@ String imagen = (String) session.getAttribute("imagen");
 			});
 		});
     });
+    <%}%>
     </script>
     <script>
     $(document).ready(function() {
@@ -671,18 +697,18 @@ String imagen = (String) session.getAttribute("imagen");
     </script>
     
 <script>
-$(document).ready(function() {
+	$(document).ready(function() {
         $('#accion_like_lista').click(function(event) { // dar like a lista
             var listaId = $('#idListaLike').val();
             var like = $('#likeLista').val();
             console.log(like);
             console.log(listaId);
             $.get('like_lista', {
-                    idLista : listaId,
-                    like : like
+                idLista : listaId,
+                like : like
             });
         });
-});
+	});
 </script>
 
 <script>
@@ -696,7 +722,7 @@ $(document).ready(function() {
 	           idAudio: audioId,
 	            like : like
 			});
-	   });
+	   	});
 	});
 </script>
 
@@ -705,6 +731,7 @@ $(document).ready(function() {
 <!--/#app -->
 <script src="https://maps.googleapis.com/maps/api/js?&amp;key=AIzaSyC3YkZNNySdyR87o83QEHWglHfHD_PZqiw&amp;libraries=places"></script>
 <script src="assets/js/app.js"></script>
+<script  src="assets/js/mostrar-popup.js"></script>
 <script>
 	$(document).ready(function() {
 	    $('#playlist a').click(function(event) {//dar like a una cancion
@@ -716,24 +743,75 @@ $(document).ready(function() {
 	           idAudio: audioId,
 	            like : like
 			});
-	   });
-	});
-</script>
-<script>
-$(document).ready(function() {
+	   	});
         $('#accion_like_lista').click(function(event) { // dar like a lista
             var listaId = $('#idListaLike').val();
             var like = $('#likeLista').val();
             console.log(like);
             console.log(listaId);
             $.get('like_lista', {
-                    idLista : listaId,
-                    like : like
+                idLista : listaId,
+                like : like
             });
         });
-});
+	});
 </script>
-
+<script>
+<%if(pagina==5){%>
+    $(document).ready(function() {
+    	$('#submit1').click(function(event) {
+			var tipoVar = $('#tipo').val();
+			var nombreNewVar = $('#nombreNew').val();
+			var descripcionVar = $('#descripcion').val();
+			var nombreOldVar = $('#nombreOld').val();
+			console.log(tipoVar);
+			console.log(nombreNewVar);
+			console.log(descripcionVar);
+			console.log(nombreOldVar);
+			if(nombreNewVar != ""){
+				$.get('modlr', {
+					tipo : tipoVar,
+					nombreNew : nombreNewVar,
+					descripcion : descripcionVar,
+					nombreOld : nombreOldVar
+				}, function(){
+					var contenido = "<div class=\"alert alert-success alert-dismissible fade show\" role=\"alert\">";
+					contenido = "<strong>Cambios realizados correctamente!</strong>";
+					contenido = "<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\">";
+					contenido = "<span aria-hidden='true'>&times;</span>";
+					contenido = "</button>";
+					contenido = "</div>";
+					$('#contenido').html(contenido);
+					$('#nombrePodcast').text(nombreNewVar);
+				});
+			}
+			else{
+				console.log("else");
+				var contenido = "<div class=\"alert alert-danger alert-dismissible fade show\" role=\"alert\">";
+				contenido = contenido + "<strong>Es necesario poner un nombre al podcast. </strong> Campo vacío.";
+				contenido = contenido + "<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\">";
+				contenido = contenido + "<span aria-hidden='true'>&times;</span>";
+				contenido = contenido + "</button>";
+				contenido = contenido + "</div>";
+				$('#contenido').html(contenido);
+			}
+		});
+    	$('#submit2').click(function(event) {
+			var idListaVar = $('#idLista').val();
+			var idAudioVar = $('#idAudio').val();
+			var nombreListaVar = $('#nombreLista').val();
+			var tipoVar = $('#tipo').val();
+			// Si en vez de por post lo queremos hacer por get, cambiamos el $.post por $.get
+			$.get('anyadir_cancion_lr', {
+				idLista : idListaVar,
+				idAudio : idAudioVar,
+				nombreLista : nombreListaVar,
+				tipo : tipoVar
+			});
+		});
+    });
+    <%}%>
+    </script>
 <script>
 	function loopAudio(){
 		var audio = document.getElementsByTagName("audio")[0];

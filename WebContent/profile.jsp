@@ -232,7 +232,7 @@ String seguidores = (String) session.getAttribute("numSeguidores");
         <!--Top Menu Start -->
         <div class="navbar-custom-menu">
             <ul class="nav navbar-nav">
-				<li id="contenido"></li>
+				<li id="contenido" style="position: relative;right: 300px;top: 10px;"></li>
                 <!-- Right Sidebar Toggle Button -->
                 <li class="searchOverlay-wrap">
                     <a href="#" id="btn-searchOverlay" class="nav-link mr-3 btn--searchOverlay no-ajaxy">
@@ -356,7 +356,7 @@ String seguidores = (String) session.getAttribute("numSeguidores");
                     	<%} %>
                     </figure>
                     <div>
-                        <h4 class="p-t-10"><%=nombre%></h4>
+                        <h4 class="p-t-10" id="nombreUsuario"><%=nombre%></h4>
                     </div>
                     <a href="#" class="btn btn-abrir-popup btn-sm  mt-3" id="abrir-popup-foto">Cambiar foto</a>
                 </div>
@@ -366,7 +366,7 @@ String seguidores = (String) session.getAttribute("numSeguidores");
                 <div class="p-4">
                     <div class="pl-4 mt-4">
                         <h5>Descripción</h5>
-						<span><%=descripcion %></span>
+						<span id="descripcionUsuario"><%=descripcion %></span>
                     </div>
                     <div class="row">
                         <div class="col-md-4">
@@ -1035,7 +1035,7 @@ String seguidores = (String) session.getAttribute("numSeguidores");
 					<div class="form-group form-float">
 						<div class="form-line">
 							<input type="text" name="nombre" id="nombre" class="form-control" value="<%=nombre%>">
-							<label class="form-label">Nombre</label>
+							<label class="form-label">Nombre de usuario</label>
 						</div>
 					</div>
 
@@ -1052,7 +1052,7 @@ String seguidores = (String) session.getAttribute("numSeguidores");
 							<label class="form-label">Email</label>
 						</div>
 					</div>
-					<a id="submit1" href="obtener_contenido_perfil?pagina=<%=pagina %>" class="btn btn-outline-primary btn-sm pl-4 pr-4">
+					<a id="submit1" href="#" class="btn btn-outline-primary btn-sm pl-4 pr-4">
 						Cambiar información
 					</a>
 				</div>
@@ -1092,7 +1092,7 @@ String seguidores = (String) session.getAttribute("numSeguidores");
 						</div>
 					</div>
 
-					<a id="submit2" href="obtener_contenido_perfil?pagina=<%=pagina %>" class="btn btn-outline-primary btn-sm pl-4 pr-4"
+					<a id="submit2" href="#" class="btn btn-outline-primary btn-sm pl-4 pr-4"
 						  >Cambiar constraseña</a>
 				</div>
 			</form>
@@ -1176,19 +1176,34 @@ String seguidores = (String) session.getAttribute("numSeguidores");
     }
     </script>
 <script>
+<%if(pagina!=4){%>
     $(document).ready(function() {
     	$('#submit1').click(function(event) { // cambiar info usuario
 			var nombreVar = $('#nombre').val();
 			var descripcionVar = $('#descripcion').val();
 			var emailVar = $('#email').val();
-			// Si en vez de por post lo queremos hacer por get, cambiamos el $.post por $.get
-			$.get('modinfo', {
-				nombre : nombreVar,
-				descripcion : descripcionVar,
-				email : emailVar
-			}, function(responseText){
-				$('#contenido').html(responseText);
-			});
+			console.log(nombreVar);console.log(descripcionVar);console.log(emailVar);
+			if(nombreVar != "" && emailVar != ""){
+				$.get('modinfo', {
+					nombre : nombreVar,
+					descripcion : descripcionVar,
+					email : emailVar
+				}, function(responseText){
+					$('#contenido').html(responseText);
+					$('#nombreUsuario').text(nombreVar);
+					$('#descripcionUsuario').text(descripcionVar);
+				});
+			}
+			else{
+				console.log("else");
+				var contenido = "<div class=\"alert alert-danger alert-dismissible fade show\" role=\"alert\">";
+				contenido = contenido + "<strong>Es necesario poner un nombre de usuario o email. </strong> Campo vacío.";
+				contenido = contenido + "<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\">";
+				contenido = contenido + "<span aria-hidden='true'>&times;</span>";
+				contenido = contenido + "</button>";
+				contenido = contenido + "</div>";
+				$('#contenido').html(contenido);
+			}
 		});
     	$('#submit2').click(function(event) { // cambiar contraseña
 			var contrasena1Var = $('#contrasena1').val();
@@ -1206,6 +1221,9 @@ String seguidores = (String) session.getAttribute("numSeguidores");
 			var nombreVar = $('#nombre-listas-reproduccion').val();
 			var descripcionVar = $('#descripcion-listas-reproduccion').val();
 			var tipoVar = $('#tipo').val();
+			console.log(nombreVar);
+			console.log(descripcionVar);
+			console.log(tipoVar);
 			// Si en vez de por post lo queremos hacer por get, cambiamos el $.post por $.get
 			$.get('crear_lr', {
 				nombre : nombreVar,
@@ -1228,7 +1246,6 @@ String seguidores = (String) session.getAttribute("numSeguidores");
 				tipo : tipoVar
 			},function(){
 				location.href ="obtener_info_lr?nombre="+nombreListaVar+"&pagina=10";
-			});
 			});
 		});
     	$('#submit5').click(function(event) { // añadir capitulo a podcast
@@ -1260,7 +1277,7 @@ String seguidores = (String) session.getAttribute("numSeguidores");
     	$('#submit7').click(function(event) { // crear podcast
 			var idListaVar = $('#nombre-listas-reproduccion7').val();
 			var descripcionVar = $('#descripcion-listas-reproduccion7').val();
-			var tipoVar = $('#tipo7').val();
+			var tipoVar = "podcast";
 			console.log(idListaVar);
 			console.log(tipoVar);
 			// Si en vez de por post lo queremos hacer por get, cambiamos el $.post por $.get
@@ -1286,7 +1303,9 @@ String seguidores = (String) session.getAttribute("numSeguidores");
 			});
 		});
     });
-
+    <%}%>
+    </script>
+    <script>
     function rellenarCamposP(size,song) {
     	var i;
     	for (i=0; i <size; i++){
@@ -1298,7 +1317,7 @@ String seguidores = (String) session.getAttribute("numSeguidores");
     
     <script>
     $(document).ready(function() {
-    	$('#iconoPlay').replaceWith("<i id='iconoPlay' class='icon-play s-28'></i>")
+    	$('#iconoPlay').replaceWith("<i id='iconoPlay' class='icon-play s-28'></i>");
     	$('#playlist a').click(function(event) { // cargar los comentarios de cancion
 			var audioId = $('#audioIDcomment').val();
 			console.log(audioId);
@@ -1357,7 +1376,7 @@ String seguidores = (String) session.getAttribute("numSeguidores");
 
 <script>
     $(document).ready(function() {
-    	$('#iconoPlay').replaceWith("<i id='iconoPlay' class='icon-play s-28'></i>")
+    	$('#iconoPlay').replaceWith("<i id='iconoPlay' class='icon-play s-28'></i>");
     	$('#playlist a').click(function(event) { // cargar los comentarios de cancion
 			var audioId = $('#audioIDcomment').val();
 			console.log(audioId);
@@ -1418,6 +1437,135 @@ String seguidores = (String) session.getAttribute("numSeguidores");
     });
 
     </script>
-
+<script>
+<%if(pagina==4){%>
+    $(document).ready(function() {
+    	$('#submit1').click(function(event) { // cambiar info usuario
+			var nombreVar = $('#nombre').val();
+			var descripcionVar = $('#descripcion').val();
+			var emailVar = $('#email').val();
+			console.log(nombreVar);console.log(descripcionVar);console.log(emailVar);
+			if(nombreVar != "" && emailVar != ""){
+				$.get('modinfo', {
+					nombre : nombreVar,
+					descripcion : descripcionVar,
+					email : emailVar
+				}, function(responseText){
+					$('#contenido').html(responseText);
+					$('#nombreUsuario').text(nombreVar);
+					$('#descripcionUsuario').text(descripcionVar);
+				});
+			}
+			else{
+				console.log("else");
+				var contenido = "<div class=\"alert alert-danger alert-dismissible fade show\" role=\"alert\">";
+				contenido = contenido + "<strong>Es necesario poner un nombre de usuario o email. </strong> Campo vacío.";
+				contenido = contenido + "<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\">";
+				contenido = contenido + "<span aria-hidden='true'>&times;</span>";
+				contenido = contenido + "</button>";
+				contenido = contenido + "</div>";
+				$('#contenido').html(contenido);
+			}
+		});
+    	$('#submit2').click(function(event) { // cambiar contraseña
+			var contrasena1Var = $('#contrasena1').val();
+			var contrasena2Var = $('#contrasena2').val();
+			var contrasena3Var = $('#contrasena3').val();
+			$.get('modpass', {
+				contrasena1 : contrasena1Var,
+				contrasena2 : contrasena2Var,
+				contrasena3 : contrasena3Var
+			}, function(responseText){
+				$('#contenido').html(responseText);
+			});
+		});
+    	$('#submit3').click(function(event) { // crear lista
+			var nombreVar = $('#nombre-listas-reproduccion').val();
+			var descripcionVar = $('#descripcion-listas-reproduccion').val();
+			var tipoVar = $('#tipo').val();
+			console.log(nombreVar);
+			console.log(descripcionVar);
+			console.log(tipoVar);
+			// Si en vez de por post lo queremos hacer por get, cambiamos el $.post por $.get
+			$.get('crear_lr', {
+				nombre : nombreVar,
+				descripcion : descripcionVar,
+				tipo : tipoVar
+			}, function(){
+				location.href ="mostrar_lrs?tipo=ListaRep&pagina=10";
+			});
+		});
+    	$('#submit4').click(function(event) { // añadir cancion a lista
+			var idListaVar = $('#idLista').val();
+			var idAudioVar = $('#idAudio').val();
+			var nombreListaVar = $('#nombreLista').val();
+			var tipoVar = $('#tipo2').val();
+			// Si en vez de por post lo queremos hacer por get, cambiamos el $.post por $.get
+			$.get('anyadir_cancion_lr', {
+				idLista : idListaVar,
+				idAudio : idAudioVar,
+				nombreLista : nombreListaVar,
+				tipo : tipoVar
+			},function(){
+				location.href ="obtener_info_lr?nombre="+nombreListaVar+"&pagina=10";
+			});
+		});
+    	$('#submit5').click(function(event) { // añadir capitulo a podcast
+			var idListaVar = $('#idLista2').val();
+			var idAudioVar = $('#idAudio2').val();
+			var nombreListaVar = $('#nombreLista2').val();
+			var tipoVar = $('#tipo3').val();
+			// Si en vez de por post lo queremos hacer por get, cambiamos el $.post por $.get
+			$.get('anyadir_cancion_lr', {
+				idListaP : idListaVar,
+				idAudio : idAudioVar,
+				nombreLista : nombreListaVar,
+				tipo : tipoVar
+			});
+		});
+    	$('#submit6').click(function(event) { // borrar lista de reproduccion
+			var idListaVar = $('#idLista6').val();
+			var tipoVar = $('#tipo6').val();
+			console.log(idListaVar);
+			console.log(tipoVar);
+			// Si en vez de por post lo queremos hacer por get, cambiamos el $.post por $.get
+			$.get('borrar_lr', {
+				nombre : idListaVar,
+				tipo : tipoVar
+			}, function(){
+				location.href ="mostrar_lrs?tipo=ListaRep&pagina=10";
+			});
+		});
+    	$('#submit7').click(function(event) { // crear podcast
+			var idListaVar = $('#nombre-listas-reproduccion7').val();
+			var descripcionVar = $('#descripcion-listas-reproduccion7').val();
+			var tipoVar = "podcast";
+			console.log(idListaVar);
+			console.log(tipoVar);
+			// Si en vez de por post lo queremos hacer por get, cambiamos el $.post por $.get
+			$.get('crear_lr', {
+				nombre : idListaVar,
+				tipo : tipoVar,
+				descripcion : descripcionVar
+			}, function(){
+				location.href="mostrar_podcasts?tipo=podcasts&pagina=10";
+			});
+		});
+    	$('#submit8').click(function(event) { // borrar podcast
+			var idListaVar = $('#idPodcast8').val();
+			var tipoVar = $('#tipo8').val();
+			console.log(idListaVar);
+			console.log(tipoVar);
+			// Si en vez de por post lo queremos hacer por get, cambiamos el $.post por $.get
+			$.get('borrar_lr', {
+				nombre : idListaVar,
+				tipo : tipoVar
+			}, function(){
+				location.href="mostrar_podcasts?tipo=podcasts&pagina=10";
+			});
+		});
+    });
+    <%}%>
+    </script>
 </body>
 </html>
