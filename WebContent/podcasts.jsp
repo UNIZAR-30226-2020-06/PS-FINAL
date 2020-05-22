@@ -388,12 +388,21 @@ String imagen = (String) session.getAttribute("imagen");
 										<img src=${podcast.getImagen() } alt="/">
 										<div class="img-overlay text-white text-center">
 										<!--href="obtener_info_lr?nombre=${lista.getNombre()}"-->
-											<a 	 href="obtener_info_podcast?nombre=${podcast.getNombre()}&pagina=<%=pagina %>" >
+										 	<%if(pagina == 10){ %>
+											<a 	 href="obtener_info_podcast?nombre=${podcast.getNombre()}&pagina=5" onclick="setTimeout(location.reload.bind(location), 1)">
 												<div class="figcaption mt-3">
 													<i class="icon-link s-48"></i>
 													<h5 class="mt-5">${podcast.getNombre()}</h5>
 												</div>
 											</a>
+											 <%} else{%>
+											 <a 	 href="obtener_info_podcast?nombre=${podcast.getNombre()}&pagina=<%=pagina %>">
+												<div class="figcaption mt-3">
+													<i class="icon-link s-48"></i>
+													<h5 class="mt-5">${podcast.getNombre()}</h5>
+												</div>
+											</a>
+											 <%}%>
 										</div>
 										<div class="figure-title text-center p-2">
 											<h5>${podcast.getNombre()}</h5>

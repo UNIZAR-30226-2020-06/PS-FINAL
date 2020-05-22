@@ -213,7 +213,7 @@ String like = (String) request.getAttribute("like");
 					<div class="dropdown-menu p-4 dropdown-menu-right">
 						<div class="row box justify-content-between my-4">
 							<div class="col text-center">
-								<a class="ajaxifyPage" href="obtener_contenido_perfil?pagina=10" >
+								<a class="ajaxifyPage" href="obtener_contenido_perfil?pagina=4" onclick="setTimeout(location.reload.bind(location), 1)">
 									<i class="icon-user-4  s-24"></i>
 									<div class="pt-1">Mi perfil</div>
 								</a>

@@ -377,9 +377,9 @@ String imagen = (String) session.getAttribute("imagen");
 										<div class="d-md-flex align-items-center justify-content-between">
 											<h1 class="my-3 text-orange">${infoPodcast.getNombre()}</h1>
 											<div class="ml-auto mb-2">
-												<a href="#" onClick="document.getElementById('overlay-foto').classList.add('active');" 
+												<a href="#" style="position: relative;left: -112px;bottom: 13px;" onClick="document.getElementById('overlay-foto').classList.add('active');" 
 													class="btn btn-abrir-popup btn-sm  mt-3" id="abrir-popup-foto" style="position: relative;left: -4px;bottom: 13px;">Cambiar foto</a>
-												<form action="like_lista">
+												<form style="top: -44px;position: relative;" action="like_lista">
                                                       <input type="hidden" id="idListaLike" name="idListaLike" value="${infoPodcast.getId()}">
                                                       <%if(likePodcast == null) { %>
 		                                                      <input type="hidden" id="likeLista" name="likeLista" value="false">
@@ -393,17 +393,17 @@ String imagen = (String) session.getAttribute("imagen");
 		                                                      </a>
 	                                                   <%} else { %>
 	                                                   		 <input type="hidden" id="likeLista" name="likeLista" value="true">
-	                                                      	<a href="#" id="accion_like_lista" class="snackbar ml-3" style="background-color: #fd7e14; color: #fff" 
+	                                                      	<a href="#" id="accion_like_lista" class="snackbar ml-3"
 	                                                      		data-text="Ya no te gusta esta lista de reproducción"
 		                                                         data-pos="top-right"
 		                                                         data-showAction="true"
 		                                                         data-actionText="ok"
 		                                                         data-actionTextColor="#fff"
-		                                                         data-backgroundColor="#0c101b"><i class="icon-thumbs-o-up s-24"></i>
+		                                                         data-backgroundColor="#0c101b"><i class="icon-thumbs-up s-24"></i>
                                                         	</a>
 	                                                   <%} %>
                                                   </form>
-											    <button style="color: #fd7e14;position: relative;left: 10px;bottom: 13px;"
+											    <button style="color: #fd7e14;position: relative;left: 52px;bottom: 93px;"
 													class="btn btn-abrir-popupl btn-sm  mt-3" 
 													id="abrir-popup-lista"
 													href="#"

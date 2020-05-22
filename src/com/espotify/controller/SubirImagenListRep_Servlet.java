@@ -96,7 +96,7 @@ public class SubirImagenListRep_Servlet extends HttpServlet {
 				//gooogle.es
 				
 			
-			request.getRequestDispatcher("mostrar_lrs").forward(request, response);
+			request.getRequestDispatcher("mostrar_lrs?pagina=10").forward(request, response);
 
 		} catch (FileUploadException e) {
 			getServletContext().log("FAIL: " + e.toString());

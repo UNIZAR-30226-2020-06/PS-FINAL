@@ -208,6 +208,7 @@ String nombre = (String) request.getParameter("nombre");
 String hayfoto = (String) session.getAttribute("hayfoto");
 String imagen = (String) session.getAttribute("imagen");
 Boolean audioLike = false;
+String seguidores = (String) session.getAttribute("numSeguidores");
 %>
 
 <!-- BARRA DE ARRIBA FIJA -->
@@ -365,12 +366,11 @@ Boolean audioLike = false;
                     <div class="row">
                         <div class="col-md-4">
                             <div class="p-4">
-                                <a href="#w3-tab3" ><h5>Seguidores</h5></a><h6>(numero)</h6></a>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="p-4">
-                                <a href="#w3-tab4" ><h5>Siguiendo</h5><h6>(numero)</h6></a>
+                                <%if (seguidores!=null){ %>
+                                <a href="#w3-tab3" ><h5>Seguidores</h5></a><h6><%=seguidores %></h6></a>
+                                <%} else {%>
+                                <a href="#w3-tab3" ><h5>Seguidores</h5></a><h6>0</h6></a>
+                                <%} %>
                             </div>
                         </div>
                     </div>

@@ -33,7 +33,7 @@ public class FinalizarTransmision_Servlet extends HttpServlet {
 		TransmisionDAO transmisionDAO = new TransmisionDAO();
 		
 		if (transmisionDAO.parar(id, url)) {
-			request.getRequestDispatcher("/obtener_contenido_perfil").forward(request, response);
+			//request.getRequestDispatcher("/obtener_contenido_perfil").forward(request, response);
 		} else {
 			System.out.println("ERROR AL ELIMINAR");
 		}

@@ -349,7 +349,7 @@ String imagen = (String) session.getAttribute("imagen");
 									<div class="col-md-9">
 										<div class="d-md-flex align-items-center justify-content-between">
 											<h1 class="my-3 text-orange">${infoLista.getNombre()}</h1>
-											<form action="like_lista">
+											<form style="top: -44px;position: relative;" action="like_lista">
                                                       <input type="hidden" id="idListaLike" name="idListaLike" value="${infoLista.getId()}">
                                                       <%if(likeLista == null) { %>
 		                                                      <input type="hidden" id="likeLista" name="likeLista" value="false">

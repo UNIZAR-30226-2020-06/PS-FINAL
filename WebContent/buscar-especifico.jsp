@@ -283,7 +283,7 @@ String imagen = (String) session.getAttribute("imagen");
                         <button id="nextTrack" class="btn btn-link d-none d-sm-block">
                             <i class="icon-next s-18"></i>
                         </button>
-                        <button class=" btn btn-control" id="btn-loop" onclick="loopAudio();document.getElementById('btn-loop').classList.add('active');"">
+                        <button title="Bucle" class="btn btn-link" onclick="loopAudio();">
                             <i class="icon-repeat s-18"></i>
                         </button>
                     </div>

@@ -211,6 +211,7 @@ String nombre = (String) session.getAttribute("nombre");
 String descripcion = (String) session.getAttribute("descripcion");
 String email = (String) session.getAttribute("email");
 String imagen = (String) session.getAttribute("imagen");
+String seguidores = (String) session.getAttribute("numSeguidores");
 %>
 <!-- END Obtener datos usuario -->
 
@@ -370,12 +371,11 @@ String imagen = (String) session.getAttribute("imagen");
                     <div class="row">
                         <div class="col-md-4">
                             <div class="p-4">
-                                <a href="#w3-tab3" ><h5>Seguidores</h5></a><h6>(numero)</h6></a>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="p-4">
-                                <a href="#w3-tab4" ><h5>Siguiendo</h5><h6>(numero)</h6></a>
+                            	<%if (seguidores!=null){ %>
+                                <a href="#w3-tab3" ><h5>Seguidores</h5></a><h6><%=seguidores %></h6></a>
+                                <%} else {%>
+                                <a href="#w3-tab3" ><h5>Seguidores</h5></a><h6>0</h6></a>
+                                <%} %>
                             </div>
                         </div>
                     </div>
@@ -468,14 +468,13 @@ String imagen = (String) session.getAttribute("imagen");
 																		</c:when>
 																		<c:otherwise>
 																				<a title="Like" href="#" id="accion_cancion_like" class="snackbar ml-3" 
-																						style="background-color: #fd7e14; color: #fff" 
 																						onclick="document.getElementById('idAudioLike').value ='${cancion.getId()}';document.getElementById('audioLike').value ='true';" 
 																						data-text="Ya no te gusta esta canción"
 																					   data-pos="top-right"
 																					   data-showAction="true"
 																					   data-actionText="ok"
 																					   data-actionTextColor="#fff"
-																					   data-backgroundColor="#0c101b"><i class="icon-thumbs-o-up s-24"></i>
+																					   data-backgroundColor="#0c101b"><i class="icon-thumbs-up s-24"></i>
 																				</a>
 																		</c:otherwise>																	
 																	</c:choose>
@@ -1094,7 +1093,7 @@ String imagen = (String) session.getAttribute("imagen");
 					</div>
 
 					<a id="submit2" href="obtener_contenido_perfil?pagina=<%=pagina %>" class="btn btn-outline-primary btn-sm pl-4 pr-4"
-						   value="Cambiar constraseña">Cambiar constraseña</a>
+						  >Cambiar constraseña</a>
 				</div>
 			</form>
 			<a href="" style="color: red;" onclick="darbaja()">Eliminar cuenta</a>
@@ -1328,6 +1327,8 @@ String imagen = (String) session.getAttribute("imagen");
 			$.get('like_audio', {
 	           idAudio: audioId,
 	            like : like
+			}, function(){
+				
 			});
 	   });
 	});

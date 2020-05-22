@@ -87,7 +87,7 @@ public class SubirImagenPodcast_Servlet extends HttpServlet {
 				//gooogle.es
 				
 			
-			request.getRequestDispatcher("mostrar_podcasts").forward(request, response);
+			request.getRequestDispatcher("mostrar_podcasts?pagina=10").forward(request, response);
 
 		} catch (FileUploadException e) {
 			getServletContext().log("FAIL: " + e.toString());

@@ -102,7 +102,7 @@ public class SubirImagenUsuario_Servlet extends HttpServlet {
 				
 			}
 			
-			request.getRequestDispatcher("obtener_contenido_perfil").forward(request, response);
+			request.getRequestDispatcher("obtener_contenido_perfil?pagina=4").forward(request, response);
 
 		} catch (FileUploadException e) {
 			getServletContext().log("FAIL: " + e.toString());

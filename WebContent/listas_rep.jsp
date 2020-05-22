@@ -391,13 +391,23 @@ String imagen = (String) session.getAttribute("imagen");
                             <div class="img-wrapper">
                                 <img src="assets/img/demo/a2.jpg" alt="/">
                                 <div class="img-overlay text-white text-center">
-                                	<a href="obtener_info_fav?pagina=<%=pagina %>" >
+                                	<%if(pagina == 10){ %>
+                                	<a href="obtener_info_fav?pagina=1" onclick="setTimeout(location.reload.bind(location), 1)">
                                         <div class="figcaption mt-3">
                                             <i class="icon-link s-48"></i>
                                             <h5 class="mt-5">Mis Favoritos</h5>
                                             
                                         </div>
                                     </a>
+                                    <%} else{%>
+                                    <a href="obtener_info_fav?pagina=<%=pagina %>" >
+                                        <div class="figcaption mt-3">
+                                            <i class="icon-link s-48"></i>
+                                            <h5 class="mt-5">Mis Favoritos</h5>
+                                            
+                                        </div>
+                                    </a>
+                                    <%}%>
                                 </div>
                                 <div class="figure-title text-center p-2">
                                     <h5>Mis favoritos</h5>
@@ -412,12 +422,21 @@ String imagen = (String) session.getAttribute("imagen");
 									<div class="img-wrapper">
 										<img src=${lista.getImagen() } alt="/">
 										<div class="img-overlay text-white text-center">
-											<a class="ajaxifyPage" href="${pageContext.request.contextPath}/obtener_info_lr?nombre=${lista.getNombre()}&pagina=<%=pagina %>" >
+											<%if(pagina == 10){ %>
+											<a class="ajaxifyPage" href="obtener_info_lr?nombre=${lista.getNombre()}&pagina=5" onclick="setTimeout(location.reload.bind(location), 1)">
 												<div class="figcaption mt-3">
 													<i class="icon-link s-48"></i>
 													<h5 class="mt-5">${lista.getNombre()}</h5>
 												</div>
 											</a>
+											<%} else{%>
+											<a class="ajaxifyPage" href="obtener_info_lr?nombre=${lista.getNombre()}&pagina=<%=pagina %>" >
+												<div class="figcaption mt-3">
+													<i class="icon-link s-48"></i>
+													<h5 class="mt-5">${lista.getNombre()}</h5>
+												</div>
+											</a>
+											<%}%>
 										</div>
 										<div class="figure-title text-center p-2">
 											<h5>${lista.getNombre()}</h5>
