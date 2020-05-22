@@ -46,24 +46,27 @@ public class GetInfo_ListaGeneroServlet extends HttpServlet {
 		LikesDAO likesDAO = new LikesDAO();
 		String gen = request.getParameter("nombre");
 		ListaReproduccionDAO.crear(ADMIN, "TOP "+gen, "Lo mejor de "+gen+" en una playlist", "ListaRep");
-
+		ListaReproduccion infoLista = new ListaReproduccionDAO().getInfoList("TOP "+gen, ADMIN, "ListaRep");
 		try{
 			List<Audio> audios = new CancionDAO().obtenerCancionesPorGenero(idGenero);
-			
+			List<Audio> aud_lista= new ListaReproduccionDAO().getAudiosId(infoLista.getId());
 			//if (aleatorio.equals("si")) {
 			//	Collections.shuffle(audios);
 			//}
+			for(Audio audio : aud_lista) {
+				Boolean anyadida = new ListaReproduccionDAO().quitarAudio(audio.getId(), infoLista.getId());
+			}
 			for(Audio audio :  audios) {
 				if(likesDAO.tieneLikeAudio(usuario, audio.getId())) {
 					audio.setLikeUsuario("like");
 				} else {
 					audio.setLikeUsuario(null);
 				}
-				
+				new ListaReproduccionDAO().anyadirAudio(audio.getId(), infoLista.getId());
 			}
 
 			request.setAttribute("audios", audios);
-			ListaReproduccion infoLista = new ListaReproduccionDAO().getInfoList("TOP "+gen, ADMIN, "ListaRep");
+			
 			request.setAttribute("infoLista", infoLista);
 			request.setAttribute("gen", gen);
 			//RequestDispatcher dispatcher=request.getRequestDispatcher("favoritos.jsp");

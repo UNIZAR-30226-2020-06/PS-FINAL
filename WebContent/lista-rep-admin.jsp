@@ -87,12 +87,12 @@ String nombre = (String) request.getParameter("nombre");
     <div class="sidebar">
         <ul class="sidebar-menu">
         	<%if(pagina == 5){ %>
-            <li><a class="ajaxifyPage active" href="perfil_admin" >
+            <li><a class="ajaxifyPage active" href="perfil_admin?pagina=10" >
                     <i class="icon icon-home-1 s-24"></i> <span>Inicio</span>
                 </a>
             </li>
             <%} else{%>
-            <li><a class="ajaxifyPage active" href="perfil_admin" >
+            <li><a class="ajaxifyPage active" href="perfil_admin?pagina=10" >
                     <i class="icon icon-home-1 s-24"></i> <span>Inicio</span>
                 </a>
             </li>
@@ -104,7 +104,7 @@ String nombre = (String) request.getParameter("nombre");
                 </a>
                 <ul class="sub-menu">
 					<c:forEach var="genero" items="${generos}">                    
-						<li><a href="page-blank.jsp" >${genero.getNombre()}</a></li>
+						<li><a href="obtener_info_gen?idGenero=${genero.getId()}&nombre=${genero.getNombre()}&pagina=10" >${genero.getNombre()}</a></li>
 	                </c:forEach>
 
                 </ul>
@@ -207,15 +207,15 @@ String imagen = (String) session.getAttribute("imagen");
                 <i></i>
             </a>
             <%if(pagina == 5){ %>
-            <a class="navbar-brand d-none d-lg-block"href="perfil_admin">
+            <a class="navbar-brand d-none d-lg-block"href="perfil_admin?pagina=10">
                 <div class="d-flex align-items-center s-14 l-s-2">
-                    <a style="position: absolute;width: 12%;" href="perfil_admin" ><img  src="assets/img/logo.png"></a>
+                    <a style="position: absolute;width: 12%;" href="perfil_admin?pagina=10" ><img  src="assets/img/logo.png"></a>
                 </div>
             </a>
             <%} else{%>
-            <a class="navbar-brand d-none d-lg-block" href="perfil_admin" >
+            <a class="navbar-brand d-none d-lg-block" href="perfil_admin?pagina=10" >
                 <div class="d-flex align-items-center s-14 l-s-2">
-                    <a style="position: absolute;width: 12%;" href="perfil_admin" ><img  src="assets/img/logo.png"></a>
+                    <a style="position: absolute;width: 12%;" href="perfil_admin?pagina=10" ><img  src="assets/img/logo.png"></a>
                 </div>
             </a>
             <%}%>
@@ -248,12 +248,12 @@ String imagen = (String) session.getAttribute("imagen");
 						<div class="row box justify-content-between my-4">
 							<div class="col text-center">
 								<%if(pagina == 5){ %>
-					            <a class="ajaxifyPage" href="perfil_admin" >
+					            <a class="ajaxifyPage" href="perfil_admin?pagina=10" >
 									<i class="icon-user-4  s-24"></i>
 									<div class="pt-1">Mi perfil</div>
 								</a>
 					            <%} else{%>
-					            <a class="ajaxifyPage" href="perfil_admin" >
+					            <a class="ajaxifyPage" href="perfil_admin?pagina=10" >
 									<i class="icon-user-4  s-24"></i>
 									<div class="pt-1">Mi perfil</div>
 								</a>

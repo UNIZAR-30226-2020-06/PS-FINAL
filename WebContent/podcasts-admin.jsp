@@ -83,7 +83,7 @@ pageEncoding="UTF-8"%>
 <aside class="main-sidebar fixed offcanvas shadow" data-toggle='offcanvas'>
     <div class="sidebar">
         <ul class="sidebar-menu">
-            <li><a class="ajaxifyPage active" href="perfil_admin" >
+            <li><a class="ajaxifyPage active" href="perfil_admin?pagina=10" >
                     <i class="icon icon-home-1 s-24"></i> <span>Inicio</span>
                 </a>
             </li>
@@ -95,7 +95,7 @@ pageEncoding="UTF-8"%>
                 </a>
                 <ul class="sub-menu">
 					<c:forEach var="genero" items="${generos}">                    
-						<li><a href="page-blank.jsp" >${genero.getNombre()}</a></li>
+						<li><a href="obtener_info_gen?idGenero=${genero.getId()}&nombre=${genero.getNombre()}&pagina=10" >${genero.getNombre()}</a></li>
 	                </c:forEach>
 
                 </ul>
@@ -229,9 +229,9 @@ String imagen = (String) session.getAttribute("imagen");
             <a href="#" data-toggle="push-menu" class="paper-nav-toggle pp-nav-toggle ml-2 mr-2">
                 <i></i>
             </a>
-            <a class="navbar-brand d-none d-lg-block" href="perfil_admin" >
+            <a class="navbar-brand d-none d-lg-block" href="perfil_admin?pagina=10" >
                 <div class="d-flex align-items-center s-14 l-s-2">
-                    <a style="position: absolute;width: 12%;" href="perfil_admin" ><img  src="assets/img/logo.png"></a>
+                    <a style="position: absolute;width: 12%;" href="perfil_admin?pagina=10" ><img  src="assets/img/logo.png"></a>
                 </div>
             </a>
         </div>
@@ -262,7 +262,7 @@ String imagen = (String) session.getAttribute("imagen");
 					<div class="dropdown-menu p-4 dropdown-menu-right">
 						<div class="row box justify-content-between my-4">
 							<div class="col text-center">
-								<a class="ajaxifyPage" href="perfil_admin" >
+								<a class="ajaxifyPage" href="perfil_admin?pagina=10" >
 									<i class="icon-user-4  s-24"></i>
 									<div class="pt-1">Mi perfil</div>
 								</a>

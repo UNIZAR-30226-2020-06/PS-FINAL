@@ -87,7 +87,7 @@ int pagina = Integer.valueOf((String) request.getParameter("pagina"));
 <aside class="main-sidebar fixed offcanvas shadow" data-toggle='offcanvas'>
     <div class="sidebar">
         <ul class="sidebar-menu">
-            <li><a class="ajaxifyPage active" href="perfil_admin" >
+            <li><a class="ajaxifyPage active" href="perfil_admin?pagina=10" >
                     <i class="icon icon-home-1 s-24"></i> <span>Inicio</span>
                 </a>
             </li>
@@ -99,7 +99,7 @@ int pagina = Integer.valueOf((String) request.getParameter("pagina"));
                 </a>
                 <ul class="sub-menu">
 					<c:forEach var="genero" items="${generos}">                    
-						<li class="list-group-item my-1">${genero.getNombre()}</li>
+						<li><a href="obtener_info_gen?idGenero=${genero.getId()}&nombre=${genero.getNombre()}&pagina=10" >${genero.getNombre()}</a></li>
 	                </c:forEach>
 
                 </ul>
@@ -199,9 +199,9 @@ String hayfoto = (String) session.getAttribute("hayfoto");
             <a href="#" data-toggle="push-menu" class="paper-nav-toggle pp-nav-toggle ml-2 mr-2">
                 <i></i>
             </a>
-            <a class="navbar-brand d-none d-lg-block" href="perfil_admin" >
+            <a class="navbar-brand d-none d-lg-block" href="perfil_admin?pagina=10" >
                 <div class="d-flex align-items-center s-14 l-s-2">
-                    <a style="position: absolute;width: 12%;" href="perfil_admin" ><img  src="assets/img/logo.png"></a>
+                    <a style="position: absolute;width: 12%;" href="perfil_admin?pagina=10" ><img  src="assets/img/logo.png"></a>
                 </div>
             </a>
             
@@ -233,7 +233,7 @@ String hayfoto = (String) session.getAttribute("hayfoto");
                     <div class="dropdown-menu p-4 dropdown-menu-right">
                         <div class="row box justify-content-between my-4">
                         	<div class="col text-center">
-								<a class="ajaxifyPage" href="perfil_admin" >
+								<a class="ajaxifyPage" href="perfil_admin?pagina=10" >
 									<i class="icon-user-4  s-24"></i>
 									<div class="pt-1">Mi perfil</div>
 								</a>
@@ -329,7 +329,8 @@ String email = (String) session.getAttribute("email");
         <div class="row no-gutters">
 			<div class="col-md-4 b-r">
 			<button style="position: absolute;left: 10px;border-color: transparent;color: #fd7e14;background-color: #fd7e1400;" class="btn btn-abrir-popup-perfil btn-sm  mt-3" id="abrir-popup-perfil"><i class="icon-edit  s-24"></i>Editar perfil</button>
-			<button style="position: absolute;left: 130px;border-color: transparent;color: #fd7e14;background-color: #fd7e1400;" class="btn btn-abrir-popup-perfil btn-sm  mt-3" id="abrir-popup-cuenta"><i class="icon-cog  s-24"></i>Cambiar contraseña</button>
+			<button onClick="document.getElementById('overlay-cuenta').classList.add('active')"
+			style="position: absolute;left: 130px;border-color: transparent;color: #fd7e14;background-color: #fd7e1400;" class="btn btn-abrir-popup-perfil btn-sm  mt-3" id="abrir-popup-cuenta"><i class="icon-cog  s-24"></i>Cambiar contraseña</button>
                 <div class="text-center p-5 mt-5">
 					
                     <figure style="width: 130px;height: 130px;width-max: 50%;" class="avatar avatar-xl">
@@ -342,7 +343,7 @@ String email = (String) session.getAttribute("email");
                     <div>
                         <h4 class="p-t-10"><%=nombre%></h4>
                     </div>
-                    <a href="#" class="btn btn-abrir-popup btn-sm  mt-3" id="abrir-popup-foto">Cambiar foto</a>
+                    <a onClick="document.getElementById('overlay-foto').classList.add('active')" href="#" class="btn btn-abrir-popup btn-sm  mt-3" id="abrir-popup-foto">Cambiar foto</a>
                 </div>
             </div>
             <div class="col-md-8">
@@ -556,6 +557,31 @@ String email = (String) session.getAttribute("email");
 </div>
 <!--  FIN MODIFICAR GENERO -->
 
+<!-- CAMBIAR FOTO -->
+<div class="overlay-pop-up" id="overlay-foto">
+    <div class="col-md-7 card p-5">
+		<a onClick="document.getElementById('overlay-foto').classList.remove('active')"
+		style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-foto" class="btn-cerrar-popup-perfil"><i class="icon-close1"></i></a>
+		<form class="form-material" action="modImagenUsuario" method=POST enctype=multipart/form-data>
+			<!-- Input -->
+			<div class="body">
+				<header class="relative nav-sticky card">
+					<h3>SUBIR FOTO</h3>
+				</header>
+				<div class="contenedor-inputs">
+					<input type="file" class="btn btn-outline-primary btn-sm  mt-3" name="imagen" accept="image/jpeg"> 
+				</div>
+
+				<input type="submit" class="btn btn-outline-primary btn-sm pl-4 pr-4"
+					   value="Aceptar">
+			</div>
+			<!-- #END# Input -->
+		</form>
+	</div>
+</div>
+
+<!-- END CAMBIAR FOTO -->
+
 <!-- EDICION PERFIL -->
 <div class="overlay-pop-up" id="overlay-perfil">
     <div class="col-md-7 card p-5">
@@ -587,7 +613,7 @@ String email = (String) session.getAttribute("email");
 							<label class="form-label">Email</label>
 						</div>
 					</div>
-					<a id="submit1" href="obtener_contenido_perfil?pagina=<%=pagina %>" class="btn btn-outline-primary btn-sm pl-4 pr-4">
+					<a id="submit1" href="perfil_admin?pagina=<%=pagina %>" class="btn btn-outline-primary btn-sm pl-4 pr-4">
 						Cambiar información
 					</a>
 				</div>
@@ -601,7 +627,7 @@ String email = (String) session.getAttribute("email");
 <!-- AJUSTES CUENTA -->
 <div class="overlay-pop-up" id="overlay-cuenta">
     <div class="col-md-7 card p-5">
-			<a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-cuenta" class="btn-cerrar-popup-perfil"><i class="icon-close1"></i></a>
+			<a onClick="document.getElementById('overlay-cuenta').classList.remove('active')" style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-cuenta" class="btn-cerrar-popup-perfil"><i class="icon-close1"></i></a>
 			<header class="relative nav-sticky card">
 				<h3>CAMBIAR INFORMACIÓN DE LA CUENTA</h3>
 			</header>
@@ -627,8 +653,8 @@ String email = (String) session.getAttribute("email");
 						</div>
 					</div>
 
-					<a id="submit2" href="obtener_contenido_perfil?pagina=<%=pagina %>" class="btn btn-outline-primary btn-sm pl-4 pr-4"
-						   value="Cambiar constraseña">Cambiar constraseña</a>
+					<a id="submit2" href="perfil_admin?pagina=<%=pagina %>" class="btn btn-outline-primary btn-sm pl-4 pr-4"
+						  >Cambiar constraseña</a>
 				</div>
 			</form>
 			<a href="" style="color: red;" onclick="darbaja()">Eliminar cuenta</a>

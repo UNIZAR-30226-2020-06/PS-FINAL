@@ -99,7 +99,7 @@ String nombre = (String) session.getAttribute("nombre");
                 </a>
                 <ul class="sub-menu">
 					<c:forEach var="genero1" items="${generos}">                    
-						<li><a href="page-blank.jsp" >${genero1.getNombre()}</a></li>
+						<li><a href="obtener_info_gen?idGenero=${genero.getId()}&nombre=${genero.getNombre()}&pagina=10" >${genero.getNombre()}</a></li>
 	                </c:forEach>
 
                 </ul>

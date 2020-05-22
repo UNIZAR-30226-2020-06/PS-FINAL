@@ -94,7 +94,7 @@ pageEncoding="UTF-8"%>
                 </a>
                 <ul class="sub-menu">
 					<c:forEach var="genero" items="${generos}">                    
-						<li><a href="page-blank.jsp" >${genero.getNombre()}</a></li>
+						<li><a href="obtener_info_gen?idGenero=${genero.getId()}&nombre=${genero.getNombre()}&pagina=10" >${genero.getNombre()}</a></li>
 	                </c:forEach>
 
                 </ul>
@@ -227,7 +227,7 @@ String imagen = (String) session.getAttribute("imagen");
 					<div class="dropdown-menu p-4 dropdown-menu-right">
 						<div class="row box justify-content-between my-4">
 							<div class="col text-center">
-								<a class="ajaxifyPage" href="perfil_usuario_admin.jsp?pagina=10" >
+								<a class="ajaxifyPage" href="perfil_admin?pagina=10" >
 									<i class="icon-user-4  s-24"></i>
 									<div class="pt-1">Mi perfil</div>
 								</a>

@@ -23,7 +23,7 @@ import com.espotify.model.ListaReproduccion;
 @WebServlet("/GetAll_ComentCanServlet")
 public class GetAll_ComentCanServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+    private static final int ADMIN = 100;   
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -56,7 +56,7 @@ public class GetAll_ComentCanServlet extends HttpServlet {
 						out.println("<div class='form-line'><textarea readonly='' rows='5' class='form-control r-0' style='resize: none;width: 80%;border-color: transparent;height: 62px;' color:=''>");
 							out.println(comentarios.get(i).getDescripcion());
 						out.println("</textarea></div>");
-						if(nombre.equals(comentarios.get(i).getUsuario())) {
+						if(nombre.equals(comentarios.get(i).getUsuario()) || Integer.valueOf((String)session.getAttribute("id")) == ADMIN) {
 						out.println("<a id=\"deleteComentCancion\" style='position: relative;left: 280px;top: -70px;' href=\"#\" data-toggle=\"control-sidebar\""
 										+ "onclick=\"document.getElementById(\'comentarioID').value=\'" + comentarios.get(i).getId() + "\';"
 										+ "document.getElementById('overlay-borrar-coment-cancion').classList.add('active');\">");

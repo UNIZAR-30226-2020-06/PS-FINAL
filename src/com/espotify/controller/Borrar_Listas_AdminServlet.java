@@ -37,7 +37,7 @@ public class Borrar_Listas_AdminServlet extends HttpServlet {
 		Boolean borrada = new ListaReproduccionDAO().borrar(idLista);
 		if(borrada) {
 			log("XD");
-			request.getRequestDispatcher("perfil_admin");
+			request.getRequestDispatcher("perfil_admin?pagina=10").forward(request, response);;
 			//RequestDispatcher dispatcher=request.getRequestDispatcher("user.jsp");
 	        //dispatcher.forward(request, response);
 		}else {

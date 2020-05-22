@@ -106,7 +106,7 @@ String likeLista = (String) request.getAttribute("likeLista");
                 </a>
                 <ul class="sub-menu">
 					<c:forEach var="genero" items="${generos}">                    
-						<li><a href="page-blank.jsp" >${genero.getNombre()}</a></li>
+						<li><a href="obtener_info_gen?idGenero=${genero.getId()}&nombre=${genero.getNombre()}&pagina=10" >${genero.getNombre()}</a></li>
 	                </c:forEach>
 
                 </ul>
