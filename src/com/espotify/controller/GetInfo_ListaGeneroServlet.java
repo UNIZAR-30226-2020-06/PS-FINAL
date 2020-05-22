@@ -9,9 +9,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.espotify.dao.CancionDAO;
 import com.espotify.dao.FavoritosDAO;
 import com.espotify.dao.LikesDAO;
+import com.espotify.dao.ListaReproduccionDAO;
 import com.espotify.model.Audio;
+import com.espotify.model.ListaReproduccion;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,13 +24,13 @@ import java.util.Collections;
 /**
  * Servlet implementation Servlet
  */
-public class GetInfo_FavoritosServlet extends HttpServlet {
+public class GetInfo_ListaGeneroServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+    private static final int ADMIN =100;
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public GetInfo_FavoritosServlet() {
+    public GetInfo_ListaGeneroServlet() {
         super();
     }
 
@@ -39,10 +42,13 @@ public class GetInfo_FavoritosServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		int usuario = Integer.valueOf((String) session.getAttribute("id"));
 		//String aleatorio = request.getParameter("aleatorio");
+		int idGenero =Integer.valueOf(request.getParameter("idGenero"));
 		LikesDAO likesDAO = new LikesDAO();
-		
+		String gen = request.getParameter("nombre");
+		ListaReproduccionDAO.crear(ADMIN, "TOP "+gen, "Lo mejor de "+gen+" en una playlist", "ListaRep");
+
 		try{
-			List<Audio> audios = new FavoritosDAO().getAudios(usuario);
+			List<Audio> audios = new CancionDAO().obtenerCancionesPorGenero(idGenero);
 			
 			//if (aleatorio.equals("si")) {
 			//	Collections.shuffle(audios);
@@ -57,10 +63,12 @@ public class GetInfo_FavoritosServlet extends HttpServlet {
 			}
 
 			request.setAttribute("audios", audios);
-			request.setAttribute("fav", 1);
+			ListaReproduccion infoLista = new ListaReproduccionDAO().getInfoList("TOP "+gen, ADMIN, "ListaRep");
+			request.setAttribute("infoLista", infoLista);
+			request.setAttribute("gen", gen);
 			//RequestDispatcher dispatcher=request.getRequestDispatcher("favoritos.jsp");
 			//dispatcher.forward(request, response);
-			request.getRequestDispatcher("lista_rep-single.jsp").forward(request, response);
+			request.getRequestDispatcher("listas-generos.jsp?pagina=10").forward(request, response);
 
 		}catch(Throwable theException) {
 			//response.sendRedirect("user.jsp");

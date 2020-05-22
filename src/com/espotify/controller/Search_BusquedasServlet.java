@@ -68,6 +68,7 @@ public class Search_BusquedasServlet extends HttpServlet {
 			}else {
 				//RequestDispatcher dispatcher=request.getRequestDispatcher("busqueda.jsp");
 				//dispatcher.forward(request, response);
+				log("PARA");
 				request.getRequestDispatcher("buscar-general.jsp").forward(request, response);
 			}
 		}catch(Throwable theException) {
