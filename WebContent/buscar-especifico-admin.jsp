@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%><!DOCTYPE html>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<!DOCTYPE html>
 <html lang="zxx">
 
 <!-- Mirrored from xvelopers.com/demos/html/record-light/index.jsp by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 05 Apr 2020 17:21:29 GMT -->
@@ -11,7 +12,7 @@ pageEncoding="UTF-8"%>
 ########################################################################
 -->
 
-<!-- NOMBRE DE LA PESTAÃA -->
+<!-- NOMBRE DE LA PESTAÑA -->
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -22,13 +23,12 @@ pageEncoding="UTF-8"%>
     <!-- CSS -->
     <link rel="stylesheet" href="assets/css/app.css">
 </head>
-<!-- END PESTAÃA -->
 
 <body background="assets/img/fondo3.png" style="background-size: cover;background-repeat: no-repeat; background-position: center center;background-attachment: fixed;" class="sidebar-mini sidebar-collapse sidebar-expanded-on-hover has-preloader" style="display: none;">
 <!-- Pre loader
   To disable preloader remove 'has-preloader' from body
  -->
-<!-- CIRCULO DE CARGA -->
+
 <div id="loader" class="loader">
     <div class="loader-container">
         <div class="preloader-wrapper big active">
@@ -74,16 +74,15 @@ pageEncoding="UTF-8"%>
         </div>
     </div>
 </div>
-<!-- END CIRCULO DE CARGA -->							 
 
-<!-- EMPIEZA APP -->
+<!-- @Pre loader-->
 <div id="app">
 
 <!--MENU DE LA IZQUIERDA -->
 <aside class="main-sidebar fixed offcanvas shadow" data-toggle='offcanvas'>
     <div class="sidebar">
         <ul class="sidebar-menu">
-            <li><a class="ajaxifyPage active" href="Inicio?pagina=10" >
+            <li><a class="ajaxifyPage active" href="perfil_admin" >
                     <i class="icon icon-home-1 s-24"></i> <span>Inicio</span>
                 </a>
             </li>
@@ -100,50 +99,12 @@ pageEncoding="UTF-8"%>
 
                 </ul>
             </li>
-            
-            <li><a class="ajaxifyPage" href="mostrar_lrs?tipo=ListaRep&pagina=10" >
-                    <i class="icon icon-compact-disc-1 s-24"></i> <span>Mis listas de reproduccion</span>
-                </a>
-            </li>
-            
-            <li><a class="ajaxifyPage" href="mostrar_podcasts?tipo=podcasts&pagina=10" >
-                    <i class="icon icon-headphones s-24"></i> <span>Mis podcasts</span>
-                </a>
-            </li>
-            <li><a class="ajaxifyPage" href="obtener_info_fav&pagina=10" >
-            		<i class="icon icon-star s-24"></i> <span>Mis favoritos</span>
-            	</a>
-            </li>
         </ul>
     </div>
 </aside>
-<!-- END MENU DE LA IZQUIERDA-->
+<!-- ACABA MENU DE LA IZQUIERDA-->
 
-<!-- MENU DONDE ESTAN LAS CANCIONES EN LA COLA (DERECHA) -->
-<aside class="control-sidebar fixed ">
-    <div class="slimScroll">
-        <div class="sidebar-header">
-            <h4>PlayList</h4>
-            <p>Awesome Collection for you</p>
-            <a href="#" data-toggle="control-sidebar" class="paper-nav-toggle  active"><i></i></a>
-        </div>
-        <div class="p-3">
-            <ul id="playlist" class="playlist list-group">
-                
-
-
-            </ul>
-
-        </div>
-    </div>
-</aside>
-
-<!-- Add the sidebar's background. This div must be placed
-         immediately after the control sidebar -->
-<div class="control-sidebar-bg shadow  fixed"></div>
-<!-- END MENU DONDE ESTAN LAS CANCIONES EN LA COLA (DERECHA) -->
-
-<!-- MENU DONDE ESTAN LAS CANCIONES EN LA COLA (DERECHA) -->
+<!-- MENU DONDE ESTAN LOS COMENTARIOS (DERECHA) -->
 <aside class="control-sidebar fixed ">
     <div class="slimScroll">
         <div class="sidebar-header" style="margin-bottom: 1rem !important;">
@@ -151,34 +112,27 @@ pageEncoding="UTF-8"%>
             <a href="#" data-toggle="control-sidebar" class="paper-nav-toggle  active"><i></i></a>
         </div>
         <div class="p-3">
-            <div class="media my-5 " style="margin-top: -1rem !important;margin-bottom: 2rem !important;">
-                <div class="media-body">
-                    <h6 class="mt-0">Ami Fro</h6>
-                    Cras sit amet nibh libero, in gravida nulla.
-                </div>
-            </div>
-            <div class="media my-5 " style="margin-top: -1rem !important;margin-bottom: 2rem !important;">
-                <div class="media-body">
-                    <h6 class="mt-0">Mohamed secame</h6>
-                    Basura es esta?
-                </div>
-            </div>
-            
+        	<div id="listaComentariosCancion"></div>
+        	
+            <form action="anyadir_coment_cancion">
 			<div class="row">
                  <div class="col-lg-12">
                      <div class="form-group">
                          <div class="form-line">
-                               <textarea style="color: white;" rows="5" class="form-control r-0"
+                               <textarea id="textarea" style="color: white;" rows="5" class="form-control r-0"
                                          placeholder="Escribir comentario..."></textarea>
                          </div>
                      </div>
 
                  </div>
              </div>
+             <input type="hidden" id="audioIDcomment" name="nombre" value="">
              <div class="row text-center">
-                 <div class="col-lg-12"><input type="submit" class="btn btn-primary"
-                                               value="Publicar" style="border-radius: 7px;position: relative;left: 95px;"></div>
+                 <div class="col-lg-12">
+                 	<a id="publicar" href="#"  class="btn btn-primary" style="border-radius: 7px;position: relative;left: 95px;">Publicar</a>
+                 </div>
              </div>
+             </form>
         </div>
     </div>
 </aside>
@@ -186,9 +140,8 @@ pageEncoding="UTF-8"%>
 <!-- Add the sidebar's background. This div must be placed
          immediately after the control sidebar -->
 <div class="control-sidebar-bg shadow  fixed"></div>
-<!-- END MENU DONDE ESTAN LAS CANCIONES EN LA COLA (DERECHA) -->
+<!-- END MENU DONDE ESTAN LOS COMENTARIOS (DERECHA) -->
 
-<!-- ALGO RANDOM DE LA PARTE DERECHA -->									
 <svg class="d-none">
     <defs>
         <symbol id="icon-cross" viewBox="0 0 24 24">
@@ -229,11 +182,9 @@ pageEncoding="UTF-8"%>
 </div>
 <!-- ACABA BUSCADOR (LUPA) -->
 
-
 <%
 String hayfoto = (String) session.getAttribute("hayfoto");
 String imagen = (String) session.getAttribute("imagen");
-String likePodcast = (String) request.getAttribute("likePodcast");
 %>
 
 <!-- BARRA DE ARRIBA FIJA -->
@@ -243,13 +194,13 @@ String likePodcast = (String) request.getAttribute("likePodcast");
             <a href="#" data-toggle="push-menu" class="paper-nav-toggle pp-nav-toggle ml-2 mr-2">
                 <i></i>
             </a>
-            <a class="navbar-brand d-none d-lg-block" href="Inicio?pagina=10" >
+            <a class="navbar-brand d-none d-lg-block" href="perfil_admin" >
                 <div class="d-flex align-items-center s-14 l-s-2">
-                    <a style="position: absolute;width: 12%;" href="Inicio?pagina=10" ><img  src="assets/img/logo.png"></a>
+                    <a style="position: absolute;width: 12%;" href="perfil_admin" ><img  src="assets/img/logo.png"></a>
                 </div>
             </a>
         </div>
-        
+        <h2 style="color:black">ADMINISTRADOR</h2>
         <!--Top Menu Start -->
 		<div class="navbar-custom-menu">
 			<ul class="nav navbar-nav">
@@ -276,7 +227,7 @@ String likePodcast = (String) request.getAttribute("likePodcast");
 					<div class="dropdown-menu p-4 dropdown-menu-right">
 						<div class="row box justify-content-between my-4">
 							<div class="col text-center">
-								<a class="ajaxifyPage" href="obtener_contenido_perfil?pagina=10" >
+								<a class="ajaxifyPage" href="perfil_usuario_admin.jsp?pagina=10" >
 									<i class="icon-user-4  s-24"></i>
 									<div class="pt-1">Mi perfil</div>
 								</a>
@@ -296,7 +247,6 @@ String likePodcast = (String) request.getAttribute("likePodcast");
 </nav>
 <!-- ACABA BARRA DE ARRIBA FIJA -->
 
-
 <!-- BARRA DE ABAJO FIJA-->
 <nav class="navbar-wrapper navbar-bottom-fixed shadow">
     <div class="navbar navbar-expand player-header justify-content-between  bd-navbar">
@@ -306,7 +256,7 @@ String likePodcast = (String) request.getAttribute("likePodcast");
             <!-- BOTONES ANTERIOR, PAUSE, SIGUIENTE -->
                 <div class="col">
                     <div class="d-flex align-items-center">
-                        <button id="shuffleTrack" class="btn btn-link d-none d-sm-block">
+                        <button id="shuffleTrack" class="btn btn-link d-none d-sm-block" onClick="document.getElementById('shuffleTrack').classList.add('active');">
                             <i class="icon-shuffle s-18"></i>
                         </button>
                         <button id="previousTrack" class="btn btn-link d-none d-sm-block">
@@ -319,7 +269,7 @@ String likePodcast = (String) request.getAttribute("likePodcast");
                         <button id="nextTrack" class="btn btn-link d-none d-sm-block">
                             <i class="icon-next s-18"></i>
                         </button>
-                        <button class="btn btn-link" onclick="loopAudio();">
+                        <button class=" btn btn-control" id="btn-loop" onclick="loopAudio();document.getElementById('btn-loop').classList.add('active');"">
                             <i class="icon-repeat s-18"></i>
                         </button>
                     </div>
@@ -348,111 +298,203 @@ String likePodcast = (String) request.getAttribute("likePodcast");
         <!--END Player-->
     </div>
 </nav>
-<!-- END BARRA DE ABAJO -->
+<!-- ACABA BARRA DE ABAJO -->
 
 <!--  
 ########################################################################
 ############### ACABA BASE DE TODAS LAS PAGINAS    #####################
 ########################################################################
 -->
-</nav>
 
 
-<!-- PODCAST -->
 
-<!--Page Content-->
+
+<!--CONTENIDO NO AJAX-->
 <main id="pageContent" class="page has-sidebar">
-<div class="container-fluid relative p-lg-5">								
-	<div class="container-fluid relative p-0">
-		<div class="card no-b shadow no-r">
-				<!--Banner-->
-
-					<div class="has-bottom-gradient">
-						<div class="row pt-5 ml-lg-5 mr-lg-5">
-							<div class="col-md-10 offset-1">
-								<div class="row my-5 pt-5">
-
-									<div class="col-md-3">
-										<img src=${infoPodcast.getImagen() } alt="/">
-									</div>
-									<div class="col-md-9">
-										<div class="d-md-flex align-items-center justify-content-between">
-											<h1 class="my-3 text-orange">${infoPodcast.getNombre()}</h1>
-											<div class="ml-auto mb-2">
-												<form action="like_lista">
-                                                      <input type="hidden" id="idListaLike" name="idListaLike" value="${infoPodcast.getId()}">
-                                                      <%if(likePodcast == null) { %>
-		                                                      <input type="hidden" id="likeLista" name="likeLista" value="false">
-		                                                      <a href="#" id="accion_like_lista" class="snackbar ml-3" 
-		                                                      	data-text="Te gusta este podcast"
-		                                                         data-pos="top-right"
-		                                                         data-showAction="true"
-		                                                         data-actionText="ok"
-		                                                         data-actionTextColor="#fff"
-		                                                         data-backgroundColor="#0c101b"><i class="icon-thumbs-o-up s-24"></i>
-		                                                      </a>
-	                                                   <%} else { %>
-	                                                   		 <input type="hidden" id="likeLista" name="likeLista" value="true">
-	                                                      	<a href="#" id="accion_like_lista" class="snackbar ml-3" style="background-color: #fd7e14; color: #fff" 
-	                                                      		data-text="Ya no te gusta este podcast"
-		                                                         data-pos="top-right"
-		                                                         data-showAction="true"
-		                                                         data-actionText="ok"
-		                                                         data-actionTextColor="#fff"
-		                                                         data-backgroundColor="#0c101b"><i class="icon-thumbs-o-up s-24"></i>
-                                                        	</a>
-	                                                   <%} %>
-                                                  </form>
+<div class="container-fluid relative animatedParent animateOnce no-p">
+    <div class="animated">
+        <!--Banner Slider-->
+       
+        <!--@Banner Slider-->
+        <div class="p-md-5 p-3  ">
+            <!--New Releases-->
+           	<h1>Más resultados de "${nombre}"</h1> 
+            <section class="section">
+                <div class="d-flex relative align-items-center justify-content-between" style="background-color:black;">
+	                    <div class="mb-4">
+	                        <h2 style="color:orange;">${tipo}</h2> 
+	                    </div>    
+                </div>
+                 <%String id = (String)request.getSession().getAttribute("id");
+                  String nombre = (String)request.getSession().getAttribute("nombre");
+                 %>
+               <c:choose>
+               <c:when test="${tipo =='Usuarios'}"> 
+	               <div class="row no-gutters">
+	               	<c:forEach var="usuario" items="${usuarios}"> 
+			            <div class="col-md-4 b-r">
+			                <div class="text-center p-5 mt-5">
+			                    <figure class="avatar avatar-xl">
+					                 <a href="obtener_usuario?nombre=${usuario.getId()}&pagina=10">
+				                    	<c:choose>
+				                    		<c:when test="${usuario.getImagen()!=null}">
+				                    			<img src=${usuario.getImagen() }>
+				                    		</c:when>
+				                    		<c:otherwise>
+				                    			<img src="assets/img/demo/u7.jpg" alt="">
+				                    		</c:otherwise>
+				                    	</c:choose>	
+			                    	</a>     
+			                    </figure>
+			                  	<div>
+			                        <h4 class="p-t-10">${usuario.getNombre()}</h4>
+			                    </div>
+			                </div>
+			            </div>
+			         </c:forEach>   
+			         </div>
+		         </c:when>
+		         <c:when test="${tipo=='Listas de Reproduccion'}">
+	               <div class="row has-items-overlay" >
+	               		<c:forEach var="lista" items="${listas}" >
+								<div class="col-lg-3 col-md-4 col-sm-6 my-2" style="top:20px;">
+									<figure>
+										<div class="img-wrapper">
+											<img src=${lista.getImagen() } alt="/">
+											<div class="img-overlay text-white text-center">
+							                    <a href="obtener_info_lr_usuario?id=${lista.getId()}&pagina=10">
+													<div class="figcaption mt-3">
+														<i class="icon-link s-48"></i>
+														<h5 class="mt-5">${lista.getNombre()}</h5>
+													</div>
+												</a>
 											</div>
-											
-
+											<div class="figure-title text-center p-2">
+												<h5>${lista.getNombre()}</h5>
+											</div>
 										</div>
-									
-										<div class="text-orange my-2">
-											<p>${infoPodcast.getDescripcion()}</p>
-										</div>
-
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				<!--@Banner-->
-
-				<div class="p-3 p-lg-5">
-					<!--New Releases-->
-					<section>
-						<div class="row">
+										
+									</figure>
+	                    	</div>
+						</c:forEach>                   
+	               </div>
+	           </c:when> 
+               <c:when test="${tipo=='Canciones'}">
+               		<div class="row">
 							<div class="col-lg-10 offset-lg-1">
 								<div class="row">
 									<div class="col-md-12">
 										<div class="playlist">
 											<ul id="playlist" class="playlist list-group">
-												<c:forEach var="cancion" items="${audios}">                    
-													<div style="margin-bottom: -1px;" class="cancion">
-														<li class="list-group-item my-1">
+												<c:forEach var="cancion" items="${canciones}">                    
+												<div style="margin-bottom: -1px;" class="cancion">
+													<li class="list-group-item my-1">
+														<div class="d-flex align-items-center">
+															<div class="col-1">
+																<a class="no-ajaxy media-url" href="${cancion.getUrl()}">
+																	<i class="icon-play s-28"></i>
+																</a>					
+															</div>
+															<div class="col-6">
+																<h6>${cancion.getTitulo()}</h6>${cancion.getGenero()}
+															</div>
+																<a href="#" data-toggle="control-sidebar" onclick="document.getElementById('audioIDcomment').value = '${cancion.getId()}';">
+											                        <i style="position: relative;left: 10px;" class="icon-commenting-o s-24"></i>
+											                    </a>
+															<div class="ml-auto">
+																<a href="${pageContext.request.contextPath}/ir_modificar?id_audio=${cancion.getId()}&cancion=true&pagina=10" class="btn-icono icon-pencil" ></a>
+																<a href="${pageContext.request.contextPath}/eliminar_cancion?id_cancion=${cancion.getId()}&pagina=10" class="btn-icono icon-trash-o" ></a>
+															</div>
+														</div>
+													</li>
+												</div>								                
+											</c:forEach>
+											</ul>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+               </c:when>
+               <c:when test="${tipo=='Transmisiones'}">
+               		<div class="row has-items-overlay" >
+		               		<c:forEach var="transmision" items="${transmisiones}" >
+									<div class="col-lg-3 col-md-4 col-sm-6 my-2" style="top:20px;">
+										<figure>
+											<div class="img-wrapper">
+												<img src="assets/img/demo/a1.jpg" alt="/">
+												<div class="img-overlay text-white text-center">
+													<a href="ver_transmision?idTransmision=${transmision.getId()}&pagina=10">
+														<div class="figcaption mt-3">
+															<i class="icon-link s-48"></i>
+															<h5 class="mt-5">${transmision.getNombre()}</h5>
+														</div>
+													</a>
+												</div>
+												<div class="figure-title text-center p-2">
+													<h5>${transmision.getNombre()}</h5>
+												</div>
+											</div>
+										</figure>
+		                    	</div>
+							</c:forEach>                   
+		                </div> 
+               </c:when>
+               <c:when test="${tipo=='Podcasts'}">
+               		<div class="row has-items-overlay" >
+	               		<c:forEach var="podcast" items="${podcasts}" >
+								<div class="col-lg-3 col-md-4 col-sm-6 my-2" style="top:20px;">
+									<figure>
+										<div class="img-wrapper">
+											<img src=${podcast.getImagen() } alt="/">
+											<div class="img-overlay text-white text-center">
+							                    <a href="obtener_info_podcast_usuario?id=${podcast.getId()}&pagina=10">
+													<div class="figcaption mt-3">
+														<i class="icon-link s-48"></i>
+														<h5 class="mt-5">${podcast.getNombre()}</h5>
+													</div>
+												</a>
+											</div>
+											<div class="figure-title text-center p-2">
+												<h5>${podcast.getNombre()}</h5>
+											</div>
+										</div>
+									</figure>
+								
+	                    	</div>
+						</c:forEach>                   
+               		</div> 
+               </c:when> 
+               <c:when test="${tipo=='Capitulos'}">
+               		<div class="row">
+							<div class="col-lg-10 offset-lg-1">
+								<div class="row">
+									<div class="col-md-12">
+										<div class="playlist">
+											<ul id="playlist" class="playlist list-group">
+												<c:forEach var="capitulo" items="${capitulos}"> 
+													<li class="list-group-item my-1">                   
+														<div style="margin-bottom: -1px;" class="cancion">
+															
 															<div class="d-flex align-items-center">
 																<div class="col-1">
-																	<a class="no-ajaxy media-url" href="${cancion.getUrl()}">
+																	<a class="no-ajaxy media-url" href="${capitulo.getUrl()}">
 																		<i class="icon-play s-28"></i>
 																	</a>					
 																</div>
 																<div class="col-6">
-																	<h6>${cancion.getTitulo()}</h6>${cancion.getGenero()}
+																	<h6>${capitulo.getTitulo()}</h6>${capitulo.getGenero()}
 																</div>
-																<a href="#" class="snackbar ml-3" data-text="Te gusta este programa"
-																   data-pos="top-right"
-																   data-showAction="true"
-																   data-actionText="ok"
-																   data-actionTextColor="#fff"
-																   data-backgroundColor="#0c101b"><i class="icon-thumbs-o-up s-24"></i>
-																</a>
-																<a href="#" data-toggle="control-sidebar">
-											                        <i style="position: relative;left: 10px;" class="icon-commenting-o s-24"></i>
-											                    </a>
+																	<a href="#" data-toggle="control-sidebar">
+												                        <i style="position: relative;left: 10px;" class="icon-commenting-o s-24"></i>
+												                    </a>															
+																<div class="ml-auto">
+																	<a href="${pageContext.request.contextPath}/ir_modificar?id_audio=${capitulo.getId()}&cancion=false&pagina=10" class="btn-icono icon-pencil" ></a>
+																	<a href="${pageContext.request.contextPath}/eliminar_capitulo?id_capitulo=${capitulo.getId()}&pagina=10" class="btn-icono icon-trash-o" ></a>												
+																</div>
 															</div>
-														</li>
-													</div>								                
+														</div>
+													</li>								                
 												</c:forEach>
 											</ul>
 										</div>
@@ -460,47 +502,13 @@ String likePodcast = (String) request.getAttribute("likePodcast");
 								</div>
 							</div>
 						</div>
-					</section>
-					<!--@New Releases-->
-				</div>
-			</div>
-		</div>
-	</div>
-
-
-<!-- AÑADIR CAPITULO A PODCAST -->
-<div class="overlay-pop-up" id="overlay-anadir-listas-reproduccion">
-    <div class="col-md-7 card p-5">
-		<a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-anadir-listas-reproduccion" class="btn-cerrar-popup-perfil"><i class="icon-close1"></i></a>			
-			<!-- Input -->
-				<div class="body">
-					<div class="row has-items-overlay">
-						<c:forEach var="listalr" items="${podcasts}">
-						<div class="col-lg-3 col-md-4 col-sm-6 my-2">
-							<figure>
-								<div class="img-wrapper">
+               </c:when>
+			</c:choose>	
+			</section>
 			
-									<img src="assets/img/demo/a1.jpg" alt="/">
-									
-									<div class="figure-title text-center p-2">
-										<h5>${listalr.getNombre()}</h5>
-									</div>
-								</div>
-							</figure>
-							<form class="form-material" action="anyadir_cancion_lr" method="post">
-								<input type="submit" class="btn btn-outline-primary btn-sm pl-4 pr-4" value="Añadir">
-								<input type="hidden" name="idLista" value="${listalr.getId()}">
-								<input type="hidden" name="idAudio" value="">
-								<input type="hidden" name="nombreLista" value="${listalr.getNombre()}">
-							</form>	
-						</div>
-					</c:forEach>
-				<!-- #END# Input -->
-				</div>
-			</div>		
-	</div>
-</div>
-<!-- END AÑADIR CAPITULO A PODCAST -->
+        </div>
+    </div>
+
 <script>
     $(document).ready(function() {
     	$('#iconoPlay').replaceWith("<i id='iconoPlay' class='icon-play s-28'></i>")
@@ -513,55 +521,40 @@ String likePodcast = (String) request.getAttribute("likePodcast");
 				$('#listaComentariosCancion').html(data);
 			});
 		});
-    	$('#borrarComentario').click(function(event) { // borrar comentario en cancion
-			var idComentario = $('#comentarioID').val();
-			console.log(idComentario);
-			$.get('borrar_coment_cancion', {
-				idComentario: idComentario
-			}, function(responseText){
-				$('#contenido').html(responseText);
-			});
-		});
     });
     </script>
-    
-<script>
-$(document).ready(function() {
-        $('#accion_like_lista').click(function(event) { // dar like a lista
-            var listaId = $('#idListaLike').val();
-            var like = $('#likeLista').val();
-            console.log(like);
-            console.log(listaId);
-            $.get('like_lista', {
-                    idLista : listaId,
-                    like : like
-            });
-        });
-});
-</script>
 
 </main><!--@Page Content-->
 </div><!--@#app-->
+
+
+<!-- BORRAR COMENTARIO DE CANCION -->	
+	<div class="overlay-pop-up" id="overlay-borrar-coment-cancion">	
+	    <div class="col-md-7 card p-5">	
+	        <a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-borrar-coment-cancion" class="btn-cerrar-popup-perfil"	
+	        class="btn btn-outline-primary btn-sm pl-4 pr-4"  onclick="document.getElementById('overlay-borrar-coment-cancion').classList.remove('active');"><i class="icon-close1"></i></a>	
+			<form class="form-material" action="borrar_coment_cancion">	
+				<!-- Input -->	
+				<div class="body">	
+					<header class="relative nav-sticky card">	
+	                    <h3>Vas a borrar este comentario.</h3>
+	                    <h5>¿Estás seguro?</h5>	
+					</header>	
+		
+					<input type="hidden" id="comentarioID" name=idComentario value="">	
+					<a id="borrarComentario" href="#" onclick="document.getElementById('overlay-borrar-coment-cancion').classList.remove('active');" class="btn btn-outline-primary btn-sm pl-4 pr-4">Aceptar</a>
+				</div>	
+				<!-- #END# Input -->	
+	        </form>	
+		</div>	
+	</div>	
+<!-- END BORRAR COMENTARIO DE CANCION -->
+
 <!--/#app -->
 <script src="https://maps.googleapis.com/maps/api/js?&amp;key=AIzaSyC3YkZNNySdyR87o83QEHWglHfHD_PZqiw&amp;libraries=places"></script>
 <script src="assets/js/app.js"></script>
-
-<script>
-$(document).ready(function() {
-        $('#accion_like_lista').click(function(event) { // dar like a lista
-            var listaId = $('#idListaLike').val();
-            var like = $('#likeLista').val();
-            console.log(like);
-            console.log(listaId);
-            $.get('like_lista', {
-                    idLista : listaId,
-                    like : like
-            });
-        });
-});
-</script>
-
-<script>
+<script  src="assets/js/mostrar-popup.js"></script>
+    <script>
 	function loopAudio(){
 		var audio = document.getElementsByTagName("audio")[0];
 		if(audio.loop){
@@ -591,14 +584,21 @@ $(document).ready(function() {
 		}
 	}
 	</script>
-
-	 <script>
+	<script>
     function rellenarCampos(size,song) {
     	var i;
     	for (i=0; i <size; i++){
     	  	document.getElementsByName("idAudio")[i].value = song;
     	}
 
+    }
+    </script>
+    <script>
+    function rellenarCamposP(size,song) {
+    	var i;
+    	for (i=0; i <size; i++){
+    	  	document.getElementsByName("idAudioP")[i].value = song;
+    	}
     }
     </script>
     <script>
@@ -650,6 +650,8 @@ $(document).ready(function() {
 		});
     });
     </script>
+
+
 </body>
 
 </html>

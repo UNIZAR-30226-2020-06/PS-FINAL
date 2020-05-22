@@ -58,7 +58,7 @@ public class GetInfo_PodcastServlet extends HttpServlet {
 			request.setAttribute("infoPodcast", infoPodcast);
 			request.setAttribute("audios", audios);
 				
-			request.getRequestDispatcher("podcasts-single.jsp").forward(request, response);
+			request.getRequestDispatcher("podcasts-single.jsp?pagina=10").forward(request, response);
 			//RequestDispatcher dispatcher=request.getRequestDispatcher("user.jsp");
 			//dispatcher.forward(request, response);
 

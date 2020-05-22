@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.espotify.dao.CancionDAO;
 
@@ -17,7 +18,7 @@ import com.espotify.dao.CancionDAO;
 @WebServlet("/Eliminar_CancionServlet")
 public class Eliminar_CancionServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+	private static final int ADMIN = 100;     
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -37,8 +38,13 @@ public class Eliminar_CancionServlet extends HttpServlet {
 		CancionDAO cancion = new CancionDAO();
 		if (cancion.borrarCancion(id_cancion)) {
 			System.out.println("Entro");
-			request.getRequestDispatcher("/obtener_contenido_perfil").forward(request, response);
-			
+			HttpSession session = request.getSession();
+			int usuario = Integer.valueOf((String) session.getAttribute("id"));
+			if (usuario == ADMIN) {
+				request.getRequestDispatcher("perfil_admin").forward(request, response);
+			}else {
+				request.getRequestDispatcher("/obtener_contenido_perfil").forward(request, response);
+			}			
 			out.println("<div class=\"alert alert-success alert-dismissible fade show\" role=\"alert\">");
 			out.println("<strong>Canci�n eliminada correctamente.</strong>");
 			out.println("<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\">");

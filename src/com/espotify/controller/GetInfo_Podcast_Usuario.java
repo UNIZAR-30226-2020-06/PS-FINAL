@@ -21,7 +21,7 @@ import com.espotify.model.ListaReproduccion;
 
 public class GetInfo_Podcast_Usuario extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+	private static final int ADMIN = 100;  
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -38,6 +38,7 @@ public class GetInfo_Podcast_Usuario extends HttpServlet {
 		int usuario = Integer.valueOf((String)session.getAttribute("id"));
 		
 		int id = Integer.valueOf(request.getParameter("id"));
+
 		LikesDAO likesDAO = new LikesDAO();
 
 		//String aleatorio = request.getParameter("aleatorio");
@@ -54,11 +55,14 @@ public class GetInfo_Podcast_Usuario extends HttpServlet {
 			//if (aleatorio.equals("si")) {
 			//	Collections.shuffle(audios);
 			//}			
-			
+			log(request.getParameter("id"));
 			request.setAttribute("infoPodcast", infoPodcast);
 			request.setAttribute("audios", audios);
-				
-			request.getRequestDispatcher("podcasts_otro_usuario.jsp").forward(request, response);
+			if (usuario == ADMIN) {
+				request.getRequestDispatcher("podcasts-admin.jsp?pagina=10").forward(request, response);
+			}else {
+				request.getRequestDispatcher("podcasts_otro_usuario.jsp?pagina=10").forward(request, response);
+			}
 			//RequestDispatcher dispatcher=request.getRequestDispatcher("user.jsp");
 			//dispatcher.forward(request, response);
 

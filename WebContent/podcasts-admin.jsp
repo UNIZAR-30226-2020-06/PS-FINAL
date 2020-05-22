@@ -83,7 +83,7 @@ pageEncoding="UTF-8"%>
 <aside class="main-sidebar fixed offcanvas shadow" data-toggle='offcanvas'>
     <div class="sidebar">
         <ul class="sidebar-menu">
-            <li><a class="ajaxifyPage active" href="Inicio?pagina=10" >
+            <li><a class="ajaxifyPage active" href="perfil_admin" >
                     <i class="icon icon-home-1 s-24"></i> <span>Inicio</span>
                 </a>
             </li>
@@ -100,20 +100,7 @@ pageEncoding="UTF-8"%>
 
                 </ul>
             </li>
-            
-            <li><a class="ajaxifyPage" href="mostrar_lrs?tipo=ListaRep&pagina=10" >
-                    <i class="icon icon-compact-disc-1 s-24"></i> <span>Mis listas de reproduccion</span>
-                </a>
-            </li>
-            
-            <li><a class="ajaxifyPage" href="mostrar_podcasts?tipo=podcasts&pagina=10" >
-                    <i class="icon icon-headphones s-24"></i> <span>Mis podcasts</span>
-                </a>
-            </li>
-            <li><a class="ajaxifyPage" href="obtener_info_fav&pagina=10" >
-            		<i class="icon icon-star s-24"></i> <span>Mis favoritos</span>
-            	</a>
-            </li>
+           
         </ul>
     </div>
 </aside>
@@ -233,7 +220,6 @@ pageEncoding="UTF-8"%>
 <%
 String hayfoto = (String) session.getAttribute("hayfoto");
 String imagen = (String) session.getAttribute("imagen");
-String likePodcast = (String) request.getAttribute("likePodcast");
 %>
 
 <!-- BARRA DE ARRIBA FIJA -->
@@ -243,9 +229,9 @@ String likePodcast = (String) request.getAttribute("likePodcast");
             <a href="#" data-toggle="push-menu" class="paper-nav-toggle pp-nav-toggle ml-2 mr-2">
                 <i></i>
             </a>
-            <a class="navbar-brand d-none d-lg-block" href="Inicio?pagina=10" >
+            <a class="navbar-brand d-none d-lg-block" href="perfil_admin" >
                 <div class="d-flex align-items-center s-14 l-s-2">
-                    <a style="position: absolute;width: 12%;" href="Inicio?pagina=10" ><img  src="assets/img/logo.png"></a>
+                    <a style="position: absolute;width: 12%;" href="perfil_admin" ><img  src="assets/img/logo.png"></a>
                 </div>
             </a>
         </div>
@@ -276,7 +262,7 @@ String likePodcast = (String) request.getAttribute("likePodcast");
 					<div class="dropdown-menu p-4 dropdown-menu-right">
 						<div class="row box justify-content-between my-4">
 							<div class="col text-center">
-								<a class="ajaxifyPage" href="obtener_contenido_perfil?pagina=10" >
+								<a class="ajaxifyPage" href="perfil_admin" >
 									<i class="icon-user-4  s-24"></i>
 									<div class="pt-1">Mi perfil</div>
 								</a>
@@ -377,37 +363,132 @@ String likePodcast = (String) request.getAttribute("likePodcast");
 									</div>
 									<div class="col-md-9">
 										<div class="d-md-flex align-items-center justify-content-between">
-											<h1 class="my-3 text-orange">${infoPodcast.getNombre()}</h1>
+											<h1 class="my-3 text-orange">${infoPodcast.getNombre()}</h1>	
 											<div class="ml-auto mb-2">
-												<form action="like_lista">
-                                                      <input type="hidden" id="idListaLike" name="idListaLike" value="${infoPodcast.getId()}">
-                                                      <%if(likePodcast == null) { %>
-		                                                      <input type="hidden" id="likeLista" name="likeLista" value="false">
-		                                                      <a href="#" id="accion_like_lista" class="snackbar ml-3" 
-		                                                      	data-text="Te gusta este podcast"
-		                                                         data-pos="top-right"
-		                                                         data-showAction="true"
-		                                                         data-actionText="ok"
-		                                                         data-actionTextColor="#fff"
-		                                                         data-backgroundColor="#0c101b"><i class="icon-thumbs-o-up s-24"></i>
-		                                                      </a>
-	                                                   <%} else { %>
-	                                                   		 <input type="hidden" id="likeLista" name="likeLista" value="true">
-	                                                      	<a href="#" id="accion_like_lista" class="snackbar ml-3" style="background-color: #fd7e14; color: #fff" 
-	                                                      		data-text="Ya no te gusta este podcast"
-		                                                         data-pos="top-right"
-		                                                         data-showAction="true"
-		                                                         data-actionText="ok"
-		                                                         data-actionTextColor="#fff"
-		                                                         data-backgroundColor="#0c101b"><i class="icon-thumbs-o-up s-24"></i>
-                                                        	</a>
-	                                                   <%} %>
-                                                  </form>
+												<a href="#" onClick="document.getElementById('overlay-foto').classList.add('active');" 
+												   class="btn btn-abrir-popup btn-sm  mt-3" id="abrir-popup-foto" style="position: relative;left: -4px;bottom: 13px;">Cambiar foto</a>										
+												 <button style="color: #fd7e14;position: relative;left: 10px;bottom: 13px;"
+													class="btn btn-abrir-popupl btn-sm  mt-3" 
+													id="abrir-popup-lista"
+													onclick="document.getElementById('overlay-mod-podcast').classList.add('active');">
+													<i class="icon-edit  s-24"></i>Editar
+												</button>
+												<a style="color: #fd7e14;position: relative;left: 10px;bottom: 13px;"
+													class="btn btn-abrir-popupl btn-sm  mt-3" 
+													id="abrir-popup-lista"
+													onclick="document.getElementById('overlay-borrar').classList.add('active');"
+													href="#">
+													<i class="icon-trash s-24"></i>Borrar
+												</a>	
+											</div>
+											<!--  BORRAR PODCAST -->
+											<div class="overlay-pop-up" id="overlay-borrar">	
+											    <div class="col-md-7 card p-5">	
+											        <a style="position: absolute;top: 20px;right: 30px;" href="#"  class="btn-cerrar-popup-perfil"	
+											        class="btn btn-outline-primary btn-sm pl-4 pr-4"  onclick="document.getElementById('overlay-borrar').classList.remove('active');"><i class="icon-close1"></i></a>	
+													<form class="form-material" action="borrar_lista_admin" method="post">	
+														<!-- Input -->	
+														<div class="body">	
+															<header class="relative nav-sticky card">	
+											                    <h3>Vas a borrar este podcast.</h3>
+											                    <h5>¿Estás seguro?</h5>	
+															</header>	
+												
+															<input type="hidden" name=idLista value="${infoPodcast.getId()}">	
+															<input type="submit" value="Aceptar">
+														</div>	
+														<!-- #END# Input -->	
+											        </form>	
+												</div>	
+											</div>	
+											<!--  END BORRAR PODCAST -->
+											<!-- EDICION PODCAST -->
+											<div class="overlay-pop-up" id="overlay-mod-podcast">
+											    <div class="col-md-7 card p-5">
+														<a style="position: absolute;top: 20px;right: 30px;" href="#" 
+														class="btn-cerrar-popup-perfil"
+														onclick="document.getElementById('overlay-mod-podcast').classList.remove('active');">
+															<i class="icon-close1"></i>
+														</a>
+														<header class="relative nav-sticky card">
+															<h3>CAMBIAR INFORMACIÓN DE PODCAST</h3>
+														</header>
+														<form  action="modlr" method="post">
+															<!-- Input -->
+															<div class="body">
+																<input type="hidden" name="tipo" id="tipo" value="podcast">
+																<div class="form-group form-float">
+																	<div class="form-line">
+																		<input type="text" name="nombreNew" id="nombreNew" class="form-control" value="${infoPodcast.getNombre()}">
+																		<label class="form-label">Nombre</label>
+																	</div>
+																</div>
+											
+																<div class="form-group form-float">
+																	<div class="form-line">
+																		<input type="text" name="descripcion" id="descripcion" class="form-control" value="${infoPodcast.getDescripcion()}">
+																		<label class="form-label">Descripción</label>
+																	</div>
+																</div>
+																<input type="hidden" name="nombreOld" id="nombreOld" value="${infoPodcast.getNombre()}">
+																<input type="hidden" name="idLista" value="${infoPodcast.getId()}">
+																<input type="submit" value="Aceptar">
+															</div>
+														</form>
+														<!-- #END# Input -->
+												</div>
+											</div>
+											<!-- END EDICION PODCAST -->
+											
+											<!-- CAMBIAR FOTO -->
+											<div class="overlay-pop-up" id="overlay-foto">
+											    <div class="col-md-7 card p-5">
+													<a href="#" style="position: absolute;top: 20px;right: 30px;"
+													 onClick="document.getElementById('overlay-foto').classList.remove('active');"  id="btn-cerrar-foto" class="btn-cerrar-popup-perfil"><i class="icon-close1"></i></a>
+													<form class="form-material" action="modImagenPodcast" method=POST enctype=multipart/form-data>
+														<!-- Input -->
+														<div class="body">
+															<header class="relative nav-sticky card">
+																<h3>SUBIR FOTO</h3>
+															</header>
+															<div class="contenedor-inputs">
+																<input type="file" class="btn btn-outline-primary btn-sm  mt-3" name="imagen" accept="image/jpeg"> 
+																<input type="hidden" name="idPodcast" id="idPodcast" value=${infoLista.getId() }>
+															</div>
+											
+															<input type="submit" class="btn btn-outline-primary btn-sm pl-4 pr-4"
+																   value="Aceptar">
+														</div>
+														<!-- #END# Input -->
+													</form>
+												</div>
 											</div>
 											
-
+											<!-- END CAMBIAR FOTO -->
+											<!-- BORRAR COMENTARIO DE CANCION -->	
+											<div class="overlay-pop-up" id="overlay-borrar-coment-cancion">	
+											    <div class="col-md-7 card p-5">	
+											        <a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-borrar-coment-cancion" class="btn-cerrar-popup-perfil"	
+											        class="btn btn-outline-primary btn-sm pl-4 pr-4"  onclick="document.getElementById('overlay-borrar-coment-cancion').classList.remove('active');"><i class="icon-close1"></i></a>	
+													<form class="form-material" action="borrar_coment_cancion">	
+														<!-- Input -->	
+														<div class="body">	
+															<header class="relative nav-sticky card">	
+											                    <h3>Vas a borrar este comentario.</h3>
+											                    <h5>¿Estás seguro?</h5>	
+															</header>	
+												
+															<input type="hidden" id="comentarioID" name=idComentario value="">	
+															<a id="borrarComentario" href="#" onclick="document.getElementById('overlay-borrar-coment-cancion').classList.remove('active');" class="btn btn-outline-primary btn-sm pl-4 pr-4">Aceptar</a>
+														</div>	
+														<!-- #END# Input -->	
+											        </form>	
+												</div>	
+											</div>	
+											<!-- END BORRAR COMENTARIO DE CANCION -->
+											
 										</div>
-									
+										
 										<div class="text-orange my-2">
 											<p>${infoPodcast.getDescripcion()}</p>
 										</div>
@@ -440,17 +521,14 @@ String likePodcast = (String) request.getAttribute("likePodcast");
 																<div class="col-6">
 																	<h6>${cancion.getTitulo()}</h6>${cancion.getGenero()}
 																</div>
-																<a href="#" class="snackbar ml-3" data-text="Te gusta este programa"
-																   data-pos="top-right"
-																   data-showAction="true"
-																   data-actionText="ok"
-																   data-actionTextColor="#fff"
-																   data-backgroundColor="#0c101b"><i class="icon-thumbs-o-up s-24"></i>
-																</a>
 																<a href="#" data-toggle="control-sidebar">
 											                        <i style="position: relative;left: 10px;" class="icon-commenting-o s-24"></i>
 											                    </a>
-															</div>
+											                    <div class="ml-auto">
+																	<a href="${pageContext.request.contextPath}/ir_modificar?id_audio=${cancion.getId()}&cancion=false&pagina=10" class="btn-icono icon-pencil" ></a>
+																	<a href="${pageContext.request.contextPath}/eliminar_capitulo?id_capitulo=${cancion.getId()}&pagina=10" class="btn-icono icon-trash-o" ></a>
+																</div>
+											                 </div>
 														</li>
 													</div>								                
 												</c:forEach>
@@ -513,54 +591,15 @@ String likePodcast = (String) request.getAttribute("likePodcast");
 				$('#listaComentariosCancion').html(data);
 			});
 		});
-    	$('#borrarComentario').click(function(event) { // borrar comentario en cancion
-			var idComentario = $('#comentarioID').val();
-			console.log(idComentario);
-			$.get('borrar_coment_cancion', {
-				idComentario: idComentario
-			}, function(responseText){
-				$('#contenido').html(responseText);
-			});
-		});
+
     });
     </script>
-    
-<script>
-$(document).ready(function() {
-        $('#accion_like_lista').click(function(event) { // dar like a lista
-            var listaId = $('#idListaLike').val();
-            var like = $('#likeLista').val();
-            console.log(like);
-            console.log(listaId);
-            $.get('like_lista', {
-                    idLista : listaId,
-                    like : like
-            });
-        });
-});
-</script>
 
 </main><!--@Page Content-->
 </div><!--@#app-->
 <!--/#app -->
 <script src="https://maps.googleapis.com/maps/api/js?&amp;key=AIzaSyC3YkZNNySdyR87o83QEHWglHfHD_PZqiw&amp;libraries=places"></script>
 <script src="assets/js/app.js"></script>
-
-<script>
-$(document).ready(function() {
-        $('#accion_like_lista').click(function(event) { // dar like a lista
-            var listaId = $('#idListaLike').val();
-            var like = $('#likeLista').val();
-            console.log(like);
-            console.log(listaId);
-            $.get('like_lista', {
-                    idLista : listaId,
-                    like : like
-            });
-        });
-});
-</script>
-
 <script>
 	function loopAudio(){
 		var audio = document.getElementsByTagName("audio")[0];

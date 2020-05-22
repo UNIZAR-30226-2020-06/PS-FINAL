@@ -19,7 +19,7 @@ import com.espotify.model.ListaReproduccion;
  */
 public class ModInfo_ListaRepServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+	private static final int ADMIN = 100;    
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -39,36 +39,83 @@ public class ModInfo_ListaRepServlet extends HttpServlet {
 		String descripcion = request.getParameter("descripcion");
 		String imagen = "";
 		String tipo = request.getParameter("tipo");
-		
-		Boolean cambiada = new ListaReproduccionDAO().cambiar_info(nombreOld,nombreNew,usuario,descripcion,imagen,tipo);
-		if(cambiada) {
-			try{
-				ListaReproduccion infoLista = new ListaReproduccionDAO().getInfoList(nombreNew,usuario,tipo);
-				List<Audio> audios = new ListaReproduccionDAO().getAudios(nombreNew,usuario,tipo);
+		log(nombreNew);
+		log(nombreOld);
+		log(descripcion);
+		log(tipo);
+		int idLista = Integer.valueOf(request.getParameter("idLista"));
+			
+		Boolean cambiada = false;
+		if (usuario ==ADMIN) {
+			cambiada = new ListaReproduccionDAO().cambiar_info(nombreNew, descripcion, imagen, idLista);
+			if(cambiada) {
+				try{
+					ListaReproduccion infoLista = new ListaReproduccionDAO().getInfoListId(idLista);
+					List<Audio> audios = new ListaReproduccionDAO().getAudios(idLista);
 
-				if (!audios.isEmpty()) {
-					request.setAttribute("audios", audios);
+					if (!audios.isEmpty()) {
+						request.setAttribute("audios", audios);
+					}
+					String redir="";
+					//RequestDispatcher dispatcher=request.getRequestDispatcher("listaRep.jsp");
+					//dispatcher.forward(request, response);
+					if(tipo.equals("podcast")) {
+						System.out.println("ENTRO");
+						log("PODCAST");
+						request.setAttribute("infoPodcast", infoLista);
+						request.getRequestDispatcher("obtener_info_lr_usuario?id="+infoLista.getId()+"&pagina=10").forward(request, response);
+						}
+					else {
+						log("LISTA");
+						request.setAttribute("infoLista", infoLista);
+						request.getRequestDispatcher("obtener_info_lr_usuario?id="+infoLista.getId()+"&pagina=10").forward(request, response);
+						}
+					
+					
+				}catch(Throwable theException) {
+					//response.sendRedirect("modifListaRep.jsp");
+					System.out.println("ERROR EN SERVLET");
 				}
-				String redir="";
-				//RequestDispatcher dispatcher=request.getRequestDispatcher("listaRep.jsp");
-				//dispatcher.forward(request, response);
-				if(tipo.equals("podcast")) {
-					System.out.println("ENTRO");
-					log("PODCAST");
-					request.setAttribute("infoPodcast", infoLista);
-					redir = "obtener_info_podcast?nombre=" + nombreNew;
-					request.getRequestDispatcher("redir").forward(request, response);
-				} else {
-					log("LISTA");
-					request.setAttribute("infoLista", infoLista);
-					redir = "obtener_info_lr?nombre=" + nombreNew;
-					request.getRequestDispatcher("redir").forward(request, response);
+		
+			}else {
+				log("Pues NO VA");
+			}
+		}
+		else {
+			cambiada = new ListaReproduccionDAO().cambiar_info(nombreOld,nombreNew,usuario,descripcion,imagen,tipo);
+			if(cambiada) {
+				try{
+					ListaReproduccion infoLista = new ListaReproduccionDAO().getInfoList(nombreNew,usuario,tipo);
+					List<Audio> audios = new ListaReproduccionDAO().getAudios(nombreNew,usuario,tipo);
+
+					if (!audios.isEmpty()) {
+						request.setAttribute("audios", audios);
+					}
+					String redir="";
+					//RequestDispatcher dispatcher=request.getRequestDispatcher("listaRep.jsp");
+					//dispatcher.forward(request, response);
+					if(tipo.equals("podcast")) {
+						System.out.println("ENTRO");
+						log("PODCAST");
+						request.setAttribute("infoPodcast", infoLista);
+						redir = "obtener_info_podcast?nombre=" + nombreNew;
+						request.getRequestDispatcher("redir").forward(request, response);
+						}
+					else {
+						log("LISTA");
+						request.setAttribute("infoLista", infoLista);
+						redir = "obtener_info_lr?nombre=" + nombreNew;
+						request.getRequestDispatcher("redir").forward(request, response);
+						}
+					
+					
+				}catch(Throwable theException) {
+					//response.sendRedirect("modifListaRep.jsp");
+					System.out.println("ERROR EN SERVLET");
 				}
-				
-				
-			}catch(Throwable theException) {
-				//response.sendRedirect("modifListaRep.jsp");
-				System.out.println("ERROR EN SERVLET");
+		
+			}else {
+				log("Pues NO VA");
 			}
 		}
 		

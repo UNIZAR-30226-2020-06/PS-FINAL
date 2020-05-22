@@ -17,7 +17,7 @@ import com.espotify.model.ListaReproduccion;
  */
 public class BorrarAudio_ListaRepServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+	private static final int ADMIN = 100; 
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -46,14 +46,27 @@ public class BorrarAudio_ListaRepServlet extends HttpServlet {
 		}
 		HttpSession session = request.getSession();
 		session.setAttribute("anyadida?", anyadida);
-		String redir;
+		int usuario = Integer.valueOf((String) session.getAttribute("id"));
+		String redir="";
 		if (tipo.equals("ListaRep")) {
-			redir = "obtener_info_lr?nombre=" + nombre;
+			if (usuario == ADMIN) {
+				request.getRequestDispatcher("obtener_info_lr_usuario?id="+idLista+"&pagina=10").forward(request, response);
+			}else {
+				redir = "obtener_info_lr?nombre=" + nombre;
+				request.getRequestDispatcher(redir).forward(request, response);
+			}
 		} else {
-			redir = "obtener_info_podcast?nombre=" +nombre;
+			
+			if (usuario == ADMIN) {
+				request.getRequestDispatcher("obtener_info_podcast_usuario?id"+idLista+"&pagina=10").forward(request, response);
+			}else {
+				redir = "obtener_info_podcast?nombre=" +nombre;
+				request.getRequestDispatcher(redir).forward(request, response);
+		
+			}
 		}
 		
-		request.getRequestDispatcher(redir).forward(request, response);
+		
 		//RequestDispatcher dispatcher=request.getRequestDispatcher("audio.jsp");
         //dispatcher.forward(request, response);
 	}

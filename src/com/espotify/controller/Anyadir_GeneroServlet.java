@@ -2,6 +2,7 @@
 package com.espotify.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpSession;
 
 import com.espotify.dao.FavoritosDAO;
 import com.espotify.dao.GeneroDAO;
+import com.espotify.model.Genero;
 import com.espotify.model.ListaReproduccion;
 
 /**
@@ -45,7 +47,12 @@ public class Anyadir_GeneroServlet extends HttpServlet {
 		}
 		
 		session.setAttribute("anyadido?", anyadido);
+		ArrayList<Genero> generos = new GeneroDAO().obtenerGeneroMusica();
+		session.setAttribute("generos", generos);
+		ArrayList<Genero> categorias = new GeneroDAO().obtenerGeneroCapitulo();
+		session.setAttribute("categorias", categorias);
 		
+		request.getRequestDispatcher("perfil_admin.jsp?pagina=0").forward(request, response);
 		//request.getRequestDispatcher("obtener_info_fav").forward(request, response);
 		//RequestDispatcher dispatcher=request.getRequestDispatcher("audio.jsp");
         //dispatcher.forward(request, response);

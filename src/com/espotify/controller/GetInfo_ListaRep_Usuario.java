@@ -24,7 +24,7 @@ import java.util.Collections;
  */
 public class GetInfo_ListaRep_Usuario extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+	private static final int ADMIN = 100; 
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -44,7 +44,7 @@ public class GetInfo_ListaRep_Usuario extends HttpServlet {
 
 
 		//String aleatorio = request.getParameter("aleatorio");
-		
+		log("HOLA");
 		try{
 			ListaReproduccion infoLista = new ListaReproduccionDAO().getInfoListId(id);
 			List<Audio> audios = new ListaReproduccionDAO().getAudiosId(id);
@@ -60,11 +60,15 @@ public class GetInfo_ListaRep_Usuario extends HttpServlet {
 			}
 			
 			List<ListaReproduccion> listaslr = new ListaReproduccionDAO().showLists(usuario,"ListaRep");
-			request.setAttribute("listaslr", listaslr);
+			
 			request.setAttribute("infoLista", infoLista);
 			request.setAttribute("audios", audios);
-				
-			request.getRequestDispatcher("lista_rep_otro_usuario.jsp").forward(request, response);
+			if (usuario ==ADMIN){
+				request.getRequestDispatcher("lista-rep-admin.jsp").forward(request, response);
+			}else {
+				request.setAttribute("listaslr", listaslr);
+				request.getRequestDispatcher("lista_rep_otro_usuario.jsp").forward(request, response);
+			}
 			//RequestDispatcher dispatcher=request.getRequestDispatcher("user.jsp");
 			//dispatcher.forward(request, response);
 

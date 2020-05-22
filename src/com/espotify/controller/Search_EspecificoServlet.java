@@ -25,7 +25,7 @@ import java.util.ListIterator;
  */
 public class Search_EspecificoServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+    private static final int ADMIN = 100;
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -85,14 +85,17 @@ public class Search_EspecificoServlet extends HttpServlet {
 				break;
 				
 			}	
-			
-			List<ListaReproduccion> listaslr = new ListaReproduccionDAO().showLists(usuario,"ListaRep");
-			request.setAttribute("listaslr", listaslr);
-			List<ListaReproduccion> podcastslr = new ListaReproduccionDAO().showLists(usuario,"podcast");
-			request.setAttribute("podcastslr", podcastslr);
-			//RequestDispatcher dispatcher=request.getRequestDispatcher("busqueda.jsp");
-			//dispatcher.forward(request, response);
-			request.getRequestDispatcher("buscar-especifico.jsp").forward(request, response);
+			if (usuario == ADMIN){
+				request.getRequestDispatcher("buscar-especifico-admin.jsp").forward(request, response);
+			}else {
+				List<ListaReproduccion> listaslr = new ListaReproduccionDAO().showLists(usuario,"ListaRep");
+				request.setAttribute("listaslr", listaslr);
+				List<ListaReproduccion> podcastslr = new ListaReproduccionDAO().showLists(usuario,"podcast");
+				request.setAttribute("podcastslr", podcastslr);
+				//RequestDispatcher dispatcher=request.getRequestDispatcher("busqueda.jsp");
+				//dispatcher.forward(request, response);
+				request.getRequestDispatcher("buscar-especifico.jsp").forward(request, response);
+			}
 		}catch(Throwable theException) {
 			//response.sendRedirect("inicio.jsp");
 		}

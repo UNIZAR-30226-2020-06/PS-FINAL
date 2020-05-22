@@ -1,7 +1,7 @@
+
 package com.espotify.controller;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,43 +10,41 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.tomcat.jni.Sockaddr;
-
-import com.espotify.dao.TransmisionDAO;
-import com.espotify.dao.UsuarioDAO;
-import com.espotify.model.Transmision;
+import com.espotify.dao.ListaReproduccionDAO;
+import com.espotify.model.ListaReproduccion;
 
 /**
- * Servlet implementation class IniciarTransimision_Servlet
+ * Servlet implementation Servlet
  */
-@WebServlet("/eliminar_UsuarioServlet")
-public class eliminar_UsuarioServlet extends HttpServlet {
+public class Borrar_Listas_AdminServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public eliminar_UsuarioServlet() {
+    public Borrar_Listas_AdminServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		HttpSession session = request.getSession();
-		String idUser = (String) request.getParameter("idUser");
-		
-		UsuarioDAO usuarioDAO = new UsuarioDAO();
-		boolean eliminado = usuarioDAO.eliminar(idUser);
-				
-		if (eliminado) {
-			request.getRequestDispatcher("perfil_admin").forward(request, response);
-			//request.getRequestDispatcher("inicio.jsp").forward(request, response);
+
+
+		int idLista = Integer.valueOf(request.getParameter("idLista"));
+		log("HOLA");
+		Boolean borrada = new ListaReproduccionDAO().borrar(idLista);
+		if(borrada) {
+			log("XD");
+			request.getRequestDispatcher("perfil_admin");
+			//RequestDispatcher dispatcher=request.getRequestDispatcher("user.jsp");
+	        //dispatcher.forward(request, response);
 		}else {
-			//request.getRequestDispatcher("usuario.jsp").forward(request, response);
+			log(":(");
+			String url = request.getHeader("referer");
+			//response.sendRedirect("ListaRep.jsp");
+			request.getRequestDispatcher(url).forward(request, response);
 		}
 	}
 
@@ -54,8 +52,8 @@ public class eliminar_UsuarioServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 
 }
+
