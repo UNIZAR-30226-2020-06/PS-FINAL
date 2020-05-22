@@ -36,12 +36,19 @@ public class ListaReproduccionDAO {
 	private final static String DELETEID_QUERY =	"DELETE FROM Reproductor_musica.ListasRep WHERE id = ?";
 	
 	private final static String GETINFOLIST_QUERY = "SELECT * FROM Reproductor_musica.ListasRep WHERE nombre = ? AND usuario = ? AND tipo = ?";
+	private final static String GETINFOLIST_NOUSER_QUERY = "SELECT * FROM Reproductor_musica.ListasRep WHERE nombre = ? AND tipo = ?";
 	private final static String GETINFOLISTID_QUERY = "SELECT * FROM Reproductor_musica.ListasRep WHERE id = ?";
 	
 	private final static String GETAUDIOS_QUERY = "SELECT audio.id id, audio.url url, audio.titulo titulo, user.nombre autor, genero.nombre genero FROM Reproductor_musica.ListasRep lista,"  
 													+ "Reproductor_musica.Contiene cont, Reproductor_musica.Audio audio, Reproductor_musica.Genero genero, Reproductor_musica.Usuario user " 
 													+ "WHERE lista.id = cont.lista AND cont.audio = audio.id AND audio.genero = genero.id AND audio.usuario = user.id AND "
 													+ "lista.nombre = ? AND lista.usuario = ? AND lista.tipo = ? ORDER BY audio.titulo";
+	
+	private final static String GETAUDIOS_NOUSER_QUERY = "SELECT audio.id id, audio.url url, audio.titulo titulo, user.nombre autor, genero.nombre genero FROM Reproductor_musica.ListasRep lista,"  
+			+ "Reproductor_musica.Contiene cont, Reproductor_musica.Audio audio, Reproductor_musica.Genero genero, Reproductor_musica.Usuario user " 
+			+ "WHERE lista.id = cont.lista AND cont.audio = audio.id AND audio.genero = genero.id AND audio.usuario = user.id AND "
+			+ "lista.nombre = ? AND lista.tipo = ? ORDER BY audio.titulo";
+
 	private final static String GETAUDIOSID_QUERY = "SELECT audio.id id, audio.url url, audio.titulo titulo, user.nombre autor, genero.nombre genero FROM Reproductor_musica.ListasRep lista,"  
 													+ "Reproductor_musica.Contiene cont, Reproductor_musica.Audio audio, Reproductor_musica.Genero genero, Reproductor_musica.Usuario user " 
 													+ "WHERE lista.id = cont.lista AND cont.audio = audio.id AND audio.genero = genero.id AND audio.usuario = user.id AND "
@@ -158,7 +165,6 @@ public class ListaReproduccionDAO {
 	}
 	
 	public static boolean borrar(String nombre, int usuario, String tipo) {
-		System.out.println("ENTRAREEEEE");
 		try {
 			Connection conn = ConnectionManager.getConnection();
 			PreparedStatement ps = conn.prepareStatement(DELETE_QUERY);
@@ -540,7 +546,7 @@ public class ListaReproduccionDAO {
 		return result;
 	}
 	
-	public ListaReproduccion getInfoList(String nombre, int usuario, String tipo) {
+	public static ListaReproduccion getInfoList(String nombre, int usuario, String tipo) {
 		ListaReproduccion result = null;
 		try {
 
@@ -569,16 +575,15 @@ public class ListaReproduccionDAO {
 		return result;
 	}
 	
-	public static ListaReproduccion getInfoList(String nombre, String usuario, String tipo) {
+	public static ListaReproduccion getInfoList(String nombre, String tipo) {
 		ListaReproduccion result = null;
 		try {
 
 			Connection conn = ConnectionManager.getConnection();
-			PreparedStatement ps = conn.prepareStatement(GETINFOLIST_QUERY);
+			PreparedStatement ps = conn.prepareStatement(GETINFOLIST_NOUSER_QUERY);
             
 			ps.setString(1, nombre);
-            ps.setString(2, usuario);
-            ps.setString(3, tipo);
+            ps.setString(2, tipo);
 			
 			ResultSet rs = ps.executeQuery();
 
@@ -654,16 +659,15 @@ public class ListaReproduccionDAO {
 		return audios;
 	}
 
-	public static List<Audio> getAudios(String nombre, String usuario, String tipo) {
+	public static List<Audio> getAudios(String nombre, String tipo) {
 		List<Audio> audios = new ArrayList<Audio>();
 		try {
 
 			Connection conn = ConnectionManager.getConnection();
-			PreparedStatement ps = conn.prepareStatement(GETAUDIOS_QUERY);
+			PreparedStatement ps = conn.prepareStatement(GETAUDIOS_NOUSER_QUERY);
             
 			ps.setString(1, nombre);
-            ps.setString(2, usuario);
-            ps.setString(3, tipo);           
+            ps.setString(2, tipo);           
 			ResultSet rs = ps.executeQuery();
 
 			while(rs.next()){

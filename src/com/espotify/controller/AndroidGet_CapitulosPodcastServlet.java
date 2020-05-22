@@ -54,14 +54,18 @@ public class AndroidGet_CapitulosPodcastServlet extends HttpServlet {
         response.setContentType("application/json");
         response.setCharacterEncoding("utf-8");
         
-
         CapituloPodcastDAO cpd = new CapituloPodcastDAO();
         List<Audio> capitulosPodcastLista = cpd.obtenerCapitulosPodcast(nombrePodcast);
         
+        ListaReproduccion lp = ListaReproduccionDAO.getInfoList(nombrePodcast, "podcast");
+        String descripcion =lp.getDescripcion();
+        String imagen = lp.getImagen();
+        Usuario autor = UsuarioDAO.obtenerInfo(Integer.parseInt(lp.getUsuario()));
+        String nombreAutor = autor.getNombre();
+        
         String nombresPodcast = "";
         String urlsPodcast = "";
-        String imagen = "";
-        
+      
         boolean tieneCapitulos = false;
         
         for (Audio podcast : capitulosPodcastLista) {
@@ -76,6 +80,9 @@ public class AndroidGet_CapitulosPodcastServlet extends HttpServlet {
         }
         
         JSONObject respuestaPeticion =new JSONObject();
+        respuestaPeticion.put("descripcion", descripcion);
+        respuestaPeticion.put("imagen", imagen);
+        respuestaPeticion.put("autor", nombreAutor);
         respuestaPeticion.put("nombresPodcast", nombresPodcast);
         respuestaPeticion.put("urlsPodcast", urlsPodcast);
         

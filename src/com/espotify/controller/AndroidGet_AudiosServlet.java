@@ -43,27 +43,25 @@ public class AndroidGet_AudiosServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		getServletContext().log("--- ~AndroidGet_AudiosServlet~ ---");
         JSONObject parametrosPeticion = JSONAdapter.parsarJSON(request);
         getServletContext().log("JSON Object: " + parametrosPeticion);
         
         String email = parametrosPeticion.getString("email");
         String nombrePlaylist = parametrosPeticion.getString("nombrePlaylist");
 
-        JSONObject respuestaPeticion = new JSONObject();
         
-        
-        response.setContentType("application/json");
-        response.setCharacterEncoding("utf-8");
-        PrintWriter out = response.getWriter();
         
         int idUsuario = Integer.parseInt(UsuarioDAO.obtenerIdDesdeEmail(email));
-        Usuario u = new UsuarioDAO().obtenerInfo(idUsuario);
-        respuestaPeticion.put("nombreUsuario", u.getNombre());
-        respuestaPeticion.put("descripcion", u.getDescripcion());
-        respuestaPeticion.put("email", u.getCorreo());
         
-        List<Audio> audios =  ListaReproduccionDAO.getAudios(nombrePlaylist, idUsuario, "ListaRep");
+        
+        ListaReproduccion lr = ListaReproduccionDAO.getInfoList(nombrePlaylist, "ListaRep");
+        String imagen = lr.getImagen();
+        String descripcion = lr.getDescripcion();
+        Usuario autor = UsuarioDAO.obtenerInfo(Integer.parseInt(lr.getUsuario()));
+        String nombreAutor = autor.getNombre();
+        
+        List<Audio> audios =  ListaReproduccionDAO.getAudios(nombrePlaylist, "ListaRep");
         getServletContext().log("Audios recibidos" + audios); 
         
         String nombresAudio = "";
@@ -80,9 +78,16 @@ public class AndroidGet_AudiosServlet extends HttpServlet {
         	nombresAudio = nombresAudio.substring(0, nombresAudio.length() - 1);
         }
         
+        JSONObject respuestaPeticion = new JSONObject();
+        
+        response.setContentType("application/json");
+        response.setCharacterEncoding("utf-8");
+        PrintWriter out = response.getWriter();
+        respuestaPeticion.put("imagen", imagen);
+        respuestaPeticion.put("descripcion", descripcion);
+        respuestaPeticion.put("autor", nombreAutor);
         respuestaPeticion.put("nombresAudio", nombresAudio);
         respuestaPeticion.put("urlsAudio", urlsAudio);
-        
         
         // finally output the json string       
         out.print(respuestaPeticion.toString());
