@@ -49,12 +49,14 @@ public class AndroidGet_RandomAudiosServlet extends HttpServlet {
         List<Audio> audios = canciondao.obtenerCanciones();
         getServletContext().log("Parametros: " + audios); 
         
+        String idsAudio = "";
         String nombresAudio = "";
         String urlsAudio = "";
         
         for(Audio audio : audios) {
         	nombresAudio += audio.getTitulo() + "|";
         	urlsAudio += audio.getUrl() + "|";
+        	idsAudio += audio.getId() + "|";
         }
         
         nombresAudio = nombresAudio.substring(0, nombresAudio.length() - 1);
@@ -63,6 +65,7 @@ public class AndroidGet_RandomAudiosServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
         respuestaPeticion.put("nombresAudio", nombresAudio);
         respuestaPeticion.put("urlsAudio", urlsAudio);
+        respuestaPeticion.put("idsAudio", idsAudio);
         getServletContext().log("--------------------------------"); 
         // finally output the json string       
         out.print(respuestaPeticion.toString());
