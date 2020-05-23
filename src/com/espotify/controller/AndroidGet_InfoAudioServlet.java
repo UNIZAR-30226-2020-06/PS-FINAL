@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.util.Collections;
 import java.util.Enumeration;
 import java.util.List;
 
@@ -18,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import com.espotify.dao.FavoritosDAO;
+import com.espotify.dao.CancionDAO;
 import com.espotify.dao.JSONAdapter;
 import com.espotify.dao.ListaReproduccionDAO;
 import com.espotify.dao.UsuarioDAO;
@@ -27,16 +26,16 @@ import com.espotify.model.ListaReproduccion;
 import com.espotify.model.Usuario;
 
 /**
- * Servlet implementation class AndroidGet_FavoritosServlet
+ * Servlet implementation class AndroidGet_ProfileServlet
  */
-@WebServlet("/AndroidGet_FavoritosServlet")
-public class AndroidGet_FavoritosServlet extends HttpServlet {
+@WebServlet("/AndroidGet_InfoAudioServlet")
+public class AndroidGet_InfoAudioServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AndroidGet_FavoritosServlet() {
+    public AndroidGet_InfoAudioServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -45,46 +44,33 @@ public class AndroidGet_FavoritosServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		getServletContext().log("--- ~AndroidGet_IndoAudioServlet~ ---");
         JSONObject parametrosPeticion = JSONAdapter.parsarJSON(request);
-        getServletContext().log("--- ~AndroidGet_FavoritosServlet~ ---");
+        getServletContext().log("Parmatros: " + parametrosPeticion);
         
-        String email = parametrosPeticion.getString("email");
-        JSONObject respuestaPeticion = new JSONObject();
+        int idAudio = parametrosPeticion.getInt("idCancion");
+        CancionDAO ca = new CancionDAO();
         
+        Audio a = ca.obtenerInfoAudio(idAudio);
+        String tipo = "cancion";
         
-        String idUsuario = UsuarioDAO.obtenerIdDesdeEmail(email);
-        List<Audio> audios = new FavoritosDAO().getAudios(Integer.parseInt(idUsuario));
-        
-        String nombresAudio = "";
-        String urlsAudio = "";
-        String idsAudio = "";
-        
-        boolean tieneAudios = false;
-        for(Audio audio : audios) {
-        	nombresAudio += audio.getTitulo() + "|";
-        	urlsAudio += audio.getUrl() +  "|";
-        	idsAudio += audio.getId() + "|";
-        	tieneAudios = true;
+        String tipoAudio = ca.obtenerTipoAudio(idAudio);
+        if(tipoAudio.equals("capituloPodcast")) {
+        	tipo = "capitulo";
         }
         
-        if(tieneAudios) {
-        	nombresAudio = nombresAudio.substring(0, nombresAudio.length() - 1);
-        	urlsAudio = urlsAudio.substring(0, urlsAudio.length() - 1);
-        	idsAudio = idsAudio.substring(0, idsAudio.length() - 1);
-        } 
+        JSONObject respuestaPeticion = new JSONObject();
         
-        // Lanzar JSON
-        PrintWriter out = response.getWriter();
         response.setContentType("application/json");
         response.setCharacterEncoding("utf-8");
-        respuestaPeticion.put("nombresAudio", nombresAudio);
-    	respuestaPeticion.put("urlsAudio", urlsAudio);
-    	respuestaPeticion.put("idsAudio", idsAudio);
-    	getServletContext().log("Respuesta: " + respuestaPeticion);
-        getServletContext().log("--------------------------------------");
+        PrintWriter out = response.getWriter();
+        respuestaPeticion.put("autor", a.getUsuario());
+        respuestaPeticion.put("numLikes", a.getLikeUsuario());
+        respuestaPeticion.put("genero", a.getGenero());
+        respuestaPeticion.put("tipo", tipo);
+        getServletContext().log("Respuesta: " + parametrosPeticion);
+        // finally output the json string       
         out.print(respuestaPeticion.toString());
-        
 	}
 
 	/**

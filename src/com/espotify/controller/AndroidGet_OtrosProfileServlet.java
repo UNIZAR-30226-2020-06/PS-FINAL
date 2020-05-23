@@ -95,6 +95,7 @@ public class AndroidGet_OtrosProfileServlet extends HttpServlet {
         String listasDescripcion = "";
         String audiosUsuarioTitulo = "";
         String audiosUsuarioUrls = "";
+        String audiosUsuarioIds = "";
         String podcasts = "";
         String podcastsUsuarioDescripcion = "";
         String listasImagen = "";
@@ -114,6 +115,7 @@ public class AndroidGet_OtrosProfileServlet extends HttpServlet {
         for (Audio audio : audios) {
         	audiosUsuarioTitulo += audio.getTitulo() + "|";
         	audiosUsuarioUrls += audio.getUrl() + "|";
+        	audiosUsuarioIds += audio.getId() + "|";
         	tieneAudios = true;
         }
         
@@ -134,6 +136,7 @@ public class AndroidGet_OtrosProfileServlet extends HttpServlet {
     	if (tieneAudios) {
     		audiosUsuarioTitulo = audiosUsuarioTitulo.substring(0, audiosUsuarioTitulo.length() - 1);
         	audiosUsuarioUrls = audiosUsuarioUrls.substring(0, audiosUsuarioUrls.length() - 1);
+        	audiosUsuarioIds = audiosUsuarioIds.substring(0, audiosUsuarioIds.length() - 1);
     	} 
     	
     	if (tienePodcasts) {

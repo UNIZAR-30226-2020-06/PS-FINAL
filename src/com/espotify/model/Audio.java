@@ -22,6 +22,16 @@ public class Audio {
 		this.genero = genero;
 	}
 	
+	public Audio(String id, String url, String titulo, String usuario, String genero, String nLikes) {
+		super();
+        this.id = Integer.parseInt(id);
+		this.url = url;
+		this.titulo = titulo;
+		this.usuario = usuario;
+		this.genero = genero;
+		this.likeUsuario = nLikes;
+	}
+	
     public int getId() {
         return id;
     }

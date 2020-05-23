@@ -65,18 +65,21 @@ public class AndroidGet_CapitulosPodcastServlet extends HttpServlet {
         
         String nombresPodcast = "";
         String urlsPodcast = "";
+        String idsPodcast = "";
       
         boolean tieneCapitulos = false;
         
         for (Audio podcast : capitulosPodcastLista) {
         	nombresPodcast += podcast.getTitulo() + "|";
         	urlsPodcast += podcast.getUrl() + "|";
+        	idsPodcast += podcast.getId() + "|";
         	tieneCapitulos = true;
         }
         
         if(tieneCapitulos) {
         	nombresPodcast = nombresPodcast.substring(0, nombresPodcast.length() - 1);
         	urlsPodcast = urlsPodcast.substring(0, urlsPodcast.length() - 1);
+        	idsPodcast = idsPodcast.substring(0, idsPodcast.length() - 1);
         }
         
         JSONObject respuestaPeticion =new JSONObject();
@@ -85,6 +88,7 @@ public class AndroidGet_CapitulosPodcastServlet extends HttpServlet {
         respuestaPeticion.put("autor", nombreAutor);
         respuestaPeticion.put("nombresPodcast", nombresPodcast);
         respuestaPeticion.put("urlsPodcast", urlsPodcast);
+        respuestaPeticion.put("idsPodcast", idsPodcast);
         
         getServletContext().log("Respuesta: " + respuestaPeticion);
         PrintWriter out = response.getWriter();

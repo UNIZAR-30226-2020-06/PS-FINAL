@@ -46,7 +46,7 @@ public class Modinfo_UsuarioServlet extends HttpServlet {
 		String email =(String) request.getParameter("email");
 		String imagen =(String) request.getParameter("imagen");
 
-		boolean ok = UsuarioDAO.cambiar_info(nom,descripcion,email,id,imagen);
+		boolean ok = UsuarioDAO.cambiar_info(nom,descripcion,email,id);
 		
 		if(ok) {
 			// Actualizamos datos de la sesi�n

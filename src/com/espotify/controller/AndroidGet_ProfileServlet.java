@@ -99,6 +99,7 @@ public class AndroidGet_ProfileServlet extends HttpServlet {
         String listasImagenes = "";
         String audiosUsuarioTitulo = "";
         String audiosUsuarioUrls = "";
+        String audiosUsuarioIds = "";
         
         String podcasts = "";
         String podcastsUsuarioDescripcion = "";
@@ -133,6 +134,7 @@ public class AndroidGet_ProfileServlet extends HttpServlet {
         for (Audio audio : audios) {
         	audiosUsuarioTitulo += audio.getTitulo() + "|";
         	audiosUsuarioUrls += audio.getUrl() + "|";
+        	audiosUsuarioIds += audio.getId() + "|";
         	tieneAudios = true;
         }
         
@@ -167,6 +169,7 @@ public class AndroidGet_ProfileServlet extends HttpServlet {
     	if (tieneAudios) {
     		audiosUsuarioTitulo = audiosUsuarioTitulo.substring(0, audiosUsuarioTitulo.length() - 1);
         	audiosUsuarioUrls = audiosUsuarioUrls.substring(0, audiosUsuarioUrls.length() - 1);
+        	audiosUsuarioIds = audiosUsuarioIds.substring(0, audiosUsuarioIds.length() - 1);
     	} 
     	
     	if (tienePodcasts) {
@@ -180,6 +183,7 @@ public class AndroidGet_ProfileServlet extends HttpServlet {
         respuestaPeticion.put("listaDescripcion", listasDescripcion);
         respuestaPeticion.put("audiosTitulo", audiosUsuarioTitulo);
         respuestaPeticion.put("audiosUrl", audiosUsuarioUrls);
+        respuestaPeticion.put("idsAudio", audiosUsuarioIds);
         respuestaPeticion.put("imagenesPlaylists", listasImagenes);
         respuestaPeticion.put("podcasts", podcasts);
         respuestaPeticion.put("podcastsDescripcion", podcastsUsuarioDescripcion);
