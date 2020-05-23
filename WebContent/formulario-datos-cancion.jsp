@@ -19,6 +19,7 @@ int id_audio = Integer.parseInt((String) request.getAttribute("id_audio"));
 System.out.println(cancion + "++++++++++++++++++++++++++++++++++++++++++++++");
 request.setAttribute("ruta", (String) request.getAttribute("ruta"));
 int pagina = Integer.valueOf((String) request.getParameter("pagina"));
+int id= Integer.valueOf((String) session.getAttribute("id"));
 %>
 
 
@@ -417,7 +418,11 @@ String imagen = (String) session.getAttribute("imagen");
 							</select>
 						</div>
 						<div class="p-4">
+						<%if (id == 100){ %>
+							<a id="submit1" href="perfil_admin?pagina=<%=pagina %>" class="btn btn-outline-primary btn-sm  mt-3">Guardar</a>
+						<%}else{ %>
 							<a id="submit1" href="obtener_contenido_perfil?pagina=<%=pagina %>" class="btn btn-outline-primary btn-sm  mt-3">Guardar</a>
+						<%} %>
 						</div>
 					</div>
 				</form>
@@ -437,7 +442,11 @@ String imagen = (String) session.getAttribute("imagen");
 							</select>
 						</div>
 						<div class="p-4">
+						<%if (id == 100){ %>
+							<a id="submit2" href="perfil_admin?pagina=<%=pagina %>" class="btn btn-outline-primary btn-sm  mt-3">Guardar</a>
+						<%}else{ %>
 							<a id="submit2" href="obtener_contenido_perfil?pagina=<%=pagina %>" class="btn btn-outline-primary btn-sm  mt-3">Guardar</a>
+						<%} %>
 						</div>
 					</div>
 				</form>
@@ -455,7 +464,11 @@ String imagen = (String) session.getAttribute("imagen");
 							</select>
 						</div>
 						<div class="p-4">
+						<%if (id == 100){ %>
+							<a id="submit3" href="perfil_admin?pagina=<%=pagina %>" class="btn btn-outline-primary btn-sm  mt-3">Guardar</a>
+						<%}else{ %>
 							<a id="submit3" href="obtener_contenido_perfil?pagina=<%=pagina %>" class="btn btn-outline-primary btn-sm  mt-3">Guardar</a>
+						<%} %>
 						</div>
 					</div>
 				</form>
@@ -473,7 +486,11 @@ String imagen = (String) session.getAttribute("imagen");
 							</select>
 						</div>
 						<div class="p-4">
+						<%if (id == 100){ %>
+							<a id="submit4" href="perfil_admin?pagina=<%=pagina %>" class="btn btn-outline-primary btn-sm  mt-3">Guardar</a>
+						<%}else{ %>
 							<a id="submit4" href="obtener_contenido_perfil?pagina=<%=pagina %>" class="btn btn-outline-primary btn-sm  mt-3">Guardar</a>
+						<%} %>
 						</div>
 					</div>
 				</form>
@@ -526,6 +543,9 @@ String imagen = (String) session.getAttribute("imagen");
 			var tituloVar = $('#titulo4').val();
 			var generoVar = $('#genero4').val();
 			// Si en vez de por post lo queremos hacer por get, cambiamos el $.post por $.get
+			console.log(idVar);
+			console.log(tituloVar);
+			console.log(generoVar);
 			$.get('modificar_capitulo', {
 				id : idVar,
 				genero : generoVar,

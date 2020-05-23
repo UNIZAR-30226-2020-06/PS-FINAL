@@ -120,34 +120,8 @@ String nombre = (String) request.getParameter("nombre");
             <a href="#" data-toggle="control-sidebar" class="paper-nav-toggle  active"><i></i></a>
         </div>
         <div class="p-3">
-            <div class="media my-5 " style="margin-top: -1rem !important;margin-bottom: 2rem !important;">
-                <div class="media-body">
-                    <h6 class="mt-0">Ami Fro</h6>
-                    Cras sit amet nibh libero, in gravida nulla.
-                </div>
-            </div>
-            <div class="media my-5 " style="margin-top: -1rem !important;margin-bottom: 2rem !important;">
-                <div class="media-body">
-                    <h6 class="mt-0">Mohamed secame</h6>
-                    Basura es esta?
-                </div>
-            </div>
-            
-			<div class="row">
-                 <div class="col-lg-12">
-                     <div class="form-group">
-                         <div class="form-line">
-                               <textarea style="color: white;" rows="5" class="form-control r-0"
-                                         placeholder="Escribir comentario..."></textarea>
-                         </div>
-                     </div>
-
-                 </div>
-             </div>
-             <div class="row text-center">
-                 <div class="col-lg-12"><input type="submit" class="btn btn-primary"
-                                               value="Publicar" style="border-radius: 7px;position: relative;left: 95px;"></div>
-             </div>
+        	<div id="listaComentariosCancion"></div>
+        	
         </div>
     </div>
 </aside>
@@ -428,7 +402,7 @@ String imagen = (String) session.getAttribute("imagen");
 																	<i id="iconoPlay" class="icon-play s-28"></i>
 																</a>
 																<%} else {%>
-																<a href="obtener_usuario?nombre=<%=nombre %>&pagina=12" onclick="setTimeout(location.reload.bind(location), 1)">
+																<a href="obtener_usuario?nombre=${usuario.getId()}&pagina=4" onclick="setTimeout(location.reload.bind(location), 1)">
 																	<i id="iconoPlay" class="icon-play s-28"></i>
 																</a>
 																<%} %>				
@@ -466,7 +440,7 @@ String imagen = (String) session.getAttribute("imagen");
 									<div class="img-wrapper">
 										<img src=${listalr.getImagen() } alt="/">
 										<div class="img-overlay text-white text-center">
-											<a href="obtener_info_lr?nombre=${listalr.getNombre()}&pagina=<%=pagina %>" >
+											<a href="obtener_info_lr_usuario?id=${listalr.getId()}&pagina=<%=pagina %>" >
 												<div class="figcaption mt-3">
 													<i class="icon-link s-48"></i>
 													<h5 class="mt-5">${listalr.getNombre()}</h5>
@@ -509,7 +483,7 @@ String imagen = (String) session.getAttribute("imagen");
 																	<i id="iconoPlay" class="icon-play s-28"></i>
 																</a>
 																<%} else {%>
-																<a href="obtener_usuario?nombre=<%=nombre %>&pagina=12" onclick="setTimeout(location.reload.bind(location), 1)">
+																<a href="obtener_usuario?nombre=${usuario.getId()}&pagina=7" onclick="setTimeout(location.reload.bind(location), 1)">
 																	<i id="iconoPlay" class="icon-play s-28"></i>
 																</a>
 																<%} %>					
@@ -547,7 +521,7 @@ String imagen = (String) session.getAttribute("imagen");
 									<div class="img-wrapper">
 										<img src=${podcast.getImagen() } alt="/">
 										<div class="img-overlay text-white text-center">
-											<a href="obtener_info_podcast?nombre=${podcast.getNombre()}&pagina=<%=pagina %>" >
+											<a href="obtener_info_podcast_usuario?id=${podcast.getId()}&pagina=<%=pagina %>" >
 												<div class="figcaption mt-3">
 													<i class="icon-link s-48"></i>
 													<h5 class="mt-5">${podcast.getNombre()}</h5>
@@ -612,6 +586,7 @@ String imagen = (String) session.getAttribute("imagen");
 		
 					<input type="hidden" id="idPodcast8" name="nombre" value="">
 					<input type="hidden" name="tipo" id="tipo8" value="podcast">	
+					<a id="submit8" href="#" class="btn btn-outline-primary btn-sm pl-4 pr-4">Aceptar</a>	
 	             </div>   
 				<!-- #END# Input -->	
 	        </form>	

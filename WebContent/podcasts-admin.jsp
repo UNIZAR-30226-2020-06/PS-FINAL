@@ -138,34 +138,8 @@ pageEncoding="UTF-8"%>
             <a href="#" data-toggle="control-sidebar" class="paper-nav-toggle  active"><i></i></a>
         </div>
         <div class="p-3">
-            <div class="media my-5 " style="margin-top: -1rem !important;margin-bottom: 2rem !important;">
-                <div class="media-body">
-                    <h6 class="mt-0">Ami Fro</h6>
-                    Cras sit amet nibh libero, in gravida nulla.
-                </div>
-            </div>
-            <div class="media my-5 " style="margin-top: -1rem !important;margin-bottom: 2rem !important;">
-                <div class="media-body">
-                    <h6 class="mt-0">Mohamed secame</h6>
-                    Basura es esta?
-                </div>
-            </div>
-            
-			<div class="row">
-                 <div class="col-lg-12">
-                     <div class="form-group">
-                         <div class="form-line">
-                               <textarea style="color: white;" rows="5" class="form-control r-0"
-                                         placeholder="Escribir comentario..."></textarea>
-                         </div>
-                     </div>
-
-                 </div>
-             </div>
-             <div class="row text-center">
-                 <div class="col-lg-12"><input type="submit" class="btn btn-primary"
-                                               value="Publicar" style="border-radius: 7px;position: relative;left: 95px;"></div>
-             </div>
+        	<div id="listaComentariosCancion"></div>
+        	
         </div>
     </div>
 </aside>
