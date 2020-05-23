@@ -64,17 +64,20 @@ public class AndroidGet_AudiosGeneroServlet extends HttpServlet {
         
         String nombresAudio = "";
         String urlsAudio = "";
+        String idsAudio = "";
         boolean hayAudios = false;
         
         for(Audio audio : audios) {
         	nombresAudio += audio.getTitulo() + "|";
         	urlsAudio += audio.getUrl() + "|";
+        	idsAudio += audio.getUrl() + "|";
         	hayAudios = true;
         }
         
         if(hayAudios) {
         	nombresAudio = nombresAudio.substring(0, nombresAudio.length() - 1);
         	urlsAudio = urlsAudio.substring(0, urlsAudio.length() - 1);
+        	idsAudio = urlsAudio.substring(0, idsAudio.length() - 1);
         }
         
         respuestaPeticion.put("nombresAudio", nombresAudio);

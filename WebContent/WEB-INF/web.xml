@@ -442,6 +442,15 @@
 	</servlet-mapping>
 	
 	<servlet>
+		<servlet-name>AndroidGet_InfoAudioServlet</servlet-name>
+		<servlet-class>com.espotify.controller.AndroidGet_InfoAudioServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AndroidGet_InfoAudioServlet</servlet-name>
+		<url-pattern>/info_audio_android</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
 		<servlet-name>AndroidUnfollow_UsuarioServlet</servlet-name>
 		<servlet-class>com.espotify.controller.AndroidUnfollow_UsuarioServlet</servlet-class>
 	</servlet>

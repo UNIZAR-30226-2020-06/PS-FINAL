@@ -49,7 +49,7 @@ public class UsuarioDAO {
 	 * @return
 	 */
 	
-	public static boolean register(String nombre,String email, String contrasena, String descripcion, String imagen) {
+	public static boolean register(String nombre,String email, String contrasena, String descripcion) {
 		String rutaImagen = ALMACEN_IMG_URL;
 		try {
 			Connection conn = ConnectionManager.getConnection();
@@ -106,7 +106,7 @@ public class UsuarioDAO {
 		return false;
 	}
 
-	public static boolean cambiar_info(String nombre, String descripcion, String email, String id, String imagen) {
+	public static boolean cambiar_info(String nombre, String descripcion, String email, String id) {
 		
 		try {
 			Connection conn = ConnectionManager.getConnection();
@@ -133,14 +133,7 @@ public class UsuarioDAO {
 				ps.setString(2, id);
 				ps.executeUpdate();
 			}
-			if(imagen != null && !imagen.equals("")) {
-				ps = conn.prepareStatement(UPDATE_IMG_QUERY);
-				
-				ps.setString(1, imagen);
-				ps.setString(2, id);
-				ps.executeUpdate();
-			}
-	
+
 			ConnectionManager.releaseConnection(conn);
 			return true;
 		} catch(SQLException se) {

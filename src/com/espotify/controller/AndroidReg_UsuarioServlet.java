@@ -67,7 +67,7 @@ public class AndroidReg_UsuarioServlet extends HttpServlet {
         
         JSONObject respuestaPeticion = new JSONObject();
         
-        boolean reg = new UsuarioDAO().register(nombre, email, contrasena, descripcion, null);
+        boolean reg = new UsuarioDAO().register(nombre, email, contrasena, descripcion);
         if(reg) {
         	getServletContext().log("Registro OK");
         	respuestaPeticion.put("respuesta", "ok");
