@@ -564,6 +564,15 @@
 	</servlet-mapping>
 	
 	<servlet>
+		<servlet-name>eliminar_cuenta</servlet-name>
+		<servlet-class>com.espotify.controller.EliminarCuenta_Servlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>eliminar_cuenta</servlet-name>
+		<url-pattern>/eliminar_cuenta</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
 		<servlet-name>crear_lr</servlet-name>
 		<servlet-class>com.espotify.controller.Crear_ListaRepServlet</servlet-class>
 	</servlet>

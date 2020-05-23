@@ -346,6 +346,9 @@ String seguidores = (String) session.getAttribute("numSeguidores");
 			<div class="col-md-4 b-r">
 				<button style="position: absolute;left: 10px;border-color: transparent;color: #fd7e14;background-color: #fd7e1400;" class="btn btn-abrir-popup-perfil btn-sm  mt-3" id="abrir-popup-perfil"><i class="icon-edit  s-24"></i>Editar perfil</button>
 				<button style="position: absolute;left: 130px;border-color: transparent;color: #fd7e14;background-color: #fd7e1400;" class="btn btn-abrir-popup-perfil btn-sm  mt-3" id="abrir-popup-cuenta"><i class="icon-cog  s-24"></i>Cambiar contraseña</button>
+                <a href="#" style="position: absolute;left: 330px;" 
+                	class="btn btn-abrir-popup btn-sm  mt-3" id="abrir-popup-eliminar"  
+                	onclick="document.getElementById('overlay-eliminar-cuenta').classList.add('active');">Eliminar cuenta</a>
                 <div class="text-center p-5 mt-5">
 					
                     <figure style="width: 130px;height: 130px;width-max: 50%;" class="avatar avatar-xl">
@@ -607,14 +610,13 @@ String seguidores = (String) session.getAttribute("numSeguidores");
 																		</c:when>
 																		<c:otherwise>
 																			<a href="#" id="accion_capitulo_like" class="snackbar ml-3" 
-																					style="background-color: #fd7e14; color: #fff" 
 																					onclick="document.getElementById('idAudioLike').value ='${capitulo.getId()}';document.getElementById('audioLike').value ='true';" 
-																					data-text="Ya no te gusta este capitulo"
-																				   data-pos="top-right"
-																				   data-showAction="true"
-																				   data-actionText="ok"
-																				   data-actionTextColor="#fff"
-																				   data-backgroundColor="#0c101b"><i class="icon-thumbs-o-up s-24"></i>
+																					data-text="Ya no te gusta esta canción"
+																					   data-pos="top-right"
+																					   data-showAction="true"
+																					   data-actionText="ok"
+																					   data-actionTextColor="#fff"
+																					   data-backgroundColor="#0c101b"><i class="icon-thumbs-up s-24"></i>
 																				</a>
 																		</c:otherwise>																	
 																	</c:choose>
@@ -705,8 +707,14 @@ String seguidores = (String) session.getAttribute("numSeguidores");
 			</header>
 			<div class="contenedor-inputs">
 				<input type="file" class="btn btn-outline-primary btn-sm  mt-3" name="fileName"> 
+				<input type="text" name="titulo" id="titulo1" class="formulario-subir-cancion" placeholder="Título de la canción" required/>
+				<select id="genero1" name="genero">
+				   <c:forEach var="genero" items="${generos}">
+				   		<option value="${genero.getId()}">${genero.getNombre()}</option>
+				   </c:forEach>
+				</select>
 			</div>
-			<input type="submit" class="btn btn-outline-primary btn-sm  mt-3" value="Continuar">
+			<input type="submit" class="btn btn-outline-primary btn-sm  mt-3" value="Subir Canción">
 		</form>
 	</div>
 </div>
@@ -733,19 +741,29 @@ String seguidores = (String) session.getAttribute("numSeguidores");
 		</div>	
 	</div>	
 <!-- END BORRAR CANCION -->
-<script>
-    $(document).ready(function() {
-    	$('#borrarCancion').click(function(event) { // cargar los comentarios de cancion
-			var cancionId = $('#cancionIDborrar').val();
-			console.log(cancionId);
-			$.get('eliminar_cancion', {
-				id_cancion: cancionId
-			}, function(data){
-				$('#contenido').html(data);
-			});
-		});
-    });
-    </script>
+
+<!-- ELIMINAR CUENTA -->
+	<div class="overlay-pop-up" id="overlay-eliminar-cuenta">	
+	    <div class="col-md-7 card p-5">	
+	        <a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-eliminar-cuenta" class="btn-cerrar-popup-perfil"	
+	        class="btn btn-outline-primary btn-sm pl-4 pr-4"  onclick="document.getElementById('overlay-eliminar-cuenta').classList.remove('active');"><i class="icon-close1"></i></a>	
+			<form class="form-material" action="eliminar_cuenta">	
+				<!-- Input -->	
+				<div class="body">	
+					<header class="relative nav-sticky card">	
+	                    <h3>¿Estás seguro?</h3>	
+	                    <h5>Vas a borrar tu perfil.</h5>	
+					</header>	
+		
+					<input type="hidden" id="cancionIDborrar" value="">
+					<a id="eliminarCuenta" href="eliminar_cuenta?pagina=<%=pagina %>" class="btn btn-outline-primary btn-sm pl-4 pr-4">Aceptar</a>	
+	             </div>   
+				<!-- #END# Input -->	
+	        </form>	
+		</div>	
+	</div>	
+<!-- END ELIMINAR CUENTA -->
+
 
 <!-- Bloque de subir capitulo-->
 <div class="overlay-pop-up" id="overlay-subir-capitulo">
@@ -757,7 +775,13 @@ String seguidores = (String) session.getAttribute("numSeguidores");
 					<h5>Paso 1: subir el fichero .mp3 del capitulo podcast</h5>
 			</header>
 			<div class="contenedor-inputs">
-				<input type="file" class="btn btn-outline-primary btn-sm  mt-3" name="fileName"> 
+				<input type="file" class="btn btn-outline-primary btn-sm  mt-3" name="fileName">
+				<input type="text" name="titulo" id="titulo1" class="formulario-subir-cancion" placeholder="Título de la canción" required/>
+				<select id="genero1" name="genero">
+				   <c:forEach var="genero" items="${categorias}">
+				   		<option value="${genero.getId()}">${genero.getNombre()}</option>
+				   </c:forEach>
+				</select>
 			</div>
 			<input type="submit" class="btn btn-outline-primary btn-sm  mt-3" value="Continuar">
 		</form>
@@ -786,19 +810,6 @@ String seguidores = (String) session.getAttribute("numSeguidores");
 		</div>	
 	</div>	
 <!-- END BORRAR CAPITULO PODCAST -->
-<script>
-    $(document).ready(function() {
-    	$('#borrarCapitulo').click(function(event) { // cargar los comentarios de cancion
-			var capituloId = $('#capituloIDborrar').val();
-			console.log(capituloId);
-			$.get('eliminar_capitulo', {
-				id_capitulo: capituloId
-			}, function(data){
-				$('#contenido').html(data);
-			});
-		});
-    });
-    </script>
 
 <!-- CAMBIAR FOTO -->
 <div class="overlay-pop-up" id="overlay-foto">
@@ -827,17 +838,17 @@ String seguidores = (String) session.getAttribute("numSeguidores");
 <!-- CREAR LISTA DE REPRODUCCIÓN -->
 <div class="overlay-pop-up" id="overlay-listas-reproduccion">					
     <div class="col-md-7 card p-5">
+  <form class="form-material" action="crear_lr" method="post" enctype="multipart/form-data" name="fileinfo">
 		<a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-listas-reproduccion" class="btn-cerrar-popup-perfil"
 		onClick="document.getElementById('overlay-listas-reproduccion').classList.remove('active');"><i class="icon-close1"></i></a>
-		<form class="form-material" action="crear_lr" method="post">
 			<!-- Input -->
 			<div class="body">
 				<header class="relative nav-sticky card">
 					<h3>CREAR LISTAS DE REPRODUCCIÓN</h3>
 				</header>
-				<div class="contenedor-inputs">
-				<!--<h4>Añadir imagen</h4>
-					<input type="file" class="btn btn-outline-primary btn-sm  mt-3" name="fileName" /> -->
+				<div class="contenedor-inputs" id="output">
+					<label>Imagen</label>
+					<input type="file" class="btn btn-outline-primary btn-sm  mt-3" name="fileName" id="file">
 					<input type="text" name="nombre" placeholder="Nombre" id="nombre-listas-reproduccion" required/>
 					<input type="text" name="descripcion" placeholder="Descripcion" id="descripcion-listas-reproduccion"/>
 					<input type="hidden" name="tipo" id="tipo" value="ListaRep">
@@ -854,17 +865,17 @@ String seguidores = (String) session.getAttribute("numSeguidores");
 <!-- CREAR PODCAST -->
 <div class="overlay-pop-up" id="overlay-podcast">					
     <div class="col-md-7 card p-5">
-		<a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-podcast" class="btn-cerrar-popup-perfil"
-		onClick="document.getElementById('overlay-podcast').classList.remove('active');"><i class="icon-close1"></i></a>
-		<form class="form-material" action="crear_lr" method="post">
+    	<form class="form-material" action="crear_lr" method="post" enctype="multipart/form-data">
+			<a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-podcast" class="btn-cerrar-popup-perfil"
+			onClick="document.getElementById('overlay-podcast').classList.remove('active');"><i class="icon-close1"></i></a>
 			<!-- Input -->
 			<div class="body">
 				<header class="relative nav-sticky card">
 					<h3>CREAR PODCAST</h3>
 				</header>
 				<div class="contenedor-inputs">
-				<!--<h4>Añadir imagen</h4>
-					<input type="file" class="btn btn-outline-primary btn-sm  mt-3" name="fileName" /> -->
+					<label>Imagen</label>
+					<input type="file" class="btn btn-outline-primary btn-sm  mt-3" name="fileName"/>
 					<input type="text" name="nombre" placeholder="Nombre" id="nombre-listas-reproduccion7" required/>
 					<input type="text" name="descripcion" placeholder="Descripcion" id="descripcion-listas-reproduccion7"/>
 					<input type="hidden" name="tipo" name="tipo7" value="podcast">
@@ -1012,6 +1023,11 @@ String seguidores = (String) session.getAttribute("numSeguidores");
 					<div class="p5 b-b">
 						<input type="text" name="nombre" class="formulario-subir-cancion" placeholder="Nombre de la transmisión" required/>
 						<input type="text" name="descripcion" class="formulario-subir-cancion" placeholder="Descripcion"/>
+						<select id="estacion" name="estacion">
+						   <c:forEach var="estacion" items="${estaciones}">
+						   		<option value="${estacion.getUrl()}">${estacion.getUrl()}</option>
+						   </c:forEach>
+						</select>
 					</div>
 					<div class="p-4">
 						<input type="submit" class="btn btn-outline-primary btn-sm  mt-3" value="INICIAR">
@@ -1129,6 +1145,19 @@ String seguidores = (String) session.getAttribute("numSeguidores");
 <script src="https://maps.googleapis.com/maps/api/js?&amp;key=AIzaSyC3YkZNNySdyR87o83QEHWglHfHD_PZqiw&amp;libraries=places"></script>
 <script src="assets/js/app.js"></script>
 <script  src="assets/js/mostrar-popup.js"></script>
+<script>
+    $(document).ready(function() {
+    	$('#borrarCapitulo').click(function(event) { // cargar los comentarios de cancion
+			var capituloId = $('#capituloIDborrar').val();
+			console.log(capituloId);
+			$.get('eliminar_capitulo', {
+				id_capitulo: capituloId
+			}, function(data){
+				$('#contenido').html(data);
+			});
+		});
+    });
+    </script>
  <script>
 		function darbaja(){
 			if (confirm("¿Estás seguro que quieres eliminar tu cuenta?\nEsta operación es irreversible. Todos tus datos y canciones se perderán.")){
@@ -1137,6 +1166,19 @@ String seguidores = (String) session.getAttribute("numSeguidores");
 			}
 		}
 	</script>
+	<script>
+    $(document).ready(function() {
+    	$('#borrarCancion').click(function(event) { // cargar los comentarios de cancion
+			var cancionId = $('#cancionIDborrar').val();
+			console.log(cancionId);
+			$.get('eliminar_cancion', {
+				id_cancion: cancionId
+			}, function(data){
+				$('#contenido').html(data);
+			});
+		});
+    });
+    </script>
     <script>
 	function loopAudio(){
 		var audio = document.getElementsByTagName("audio")[0];
@@ -1217,10 +1259,12 @@ String seguidores = (String) session.getAttribute("numSeguidores");
 				$('#contenido').html(responseText);
 			});
 		});
+    	
     	$('#submit3').click(function(event) { // crear lista
 			var nombreVar = $('#nombre-listas-reproduccion').val();
 			var descripcionVar = $('#descripcion-listas-reproduccion').val();
 			var tipoVar = $('#tipo').val();
+			var imagen =  $('#file').val();
 			console.log(nombreVar);
 			console.log(descripcionVar);
 			console.log(tipoVar);
@@ -1228,11 +1272,13 @@ String seguidores = (String) session.getAttribute("numSeguidores");
 			$.get('crear_lr', {
 				nombre : nombreVar,
 				descripcion : descripcionVar,
-				tipo : tipoVar
+				tipo : tipoVar,
+				file : imagen
 			}, function(){
 				location.href ="mostrar_lrs?tipo=ListaRep&pagina=10";
 			});
 		});
+    	
     	$('#submit4').click(function(event) { // añadir cancion a lista
 			var idListaVar = $('#idLista').val();
 			var idAudioVar = $('#idAudio').val();
@@ -1483,6 +1529,7 @@ String seguidores = (String) session.getAttribute("numSeguidores");
 			var nombreVar = $('#nombre-listas-reproduccion').val();
 			var descripcionVar = $('#descripcion-listas-reproduccion').val();
 			var tipoVar = $('#tipo').val();
+			var imagen =  $('#file').val();
 			console.log(nombreVar);
 			console.log(descripcionVar);
 			console.log(tipoVar);
@@ -1490,11 +1537,12 @@ String seguidores = (String) session.getAttribute("numSeguidores");
 			$.get('crear_lr', {
 				nombre : nombreVar,
 				descripcion : descripcionVar,
-				tipo : tipoVar
+				tipo : tipoVar,
+				file : imagen
 			}, function(){
 				location.href ="mostrar_lrs?tipo=ListaRep&pagina=10";
 			});
-		});
+		});  	
     	$('#submit4').click(function(event) { // añadir cancion a lista
 			var idListaVar = $('#idLista').val();
 			var idAudioVar = $('#idAudio').val();

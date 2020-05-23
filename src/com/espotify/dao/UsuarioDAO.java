@@ -49,7 +49,7 @@ public class UsuarioDAO {
 	 * @return
 	 */
 	
-	public static boolean register(String nombre,String email, String contrasena, String descripcion, String imagen) {
+	public static boolean register(String nombre,String email, String contrasena, String descripcion) {
 		String rutaImagen = ALMACEN_IMG_URL;
 		try {
 			Connection conn = ConnectionManager.getConnection();

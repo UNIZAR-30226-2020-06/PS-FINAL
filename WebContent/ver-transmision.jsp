@@ -319,7 +319,8 @@ String like = (String) request.getAttribute("like");
 	                                  <input type="hidden" id="idTransmisionLike" name=""idTransmisionLike"" value="${transmision.getId()}">
 	                                 <%if(like == null){%>
 		                                  <input type="hidden" id="likeTransmision" name="likeTransmision" value="false">
-		                                  <a href="#" id="accion_like_transmision" class="btn-favorito"  data-text="Te gusta esta transmision"
+		                                  <a href="#" id="accion_like_transmision" class="btn-favorito"  
+		                                  	data-text="Te gusta este directo"
 		                                     data-pos="top-right"
 		                                     data-showAction="true"
 		                                     data-actionText="ok"
@@ -328,14 +329,14 @@ String like = (String) request.getAttribute("like");
 		                                  </a>
 	                                 <%}else{ %>
 	                                  		<input type="hidden" id="likeTransmision" name="likeTransmision" value="true">
-		                                  <a href="#" id="accion_like_transmision" class="btn-favorito" style="background-color: #fd7e14; color: #fff" data-text="No te gusta esta transmision"
-		                                     data-pos="top-right"
-		                                     data-showAction="true"
-		                                     data-actionText="ok"
-		                                     data-actionTextColor="#fff"
-		                                     data-backgroundColor="#0c101b"><i class="icon-thumbs-o-up s-24"></i>
-		                                   </a>
-	                                  <%} %>
+		                                  <a href="#" id="accion_like_transmision" class="btn-favorito"
+		                                     data-text="Ya no te gusta este directo"
+										   data-pos="top-right"
+										   data-showAction="true"
+										   data-actionText="ok"
+										   data-actionTextColor="#fff"
+										   data-backgroundColor="#0c101b"><i class="icon-thumbs-up s-24"></i>
+									</a>	                                  <%} %>
 								</form>
 							</div>
 							<span class="ml-auto">${transmision.getActiva()}</span>

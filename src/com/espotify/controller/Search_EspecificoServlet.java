@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.espotify.dao.BusquedasDAO;
+import com.espotify.dao.LikesDAO;
 import com.espotify.dao.ListaReproduccionDAO;
 import com.espotify.model.Audio;
 import com.espotify.model.ListaReproduccion;
@@ -61,6 +62,13 @@ public class Search_EspecificoServlet extends HttpServlet {
 			case "cancion":
 				List<Audio> canciones = new ArrayList<Audio>();
 				busquedas.searchCancionesCompletas(nombre, canciones);
+				for(Audio cancion :  canciones) {
+					if(LikesDAO.tieneLikeAudio(usuario, cancion.getId())) {
+						cancion.setLikeUsuario("like");
+					} else {
+						cancion.setLikeUsuario(null);
+					}
+				}
 				request.setAttribute("canciones", canciones);
 				request.setAttribute("tipo", "Canciones");
 				break;
@@ -80,6 +88,13 @@ public class Search_EspecificoServlet extends HttpServlet {
 			case "capitulo":
 				List<Audio> capitulos = new ArrayList<Audio>();
 				busquedas.searchCapitulosCompletas(nombre, capitulos);
+				for(Audio capitulo :  capitulos) {
+					if(LikesDAO.tieneLikeAudio(usuario, capitulo.getId())) {
+						capitulo.setLikeUsuario("like");
+					} else {
+						capitulo.setLikeUsuario(null);
+					}
+				}
 				request.setAttribute("capitulos", capitulos);
 				request.setAttribute("tipo", "Capitulos");
 				break;

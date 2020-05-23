@@ -49,10 +49,6 @@ public class SubirImagenListRep_Servlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		getServletContext().log("Comienza subida de imagen...");
-
-
-
-		
 		
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
@@ -65,7 +61,6 @@ public class SubirImagenListRep_Servlet extends HttpServlet {
 				getServletContext().log("POSICION: "+ fileItemsList.indexOf(file) + " Contenido: " + file.getFieldName() + "---" + file.getString());
 			int idLista = Integer.valueOf((String)fileItemsList.get(1).getString());
 			getServletContext().log("AQUI EL ID: "+ idLista);
-			
 				FileItem fileItem = fileItemsList.get(0);
 				getServletContext().log("FieldName="+fileItem.getFieldName());
 				getServletContext().log("FileName="+fileItem.getName());

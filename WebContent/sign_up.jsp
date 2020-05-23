@@ -107,9 +107,16 @@ String error2= (String)request.getParameter("error2");
                 <div class="mt-5">
                     <div class="row grid">
                         <div class="col-md-7 card p-5">
-                            <form class="form-material" action="hacer_registro" method="post">
+                            <form class="form-material" action="hacer_registro" method="post" enctype="multipart/form-data">
                                 <!-- Input -->
 								<div class="body">
+									<div class="form-group form-float">
+                                        <div class="form-line">
+                                        	<label>Agrega una foto a tu perfil</label>
+                                            <input type="file" class="btn btn-outline-primary btn-sm  mt-3" name="imagen" accept="image/jpeg">
+                                        </div>
+                                    </div>
+								 
                                     <div class="form-group form-float">
                                         <div class="form-line">
                                             <input type="text" name="nombre" class="form-control" required="">

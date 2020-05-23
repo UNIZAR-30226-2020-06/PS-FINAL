@@ -467,11 +467,12 @@ String imagen = (String) session.getAttribute("imagen");
 																			<input type="hidden" id="like" name="like" value="true">
 																			<a href="#" id="accion_like" class="snackbar ml-3" 
 																					onclick="document.getElementById('idAudioLike').value ='${cancion.getId()}';" data-text="Ya no te gusta esta canción"
-																				   data-pos="top-right"
-																				   data-showAction="true"
-																				   data-actionText="ok"
-																				   data-actionTextColor="#fff"
-																				   data-backgroundColor="#0c101b"><i class="icon-thumbs-up s-24"></i>
+																				  		data-text="Ya no te gusta esta canción"
+																					   data-pos="top-right"
+																					   data-showAction="true"
+																					   data-actionText="ok"
+																					   data-actionTextColor="#fff"
+																					   data-backgroundColor="#0c101b"><i class="icon-thumbs-up s-24"></i>
 																				</a>
 																		</c:otherwise>																	
 																	</c:choose>
@@ -530,13 +531,13 @@ String imagen = (String) session.getAttribute("imagen");
 	                                                   <%} else { %>
 	                                                   		 <input type="hidden" id="likeLista" name="likeLista" value="true">
 	                                                      	<a href="#" id="accion_like_lista" class="snackbar ml-3"
-	                                                      		data-text="Ya no te gusta esta lista de reproducción"
-		                                                         data-pos="top-right"
-		                                                         data-showAction="true"
-		                                                         data-actionText="ok"
-		                                                         data-actionTextColor="#fff"
-		                                                         data-backgroundColor="#0c101b"><i class="icon-thumbs-up s-24"></i>
-                                                        	</a>
+	                                                      		data-text="Ya no te gusta esta canción"
+															   data-pos="top-right"
+															   data-showAction="true"
+															   data-actionText="ok"
+															   data-actionTextColor="#fff"
+															   data-backgroundColor="#0c101b"><i class="icon-thumbs-up s-24"></i>
+															</a>
 	                                                   <%} %>
                                                   </form>
 											    <a style="color: #fd7e14;position: relative;left: 52px;bottom: 93px;" 
@@ -725,11 +726,12 @@ String imagen = (String) session.getAttribute("imagen");
 																			<input type="hidden" id="like" name="like" value="true">
 																			<a href="#" id="accion_like" class="snackbar ml-3" 
 																					onclick="document.getElementById('idAudioLike').value ='${cancion.getId()}';" data-text="Ya no te gusta esta canción"
-																				   data-pos="top-right"
-																				   data-showAction="true"
-																				   data-actionText="ok"
-																				   data-actionTextColor="#fff"
-																				   data-backgroundColor="#0c101b"><i class="icon-thumbs-up s-24"></i>
+																				   data-text="Ya no te gusta esta canción"
+																					   data-pos="top-right"
+																					   data-showAction="true"
+																					   data-actionText="ok"
+																					   data-actionTextColor="#fff"
+																					   data-backgroundColor="#0c101b"><i class="icon-thumbs-up s-24"></i>
 																				</a>
 																		</c:otherwise>																	
 																	</c:choose>

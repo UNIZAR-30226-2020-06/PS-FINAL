@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.espotify.dao.BusquedasDAO;
+import com.espotify.dao.LikesDAO;
 import com.espotify.dao.ListaReproduccionDAO;
 import com.espotify.model.Audio;
 import com.espotify.model.ListaReproduccion;
@@ -56,6 +57,21 @@ public class Search_BusquedasServlet extends HttpServlet {
 			request.setAttribute("podcastslr", podcastslr);
 			BusquedasDAO busquedas = new BusquedasDAO();
 			busquedas.searchAll(nombre,canciones,capitulos,listas,podcasts,transmisiones,usuarios);
+			for(Audio cancion :  canciones) {
+				if(LikesDAO.tieneLikeAudio(usuario, cancion.getId())) {
+					cancion.setLikeUsuario("like");
+				} else {
+					cancion.setLikeUsuario(null);
+				}
+			}
+			
+			for(Audio capitulo :  capitulos) {
+				if(LikesDAO.tieneLikeAudio(usuario, capitulo.getId())) {
+					capitulo.setLikeUsuario("like");
+				} else {
+					capitulo.setLikeUsuario(null);
+				}
+			}
 			request.setAttribute("canciones", canciones);
 			request.setAttribute("capitulos", capitulos);
 			request.setAttribute("listas", listas);

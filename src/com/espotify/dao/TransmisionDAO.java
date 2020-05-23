@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import com.espotify.model.ConnectionManager;
+import com.espotify.model.Estacion;
 import com.espotify.model.Transmision;
 import com.mysql.cj.jdbc.Blob;
 
@@ -28,7 +29,8 @@ public class TransmisionDAO {
 	private final static String GET_URLESTACIONLIBRE_QUERY = "SELECT DISTINCT url FROM Reproductor_musica.Estacion WHERE libre = 1";
 	private final static String GET_TRANSM_QUERY = "SELECT id FROM Reproductor_musica.TransmisionVivo WHERE estacion = ? ORDER BY id DESC LIMIT 1";
 	private final static String GET_IDESTACION_QUERY = "SELECT estacion FROM Reproductor_musica.TransmisionVivo WHERE id = ?";
-			
+	private final static String GET_ESTACIONES_LIBRES_QUERY = "SELECT id, url, libre FROM Reproductor_musica.Estacion WHERE libre = 1";
+
 	private final static String UPDATE_NOM_QUERY = "UPDATE Reproductor_musica.TransmisionVivo SET nombre=? WHERE id = ?";
 	private final static String UPDATE_DES_QUERY = "UPDATE Reproductor_musica.TransmisionVivo SET descripcion=? WHERE id = ?";
 	private final static String UPDATE_ESTACION_QUERY = "UPDATE Reproductor_musica.Estacion SET libre=? WHERE id = ?";
@@ -431,6 +433,33 @@ public class TransmisionDAO {
 		return result;
 	}
 	
+	public List<Transmision> getTransmisionUsuario(int usuario){
+		List<Transmision> directos = new ArrayList<Transmision>();
+		try {
+
+			Connection conn = ConnectionManager.getConnection();
+			PreparedStatement ps2 = conn.prepareStatement(GET_TRANSM_USERS_QUERY);
+			ps2.setInt(1, usuario);
+			ResultSet rs2 = ps2.executeQuery();
+			
+			while(rs2.next()){
+				Transmision result = new Transmision(rs2.getInt("id"), rs2.getString("nombre"), 
+									rs2.getString("descripcion"), rs2.getBoolean("activa"), 
+									rs2.getInt("usuario"), rs2.getString("url"));
+                directos.add(result);
+			}
+			ConnectionManager.releaseConnection(conn);
+			
+		} catch(SQLException se) {
+			se.printStackTrace();
+		} catch(Exception e) {
+			e.printStackTrace(System.err);
+		}
+		
+		return directos;	
+	}
+	
+	
 	/*
 	 * Parametros: id de un usuario
 	 * Comentarios: Obtiene las transmisiones activas de los usuarios a los que sigue "usuario"
@@ -470,6 +499,31 @@ public class TransmisionDAO {
 		}
 		
 		return directos;
+	}
+	
+	public List<Estacion> getEstacionesLibres(){
+		List<Estacion> estaciones = new ArrayList<Estacion>();
+		try {
+
+			Connection conn = ConnectionManager.getConnection();
+			PreparedStatement ps = conn.prepareStatement(GET_ESTACIONES_LIBRES_QUERY);
+            
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()){
+				Estacion result = new Estacion(rs.getInt("id"), rs.getString("url"), 
+									rs.getBoolean("libre"));
+                estaciones.add(result);
+			}
+			
+			ConnectionManager.releaseConnection(conn);
+			
+		} catch(SQLException se) {
+			se.printStackTrace();
+		} catch(Exception e) {
+			e.printStackTrace(System.err);
+		}
+		
+		return estaciones;
 	}
 }
 

@@ -6,20 +6,21 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-import com.espotify.dao.TransmisionDAO;
+import com.espotify.dao.UsuarioDAO;
 
 /**
- * Servlet implementation class FinalizarTransmision_Servlet
+ * Servlet implementation class EliminarCuenta_Servlet
  */
-@WebServlet("/FinalizarTransmision_Servlet")
-public class FinalizarTransmision_Servlet extends HttpServlet {
+@WebServlet("/EliminarCuenta_Servlet")
+public class EliminarCuenta_Servlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public FinalizarTransmision_Servlet() {
+    public EliminarCuenta_Servlet() {
         super();
     }
 
@@ -27,23 +28,19 @@ public class FinalizarTransmision_Servlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int id = Integer.valueOf((String) request.getParameter("idTransmision"));
-		String url = (String) request.getParameter("url");
-		
-		TransmisionDAO transmisionDAO = new TransmisionDAO();
-		
-		if (transmisionDAO.parar(id, url)) {
-			//request.getRequestDispatcher("/obtener_contenido_perfil").forward(request, response);
-		} else {
-			System.out.println("ERROR AL ELIMINAR");
-		}
-		request.getRequestDispatcher("Inicio").forward(request, response);
+		HttpSession session = request.getSession();
+		String id = (String) session.getAttribute("id");
+		UsuarioDAO usuario = new UsuarioDAO();
+		if(usuario.eliminar(id)) {
+			request.getRequestDispatcher("inicio.jsp").forward(request, response);
+		} 
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 
