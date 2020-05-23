@@ -19,6 +19,7 @@ import com.espotify.dao.ListaReproduccionDAO;
 import com.espotify.dao.TransmisionDAO;
 import com.espotify.dao.UsuarioDAO;
 import com.espotify.model.Audio;
+import com.espotify.model.Estacion;
 import com.espotify.model.Genero;
 import com.espotify.model.ListaReproduccion;
 import com.espotify.model.Transmision;
@@ -67,6 +68,9 @@ public class ObtenerCotenidoUsuario extends HttpServlet {
 		}
 		request.setAttribute("capitulos", capitulos);
 		
+		ArrayList<Genero> categorias = new GeneroDAO().obtenerGeneroCapitulo();
+		request.setAttribute("categorias", categorias);
+		
 		List<ListaReproduccion> listaslr = new ListaReproduccionDAO().showLists(idUsuario,"ListaRep");
 		request.setAttribute("listaslr", listaslr);
 		List<ListaReproduccion> podcasts = new ListaReproduccionDAO().showLists(idUsuario,"podcast");
@@ -74,7 +78,15 @@ public class ObtenerCotenidoUsuario extends HttpServlet {
 		
 		int numSeguidores = new UsuarioDAO().obtenerNumSeguidores(idUsuario);
 		request.setAttribute("numSeguidores", numSeguidores);
-
+		
+		TransmisionDAO transmisionDAO = new TransmisionDAO();
+		List<Estacion> estaciones = transmisionDAO.getEstacionesLibres();
+		List<Transmision> transmisiones = transmisionDAO.getTransmisionUsuario(idUsuario);
+		for(Estacion estacion : estaciones)
+			System.out.println("++++++" + estacion.getUrl());
+		request.setAttribute("estaciones", estaciones);
+		request.setAttribute("transmisiones", transmisiones);
+		
 		request.getRequestDispatcher("profile.jsp").forward(request, response);
 	}
 

@@ -39,10 +39,11 @@ public class IniciarTransimision_Servlet extends HttpServlet {
 		System.out.println(nombre);
 		String descripcion = (String) request.getParameter("descripcion");
 		System.out.println(descripcion);
-		String URL = (String) request.getParameter("URL");
+		String URL = (String) request.getParameter("estacion");
 		System.out.println(URL);
 		TransmisionDAO transmisionDAO = new TransmisionDAO();
 		Transmision transmision = transmisionDAO.iniciar(nombre, descripcion, idUsuario, URL);
+		System.out.println(transmision.getNombre() + "+++++++++++++");
 		request.setAttribute("transmision", transmision);
 		request.getRequestDispatcher("control-transmision.jsp").forward(request, response);
 	}

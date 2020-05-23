@@ -17,12 +17,15 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
+import com.espotify.dao.CancionDAO;
+import com.espotify.dao.CapituloPodcastDAO;
 import com.espotify.dao.GeneroDAO;
 import com.espotify.dao.SubirAudioDAO;
 import com.espotify.model.Genero;
@@ -52,6 +55,10 @@ public class SubirAudioCapitulo_Servlet extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		int autor = Integer.valueOf((String) session.getAttribute("id"));
+		
+		
 		getServletContext().log("Comienza subida de MP3...");
 		if(!ServletFileUpload.isMultipartContent(request)){
 			throw new ServletException("Content type is not multipart/form-data");
@@ -64,47 +71,63 @@ public class SubirAudioCapitulo_Servlet extends HttpServlet {
 
 		try {
 			List<FileItem> fileItemsList = uploader.parseRequest(request);
-			Iterator<FileItem> fileItemsIterator = fileItemsList.iterator();
-			int lastId = SubirAudioDAO.obtenerUltimaCancionId();
-			while(fileItemsIterator.hasNext()){
-				FileItem fileItem = fileItemsIterator.next();
-				getServletContext().log("FieldName="+fileItem.getFieldName());
-				getServletContext().log("FileName="+fileItem.getName());
-				getServletContext().log("Contenido="+fileItem.getContentType());
-				getServletContext().log("Tama�o (B)="+fileItem.getSize());
-				//getServletContext().log("Directorio fichero: " + request.getServletContext().getAttribute("FILES_DIR"));
-				getServletContext().log("Nombre fichero: " + fileItem.getName());
-				
-				String rutaAudio = ALMACEN_PATH + lastId + ".mp3";
-				
-				getServletContext().log("Ruta audio: " + rutaAudio);
-				
-				File ficheroAudio = new File(rutaAudio);
-				getServletContext().log("Absolute Path at server="+ficheroAudio.getAbsolutePath());
-				
-				fileItem.write(ficheroAudio);
-				
-				ficheroAudio.setReadable(true, false);
-				ficheroAudio.setExecutable(true, false);
-				ficheroAudio.setWritable(true, false);
-				
-				request.setAttribute("ruta", RUTA + lastId + ".mp3");
-				//out.write("<a href=\"UploadDownloadFileServlet?fileName="+fileItem.getName()+"\">Download "+fileItem.getName()+"</a>");
-			}
-			ArrayList<Genero> generos = new GeneroDAO().obtenerGeneroCapitulo();
-			request.setAttribute("generos", generos);
-			request.setAttribute("id_audio", "0");
-			request.setAttribute("cancion", false);
-			request.getRequestDispatcher("formulario-datos-cancion.jsp?pagina=10").forward(request, response);
 
+			for(FileItem file: fileItemsList)
+				getServletContext().log("POSICION: "+ fileItemsList.indexOf(file) + " Contenido: " + file.getFieldName() + "---" + file.getString());
+			String nombre = (String)fileItemsList.get(1).getString();
+			int genero = Integer.valueOf((String)fileItemsList.get(2).getString());
+			
+			int lastId = SubirAudioDAO.obtenerUltimaCancionId();
+			String ruta = subirAudioAlmacen((lastId+1), fileItemsList.get(0));
+			if(ruta != null) {			
+				CapituloPodcastDAO capitulo = new CapituloPodcastDAO();
+				if (capitulo.subirCapituloPodcast(nombre, autor, genero, ruta) != 0) {
+					request.getRequestDispatcher("/obtener_contenido_perfil?pagina=10").forward(request, response);
+				} else {
+					out.write("Se ha producido un error al guardar en la base de datos");
+				}
+			}else {
+				out.write("Se ha producido un error al subir el fichero");
+			}
+			
+			
 		} catch (FileUploadException e) {
 			getServletContext().log("FAIL: " + e.toString());
 			out.write("Se ha producido un error al subir el fichero");
-		} catch (Exception e) {
+		}
+		/*} catch (Exception e) {
 			getServletContext().log("FAIL: " + e.toString());
 			out.write("Se ha producido un error al subir el fichero");
-		}
+		}*/
 		//out.write("</body></html>");
 	}
-
+	
+	
+	private String subirAudioAlmacen(int id, FileItem fileItem) {
+		getServletContext().log("FieldName="+fileItem.getFieldName());
+		getServletContext().log("FileName="+fileItem.getName());
+		getServletContext().log("Contenido="+fileItem.getContentType());
+		getServletContext().log("Tama�o (B)="+fileItem.getSize());
+		//getServletContext().log("Directorio fichero: " + request.getServletContext().getAttribute("FILES_DIR"));
+		getServletContext().log("Nombre fichero: " + fileItem.getName());
+		
+		String rutaAudio = ALMACEN_PATH + id + ".mp3";
+		
+		getServletContext().log("Ruta audio: " + rutaAudio);
+		
+		File ficheroAudio = new File(rutaAudio);
+		getServletContext().log("Absolute Path at server="+ficheroAudio.getAbsolutePath());
+		
+		try {
+			fileItem.write(ficheroAudio);
+			ficheroAudio.setReadable(true, false);
+			ficheroAudio.setExecutable(true, false);
+			ficheroAudio.setWritable(true, false);
+			String ruta = RUTA + id + ".mp3";
+			return ruta;
+		} catch (Exception e) {
+			getServletContext().log("FAIL: " + e.toString());		
+			return null;
+		}
+	}
 }
