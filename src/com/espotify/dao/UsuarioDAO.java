@@ -452,6 +452,7 @@ public class UsuarioDAO {
 			e.printStackTrace(System.err);
 		}
 		
+		System.out.println(numSeguidores + "----------------------");
 		return numSeguidores;
 	}
 

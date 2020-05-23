@@ -211,7 +211,6 @@ String nombre = (String) session.getAttribute("nombre");
 String descripcion = (String) session.getAttribute("descripcion");
 String email = (String) session.getAttribute("email");
 String imagen = (String) session.getAttribute("imagen");
-String seguidores = (String) session.getAttribute("numSeguidores");
 %>
 <!-- END Obtener datos usuario -->
 
@@ -374,11 +373,7 @@ String seguidores = (String) session.getAttribute("numSeguidores");
                     <div class="row">
                         <div class="col-md-4">
                             <div class="p-4">
-                            	<%if (seguidores!=null){ %>
-                                <a href="#w3-tab3" ><h5>Seguidores</h5></a><h6><%=seguidores %></h6></a>
-                                <%} else {%>
-                                <a href="#w3-tab3" ><h5>Seguidores</h5></a><h6>0</h6></a>
-                                <%} %>
+                                <a href="#w3-tab3" ><h5>Seguidores</h5></a><h6>${numSeguidores}</h6></a>
                             </div>
                         </div>
                     </div>
