@@ -681,8 +681,7 @@ String imagen = (String) session.getAttribute("imagen");
 											                        <i style="position: relative;left: 10px;" class="icon-commenting-o s-24"></i>
 											                    </a>															
 															<div class="ml-auto">
-																<a href="#" class="btn-icono icon-indent" onclick="rellenarCampos('${podcasts.size()}','${capitulo.getId()}');
-
+																<a href="#" class="btn-icono icon-indent" onclick="rellenarCamposP('${podcastslr.size()}','${capitulo.getId()}');
 																document.getElementById('overlay-anadir-podcast').classList.add('active')";
 																	></a>
 															</div>

@@ -484,7 +484,7 @@ String seguidores = (String) session.getAttribute("numSeguidores");
 											                    </a>
 															<div class="ml-auto">
 																<a href="anyadir_cancion_fav?idAudio=${cancion.getId()}&pagina=10" class="btn-favorito icon-star" ></a>
-																<a href="#" class="btn-icono icon-indent" onclick="rellenarCampos('${listaslr.size()}','${cancion.getId()}');
+																<a href="#" class="btn-icono icon-indent" onclick="rellenarCampos('${mislistas.size()}','${cancion.getId()}');
 																document.getElementById('overlay-anadir-listas-reproduccion').classList.add('active')";
 																	></a>
 															</div>
@@ -594,7 +594,7 @@ String seguidores = (String) session.getAttribute("numSeguidores");
 										                        <i style="position: relative;left: 10px;" class="icon-commenting-o s-24"></i>
 										                    </a>
 															<div class="ml-auto">
-																<a href="#" class="btn-icono icon-indent" onclick="rellenarCamposP('${podcastslr.size()}','${capitulo.getId()}');
+																<a href="#" class="btn-icono icon-indent" onclick="rellenarCamposP('${misPodcasts.size()}','${capitulo.getId()}');
 																document.getElementById('overlay-anadir-podcast').classList.add('active')"></a>
 															</div>
 														</div>
