@@ -72,8 +72,8 @@ public class SubirAudioCapitulo_Servlet extends HttpServlet {
 		try {
 			List<FileItem> fileItemsList = uploader.parseRequest(request);
 
-			for(FileItem file: fileItemsList)
-				getServletContext().log("POSICION: "+ fileItemsList.indexOf(file) + " Contenido: " + file.getFieldName() + "---" + file.getString());
+			/*for(FileItem file: fileItemsList)
+				getServletContext().log("POSICION: "+ fileItemsList.indexOf(file) + " Contenido: " + file.getFieldName() + "---" + file.getString());*/
 			String nombre = (String)fileItemsList.get(1).getString();
 			int genero = Integer.valueOf((String)fileItemsList.get(2).getString());
 			

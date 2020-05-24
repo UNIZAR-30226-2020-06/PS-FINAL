@@ -28,6 +28,8 @@ public class SubirImagenListRep_Servlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final String ALMACEN_PATH = "/var/www/html/almacen-mp3/almacen-img/listas/";
 	private static final String RUTA = "https://espotify.ddns.net/almacen-mp3/almacen-img/listas/";
+    private static final int ADMIN = 100;  
+
 	/*
 	 * Constructor principal
 	 * 
@@ -53,7 +55,8 @@ public class SubirImagenListRep_Servlet extends HttpServlet {
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
 		out.write("<html><head></head><body>");
-		
+		HttpSession session = request.getSession();
+		int usuario=Integer.valueOf((String)session.getAttribute("id"));
 
 		try {
 			List<FileItem> fileItemsList = uploader.parseRequest(request);
@@ -89,9 +92,7 @@ public class SubirImagenListRep_Servlet extends HttpServlet {
 				request.setAttribute("ruta", RUTA + idLista + ".jpg");
 				//out.write("<a href=\"UploadDownloadFileServlet?fileName="+fileItem.getName()+"\">Download "+fileItem.getName()+"</a>");
 				//gooogle.es
-				
-			
-			request.getRequestDispatcher("mostrar_lrs?pagina=10").forward(request, response);
+				request.getRequestDispatcher("mostrar_lrs?tipo=ListaRep&pagina=10").forward(request, response);
 
 		} catch (FileUploadException e) {
 			getServletContext().log("FAIL: " + e.toString());

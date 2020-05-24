@@ -29,7 +29,6 @@ public class ModificarInfo_CancionServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("ENTRE EN MODIFICAR");
 		HttpSession session = request.getSession();
 		int usuario=Integer.valueOf((String)session.getAttribute("id"));
 		String titulo = request.getParameter("titulo");
@@ -52,7 +51,6 @@ public class ModificarInfo_CancionServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

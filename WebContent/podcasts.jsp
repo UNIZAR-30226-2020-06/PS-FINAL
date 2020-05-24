@@ -329,25 +329,26 @@ String imagen = (String) session.getAttribute("imagen");
      </div> 
                     
 
-<!-- CREAR PODCAST-->
-<div class="overlay-pop-up" id="overlay-podcast">
+<!-- CREAR PODCAST -->
+<div class="overlay-pop-up" id="overlay-podcast">					
     <div class="col-md-7 card p-5">
-		<a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-podcast" class="btn-cerrar-popup-perfil" onClick="document.getElementById('overlay-podcast').classList.remove('active');"><i class="icon-close1"></i></a>
-		<form class="form-material" action="crear_lr">
+  <form class="form-material" action="crear_lr" method="post" enctype="multipart/form-data" name="fileinfo">
+		<a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-listas-reproduccion" class="btn-cerrar-popup-perfil"
+		onClick="document.getElementById('overlay-podcast').classList.remove('active');"><i class="icon-close1"></i></a>
 			<!-- Input -->
 			<div class="body">
 				<header class="relative nav-sticky card">
 					<h3>CREAR PODCAST</h3>
 				</header>
-				<div class="contenedor-inputs">
-					<h4>Añadir imagen</h4>
-					<!--  <input type="file" class="btn btn-outline-primary btn-sm  mt-3" name="fileName" /> -->
+				<div class="contenedor-inputs" id="output">
+					<label>Imagen</label>
+					<input type="file" class="btn btn-outline-primary btn-sm  mt-3" name="fileName" id="file">
 					<input type="text" name="nombre" placeholder="Nombre" id="nombre-listas-reproduccion" required/>
 					<input type="text" name="descripcion" placeholder="Descripcion" id="descripcion-listas-reproduccion"/>
-					<input type="hidden" name="tipo" id="tipo1" value="podcast">
+					<input type="hidden" name="tipo" id="tipo" value="podcast">
 				</div>
 
-				<a id="submit1" href="#" class="btn btn-outline-primary btn-sm pl-4 pr-4">Aceptar</a>
+				<input type="submit" class="btn btn-outline-primary btn-sm pl-4 pr-4" value="Aceptar">
 			</div>
 			<!-- #END# Input -->
 		</form>

@@ -541,8 +541,7 @@ String email = (String) session.getAttribute("email");
 <!-- CAMBIAR FOTO -->
 <div class="overlay-pop-up" id="overlay-foto">
     <div class="col-md-7 card p-5">
-		<a onClick="document.getElementById('overlay-foto').classList.remove('active')"
-		style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-foto" class="btn-cerrar-popup-perfil"><i class="icon-close1"></i></a>
+		<a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-foto" class="btn-cerrar-popup-perfil"><i class="icon-close1"></i></a>
 		<form class="form-material" action="modImagenUsuario" method=POST enctype=multipart/form-data>
 			<!-- Input -->
 			<div class="body">
@@ -560,7 +559,6 @@ String email = (String) session.getAttribute("email");
 		</form>
 	</div>
 </div>
-
 <!-- END CAMBIAR FOTO -->
 
 <!-- EDICION PERFIL -->

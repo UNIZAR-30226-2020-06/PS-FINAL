@@ -417,6 +417,9 @@ String imagen = (String) session.getAttribute("imagen");
                      	</figure>
                     </div>
                     <c:forEach var="lista" items="${listas}" >
+                   			<script type="text/javascript">
+                    			console.log(${lista.getId()});
+                    		</script>
 							<div class="col-lg-3 col-md-4 col-sm-6 my-2">
 								<figure>
 									<div class="img-wrapper">
@@ -457,25 +460,25 @@ String imagen = (String) session.getAttribute("imagen");
  </div>                   
 
 <!-- CREAR LISTA DE REPRODUCCIÓN -->
-<div class="overlay-pop-up" id="overlay-listas-reproduccion">
+<div class="overlay-pop-up" id="overlay-listas-reproduccion">					
     <div class="col-md-7 card p-5">
+  <form class="form-material" action="crear_lr" method="post" enctype="multipart/form-data" name="fileinfo">
 		<a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-listas-reproduccion" class="btn-cerrar-popup-perfil"
 		onClick="document.getElementById('overlay-listas-reproduccion').classList.remove('active');"><i class="icon-close1"></i></a>
-		<form class="form-material" action="crear_lr">
 			<!-- Input -->
 			<div class="body">
 				<header class="relative nav-sticky card">
 					<h3>CREAR LISTAS DE REPRODUCCIÓN</h3>
 				</header>
-				<div class="contenedor-inputs">
-					<h4>Añadir imagen</h4>
-					<!--  <input type="file" class="btn btn-outline-primary btn-sm  mt-3" name="fileName" /> -->
+				<div class="contenedor-inputs" id="output">
+					<label>Imagen</label>
+					<input type="file" class="btn btn-outline-primary btn-sm  mt-3" name="fileName" id="file">
 					<input type="text" name="nombre" placeholder="Nombre" id="nombre-listas-reproduccion" required/>
 					<input type="text" name="descripcion" placeholder="Descripcion" id="descripcion-listas-reproduccion"/>
-					<input type="hidden" name="tipo" id="tipo1" value="ListaRep">
+					<input type="hidden" name="tipo" id="tipo" value="ListaRep">
 				</div>
 
-				<a id="submit1" href="#" class="btn btn-outline-primary btn-sm pl-4 pr-4">Aceptar</a>
+				<input type="submit" class="btn btn-outline-primary btn-sm pl-4 pr-4" value="Aceptar">
 			</div>
 			<!-- #END# Input -->
 		</form>
@@ -622,7 +625,7 @@ String imagen = (String) session.getAttribute("imagen");
 					<input type="hidden" name="tipo" id="tipo1" value="ListaRep">
 				</div>
 
-				<a id="submit1" href="#" class="btn btn-outline-primary btn-sm pl-4 pr-4">Aceptar</a>
+				<a id="submit" href="#" class="btn btn-outline-primary btn-sm pl-4 pr-4">Aceptar</a>
 			</div>
 			<!-- #END# Input -->
 		</form>
@@ -656,24 +659,6 @@ String imagen = (String) session.getAttribute("imagen");
 	</div>	
 <!-- END BORRAR LISTA DE REPRODUCCIÓN -->
 <script>
-    $(document).ready(function() {
-    	$('#submit1').click(function(event) {
-			var idListaVar = $('#nombre-listas-reproduccion').val();
-			var descripcionVar = $('#descripcion-listas-reproduccion').val();
-			var tipoVar = $('#tipo1').val();
-			console.log(idListaVar);
-			console.log(tipoVar);
-			// Si en vez de por post lo queremos hacer por get, cambiamos el $.post por $.get
-			$.get('crear_lr', {
-				nombre : idListaVar,
-				tipo : tipoVar,
-				descripcion : descripcionVar
-			}, function(){
-				location.href="mostrar_lrs?tipo=ListaRep&pagina=10";
-				//$("#pageContent").load("#pageContent");
-				//$("#todo").load("#todo");
-			});
-		});
     	$('#submit2').click(function(event) {
 			var idListaVar = $('#idLista').val();
 			var tipoVar = $('#tipo2').val();

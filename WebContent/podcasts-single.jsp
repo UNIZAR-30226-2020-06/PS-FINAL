@@ -462,7 +462,7 @@ String imagen = (String) session.getAttribute("imagen");
 															</header>
 															<div class="contenedor-inputs">
 																<input type="file" class="btn btn-outline-primary btn-sm  mt-3" name="imagen" accept="image/jpeg"> 
-																<input type="hidden" name="idPodcast" id="idPodcast" value=${infoLista.getId() }>
+																<input type="hidden" name="idPodcast" id="idPodcast" value=${infoPodcast.getId() }>
 															</div>
 											
 															<input type="submit" class="btn btn-outline-primary btn-sm pl-4 pr-4"
@@ -472,7 +472,6 @@ String imagen = (String) session.getAttribute("imagen");
 													</form>
 												</div>
 											</div>
-											
 											<!-- END CAMBIAR FOTO -->
 											<!-- BORRAR COMENTARIO DE CANCION -->	
 											<div class="overlay-pop-up" id="overlay-borrar-coment-cancion">	

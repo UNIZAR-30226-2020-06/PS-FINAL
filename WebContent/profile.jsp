@@ -871,20 +871,20 @@ String imagen = (String) session.getAttribute("imagen");
 <!-- CREAR PODCAST -->
 <div class="overlay-pop-up" id="overlay-podcast">					
     <div class="col-md-7 card p-5">
-    	<form class="form-material" action="crear_lr" method="post" enctype="multipart/form-data">
-			<a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-podcast" class="btn-cerrar-popup-perfil"
-			onClick="document.getElementById('overlay-podcast').classList.remove('active');"><i class="icon-close1"></i></a>
+  <form class="form-material" action="crear_lr" method="post" enctype="multipart/form-data" name="fileinfo">
+		<a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-listas-reproduccion" class="btn-cerrar-popup-perfil"
+		onClick="document.getElementById('overlay-podcast').classList.remove('active');"><i class="icon-close1"></i></a>
 			<!-- Input -->
 			<div class="body">
 				<header class="relative nav-sticky card">
 					<h3>CREAR PODCAST</h3>
 				</header>
-				<div class="contenedor-inputs">
+				<div class="contenedor-inputs" id="output">
 					<label>Imagen</label>
-					<input type="file" class="btn btn-outline-primary btn-sm  mt-3" name="fileName"/>
-					<input type="text" name="nombre" placeholder="Nombre" id="nombre-listas-reproduccion7" required/>
-					<input type="text" name="descripcion" placeholder="Descripcion" id="descripcion-listas-reproduccion7"/>
-					<input type="hidden" name="tipo" name="tipo7" value="podcast">
+					<input type="file" class="btn btn-outline-primary btn-sm  mt-3" name="fileName" id="file">
+					<input type="text" name="nombre" placeholder="Nombre" id="nombre-listas-reproduccion" required/>
+					<input type="text" name="descripcion" placeholder="Descripcion" id="descripcion-listas-reproduccion"/>
+					<input type="hidden" name="tipo" id="tipo" value="podcast">
 				</div>
 
 				<input type="submit" class="btn btn-outline-primary btn-sm pl-4 pr-4" value="Aceptar">
@@ -1294,25 +1294,6 @@ String imagen = (String) session.getAttribute("imagen");
 			});
 		});
     	
-    	$('#submit3').click(function(event) { // crear lista
-			var nombreVar = $('#nombre-listas-reproduccion').val();
-			var descripcionVar = $('#descripcion-listas-reproduccion').val();
-			var tipoVar = $('#tipo').val();
-			var imagen =  $('#file').val();
-			console.log(nombreVar);
-			console.log(descripcionVar);
-			console.log(tipoVar);
-			// Si en vez de por post lo queremos hacer por get, cambiamos el $.post por $.get
-			$.get('crear_lr', {
-				nombre : nombreVar,
-				descripcion : descripcionVar,
-				tipo : tipoVar,
-				file : imagen
-			}, function(){
-				location.href ="mostrar_lrs?tipo=ListaRep&pagina=10";
-			});
-		});
-    	
     	$('#submit4').click(function(event) { // añadir cancion a lista
 			var idListaVar = $('#idLista').val();
 			var idAudioVar = $('#idAudio').val();
@@ -1354,21 +1335,7 @@ String imagen = (String) session.getAttribute("imagen");
 				location.href ="mostrar_lrs?tipo=ListaRep&pagina=10";
 			});
 		});
-    	$('#submit7').click(function(event) { // crear podcast
-			var idListaVar = $('#nombre-listas-reproduccion7').val();
-			var descripcionVar = $('#descripcion-listas-reproduccion7').val();
-			var tipoVar = "podcast";
-			console.log(idListaVar);
-			console.log(tipoVar);
-			// Si en vez de por post lo queremos hacer por get, cambiamos el $.post por $.get
-			$.get('crear_lr', {
-				nombre : idListaVar,
-				tipo : tipoVar,
-				descripcion : descripcionVar
-			}, function(){
-				location.href="mostrar_podcasts?tipo=podcasts&pagina=10";
-			});
-		});
+    	
     	$('#submit8').click(function(event) { // borrar podcast
 			var idListaVar = $('#idPodcast8').val();
 			var tipoVar = $('#tipo8').val();
@@ -1565,24 +1532,7 @@ String imagen = (String) session.getAttribute("imagen");
 				$('#contenido').html(responseText);
 			});
 		});
-    	$('#submit3').click(function(event) { // crear lista
-			var nombreVar = $('#nombre-listas-reproduccion').val();
-			var descripcionVar = $('#descripcion-listas-reproduccion').val();
-			var tipoVar = $('#tipo').val();
-			var imagen =  $('#file').val();
-			console.log(nombreVar);
-			console.log(descripcionVar);
-			console.log(tipoVar);
-			// Si en vez de por post lo queremos hacer por get, cambiamos el $.post por $.get
-			$.get('crear_lr', {
-				nombre : nombreVar,
-				descripcion : descripcionVar,
-				tipo : tipoVar,
-				file : imagen
-			}, function(){
-				location.href ="mostrar_lrs?tipo=ListaRep&pagina=10";
-			});
-		});  	
+    	
     	$('#submit4').click(function(event) { // añadir cancion a lista
 			var idListaVar = $('#idLista').val();
 			var idAudioVar = $('#idAudio').val();
@@ -1624,21 +1574,7 @@ String imagen = (String) session.getAttribute("imagen");
 				location.href ="mostrar_lrs?tipo=ListaRep&pagina=10";
 			});
 		});
-    	$('#submit7').click(function(event) { // crear podcast
-			var idListaVar = $('#nombre-listas-reproduccion7').val();
-			var descripcionVar = $('#descripcion-listas-reproduccion7').val();
-			var tipoVar = "podcast";
-			console.log(idListaVar);
-			console.log(tipoVar);
-			// Si en vez de por post lo queremos hacer por get, cambiamos el $.post por $.get
-			$.get('crear_lr', {
-				nombre : idListaVar,
-				tipo : tipoVar,
-				descripcion : descripcionVar
-			}, function(){
-				location.href="mostrar_podcasts?tipo=podcasts&pagina=10";
-			});
-		});
+    	
     	$('#submit8').click(function(event) { // borrar podcast
 			var idListaVar = $('#idPodcast8').val();
 			var tipoVar = $('#tipo8').val();

@@ -53,55 +53,16 @@ public class Crear_ListaRepServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("HOLAAAAA");
-		getServletContext().log("Creando una lista de reproduccion...");		
-		response.setContentType("text/html");
-		PrintWriter out = response.getWriter();
 		
-		FileItem imagen = (FileItem) request.getAttribute("file");
-	
-		
-		HttpSession session = request.getSession();
-		int usuario = Integer.parseInt((String) session.getAttribute("id"));
-		String nombre = (String)request.getAttribute("nombre");
-		String descripcion = (String)request.getAttribute("descripcion");
-		String tipo = (String)request.getAttribute("tipo");
-		try {
-		ListaReproduccionDAO listaReproduccionDAO = new ListaReproduccionDAO();
-		if(listaReproduccionDAO.crear(usuario, nombre, descripcion, tipo)) {
-			if(imagen != null) {
-				ListaReproduccion lista = listaReproduccionDAO.getInfoList(nombre, usuario, tipo);
-				if(subirImagenAlmacen(lista.getId(), imagen)) {
-					if(tipo.equals("podcast")) {
-						request.getRequestDispatcher("mostrar_podcasts").forward(request, response);
-					} else {
-						request.getRequestDispatcher("mostrar_lrs").forward(request, response);
-					}
-				} else {
-					out.write("Error al subir la imagen");
-				}
-			}
-		} else {
-			out.write("Error al crear una lista de reproducción");
-		}
-					
-		//out.write("<a href=\"UploadDownloadFileServlet?fileName="+fileItem.getName()+"\">Download "+fileItem.getName()+"</a>");
-		//gooogle.es		
-
-	} catch (Exception e) {
-		getServletContext().log("FAIL: " + e.toString());
-		out.write("Se ha producido un error al subir el fichero");
-	}
-	//out.write("</body></html>");*/
-		/*
 		getServletContext().log("Creando una lista de reproduccion...");		
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
 		out.write("<html><head></head><body>");
+		HttpSession session = request.getSession();
+		int usuario = Integer.parseInt((String) session.getAttribute("id"));
 		
 
 		try {
-			int id = 0;
 			List<FileItem> fileItemsList = uploader.parseRequest(request);
 			for(FileItem file: fileItemsList)
 				getServletContext().log("POSICION: "+ fileItemsList.indexOf(file) + " Contenido: " + file.getFieldName() + "---" + file.getString());
@@ -112,15 +73,21 @@ public class Crear_ListaRepServlet extends HttpServlet {
 			ListaReproduccionDAO listaReproduccionDAO = new ListaReproduccionDAO();
 			if(listaReproduccionDAO.crear(usuario, nombre, descripcion, tipo)) {
 				if(fileItemsList.get(0) != null) {
-					if(subirImagenAlmacen(id, fileItemsList.get(0))) {
+					ListaReproduccion lista = listaReproduccionDAO.getInfoList(nombre, usuario, tipo);
+					if(subirImagenAlmacen(lista.getId(), fileItemsList.get(0))) {
 						if(tipo.equals("podcast")) {
-							request.getRequestDispatcher("mostrar_podcasts").forward(request, response);
+							request.getRequestDispatcher("mostrar_podcasts?tipo=podcast&pagina=10").forward(request, response);
 						} else {
-							request.getRequestDispatcher("mostrar_lrs").forward(request, response);
+							request.getRequestDispatcher("mostrar_lrs?tipo=ListaRep&pagina=10").forward(request, response);
 						}
 					} else {
 						out.write("Error al subir la imagen");
 					}
+				}
+				if(tipo.equals("podcast")) {
+					request.getRequestDispatcher("mostrar_podcasts?tipo=podcast&pagina=10").forward(request, response);
+				} else {
+					request.getRequestDispatcher("mostrar_lrs?tipo=ListaRep&pagina=10").forward(request, response);
 				}
 			} else {
 				out.write("Error al crear una lista de reproducción");
@@ -136,7 +103,7 @@ public class Crear_ListaRepServlet extends HttpServlet {
 			getServletContext().log("FAIL: " + e.toString());
 			out.write("Se ha producido un error al subir el fichero");
 		}
-		//out.write("</body></html>");*/
+		//out.write("</body></html>");
 	}
 	
 	private boolean subirImagenAlmacen(int id, FileItem fileItem) {

@@ -466,6 +466,7 @@ String imagen = (String) session.getAttribute("imagen");
 											</div>
 											<!-- END EDICION LISTA DE REPRODUCCION -->
 											<!-- CAMBIAR FOTO -->
+											<!-- CAMBIAR FOTO -->
 											<div class="overlay-pop-up" id="overlay-foto">
 											    <div class="col-md-7 card p-5">
 													<a href="#" style="position: absolute;top: 20px;right: 30px;"
@@ -489,7 +490,7 @@ String imagen = (String) session.getAttribute("imagen");
 												</div>
 											</div>
 											
-											<!-- END CAMBIAR FOTO -->
+											<!-- END CAMBIAR FOTO -->											
 											<!-- BORRAR COMENTARIO DE CANCION -->	
 											<div class="overlay-pop-up" id="overlay-borrar-coment-cancion">	
 											    <div class="col-md-7 card p-5">	

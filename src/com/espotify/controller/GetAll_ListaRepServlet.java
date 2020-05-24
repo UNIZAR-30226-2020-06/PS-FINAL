@@ -40,8 +40,10 @@ public class GetAll_ListaRepServlet extends HttpServlet {
 		String tipo = request.getParameter("tipo");
 		try{
 			List<ListaReproduccion> listas = new ListaReproduccionDAO().showLists(usuario,tipo);
-			
-			session.setAttribute("listas", listas);
+			for(ListaReproduccion lista : listas) {
+				getServletContext().log("+++++++++++++" + lista.getNombre());
+			}
+			request.setAttribute("listas", listas);
 				
 			//RequestDispatcher dispatcher=request.getRequestDispatcher("user.jsp");
 			//dispatcher.forward(request, response);
@@ -50,6 +52,7 @@ public class GetAll_ListaRepServlet extends HttpServlet {
 
 		}catch(Throwable theException) {
 			//response.sendRedirect("crearListaRep.jsp");
+			getServletContext().log("ERROR+++++++++++++");
 		}
 	}
 
