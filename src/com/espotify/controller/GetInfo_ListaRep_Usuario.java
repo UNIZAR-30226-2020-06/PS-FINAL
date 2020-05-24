@@ -73,6 +73,7 @@ public class GetInfo_ListaRep_Usuario extends HttpServlet {
 			request.setAttribute("infoLista", infoLista);
 			request.setAttribute("audios", audios);
 			if (usuario ==ADMIN){
+				request.setAttribute("idUsuario", id);
 				request.getRequestDispatcher("lista-rep-admin.jsp").forward(request, response);
 			}else {
 				request.setAttribute("listaslr", listaslr);

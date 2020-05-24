@@ -629,7 +629,7 @@ String imagen = (String) session.getAttribute("imagen");
 										                    </a>
 															<div class="ml-auto">
 																<a href="${pageContext.request.contextPath}/ir_modificar?id_audio=${capitulo.getId()}&cancion=false&pagina=<%=pagina %>" class="btn-icono icon-pencil" ></a>
-																<a href="#" class="btn-icono icon-indent" onclick="rellenarCamposP('${podcast.size()}','${capitulo.getId()}');
+																<a href="#" class="btn-icono icon-indent" onclick="rellenarCamposP('${podcasts.size()}','${capitulo.getId()}');
 																document.getElementById('overlay-anadir-podcast').classList.add('active');"></a>
 																<a href="#" 
 																onclick="document.getElementById('capituloIDborrar').value = '${capitulo.getId()}';
@@ -955,7 +955,7 @@ String imagen = (String) session.getAttribute("imagen");
 							</figure>
 							<form class="form-material" action="anyadir_cancion_lr">
 								<input type="hidden" name="idLista" id="idLista2" value="${podcast.getId()}">
-								<input type="hidden" name="idAudio" id="idAudio2" value="">
+								<input type="hidden" name="idAudioP" id="idAudio2" value="">
 								<input type="hidden" name="nombreLista" id="nombreLista2" value="${podcast.getNombre()}">
 								<input type="hidden" name="tipo" id="tipo3" value="podcast">
 								<input type="submit" value="Añadir">

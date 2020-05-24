@@ -42,7 +42,7 @@ public class AnyadirAudio_ListaRepServlet extends HttpServlet {
 		
 		Boolean anyadida=false;	
 		String redir="";
-		
+		log("Hola?");
 		if (tipo.equals("ListaRep")) {
 			String audio = request.getParameter("idAudio");
 			int idAudio = Integer.valueOf(audio);		
