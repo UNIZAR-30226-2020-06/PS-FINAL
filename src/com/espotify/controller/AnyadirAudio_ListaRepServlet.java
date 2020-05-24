@@ -45,6 +45,7 @@ public class AnyadirAudio_ListaRepServlet extends HttpServlet {
 		log("Hola?");
 		if (tipo.equals("ListaRep")) {
 			String audio = request.getParameter("idAudio");
+			log(audio);
 			int idAudio = Integer.valueOf(audio);		
 			anyadida = new ListaReproduccionDAO().anyadirAudio(idAudio, idLista);
 			redir = "obtener_info_lr?nombre=" + nombre+"&pagina=10";

@@ -382,6 +382,63 @@ String imagen = (String) session.getAttribute("imagen");
 										<div>
 											<h5>LIKES</h5>${infoLista.getNumLikes()}
 										</div>
+										<!-- AÑADIR CANCION A LISTA DE REPRODUCCI�N -->
+										<div class="overlay-pop-up" id="overlay-anadir-listas-reproduccion">
+										    <div class="col-md-7 card p-5">
+												<a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-anadir-listas-reproduccion" class="btn-cerrar-popup-perfil"><i class="icon-close1"
+												onclick="document.getElementById('overlay-anadir-listas-reproduccion').classList.remove('active');"></i></a>			
+													<!-- Input -->
+														<div class="body">
+															<div class="row has-items-overlay">
+																<c:forEach var="listalr" items="${listaslr}">
+																<div class="col-lg-3 col-md-4 col-sm-6 my-2">
+																	<figure>
+																		<div class="img-wrapper">
+													
+																			<img src=${listalr.getImagen() } alt="/">
+																			
+																			<div class="figure-title text-center p-2">
+																				<h5>${listalr.getNombre()}</h5>
+																			</div>
+																		</div>
+																	</figure>
+																	<form class="form-material" action="anyadir_cancion_lr" method="post">
+																		<input type="hidden" name="idLista" id="idLista" value="${listalr.getId()}">
+																		<input type="hidden" name="idAudio" id="idAudio" value="">
+																		<input type="hidden" name="nombreLista" id="nombreLista" value="${listalr.getNombre()}">
+																		<input type="hidden" name="tipo" id="tipo" value="ListRep">
+																		<a id="submit2" href="Inicio?pagina=<%=pagina %>" class="btn btn-outline-primary btn-sm pl-4 pr-4">Añadir</a>
+																	</form>	
+																</div>
+															</c:forEach>
+														<!-- #END# Input -->
+														</div>
+													</div>		
+											</div>
+										</div>
+										<!-- END AÑADIR CANCION A LISTA DE REPRODUCCI�N -->
+										
+										<!-- BORRAR COMENTARIO DE CANCION -->	
+											<div class="overlay-pop-up" id="overlay-borrar-coment-cancion">	
+											    <div class="col-md-7 card p-5">	
+											        <a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-borrar-coment-cancion" class="btn-cerrar-popup-perfil"	
+											        class="btn btn-outline-primary btn-sm pl-4 pr-4"  onclick="document.getElementById('overlay-borrar-coment-cancion').classList.remove('active');"><i class="icon-close1"></i></a>	
+													<form class="form-material" action="borrar_coment_cancion">	
+														<!-- Input -->	
+														<div class="body">	
+															<header class="relative nav-sticky card">	
+											                    <h3>Vas a borrar este comentario.</h3>
+											                    <h5>¿Estás seguro?</h5>	
+															</header>	
+												
+															<input type="hidden" id="comentarioID" name=idComentario value="">	
+															<a id="borrarComentario" href="#" onclick="document.getElementById('overlay-borrar-coment-cancion').classList.remove('active');" class="btn btn-outline-primary btn-sm pl-4 pr-4">Aceptar</a>
+														</div>	
+														<!-- #END# Input -->	
+											        </form>	
+												</div>	
+											</div>	
+										<!-- END BORRAR COMENTARIO DE CANCION -->
 
 									</div>
 								</div>
@@ -476,63 +533,7 @@ String imagen = (String) session.getAttribute("imagen");
 	</div>
 
 
-<!-- AÑADIR CANCION A LISTA DE REPRODUCCI�N -->
-<div class="overlay-pop-up" id="overlay-anadir-listas-reproduccion">
-    <div class="col-md-7 card p-5">
-		<a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-anadir-listas-reproduccion" class="btn-cerrar-popup-perfil"><i class="icon-close1"
-		onclick="document.getElementById('overlay-anadir-listas-reproduccion').classList.remove('active');"></i></a>			
-			<!-- Input -->
-				<div class="body">
-					<div class="row has-items-overlay">
-						<c:forEach var="listalr" items="${listaslr}">
-						<div class="col-lg-3 col-md-4 col-sm-6 my-2">
-							<figure>
-								<div class="img-wrapper">
-			
-									<img src="assets/img/demo/a1.jpg" alt="/">
-									
-									<div class="figure-title text-center p-2">
-										<h5>${listalr.getNombre()}</h5>
-									</div>
-								</div>
-							</figure>
-							<form class="form-material" action="anyadir_cancion_lr" method="post">
-								<input type="hidden" name="idLista" id="idLista" value="${listalr.getId()}">
-								<input type="hidden" name="idAudio" id="idAudio" value="">
-								<input type="hidden" name="nombreLista" id="nombreLista" value="${listalr.getNombre()}">
-								<input type="hidden" name="tipo" id="tipo" value="ListRep">
-								<a id="submit2" href="Inicio?pagina=<%=pagina %>" class="btn btn-outline-primary btn-sm pl-4 pr-4">Añadir</a>
-							</form>	
-						</div>
-					</c:forEach>
-				<!-- #END# Input -->
-				</div>
-			</div>		
-	</div>
-</div>
-<!-- END AÑADIR CANCION A LISTA DE REPRODUCCI�N -->
 
-<!-- BORRAR COMENTARIO DE CANCION -->	
-	<div class="overlay-pop-up" id="overlay-borrar-coment-cancion">	
-	    <div class="col-md-7 card p-5">	
-	        <a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-borrar-coment-cancion" class="btn-cerrar-popup-perfil"	
-	        class="btn btn-outline-primary btn-sm pl-4 pr-4"  onclick="document.getElementById('overlay-borrar-coment-cancion').classList.remove('active');"><i class="icon-close1"></i></a>	
-			<form class="form-material" action="borrar_coment_cancion">	
-				<!-- Input -->	
-				<div class="body">	
-					<header class="relative nav-sticky card">	
-	                    <h3>Vas a borrar este comentario.</h3>
-	                    <h5>¿Estás seguro?</h5>	
-					</header>	
-		
-					<input type="hidden" id="comentarioID" name=idComentario value="">	
-					<a id="borrarComentario" href="#" onclick="document.getElementById('overlay-borrar-coment-cancion').classList.remove('active');" class="btn btn-outline-primary btn-sm pl-4 pr-4">Aceptar</a>
-				</div>	
-				<!-- #END# Input -->	
-	        </form>	
-		</div>	
-	</div>	
-<!-- END BORRAR COMENTARIO DE CANCION -->
 
 <script>
     $(document).ready(function() {

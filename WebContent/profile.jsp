@@ -918,7 +918,7 @@ String imagen = (String) session.getAttribute("imagen");
 								<input type="hidden" name="idLista" id="idLista" value="${listalr.getId()}">
 								<input type="hidden" name="idAudio" id="idAudio" value="">
 								<input type="hidden" name="nombreLista" id="nombreLista" value="${listalr.getNombre()}">
-								<input type="hidden" name="tipo" id="tipo2" value="ListRep">
+								<input type="hidden" name="tipo" id="tipo2" value="ListaRep">
 								<input type="submit" value="Añadir">
 							</form>	
 						</div>
@@ -945,7 +945,7 @@ String imagen = (String) session.getAttribute("imagen");
 							<figure>
 								<div class="img-wrapper">
 			
-									<img src=${podact.getImagen() } alt="/">
+									<img src=${podcast.getImagen() } alt="/">
 									
 									<div class="figure-title text-center p-2">
 										<h5>${podcast.getNombre()}</h5>
@@ -1217,6 +1217,7 @@ String imagen = (String) session.getAttribute("imagen");
     	var i;
     	for (i=0; i <size; i++){
     	  	document.getElementsByName("idAudio")[i].value = song;
+    	  	console.log(song);
     	}
     }
     </script>
@@ -1305,7 +1306,7 @@ String imagen = (String) session.getAttribute("imagen");
 			// Si en vez de por post lo queremos hacer por get, cambiamos el $.post por $.get
 			$.get('anyadir_cancion_lr', {
 				idListaP : idListaVar,
-				idAudio : idAudioVar,
+				idAudioP : idAudioVar,
 				nombreLista : nombreListaVar,
 				tipo : tipoVar
 			});
@@ -1568,8 +1569,8 @@ String imagen = (String) session.getAttribute("imagen");
 			var tipoVar = $('#tipo3').val();
 			// Si en vez de por post lo queremos hacer por get, cambiamos el $.post por $.get
 			$.get('anyadir_cancion_lr', {
-				idListaP : idListaVar,
-				idAudio : idAudioVar,
+				idLista : idListaVar,
+				idAudioP : idAudioVar,
 				nombreLista : nombreListaVar,
 				tipo : tipoVar
 			});
