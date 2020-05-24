@@ -897,11 +897,13 @@ String imagen = (String) session.getAttribute("imagen");
 
 <!-- AÑADIR CANCION A LISTA DE REPRODUCCIÓN -->
 <div class="overlay-pop-up" id="overlay-anadir-listas-reproduccion">
-    <div class="col-md-7 card p-5">
+    <div class="col-md-7 card p-5" style="height: 485px;">
 		<a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-anadir-listas-reproduccion" class="btn-cerrar-popup-perfil"
 		class="btn btn-outline-primary btn-sm pl-4 pr-4" onclick="document.getElementById('overlay-anadir-listas-reproduccion').classList.remove('active');"><i class="icon-close1"></i></a>			
 			<!-- Input -->
-				<div class="body">
+			
+			<div class="body" style="height: 410px;">
+				<div id="scrollLista" class="slimScroll">
 					<div class="row has-items-overlay">
 					<c:choose ><c:when test="${listaslr.isEmpty()}"><h2>Parece que no tienes ninguna lista...</h2></c:when>
 						<c:otherwise>
@@ -922,24 +924,26 @@ String imagen = (String) session.getAttribute("imagen");
 								<input type="hidden" name="idAudio" id="idAudio" value="">
 								<input type="hidden" name="nombreLista" id="nombreLista" value="${listalr.getNombre()}">
 								<input type="hidden" name="tipo" id="tipo2" value="ListaRep">
-								<input type="submit" value="Añadir">
+								<input type="submit" class="btn btn-outline-primary btn-sm pl-4 pr-4" value="Añadir">
 							</form>	
 						</div>
 					</c:forEach>
 					</c:otherwise></c:choose>
 				<!-- #END# Input -->
 				</div>
-			</div>		
+			</div>
+		</div>
 	</div>
 </div>
 <!-- END AÑADIR CANCION A LISTA DE REPRODUCCIÓN -->
 
 <!-- AÑADIR CAPITULO A PODCAST -->
 <div class="overlay-pop-up" id="overlay-anadir-podcast">
-    <div class="col-md-7 card p-5">
+    <div class="col-md-7 card p-5" style="height: 485px;">
 		<a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-anadir-podcast" class="btn-cerrar-popup-perfil"><i class="icon-close1"></i></a>			
 			<!-- Input -->
-				<div class="body">
+			<div class="body" style="height: 410px;">
+				<div id="scrollLista" class="slimScroll">
 					<div class="row has-items-overlay">
 					<c:choose ><c:when test="${podcasts.isEmpty()}"><h2>Parece que no tienes ningun podcast...</h2></c:when>
 						<c:otherwise>
@@ -961,7 +965,7 @@ String imagen = (String) session.getAttribute("imagen");
 								<input type="hidden" name="idAudioP" id="idAudio2" value="">
 								<input type="hidden" name="nombreLista" id="nombreLista2" value="${podcast.getNombre()}">
 								<input type="hidden" name="tipo" id="tipo3" value="podcast">
-								<input type="submit" value="Añadir">
+								<input type="submit" class="btn btn-outline-primary btn-sm pl-4 pr-4" value="Añadir">
 
 							</form>	
 						</div>
@@ -969,7 +973,8 @@ String imagen = (String) session.getAttribute("imagen");
 					</c:otherwise></c:choose>
 				<!-- #END# Input -->
 				</div>
-			</div>		
+			</div>	
+		</div>	
 	</div>
 </div>
 <!-- END AÑADIR CAPITULO A PODCAST -->
@@ -1392,6 +1397,9 @@ String imagen = (String) session.getAttribute("imagen");
     
     <script>
     $(document).ready(function() {
+		$("#scrollLista").slimscroll({
+			height: "400px"
+		});
     	$('#iconoPlay').replaceWith("<i id='iconoPlay' class='icon-play s-28'></i>");
     	$('#playlist a').click(function(event) { // cargar los comentarios de cancion
 			var audioId = $('#audioIDcomment').val();
@@ -1451,6 +1459,9 @@ String imagen = (String) session.getAttribute("imagen");
 
 <script>
     $(document).ready(function() {
+    	$("#scrollLista").slimscroll({
+			height: "400px"
+		});
     	$('#iconoPlay').replaceWith("<i id='iconoPlay' class='icon-play s-28'></i>");
     	$('#playlist a').click(function(event) { // cargar los comentarios de cancion
 			var audioId = $('#audioIDcomment').val();
@@ -1462,7 +1473,7 @@ String imagen = (String) session.getAttribute("imagen");
 			});
 		});
     	
-    	 
+    	#<
     	
     	$('#publicar').click(function(event) { // publicar comentario en cancion
 			var textarea = $('#textarea').val();

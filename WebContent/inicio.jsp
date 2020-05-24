@@ -111,7 +111,7 @@ pageEncoding="UTF-8"%>
 				<div class="col-md-7 card p-5">
 					<h1 class="mt-3 font-weight-lighter"><b>Bienvenido</h1>
 					<div class="pt-3 mb-5">
-						<p>Date a conocer subiendo tus propios temas y descubriendo nuevos estilos musicales de manera gratuita.</p>
+						<p>Date a conocer subiendo tus propios temas y descubre nuevos estilos musicales de manera totalmente gratuita!</p>
                     </div>
 					<a href="sign_up.jsp"  class="btn btn-primary btn-lg">Regístrate</a>
 					<a href="login.jsp"  class="btn btn-primary btn-lg">Iniciar sesión</a>

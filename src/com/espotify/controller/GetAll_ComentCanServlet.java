@@ -50,7 +50,7 @@ public class GetAll_ComentCanServlet extends HttpServlet {
 		//request.setAttribute("comentCancion", comentarios);
 		if(comentarios.size() != 0) {
 			for(int i=0; i<comentarios.size(); i++){
-				out.println("<div class='media my-5 ' style='margin-top: -1rem !important;margin-bottom: -1rem !important;'>");
+				out.println("<div class='media my-5 ' style='margin-top: -1rem !important;margin-bottom: 1rem !important;'>");
 					out.println("<div class='media-body'>");
 						out.println("<h6 class='mt-0'>" + comentarios.get(i).getUsuario() + "</h6>");
 						out.println("<div class='form-line'><textarea readonly='' rows='5' class='form-control r-0' style='resize: none;width: 80%;border-color: transparent;height: 62px;' color:=''>");
@@ -71,7 +71,7 @@ public class GetAll_ComentCanServlet extends HttpServlet {
 			out.println("<div class='media my-5 ' style='margin-top: -1rem !important;margin-bottom: 2rem !important;'>");
 			out.println("<div class='media-body'>");
 			out.println("<div class='form-line'>");
-			out.println("No hay ning�n comentario todav�a.");
+			out.println("No hay ningún comentario todavía.");
 			out.println("</div>");
 		}
 	}

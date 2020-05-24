@@ -65,17 +65,28 @@ public class Reg_UsuarioServlet extends HttpServlet {
 			String descripcion = (String)fileItemsList.get(5).getString();
 			
 			if(contrasena.equals(repeticionContrasena)) {
-				UsuarioDAO usuarioDAO = new UsuarioDAO();
-				Boolean registro = usuarioDAO.register(nombre, email, repeticionContrasena, descripcion);
-				if(registro) {
-					id = Integer.parseInt(usuarioDAO.obtenerIdDesdeEmail(email));
-					FileItem fileItem = fileItemsList.get(0);
-					if(subirImagenAlmacen(id, fileItem)) {
-						response.sendRedirect("inicio.jsp");
+				if(contrasena.length() >= 8) {
+					UsuarioDAO usuarioDAO = new UsuarioDAO();
+					Boolean registro = usuarioDAO.register(nombre, email, repeticionContrasena, descripcion);
+					if(registro) {
+						id = Integer.parseInt(usuarioDAO.obtenerIdDesdeEmail(email));
+						FileItem fileItem = fileItemsList.get(0);
+						if(subirImagenAlmacen(id, fileItem)) {
+							response.sendRedirect("inicio.jsp");
+						}
+					}
+					else {
+						response.sendRedirect("sign_up.jsp?error2=usuario_existente");
 					}
 				}
-			}	
-			response.sendRedirect("sign_up.jsp?error2=usuario_existente");
+				else {
+					response.sendRedirect("sign_up.jsp?error3=contrasena_corta");
+				}
+			}
+			else {
+				response.sendRedirect("sign_up.jsp?error1=no_coinciden");
+			}
+			
 			
 			//out.write("<a href=\"UploadDownloadFileServlet?fileName="+fileItem.getName()+"\">Download "+fileItem.getName()+"</a>");
 			//gooogle.es		

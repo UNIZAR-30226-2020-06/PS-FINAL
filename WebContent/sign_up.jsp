@@ -1,3 +1,6 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="zxx">
 
@@ -90,6 +93,7 @@
 <%
 String error1= (String)request.getParameter("error1");
 String error2= (String)request.getParameter("error2");
+String error3= (String)request.getParameter("error3");
 %>
 
 <main>
@@ -132,31 +136,34 @@ String error2= (String)request.getParameter("error2");
                                     <div class="form-group form-float">
                                         <div class="form-line">
                                             <input type="password" name="contrasena" class="form-control" required="">
-                                            <label class="form-label">Contrase�a</label>
+                                            <label class="form-label">Contraseña</label>
                                         </div>
                                     </div>
 									<div class="form-group form-float">
                                         <div class="form-line">
                                             <input type="password" name="password" class="form-control" required="">
-                                            <label class="form-label">Confirmar contrase�a</label>
+                                            <label class="form-label">Confirmar contraseña</label>
                                         </div>
                                     </div>
 									<div class="form-group form-float">
                                         <div class="form-line">
                                             <input type="text" name="descripcion" class="form-control">
-                                            <label class="form-label">Descripci�n</label>
+                                            <label class="form-label">Descripción</label>
                                         </div>
                                     </div>
                                     
                                     <%
 									if (error1!=null) {
 									%>
-									<h1 style="color: #F00;font-size: 14px;">Error: Las contrase�as coinciden.</h1>
+									<h1 style="color: #F00;font-size: 14px;">Error: Las contraseñas no coinciden.</h1>
 									<% } 
 									else if(error2!=null){
 									%>
 									<h1 style="color: #F00;font-size: 14px;">Error: Usuario ya registrado.</h1>
-									<% } %>
+									<%}
+                                    else if(error3!=null){%>
+                                    	<h1 style="color: #F00;font-size: 14px;">Error: La contraseña debe tener al menos 8 caracteres.</h1>
+                                    <%} %>
 
                                     <input type="submit" class="btn btn-outline-primary btn-sm pl-4 pr-4"
                                            value="Registrarme">

@@ -343,12 +343,7 @@ String imagen = (String) session.getAttribute("imagen");
 						<div class="sidebar-header" style="margin-bottom: 1rem !important;">
 				            <h4><b>Comentarios</b></h4>
 				        </div>
-				        <script type="text/javascript">
-						$(".slimScroll").slimscroll({
-							height: "285px"
-						});
-						</script>
-						<div class="slimScroll" style="overflow: hidden; width: auto; height: 285px;">
+						<div class="slimScroll" >
 					        <div class="p-3">
 					        	<div id="listaComentariosTransmision"></div> <!-- DONDE SE MUESTRAN LOS COMENTARIOS -->
 					        </div>
