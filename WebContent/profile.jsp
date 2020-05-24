@@ -346,7 +346,7 @@ String imagen = (String) session.getAttribute("imagen");
 				<button style="position: absolute;left: 10px;border-color: transparent;color: #fd7e14;background-color: #fd7e1400;" class="btn btn-abrir-popup-perfil btn-sm  mt-3" id="abrir-popup-perfil"><i class="icon-edit  s-24"></i>Editar perfil</button>
 				<button style="position: absolute;left: 130px;border-color: transparent;color: #fd7e14;background-color: #fd7e1400;" class="btn btn-abrir-popup-perfil btn-sm  mt-3" id="abrir-popup-cuenta"><i class="icon-cog  s-24"></i>Cambiar contraseña</button>
                 <button id="abrir-popup-eliminar" style="position: absolute;left: 280px;border-color: transparent;color: #fd7e14;background-color: #fd7e1400;" class="btn btn-abrir-popup-perfil btn-sm  mt-3"
-                		onClick="document.getElementById('overlay-eliminar-cuenta').classList.add('active');"><i class="icon-trash  s-24"></i>Borrar Cuenta</button>
+                		onClick="document.getElementById('overlay-eliminar-cuenta').classList.add('active');"><i class="icon-trash  s-24"></i>Borrar Cuenta</button> 
                 <div class="text-center p-5 mt-5">
 					
                     <figure style="width: 130px;height: 130px;width-max: 50%;" class="avatar avatar-xl">
