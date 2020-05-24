@@ -260,10 +260,10 @@ String imagen = (String) session.getAttribute("imagen");
 								</a>
 							</div>
                             <div class="col text-center">
-                                <a class="ajaxifyPage" href="logout" >
-                                    <a href="<%= request.getContextPath()+"/Cerrar_SesionServlet"%>"><i class="icon-exit-2  s-24"></i>
-                                    <div class="pt-1">Cerrar sesión</div></a>
-                                </a>
+                                <a class="ajaxifyPage" onclick="document.getElementById('overlay-cerrar-sesion').classList.add('active');" href="#" >
+									<i class="icon-exit-2  s-24"></i>
+                                    <div class="pt-1">Cerrar sesión</div>
+								</a>
                             </div>
                         </div>
                     </div>
@@ -345,9 +345,8 @@ String imagen = (String) session.getAttribute("imagen");
 			<div class="col-md-4 b-r">
 				<button style="position: absolute;left: 10px;border-color: transparent;color: #fd7e14;background-color: #fd7e1400;" class="btn btn-abrir-popup-perfil btn-sm  mt-3" id="abrir-popup-perfil"><i class="icon-edit  s-24"></i>Editar perfil</button>
 				<button style="position: absolute;left: 130px;border-color: transparent;color: #fd7e14;background-color: #fd7e1400;" class="btn btn-abrir-popup-perfil btn-sm  mt-3" id="abrir-popup-cuenta"><i class="icon-cog  s-24"></i>Cambiar contraseña</button>
-                <a href="#" style="position: absolute;left: 330px;" 
-                	class="btn btn-abrir-popup btn-sm  mt-3" id="abrir-popup-eliminar"  
-                	onclick="document.getElementById('overlay-eliminar-cuenta').classList.add('active');">Eliminar cuenta</a>
+                <button id="abrir-popup-eliminar" style="position: absolute;left: 280px;border-color: transparent;color: #fd7e14;background-color: #fd7e1400;" class="btn btn-abrir-popup-perfil btn-sm  mt-3"
+                		onClick="document.getElementById('overlay-eliminar-cuenta').classList.add('active');"><i class="icon-trash  s-24"></i>Borrar Cuenta</button>
                 <div class="text-center p-5 mt-5">
 					
                     <figure style="width: 130px;height: 130px;width-max: 50%;" class="avatar avatar-xl">
@@ -465,19 +464,21 @@ String imagen = (String) session.getAttribute("imagen");
 																				   data-actionText="ok"
 																				   data-actionTextColor="#fff"
 																				   data-backgroundColor="#0c101b">
-																				   <i onclick="if(this.className == 'icon-thumbs-up s-24'){this.className='icon-thumbs-o-up s-24';} else{this.className='icon-thumbs-up s-24';}" class="icon-thumbs-o-up s-24"></i>
+																				   <i onclick="if(this.className == 'icon-thumbs-up s-24'){this.className='icon-thumbs-o-up s-24';document.getElementById('audioLike').value ='true';} else{this.className='icon-thumbs-up s-24';document.getElementById('audioLike').value ='false';}"
+																					   class="icon-thumbs-o-up s-24"></i>
 																				</a>
 																		</c:when>
 																		<c:otherwise>
 																				<a title="Like" href="#" id="accion_cancion_like" class="snackbar ml-3" 
-																						onclick="document.getElementById('idAudioLike').value ='${cancion.getId()}';document.getElementById('audioLike').value ='true';"
+																						onclick="document.getElementById('idAudioLike').value ='${cancion.getId()}';"
 																						data-text="Ya no te gusta esta canción"
 																					   data-pos="top-right"
 																					   data-showAction="true"
 																					   data-actionText="ok"
 																					   data-actionTextColor="#fff"
 																					   data-backgroundColor="#0c101b">
-																					   <i onclick="if(this.className == 'icon-thumbs-up s-24'){this.className='icon-thumbs-o-up s-24';} else{this.className='icon-thumbs-up s-24';}" class="icon-thumbs-up s-24"></i>
+																					   <i onclick="if(this.className == 'icon-thumbs-up s-24'){this.className='icon-thumbs-o-up s-24';document.getElementById('audioLike').value ='true';} else{this.className='icon-thumbs-up s-24';document.getElementById('audioLike').value ='false';}"
+																					   class="icon-thumbs-up s-24"></i>
 																				</a>
 																		</c:otherwise>																	
 																	</c:choose>
@@ -1143,6 +1144,27 @@ String imagen = (String) session.getAttribute("imagen");
 		</div>	
 	</div>	
 <!-- END BORRAR COMENTARIO DE CANCION -->
+
+<!-- CERRAR SESIÓN -->	
+	<div class="overlay-pop-up" id="overlay-cerrar-sesion">	
+	    <div class="col-md-7 card p-5">	
+	        <a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-sesion" class="btn-cerrar-popup-perfil"	
+	        class="btn btn-outline-primary btn-sm pl-4 pr-4"  onclick="document.getElementById('overlay-cerrar-sesion').classList.remove('active');"><i class="icon-close1"></i></a>	
+			<form class="form-material" action="borrar_coment_cancion">	
+				<!-- Input -->	
+				<div class="body">	
+					<header class="relative nav-sticky card">	
+	                    <h3>Vas a cerrar tu sesión.</h3>
+	                    <h5>¿Estás seguro?</h5>	
+					</header>	
+		
+					<a href="<%= request.getContextPath()+"/Cerrar_SesionServlet"%>" class="btn btn-outline-primary btn-sm pl-4 pr-4">Aceptar</a>
+				</div>	
+				<!-- #END# Input -->	
+	        </form>	
+		</div>	
+	</div>	
+<!-- END CERRAR SESIÓN -->
 
 
 <!--/#app -->
