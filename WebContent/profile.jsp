@@ -460,24 +460,26 @@ String seguidores = (String) session.getAttribute("numSeguidores");
 																	<c:choose>
 																		<c:when test="${cancion.getLikeUsuario() == null}">
 																				<a title="Like" href="#" id="accion_cancion_like" class="snackbar ml-3" 
-																					onclick="document.getElementById('idAudioLike').value ='${cancion.getId()}';document.getElementById('audioLike').value ='false';" 
+																					onclick="document.getElementById('idAudioLike').value ='${cancion.getId()}';document.getElementById('audioLike').value ='false';"
 																					data-text="Te gusta esta canción"
 																				   data-pos="top-right"
 																				   data-showAction="true"
 																				   data-actionText="ok"
 																				   data-actionTextColor="#fff"
-																				   data-backgroundColor="#0c101b"><i class="icon-thumbs-o-up s-24"></i>
+																				   data-backgroundColor="#0c101b">
+																				   <i onclick="if(this.className == 'icon-thumbs-up s-24'){this.className='icon-thumbs-o-up s-24';} else{this.className='icon-thumbs-up s-24';}" class="icon-thumbs-o-up s-24"></i>
 																				</a>
 																		</c:when>
 																		<c:otherwise>
 																				<a title="Like" href="#" id="accion_cancion_like" class="snackbar ml-3" 
-																						onclick="document.getElementById('idAudioLike').value ='${cancion.getId()}';document.getElementById('audioLike').value ='true';" 
+																						onclick="document.getElementById('idAudioLike').value ='${cancion.getId()}';document.getElementById('audioLike').value ='true';"
 																						data-text="Ya no te gusta esta canción"
 																					   data-pos="top-right"
 																					   data-showAction="true"
 																					   data-actionText="ok"
 																					   data-actionTextColor="#fff"
-																					   data-backgroundColor="#0c101b"><i class="icon-thumbs-up s-24"></i>
+																					   data-backgroundColor="#0c101b">
+																					   <i onclick="if(this.className == 'icon-thumbs-up s-24'){this.className='icon-thumbs-o-up s-24';} else{this.className='icon-thumbs-up s-24';}" class="icon-thumbs-up s-24"></i>
 																				</a>
 																		</c:otherwise>																	
 																	</c:choose>
@@ -626,7 +628,7 @@ String seguidores = (String) session.getAttribute("numSeguidores");
 										                    </a>
 															<div class="ml-auto">
 																<a href="${pageContext.request.contextPath}/ir_modificar?id_audio=${capitulo.getId()}&cancion=false&pagina=<%=pagina %>" class="btn-icono icon-pencil" ></a>
-																<a href="#" class="btn-icono icon-indent" onclick="rellenarCamposP('${podcast.size()}','${capitulo.getId()}');
+																<a href="#" class="btn-icono icon-indent" onclick="rellenarCamposP('${podcasts.size()}','${capitulo.getId()}');
 																document.getElementById('overlay-anadir-podcast').classList.add('active');"></a>
 																<a href="#" 
 																onclick="document.getElementById('capituloIDborrar').value = '${capitulo.getId()}';
@@ -854,7 +856,7 @@ String seguidores = (String) session.getAttribute("numSeguidores");
 					<input type="hidden" name="tipo" id="tipo" value="ListaRep">
 				</div>
 
-				<a id="submit3" href="#" class="btn btn-outline-primary btn-sm pl-4 pr-4">Aceptar</a>
+				<input type="submit" class="btn btn-outline-primary btn-sm pl-4 pr-4" value="Aceptar">
 			</div>
 			<!-- #END# Input -->
 		</form>
@@ -881,7 +883,7 @@ String seguidores = (String) session.getAttribute("numSeguidores");
 					<input type="hidden" name="tipo" name="tipo7" value="podcast">
 				</div>
 
-				<a id="submit7" href="#" class="btn btn-outline-primary btn-sm pl-4 pr-4">Aceptar</a>
+				<input type="submit" class="btn btn-outline-primary btn-sm pl-4 pr-4" value="Aceptar">
 			</div>
 			<!-- #END# Input -->
 		</form>
@@ -1112,7 +1114,6 @@ String seguidores = (String) session.getAttribute("numSeguidores");
 						  >Cambiar constraseña</a>
 				</div>
 			</form>
-			<a href="" style="color: red;" onclick="darbaja()">Eliminar cuenta</a>
 			<!-- #END# Input -->
 	</div>
 </div>
@@ -1245,6 +1246,7 @@ String seguidores = (String) session.getAttribute("numSeguidores");
 				contenido = contenido + "</button>";
 				contenido = contenido + "</div>";
 				$('#contenido').html(contenido);
+				document.getElementById('overlay-perfil').classList.remove('active');
 			}
 		});
     	$('#submit2').click(function(event) { // cambiar contraseña
@@ -1257,6 +1259,7 @@ String seguidores = (String) session.getAttribute("numSeguidores");
 				contrasena3 : contrasena3Var
 			}, function(responseText){
 				$('#contenido').html(responseText);
+				document.getElementById('overlay-cuenta').classList.remove('active');
 			});
 		});
     	

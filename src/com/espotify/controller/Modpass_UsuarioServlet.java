@@ -44,18 +44,28 @@ public class Modpass_UsuarioServlet extends HttpServlet {
 		String pass3 =(String) request.getParameter("contrasena3");
 
 		if(pass2.equals(pass3)){
-			boolean ok = UsuarioDAO.cambiar_pass(pass1,pass2,id);
-			if(ok) {
-				out.println("<div class=\"alert alert-success alert-dismissible fade show\" role=\"alert\">");
-				out.println("<strong>Contraseña cambiada correctamente!</strong>");
-				out.println("<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\">");
-				out.println("<span aria-hidden='true'>&times;</span>");
-				out.println("</button>");
-				out.println("</div>");
+			if(pass2.length() >= 8) {
+				boolean ok = UsuarioDAO.cambiar_pass(pass1,pass2,id);
+				if(ok) {
+					out.println("<div class=\"alert alert-success alert-dismissible fade show\" role=\"alert\">");
+					out.println("<strong>Contraseña cambiada correctamente!</strong>");
+					out.println("<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\">");
+					out.println("<span aria-hidden='true'>&times;</span>");
+					out.println("</button>");
+					out.println("</div>");
+				}
+				else {
+					out.println("<div class=\"alert alert-danger alert-dismissible fade show\" role=\"alert\">");
+					out.println("<strong>Contraseña incorrecta.</strong> Vuelva a intentarlo.");
+					out.println("<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\">");
+					out.println("<span aria-hidden='true'>&times;</span>");
+					out.println("</button>");
+					out.println("</div>");
+				}
 			}
 			else {
 				out.println("<div class=\"alert alert-danger alert-dismissible fade show\" role=\"alert\">");
-				out.println("<strong>Contraseña incorrecta.</strong> Vuelva a intentarlo.");
+				out.println("<strong>La contraseña debe de tener al menos 8 caracteres.</strong> Vuelva a intentarlo.");
 				out.println("<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\">");
 				out.println("<span aria-hidden='true'>&times;</span>");
 				out.println("</button>");
@@ -72,6 +82,11 @@ public class Modpass_UsuarioServlet extends HttpServlet {
 		}
 				
 		//request.getRequestDispatcher("usuario.jsp").forward(request, response);
+	}
+
+	private boolean Length(String pass2) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 	/**

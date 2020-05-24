@@ -745,9 +745,6 @@ String imagen = (String) session.getAttribute("imagen");
 </main><!--@Page Content-->
 </div><!--@#app-->
 <!--/#app -->
-<script src="https://maps.googleapis.com/maps/api/js?&amp;key=AIzaSyC3YkZNNySdyR87o83QEHWglHfHD_PZqiw&amp;libraries=places"></script>
-<script src="assets/js/app.js"></script>
-<script  src="assets/js/mostrar-popup.js"></script>
 <script>
 	$(document).ready(function() {
 	    $('#playlist a').click(function(event) {//dar like a una cancion
