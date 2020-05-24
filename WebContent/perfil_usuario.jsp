@@ -366,11 +366,7 @@ String seguidores = (String) session.getAttribute("numSeguidores");
                     <div class="row">
                         <div class="col-md-4">
                             <div class="p-4">
-                                <%if (seguidores!=null){ %>
-                                <a href="#w3-tab3" ><h5>Seguidores</h5></a><h6><%=seguidores %></h6></a>
-                                <%} else {%>
-                                <a href="#w3-tab3" ><h5>Seguidores</h5></a><h6>0</h6></a>
-                                <%} %>
+                                <a href="#w3-tab3" ><h5>Seguidores</h5></a><h6>${numSeguidores}</h6></a>
                             </div>
                         </div>
                     </div>
@@ -452,6 +448,9 @@ String seguidores = (String) session.getAttribute("numSeguidores");
 															<div class="col-6">
 																<h6>${cancion.getTitulo()}</h6>${cancion.getGenero()}
 															</div>
+															<div>
+																<h6>LIKES</h6>${cancion.getNumLikes() }
+															</div>
 															<form action="like_audio">
 																	<input type="hidden" id="idAudioLike" name="idAudioLike" value="">
 																	<input type="hidden" id="audioLike" name="audioLike" value="">
@@ -469,14 +468,13 @@ String seguidores = (String) session.getAttribute("numSeguidores");
 																		</c:when>
 																		<c:otherwise>
 																				<a href="#" id="accion_cancion_like" class="snackbar ml-3" 
-																						style="background-color: #fd7e14; color: #fff" 
 																						onclick="document.getElementById('idAudioLike').value ='${cancion.getId()}';document.getElementById('audioLike').value ='true';" 
 																						data-text="Ya no te gusta esta canción"
 																					   data-pos="top-right"
 																					   data-showAction="true"
 																					   data-actionText="ok"
 																					   data-actionTextColor="#fff"
-																					   data-backgroundColor="#0c101b"><i class="icon-thumbs-o-up s-24"></i>
+																					   data-backgroundColor="#0c101b"><i class="icon-thumbs-up s-24"></i>
 																				</a>
 																		</c:otherwise>																	
 																	</c:choose>
@@ -539,7 +537,7 @@ String seguidores = (String) session.getAttribute("numSeguidores");
 							<div class="row">
 								<div class="col-md-12">
 									<div class="playlist">
-										<ul id="playlistPodcast" class="playlist list-group">
+										<ul id="playlist" class="playlist list-group">
 											<c:forEach var="capitulo" items="${capitulos}">                    
 												<div style="margin-bottom: -1px;" class="cancion">
 													<li class="list-group-item my-1">
@@ -559,6 +557,11 @@ String seguidores = (String) session.getAttribute("numSeguidores");
 															<div class="col-6">
 																<h6>${capitulo.getTitulo()}</h6>${capitulo.getGenero()}
 															</div>
+														
+															<div>
+																<h6>LIKES</h6>${capitulo.getNumLikes() }
+															</div>
+															
 															<form action="like_audio">
 																	<input type="hidden" id="idAudioLike" name="idAudioLike" value="">
 																	<input type="hidden" id="audioLike" name="audioLike" value="">
@@ -576,14 +579,13 @@ String seguidores = (String) session.getAttribute("numSeguidores");
 																		</c:when>
 																		<c:otherwise>
 																			<a href="#" id="accion_capitulo_like" class="snackbar ml-3" 
-																					style="background-color: #fd7e14; color: #fff" 
 																					onclick="document.getElementById('idAudioLike').value ='${capitulo.getId()}';document.getElementById('audioLike').value ='true';" 
-																					data-text="Ya no te gusta este capitulo"
-																				   data-pos="top-right"
-																				   data-showAction="true"
-																				   data-actionText="ok"
-																				   data-actionTextColor="#fff"
-																				   data-backgroundColor="#0c101b"><i class="icon-thumbs-o-up s-24"></i>
+																					data-text="Ya no te gusta esta canción"
+																					   data-pos="top-right"
+																					   data-showAction="true"
+																					   data-actionText="ok"
+																					   data-actionTextColor="#fff"
+																					   data-backgroundColor="#0c101b"><i class="icon-thumbs-up s-24"></i>
 																				</a>
 																		</c:otherwise>																	
 																	</c:choose>
@@ -848,7 +850,7 @@ String seguidores = (String) session.getAttribute("numSeguidores");
     
     <script>
 	$(document).ready(function() {
-		$('#playlist a').click(function(event) {//dar like a un audio
+	    $('#playlist a').click(function(event) {//dar like a un audio
 		 	var audioId = $('#idAudioLike').val();
 	        var like = $('#audioLike').val();
 	        console.log(audioId);
@@ -856,6 +858,8 @@ String seguidores = (String) session.getAttribute("numSeguidores");
 			$.get('like_audio', {
 	           idAudio: audioId,
 	            like : like
+			}, function(){
+				
 			});
 	   });
 	});
@@ -866,7 +870,7 @@ String seguidores = (String) session.getAttribute("numSeguidores");
 
 <script>
 	$(document).ready(function() {
-		$('#playlist a').click(function(event) {//dar like a un audio
+	    $('#playlist a').click(function(event) {//dar like a un audio
 		 	var audioId = $('#idAudioLike').val();
 	        var like = $('#audioLike').val();
 	        console.log(audioId);
@@ -874,6 +878,8 @@ String seguidores = (String) session.getAttribute("numSeguidores");
 			$.get('like_audio', {
 	           idAudio: audioId,
 	            like : like
+			}, function(){
+				
 			});
 	   });
 	});

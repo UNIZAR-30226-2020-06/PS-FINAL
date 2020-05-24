@@ -57,6 +57,7 @@ public class GetInfo_ListaGeneroServlet extends HttpServlet {
 				Boolean anyadida = new ListaReproduccionDAO().quitarAudio(audio.getId(), infoLista.getId());
 			}
 			for(Audio audio :  audios) {
+				audio.setNumLikes(likesDAO.obtenerNLikesAudio(audio.getId()));
 				if(likesDAO.tieneLikeAudio(usuario, audio.getId())) {
 					audio.setLikeUsuario("like");
 				} else {

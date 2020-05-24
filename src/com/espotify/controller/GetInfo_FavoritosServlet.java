@@ -48,6 +48,7 @@ public class GetInfo_FavoritosServlet extends HttpServlet {
 			//	Collections.shuffle(audios);
 			//}
 			for(Audio audio :  audios) {
+				audio.setNumLikes(LikesDAO.obtenerNLikesAudio(audio.getId()));
 				if(likesDAO.tieneLikeAudio(usuario, audio.getId())) {
 					audio.setLikeUsuario("like");
 				} else {

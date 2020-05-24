@@ -384,7 +384,7 @@ String imagen = (String) session.getAttribute("imagen");
                                                       <%if(likePodcast == null) { %>
 		                                                      <input type="hidden" id="likeLista" name="likeLista" value="false">
 		                                                      <a href="#" id="accion_like_lista" class="snackbar ml-3" 
-		                                                      	data-text="Te gusta esta lista de reproducción"
+		                                                      	data-text="Te gusta este podcast"
 		                                                         data-pos="top-right"
 		                                                         data-showAction="true"
 		                                                         data-actionText="ok"
@@ -394,7 +394,7 @@ String imagen = (String) session.getAttribute("imagen");
 	                                                   <%} else { %>
 	                                                   		 <input type="hidden" id="likeLista" name="likeLista" value="true">
 	                                                      	<a href="#" id="accion_like_lista" class="snackbar ml-3"
-	                                                      		data-text="Ya no te gusta esta lista de reproducción"
+	                                                      		data-text="Ya no te gusta este podcast"
 															   data-pos="top-right"
 															   data-showAction="true"
 															   data-actionText="ok"
@@ -497,9 +497,12 @@ String imagen = (String) session.getAttribute("imagen");
 											<!-- END BORRAR COMENTARIO DE CANCION -->
 
 										</div>
-									
+										
 										<div class="text-orange my-2">
 											<p>${infoPodcast.getDescripcion()}</p>
+										</div>
+										<div>
+											<h5>LIKES</h5>${infoPodcast.getNumLikes()}
 										</div>
 
 									</div>
@@ -536,6 +539,9 @@ String imagen = (String) session.getAttribute("imagen");
 																</div>
 																<div class="col-6">
 																	<h6>${cancion.getTitulo()}</h6>${cancion.getGenero()}
+																</div>
+																<div>
+																	<h6>LIKES</h6>${cancion.getNumLikes() }
 																</div>
 																<form action="like_audio">
 																	<input type="hidden" id="idAudioLike" name="idAudioLike" value="">

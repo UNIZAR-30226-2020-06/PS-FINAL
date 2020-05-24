@@ -40,6 +40,8 @@ public class VerTransmision_Servlet extends HttpServlet {
 		Transmision transmision = new TransmisionDAO().getTransmisionPorId(idTransmision);
 		Usuario usuario = new UsuarioDAO().obtenerInfo(transmision.getUsuario());
 		LikesDAO like = new LikesDAO();
+		
+		transmision.setNumLikes(like.obtenerNLikesTransmision(idTransmision));
 		if(like.tieneLikeTrans(id, transmision.getId())) {
 			System.out.println("ENTRO NULL");
 			request.setAttribute("like", "like");

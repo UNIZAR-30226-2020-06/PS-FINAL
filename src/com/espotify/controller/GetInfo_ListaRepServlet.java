@@ -51,6 +51,7 @@ public class GetInfo_ListaRepServlet extends HttpServlet {
 			List<Audio> audios = new ListaReproduccionDAO().getAudios(nombre,usuario,tipo);
 			
 			for(Audio audio :  audios) {
+				audio.setNumLikes(LikesDAO.obtenerNLikesAudio(audio.getId()));
 				if(likesDAO.tieneLikeAudio(usuario, audio.getId())) {
 					audio.setLikeUsuario("like");
 				} else {
@@ -62,6 +63,7 @@ public class GetInfo_ListaRepServlet extends HttpServlet {
 			//if (aleatorio.equals("si")) {
 			//	Collections.shuffle(audios);
 			//}
+			infoLista.setNumLikes(likesDAO.obtenerNLikesLista(infoLista.getId()));
 			if(likesDAO.tieneLikeLista(usuario, infoLista.getId())) {
 				request.setAttribute("likeLista", "likeLista");
 			} else {

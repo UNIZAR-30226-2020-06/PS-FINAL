@@ -69,6 +69,7 @@ public class ObtenerContenidoOtroUsuario extends HttpServlet {
 		
 		ArrayList<Audio> canciones = new CancionDAO().obtenerCancionesUsuario(idUsuario);
 		for(Audio cancion :  canciones) {
+			cancion.setNumLikes(LikesDAO.obtenerNLikesAudio(cancion.getId()));
 			if(LikesDAO.tieneLikeAudio(id, cancion.getId())) {
 				System.out.println("CANCION LIKE" + cancion.getId());
 				cancion.setLikeUsuario("like");
@@ -81,6 +82,7 @@ public class ObtenerContenidoOtroUsuario extends HttpServlet {
 		
 		ArrayList<Audio> capitulos = new CapituloPodcastDAO().obtenerCapitulosPodcastUsuario(idUsuario);
 		for(Audio capitulo :  capitulos) {
+			capitulo.setNumLikes(LikesDAO.obtenerNLikesAudio(capitulo.getId()));
 			if(LikesDAO.tieneLikeAudio(id, capitulo.getId())) {
 				System.out.println("CAPITULO  LIKE" + capitulo.getId());
 				capitulo.setLikeUsuario("like");

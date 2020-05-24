@@ -448,6 +448,9 @@ String imagen = (String) session.getAttribute("imagen");
 																<div class="col-6">
 																	<h6>${cancion.getTitulo()}</h6>${cancion.getGenero()}
 																</div>
+																<div>
+																	<h6>LIKES</h6>${cancion.getNumLikes() }
+																</div>
 																<form action="like_audio">
 																	<input type="hidden" id="idAudioLike" name="idAudioLike" value="">
 																	<c:choose>
@@ -531,13 +534,13 @@ String imagen = (String) session.getAttribute("imagen");
 	                                                   <%} else { %>
 	                                                   		 <input type="hidden" id="likeLista" name="likeLista" value="true">
 	                                                      	<a href="#" id="accion_like_lista" class="snackbar ml-3"
-	                                                      		data-text="Ya no te gusta esta canción"
+	                                                      		data-text="Ya no te gusta esta lista de reproducción"
 															   data-pos="top-right"
 															   data-showAction="true"
 															   data-actionText="ok"
 															   data-actionTextColor="#fff"
 															   data-backgroundColor="#0c101b"><i class="icon-thumbs-up s-24"></i>
-															</a>
+															  </a>
 	                                                   <%} %>
                                                   </form>
 											    <a style="color: #fd7e14;position: relative;left: 52px;bottom: 93px;" 
@@ -672,6 +675,9 @@ String imagen = (String) session.getAttribute("imagen");
 										<div class="text-orange my-2">
 											<p>${infoLista.getDescripcion()}</p>
 										</div>
+										<div>
+											<h5>LIKES</h5>${infoLista.getNumLikes()}
+										</div>
 
 									</div>
 								</div>
@@ -706,6 +712,9 @@ String imagen = (String) session.getAttribute("imagen");
 																</div>
 																<div class="col-6">
 																	<h6>${cancion.getTitulo()}</h6>${cancion.getGenero()}
+																</div>
+																<div>
+																	<h6>LIKES</h6>${cancion.getNumLikes() }
 																</div>
 																<form action="like_audio">
 																	<input type="hidden" id="idAudioLike" name="idAudioLike" value="">

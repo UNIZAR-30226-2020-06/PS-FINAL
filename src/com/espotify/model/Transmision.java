@@ -12,6 +12,7 @@ public class Transmision {
 	private boolean activa;
 	private int usuario;
 	private String url;
+	private int numLikes;
 	
 	public Transmision(int id, String nombre, String descripcion, boolean activa, int usuario, String url) {
 		super();
@@ -46,4 +47,12 @@ public class Transmision {
 	public String getDescripcion() {
         return descripcion;
     }
+	
+	public int getNumLikes() {
+		return numLikes;
+	}
+	
+	public void setNumLikes(int numLikes) {
+		this.numLikes = numLikes;
+	}
 }

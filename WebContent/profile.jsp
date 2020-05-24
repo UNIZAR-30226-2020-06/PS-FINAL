@@ -449,6 +449,9 @@ String imagen = (String) session.getAttribute("imagen");
 															<div class="col-6">
 																<h6>${cancion.getTitulo()}</h6>${cancion.getGenero()}
 															</div>
+															<div>
+																<h6>LIKES</h6>${cancion.getNumLikes() }
+															</div>
 															<form action="like_audio">
 																	<input type="hidden" id="idAudioLike" name="idAudioLike" value="">
 																	<input type="hidden" id="audioLike" name="audioLike" value="">
@@ -588,6 +591,11 @@ String imagen = (String) session.getAttribute("imagen");
 															<div class="col-6">
 																<h6>${capitulo.getTitulo()}</h6>${capitulo.getGenero()}
 															</div>
+															
+															<div>
+																<h6>LIKES</h6>${capitulo.getNumLikes() }
+															</div>
+															
 															<form action="like_audio">
 																	<input type="hidden" id="idAudioLike" name="idAudioLike" value="">
 																	<input type="hidden" id="audioLike" name="audioLike" value="">
@@ -1382,7 +1390,7 @@ String imagen = (String) session.getAttribute("imagen");
 
 <script>
 	$(document).ready(function() {
-	    $('#playlist a').click(function(event) {//dar like a una cancion
+	    $('#playlist a').click(function(event) {//dar like a un audio
 		 	var audioId = $('#idAudioLike').val();
 	        var like = $('#audioLike').val();
 	        console.log(audioId);
@@ -1402,7 +1410,7 @@ String imagen = (String) session.getAttribute("imagen");
 
 <script>
 	$(document).ready(function() {
-	    $('#playlist a').click(function(event) {//dar like a una cancion
+	    $('#playlist a').click(function(event) {//dar like a un audio
 		 	var audioId = $('#idAudioLike').val();
 	        var like = $('#audioLike').val();
 	        console.log(audioId);

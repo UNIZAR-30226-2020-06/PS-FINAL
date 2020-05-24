@@ -63,6 +63,7 @@ public class Search_EspecificoServlet extends HttpServlet {
 				List<Audio> canciones = new ArrayList<Audio>();
 				busquedas.searchCancionesCompletas(nombre, canciones);
 				for(Audio cancion :  canciones) {
+					cancion.setNumLikes(LikesDAO.obtenerNLikesAudio(cancion.getId()));
 					if(LikesDAO.tieneLikeAudio(usuario, cancion.getId())) {
 						cancion.setLikeUsuario("like");
 					} else {
@@ -89,6 +90,7 @@ public class Search_EspecificoServlet extends HttpServlet {
 				List<Audio> capitulos = new ArrayList<Audio>();
 				busquedas.searchCapitulosCompletas(nombre, capitulos);
 				for(Audio capitulo :  capitulos) {
+					capitulo.setNumLikes(LikesDAO.obtenerNLikesAudio(capitulo.getId()));
 					if(LikesDAO.tieneLikeAudio(usuario, capitulo.getId())) {
 						capitulo.setLikeUsuario("like");
 					} else {

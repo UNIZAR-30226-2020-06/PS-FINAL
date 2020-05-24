@@ -49,10 +49,19 @@ public class GetInfo_ListaRep_Usuario extends HttpServlet {
 			ListaReproduccion infoLista = new ListaReproduccionDAO().getInfoListId(id);
 			List<Audio> audios = new ListaReproduccionDAO().getAudiosId(id);
 			
+			for(Audio audio :  audios) {
+				audio.setNumLikes(LikesDAO.obtenerNLikesAudio(audio.getId()));
+				if(likesDAO.tieneLikeAudio(usuario, audio.getId())) {
+					audio.setLikeUsuario("like");
+				} else {
+					audio.setLikeUsuario(null);
+				}
+				
+			}
 			//if (aleatorio.equals("si")) {
 			//	Collections.shuffle(audios);
 			//}
-			
+			infoLista.setNumLikes(likesDAO.obtenerNLikesLista(infoLista.getId()));
 			if(likesDAO.tieneLikeLista(usuario, infoLista.getId())) {
 				request.setAttribute("likeLista", "likeLista");
 			} else {
