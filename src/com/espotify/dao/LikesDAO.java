@@ -15,6 +15,10 @@ public class LikesDAO {
 	private final static String INSERT_LIKESLISTA_QUERY = "INSERT INTO Reproductor_musica.LikesLista (usuario, lista) VALUES (?,?)";
 	private final static String INSERT_LIKESTRANS_QUERY = "INSERT INTO Reproductor_musica.LikesTrans (usuario, transmision) VALUES (?,?)";
 
+	private final static String GET_NLIKES_LISTA_QUERY = "SELECT count(*) FROM Reproductor_musica.LikesLista WHERE lista = ?";  
+	private final static String GET_NLIKES_AUDIO_QUERY = "SELECT count(*) FROM Reproductor_musica.LikesAudio WHERE audio = ?";  
+	private final static String GET_NLIKES_TRANS_QUERY = "SELECT count(*) FROM Reproductor_musica.LikesTrans WHERE transmision = ?";
+	
 	private final static String DELETE_LIKESAUDIO_QUERY =	"DELETE FROM Reproductor_musica.LikesAudio WHERE usuario = ? AND audio = ?";
 	private final static String DELETE_LIKESLISTA_QUERY =	"DELETE FROM Reproductor_musica.LikesLista WHERE usuario = ? AND lista = ?";
 	private final static String DELETE_LIKESTRANS_QUERY =	"DELETE FROM Reproductor_musica.LikesTrans WHERE usuario = ? AND transmision = ?";
@@ -108,6 +112,90 @@ public class LikesDAO {
 			e.printStackTrace(System.err);
 			return false;
 		}
+	}
+	
+	/*
+	 * Parametros: id de la lista de reproducción
+	 * Devuelve: numero de likes de dicha lista
+	*/
+	public static int obtenerNLikesLista(int idLista) {
+		int nLikes = -1;
+		try {
+			Connection conn = ConnectionManager.getConnection();
+						
+			PreparedStatement ps = conn.prepareStatement(GET_NLIKES_LISTA_QUERY);
+			ps.setInt(1, idLista);
+			ResultSet rs = ps.executeQuery();
+			
+			if (rs.next()) {
+				nLikes = rs.getInt(1);
+			}
+			
+		} catch(SQLException se) {
+			System.out.println(se.getMessage());
+			return nLikes;
+		} catch(Exception e) {
+			e.printStackTrace(System.err);
+			return nLikes;
+		}
+		
+		return nLikes;
+	}
+	
+	/*
+	 * Parametros: id del audio
+	 * Devuelve: numero de likes de dicho audio
+	*/
+	public static int obtenerNLikesAudio(int idAudio) {
+		int nLikes = -1;
+		try {
+			Connection conn = ConnectionManager.getConnection();
+						
+			PreparedStatement ps = conn.prepareStatement(GET_NLIKES_AUDIO_QUERY);
+			ps.setInt(1, idAudio);
+			ResultSet rs = ps.executeQuery();
+			
+			if (rs.next()) {
+				nLikes = rs.getInt(1);
+			}
+			
+		} catch(SQLException se) {
+			System.out.println(se.getMessage());
+			return nLikes;
+		} catch(Exception e) {
+			e.printStackTrace(System.err);
+			return nLikes;
+		}
+		
+		return nLikes;
+	}
+	
+	/*
+	 * Parametros: id de la transmision
+	 * Devuelve: numero de likes de la transmision
+	*/
+	public static int obtenerNLikesTransmision(int idTransmision) {
+		int nLikes = -1;
+		try {
+			Connection conn = ConnectionManager.getConnection();
+						
+			PreparedStatement ps = conn.prepareStatement(GET_NLIKES_TRANS_QUERY);
+			ps.setInt(1, idTransmision);
+			ResultSet rs = ps.executeQuery();
+			
+			if (rs.next()) {
+				nLikes = rs.getInt(1);
+			}
+			
+		} catch(SQLException se) {
+			System.out.println(se.getMessage());
+			return nLikes;
+		} catch(Exception e) {
+			e.printStackTrace(System.err);
+			return nLikes;
+		}
+		
+		return nLikes;
 	}
 	
 	/*

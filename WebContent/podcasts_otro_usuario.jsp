@@ -393,23 +393,23 @@ String likePodcast = (String) request.getAttribute("likePodcast");
 		                                                      </a>
 	                                                   <%} else { %>
 	                                                   		 <input type="hidden" id="likeLista" name="likeLista" value="true">
-	                                                      	<a href="#" id="accion_like_lista" class="snackbar ml-3" style="background-color: #fd7e14; color: #fff" 
+	                                                      	<a href="#" id="accion_like_lista" class="snackbar ml-3" 
 	                                                      		data-text="Ya no te gusta este podcast"
-		                                                         data-pos="top-right"
-		                                                         data-showAction="true"
-		                                                         data-actionText="ok"
-		                                                         data-actionTextColor="#fff"
-		                                                         data-backgroundColor="#0c101b"><i class="icon-thumbs-o-up s-24"></i>
-                                                        	</a>
-	                                                   <%} %>
+ 																data-pos="top-right"
+															   data-showAction="true"
+															   data-actionText="ok"
+															   data-actionTextColor="#fff"
+															   data-backgroundColor="#0c101b"><i class="icon-thumbs-up s-24"></i>
+														</a><%} %>
                                                   </form>
 											</div>
-											
-
 										</div>
 									
 										<div class="text-orange my-2">
 											<p>${infoPodcast.getDescripcion()}</p>
+										</div>
+										<div>
+											<h5>LIKES</h5>${infoPodcast.getNumLikes()}
 										</div>
 
 									</div>
@@ -440,13 +440,37 @@ String likePodcast = (String) request.getAttribute("likePodcast");
 																<div class="col-6">
 																	<h6>${cancion.getTitulo()}</h6>${cancion.getGenero()}
 																</div>
-																<a href="#" class="snackbar ml-3" data-text="Te gusta este programa"
-																   data-pos="top-right"
-																   data-showAction="true"
-																   data-actionText="ok"
-																   data-actionTextColor="#fff"
-																   data-backgroundColor="#0c101b"><i class="icon-thumbs-o-up s-24"></i>
-																</a>
+																<div>
+																	<h6>LIKES</h6>${cancion.getNumLikes() }
+																</div>
+																<form action="like_audio">
+																	<input type="hidden" id="idAudioLike" name="idAudioLike" value="">
+																	<input type="hidden" id="audioLike" name="audioLike" value="">
+																	<c:choose>
+																		<c:when test="${cancion.getLikeUsuario() == null}">
+																				<a title="Like" href="#" id="accion_cancion_like" class="snackbar ml-3" 
+																					onclick="document.getElementById('idAudioLike').value ='${cancion.getId()}';document.getElementById('audioLike').value ='false';" 
+																					data-text="Te gusta esta canción"
+																				   data-pos="top-right"
+																				   data-showAction="true"
+																				   data-actionText="ok"
+																				   data-actionTextColor="#fff"
+																				   data-backgroundColor="#0c101b"><i class="icon-thumbs-o-up s-24"></i>
+																				</a>
+																		</c:when>
+																		<c:otherwise>
+																				<a title="Like" href="#" id="accion_cancion_like" class="snackbar ml-3" 
+																						onclick="document.getElementById('idAudioLike').value ='${cancion.getId()}';document.getElementById('audioLike').value ='true';" 
+																						data-text="Ya no te gusta esta canción"
+																					   data-pos="top-right"
+																					   data-showAction="true"
+																					   data-actionText="ok"
+																					   data-actionTextColor="#fff"
+																					   data-backgroundColor="#0c101b"><i class="icon-thumbs-up s-24"></i>
+																				</a>
+																		</c:otherwise>																	
+																	</c:choose>
+																</form>
 																<a href="#" data-toggle="control-sidebar">
 											                        <i style="position: relative;left: 10px;" class="icon-commenting-o s-24"></i>
 											                    </a>
@@ -526,18 +550,33 @@ String likePodcast = (String) request.getAttribute("likePodcast");
     </script>
     
 <script>
-$(document).ready(function() {
+	$(document).ready(function() {
         $('#accion_like_lista').click(function(event) { // dar like a lista
             var listaId = $('#idListaLike').val();
             var like = $('#likeLista').val();
             console.log(like);
             console.log(listaId);
             $.get('like_lista', {
-                    idLista : listaId,
-                    like : like
+                idLista : listaId,
+                like : like
             });
         });
-});
+	});
+</script>
+
+<script>
+	$(document).ready(function() {
+	    $('#playlist a').click(function(event) {//dar like a una cancion
+		 	var audioId = $('#idAudioLike').val();
+	        var like = $('#audioLike').val();
+	        console.log(audioId);
+	        console.log(like);
+			$.get('like_audio', {
+	           idAudio: audioId,
+	            like : like
+			});
+	   	});
+	});
 </script>
 
 </main><!--@Page Content-->
@@ -547,18 +586,33 @@ $(document).ready(function() {
 <script src="assets/js/app.js"></script>
 
 <script>
-$(document).ready(function() {
+	$(document).ready(function() {
         $('#accion_like_lista').click(function(event) { // dar like a lista
             var listaId = $('#idListaLike').val();
             var like = $('#likeLista').val();
             console.log(like);
             console.log(listaId);
             $.get('like_lista', {
-                    idLista : listaId,
-                    like : like
+                idLista : listaId,
+                like : like
             });
         });
-});
+	});
+</script>
+
+<script>
+	$(document).ready(function() {
+	    $('#playlist a').click(function(event) {//dar like a una cancion
+		 	var audioId = $('#idAudioLike').val();
+	        var like = $('#audioLike').val();
+	        console.log(audioId);
+	        console.log(like);
+			$.get('like_audio', {
+	           idAudio: audioId,
+	            like : like
+			});
+	   	});
+	});
 </script>
 
 <script>

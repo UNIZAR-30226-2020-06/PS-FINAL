@@ -58,6 +58,7 @@ public class Search_BusquedasServlet extends HttpServlet {
 			BusquedasDAO busquedas = new BusquedasDAO();
 			busquedas.searchAll(nombre,canciones,capitulos,listas,podcasts,transmisiones,usuarios);
 			for(Audio cancion :  canciones) {
+				cancion.setNumLikes(LikesDAO.obtenerNLikesAudio(cancion.getId()));
 				if(LikesDAO.tieneLikeAudio(usuario, cancion.getId())) {
 					cancion.setLikeUsuario("like");
 				} else {
@@ -66,6 +67,7 @@ public class Search_BusquedasServlet extends HttpServlet {
 			}
 			
 			for(Audio capitulo :  capitulos) {
+				capitulo.setNumLikes(LikesDAO.obtenerNLikesAudio(capitulo.getId()));
 				if(LikesDAO.tieneLikeAudio(usuario, capitulo.getId())) {
 					capitulo.setLikeUsuario("like");
 				} else {

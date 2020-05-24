@@ -44,7 +44,18 @@ public class GetInfo_PodcastServlet extends HttpServlet {
 		try{
 			ListaReproduccion infoPodcast = new ListaReproduccionDAO().getInfoList(nombre,usuario,tipo);
 			List<Audio> audios = new ListaReproduccionDAO().getAudios(nombre,usuario,tipo);
+			for(Audio capitulo :  audios) {
+				capitulo.setNumLikes(LikesDAO.obtenerNLikesAudio(capitulo.getId()));
+				if(LikesDAO.tieneLikeAudio(usuario, capitulo.getId())) {
+					System.out.println("CAPITULO  LIKE" + capitulo.getId());
+					capitulo.setLikeUsuario("like");
+				} else {
+					System.out.println("CAPITULO NO LIKE" + capitulo.getId());
+					capitulo.setLikeUsuario(null);
+				}
+			}
 			
+			infoPodcast.setNumLikes(likesDAO.obtenerNLikesLista(infoPodcast.getId()));
 			if(likesDAO.tieneLikeLista(usuario, infoPodcast.getId())) {
 				request.setAttribute("likePodcast", "likePodcast");
 			} else {

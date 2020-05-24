@@ -26,6 +26,8 @@ public class CancionDAO {
 	private final static String UPDATE_QUERY = "UPDATE Reproductor_musica.Audio SET titulo = ?, genero = ? WHERE id = ?";
 	private final static String GET_NOMBRE_AUTOR_QUERY = "SELECT a.nombre FROM Reproductor_musica.Usuario a WHERE a.id = ?";
 	private final static String GET_NOMBRE_GENERO_QUERY = "SELECT g.nombre FROM Reproductor_musica.Genero g WHERE g.id = ? AND g.tipo = 'cancion'";
+	private final static String GET_TIPO_AUDIO = "SELECT g.tipo FROM Reproductor_musica.Audio a, Reproductor_musica.Genero g WHERE a.genero = g.id AND a.id = ?";
+
 	private final static String GET_CANCIONES_USUARIO = "SELECT a.id, a.titulo, a.url, a.usuario, a.genero FROM Reproductor_musica.Audio a WHERE a.usuario = ? AND a.genero IN (SELECT g.id FROM Reproductor_musica.Genero g WHERE g.tipo = 'cancion')";
 	private final static String GET_TODOS_QUERY = "SELECT * FROM Reproductor_musica.Audio WHERE genero IN (SELECT id FROM Reproductor_musica.Genero WHERE tipo = 'cancion')";
 	private final static String GET_MASLIKES_QUERY = "SELECT a.id, a.url, a.titulo, a.usuario, a.genero" + 
@@ -35,6 +37,8 @@ public class CancionDAO {
 													" FROM Reproductor_musica.Audio a, Reproductor_musica.LikesAudio la" + 
 													" WHERE a.id NOT IN (SELECT la.audio FROM Reproductor_musica.LikesAudio la) AND a.genero = ? GROUP BY a.id LIMIT 20";
 	
+	private final static String GET_INFO_QUERY = "SELECT a.id, a.url, a.titulo, u.nombre, g.nombre, (SELECT count(*) FROM Reproductor_musica.LikesAudio la WHERE la.audio = a.id) AS likes " + 
+												 "FROM Reproductor_musica.Audio a, Reproductor_musica.Usuario u, Reproductor_musica.Genero g WHERE a.usuario = u.id AND a.genero = g.id AND a.id = ?";
 	public int subirCancion(String titulo, int autor, int genero, String ruta) {
 		System.out.println("SubirCancion Entro+++++++++++++++++");
 		//int id_autor = obtenerIDAutor(autor);
@@ -44,6 +48,28 @@ public class CancionDAO {
 			return 1;
 		}
 		return 0;
+	}
+	
+	public Audio obtenerInfoAudio(int id) {
+		Connection conn;
+		Audio a = null;
+		try {
+			conn = ConnectionManager.getConnection();
+			PreparedStatement ps = conn.prepareStatement(GET_INFO_QUERY);	
+			ps.setInt(1, id);
+			ResultSet rs = ps.executeQuery();
+			
+			while(rs.next()) { 
+				a = new Audio(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getInt(6));
+			}
+			ConnectionManager.releaseConnection(conn);
+			
+			return a;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			System.out.println("Error al obtener el id de la canción");
+			return null;
+		}
 	}
 	
 	
@@ -205,29 +231,42 @@ public class CancionDAO {
 		}
 	}
 	
-	private int obtenerIDGenero(int genero) {
+	public String obtenerTipoAudio(int idAudio) {
 		Connection conn;
 		try {
 			conn = ConnectionManager.getConnection();
-			PreparedStatement ps = conn.prepareStatement(GET_ID_GENERO_QUERY);
-			
-			ps.setInt(1, genero);
-			
+			PreparedStatement ps = conn.prepareStatement(GET_TIPO_AUDIO);
+			ps.setInt(1, idAudio);
 			ResultSet rs = ps.executeQuery();
-			int id_autor= 0;
+			String tipoAudio = "";
 			
-			while(rs.next()) {
-				System.out.println("Entro----------------------------------");
-				id_autor = rs.getInt(1);
-			}
+			while(rs.next())
+				tipoAudio = rs.getString(1);
+			
 			ConnectionManager.releaseConnection(conn);
-			System.out.println("CONSIGO ID GENERO");
-			
-			return id_autor;
+			return tipoAudio;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			System.out.println("Error al obtener el id del genero de la canción");
-			return 0;
+			return null;
+		}
+	}
+
+	public String obtenerInfoCancion(int id_genero) {
+		Connection conn;
+		try {
+			conn = ConnectionManager.getConnection();
+			PreparedStatement ps = conn.prepareStatement(GET_NOMBRE_GENERO_QUERY);
+			ps.setInt(1, id_genero);
+			ResultSet rs = ps.executeQuery();
+			String nombre = null;
+			while(rs.next())
+				nombre = rs.getString(1);
+			ConnectionManager.releaseConnection(conn);
+			return nombre;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			System.out.println("Error al obtener el id de la canci�n");
+			return null;
 		}
 	}
 

@@ -12,6 +12,7 @@ public class ListaReproduccion {
 	private String descripcion;
 	private String imagen;
 	private String tipo;
+	private int numLikes;
 	
 	public ListaReproduccion(String id, String nombre, String usuario, String descripcion, String imagen, String tipo) {
 		super();
@@ -45,5 +46,13 @@ public class ListaReproduccion {
 	
 	public String getUsuario() {
 		return usuario;
+	}
+	
+	public void setNumLikes(int numLikes) {
+		this.numLikes = numLikes;
+	}
+	
+	public int getNumLikes() {
+		return numLikes;
 	}
 }

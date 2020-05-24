@@ -306,6 +306,7 @@ String like = (String) request.getAttribute("like");
                     </div>
                     <h3>${transmision.getNombre()}</h3>
 					<h6>${transmision.getDescripcion()}</h6>
+					<h5>LIKES</h5>${transmision.getNumLikes() }
                    <ul id="transmision" class="playlist list-group">
                    	<li class="list-group-item my-1">
               			<div class="d-flex align-items-center">
@@ -336,7 +337,8 @@ String like = (String) request.getAttribute("like");
 										   data-actionText="ok"
 										   data-actionTextColor="#fff"
 										   data-backgroundColor="#0c101b"><i class="icon-thumbs-up s-24"></i>
-									</a>	                                  <%} %>
+									</a>	                                  
+									<%} %>
 								</form>
 							</div>
 							<span class="ml-auto">${transmision.getActiva()}</span>

@@ -444,6 +444,9 @@ String imagen = (String) session.getAttribute("imagen");
 																<div class="col-6">
 																	<h6>${cancion.getTitulo()}</h6>${cancion.getGenero()}
 																</div>
+																<div>
+																	<h6>LIKES</h6>${cancion.getNumLikes() }
+																</div>
 																<form action="like_audio">
 																	<input type="hidden" id="idAudioLike" name="idAudioLike" value="">
 																	<c:choose>

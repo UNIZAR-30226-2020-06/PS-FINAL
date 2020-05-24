@@ -12,6 +12,7 @@ public class Audio {
 	private String usuario;
 	private String genero;
 	private String likeUsuario;
+	private int numLikes;
 	
 	public Audio(String id, String url, String titulo, String usuario, String genero) {
 		super();
@@ -20,6 +21,16 @@ public class Audio {
 		this.titulo = titulo;
 		this.usuario = usuario;
 		this.genero = genero;
+	}
+	
+	public Audio(String id, String url, String titulo, String usuario, String genero, int nLikes) {
+		super();
+        this.id = Integer.parseInt(id);
+		this.url = url;
+		this.titulo = titulo;
+		this.usuario = usuario;
+		this.genero = genero;
+		this.numLikes = nLikes;
 	}
 	
     public int getId() {
@@ -48,5 +59,13 @@ public class Audio {
 	
 	public String getLikeUsuario() {
 		return likeUsuario;
+	}
+	
+	public void setNumLikes(int numLikes) {
+		this.numLikes = numLikes;
+	}
+	
+	public int getNumLikes() {
+		return numLikes;
 	}
 }

@@ -56,6 +56,7 @@ public class GetInfo_IndexServlet extends HttpServlet {
 		List<Audio> fav = new FavoritosDAO().getAudios(usuario);
 		
 		for(Audio cancion :  fav) {
+			cancion.setNumLikes(LikesDAO.obtenerNLikesAudio(cancion.getId()));
 			if(LikesDAO.tieneLikeAudio(usuario, cancion.getId())) {
 				cancion.setLikeUsuario("like");
 			} else {

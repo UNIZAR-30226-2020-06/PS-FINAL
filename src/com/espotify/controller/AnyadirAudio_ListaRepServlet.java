@@ -42,17 +42,17 @@ public class AnyadirAudio_ListaRepServlet extends HttpServlet {
 		
 		Boolean anyadida=false;	
 		String redir="";
-		
+		log("Hola?");
 		if (tipo.equals("ListaRep")) {
 			String audio = request.getParameter("idAudio");
 			int idAudio = Integer.valueOf(audio);		
 			anyadida = new ListaReproduccionDAO().anyadirAudio(idAudio, idLista);
-			redir = "obtener_info_lr?nombre=" + nombre;
+			redir = "obtener_info_lr?nombre=" + nombre+"&pagina=10";
 		} else {
 			String audio = request.getParameter("idAudioP");
 			int idAudio = Integer.valueOf(audio);
 			anyadida = new ListaReproduccionDAO().anyadirAudio(idAudio, idLista);
-			redir = "obtener_info_podcast?nombre=" + nombre;
+			redir = "obtener_info_podcast?nombre=" + nombre+"&pagina=10";
 		}
 		log("Donde redirige: " +redir);
 		

@@ -35,7 +35,6 @@ public class Val_UsuarioServlet extends HttpServlet {
      */
     public Val_UsuarioServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
@@ -71,6 +70,7 @@ public class Val_UsuarioServlet extends HttpServlet {
 				}
 				List<Audio> fav = new FavoritosDAO().getAudios(Integer.valueOf(u.getId()));
 				for(Audio cancion :  fav) {
+					cancion.setNumLikes(LikesDAO.obtenerNLikesAudio(cancion.getId()));
 					if(LikesDAO.tieneLikeAudio(Integer.parseInt(u.getId()), cancion.getId())) {
 						cancion.setLikeUsuario("like");
 					} else {

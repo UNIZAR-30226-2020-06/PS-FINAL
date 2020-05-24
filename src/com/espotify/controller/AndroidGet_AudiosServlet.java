@@ -49,10 +49,6 @@ public class AndroidGet_AudiosServlet extends HttpServlet {
         
         String email = parametrosPeticion.getString("email");
         String nombrePlaylist = parametrosPeticion.getString("nombrePlaylist");
-
-        
-        
-        int idUsuario = Integer.parseInt(UsuarioDAO.obtenerIdDesdeEmail(email));
         
         
         ListaReproduccion lr = ListaReproduccionDAO.getInfoList(nombrePlaylist, "ListaRep");
@@ -66,16 +62,20 @@ public class AndroidGet_AudiosServlet extends HttpServlet {
         
         String nombresAudio = "";
         String urlsAudio = "";
+        String idsAudio = "";
         
         boolean hayAudios = false;
         for(Audio audio : audios) {
         	nombresAudio += audio.getTitulo() + "|";
         	urlsAudio += audio.getUrl() + "|";
+        	idsAudio += audio.getId() + "|";
         	hayAudios = true;
         }
         
         if (hayAudios) {
         	nombresAudio = nombresAudio.substring(0, nombresAudio.length() - 1);
+        	urlsAudio = urlsAudio.substring(0, urlsAudio.length() - 1);
+        	idsAudio = idsAudio.substring(0, idsAudio.length() - 1);
         }
         
         JSONObject respuestaPeticion = new JSONObject();
@@ -88,6 +88,7 @@ public class AndroidGet_AudiosServlet extends HttpServlet {
         respuestaPeticion.put("autor", nombreAutor);
         respuestaPeticion.put("nombresAudio", nombresAudio);
         respuestaPeticion.put("urlsAudio", urlsAudio);
+        respuestaPeticion.put("idsAudio", idsAudio);
         
         // finally output the json string       
         out.print(respuestaPeticion.toString());

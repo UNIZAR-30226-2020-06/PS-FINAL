@@ -211,7 +211,6 @@ String nombre = (String) session.getAttribute("nombre");
 String descripcion = (String) session.getAttribute("descripcion");
 String email = (String) session.getAttribute("email");
 String imagen = (String) session.getAttribute("imagen");
-String seguidores = (String) session.getAttribute("numSeguidores");
 %>
 <!-- END Obtener datos usuario -->
 
@@ -374,11 +373,7 @@ String seguidores = (String) session.getAttribute("numSeguidores");
                     <div class="row">
                         <div class="col-md-4">
                             <div class="p-4">
-                            	<%if (seguidores!=null){ %>
-                                <a href="#w3-tab3" ><h5>Seguidores</h5></a><h6><%=seguidores %></h6></a>
-                                <%} else {%>
-                                <a href="#w3-tab3" ><h5>Seguidores</h5></a><h6>0</h6></a>
-                                <%} %>
+                                <a href="#w3-tab3" ><h5>Seguidores</h5></a><h6>${numSeguidores}</h6></a>
                             </div>
                         </div>
                     </div>
@@ -453,6 +448,9 @@ String seguidores = (String) session.getAttribute("numSeguidores");
 															</div>
 															<div class="col-6">
 																<h6>${cancion.getTitulo()}</h6>${cancion.getGenero()}
+															</div>
+															<div>
+																<h6>LIKES</h6>${cancion.getNumLikes() }
 															</div>
 															<form action="like_audio">
 																	<input type="hidden" id="idAudioLike" name="idAudioLike" value="">
@@ -595,6 +593,11 @@ String seguidores = (String) session.getAttribute("numSeguidores");
 															<div class="col-6">
 																<h6>${capitulo.getTitulo()}</h6>${capitulo.getGenero()}
 															</div>
+															
+															<div>
+																<h6>LIKES</h6>${capitulo.getNumLikes() }
+															</div>
+															
 															<form action="like_audio">
 																	<input type="hidden" id="idAudioLike" name="idAudioLike" value="">
 																	<input type="hidden" id="audioLike" name="audioLike" value="">
@@ -954,7 +957,7 @@ String seguidores = (String) session.getAttribute("numSeguidores");
 							</figure>
 							<form class="form-material" action="anyadir_cancion_lr">
 								<input type="hidden" name="idLista" id="idLista2" value="${podcast.getId()}">
-								<input type="hidden" name="idAudio" id="idAudio2" value="">
+								<input type="hidden" name="idAudioP" id="idAudio2" value="">
 								<input type="hidden" name="nombreLista" id="nombreLista2" value="${podcast.getNombre()}">
 								<input type="hidden" name="tipo" id="tipo3" value="podcast">
 								<input type="submit" value="Añadir">
@@ -1390,7 +1393,7 @@ String seguidores = (String) session.getAttribute("numSeguidores");
 
 <script>
 	$(document).ready(function() {
-	    $('#playlist a').click(function(event) {//dar like a una cancion
+	    $('#playlist a').click(function(event) {//dar like a un audio
 		 	var audioId = $('#idAudioLike').val();
 	        var like = $('#audioLike').val();
 	        console.log(audioId);
@@ -1410,7 +1413,7 @@ String seguidores = (String) session.getAttribute("numSeguidores");
 
 <script>
 	$(document).ready(function() {
-	    $('#playlist a').click(function(event) {//dar like a una cancion
+	    $('#playlist a').click(function(event) {//dar like a un audio
 		 	var audioId = $('#idAudioLike').val();
 	        var like = $('#audioLike').val();
 	        console.log(audioId);
