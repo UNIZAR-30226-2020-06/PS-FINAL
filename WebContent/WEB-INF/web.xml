@@ -636,6 +636,16 @@
 			<servlet-name>obtener_contenido_perfil</servlet-name>
 			<url-pattern>/obtener_contenido_perfil</url-pattern>
 	</servlet-mapping>
+	
+	<servlet>
+			<servlet-name>obtener_num_likes</servlet-name>
+			<servlet-class>com.espotify.controller.GetNumLikes_Servlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+			<servlet-name>obtener_num_likes</servlet-name>
+			<url-pattern>/obtener_num_likes</url-pattern>
+	</servlet-mapping>
+	
 	<servlet>
         <servlet-name>ir_modificar</servlet-name>
 	    <servlet-class>com.espotify.controller.IrModificar</servlet-class>

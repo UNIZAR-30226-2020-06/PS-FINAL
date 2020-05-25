@@ -352,35 +352,39 @@ String imagen = (String) session.getAttribute("imagen");
 											
 											<form style="top: -44px;position: relative;" action="like_lista">
                                                       <input type="hidden" id="idListaLike" name="idListaLike" value="${infoLista.getId()}">
+                                                      <input type="hidden" id="likeLista" name="likeLista" value="">
                                                       <%if(likeLista == null) { %>
-		                                                      <input type="hidden" id="likeLista" name="likeLista" value="false">
 		                                                      <a href="#" id="accion_like_lista" class="snackbar ml-3" 
 		                                                      	data-text="Te gusta esta lista de reproducción"
-		                                                         data-pos="top-right"
-		                                                         data-showAction="true"
-		                                                         data-actionText="ok"
-		                                                         data-actionTextColor="#fff"
-		                                                         data-backgroundColor="#0c101b"><i class="icon-thumbs-o-up s-24"></i>
-		                                                      </a>
+		                                                        data-pos="top-right"
+															   data-showAction="true"
+															   data-actionText="ok"
+															   data-actionTextColor="#fff"
+															   data-backgroundColor="#0c101b">
+															   <i onclick="if(this.className == 'icon-thumbs-up s-24'){this.className='icon-thumbs-o-up s-24';} else{this.className='icon-thumbs-up s-24';document.getElementById('likeLista').value ='false';}"
+																   class="icon-thumbs-o-up s-24"></i>
+															</a>
 	                                                   <%} else { %>
-	                                                   		 <input type="hidden" id="likeLista" name="likeLista" value="true">
 	                                                      	<a href="#" id="accion_like_lista" class="snackbar ml-3"
 	                                                      		data-text="Ya no te gusta esta lista de reproducción"
 															   data-pos="top-right"
 															   data-showAction="true"
 															   data-actionText="ok"
 															   data-actionTextColor="#fff"
-															   data-backgroundColor="#0c101b"><i class="icon-thumbs-up s-24"></i>
-														</a>
+															   data-backgroundColor="#0c101b">
+															   <i onclick="if(this.className == 'icon-thumbs-up s-24'){this.className='icon-thumbs-o-up s-24';document.getElementById('likeLista').value ='true';} else{this.className='icon-thumbs-up s-24';document.getElementById('likeLista').value ='false';}"
+															   class="icon-thumbs-up s-24"></i>
+															  </a>
 	                                                   <%} %>
-                                                  </form>
+	                                                   </form>
 
 										</div>
 										<div class="text-orange my-2">
 											<p>${infoLista.getDescripcion()}</p>
 										</div>
 										<div>
-											<h5>LIKES</h5>${infoLista.getNumLikes()}
+											<h6 >LIKES</h6>
+											<label id='numLikesText'>${infoLista.getNumLikes() }</label>
 										</div>
 										<!-- AÑADIR CANCION A LISTA DE REPRODUCCI�N -->
 										<div class="overlay-pop-up" id="overlay-anadir-listas-reproduccion">
@@ -475,32 +479,38 @@ String imagen = (String) session.getAttribute("imagen");
 																	<h6>${cancion.getTitulo()}</h6>${cancion.getGenero()}
 																</div>
 																<div>
-																	<h6>LIKES</h6>${cancion.getNumLikes() }
+																	<h6 >LIKES</h6>
+																	<label id='${cancion.getId() }'>${cancion.getNumLikes() }</label>
 																</div>
 																<form action="like_audio">
+																	<input type="hidden" id="numLikes" value="">
 																	<input type="hidden" id="idAudioLike" name="idAudioLike" value="">
 																	<input type="hidden" id="audioLike" name="audioLike" value="">
 																	<c:choose>
 																		<c:when test="${cancion.getLikeUsuario() == null}">
 																				<a title="Like" href="#" id="accion_cancion_like" class="snackbar ml-3" 
-																					onclick="document.getElementById('idAudioLike').value ='${cancion.getId()}';document.getElementById('audioLike').value ='false';" 
+																					onclick="document.getElementById('idAudioLike').value ='${cancion.getId()}';"																				
 																					data-text="Te gusta esta canción"
 																				   data-pos="top-right"
 																				   data-showAction="true"
 																				   data-actionText="ok"
 																				   data-actionTextColor="#fff"
-																				   data-backgroundColor="#0c101b"><i class="icon-thumbs-o-up s-24"></i>
+																				   data-backgroundColor="#0c101b">
+																				   <i onclick="if(this.className == 'icon-thumbs-up s-24'){this.className='icon-thumbs-o-up s-24';} else{this.className='icon-thumbs-up s-24';document.getElementById('audioLike').value ='false';}"
+																					   class="icon-thumbs-o-up s-24"></i>
 																				</a>
 																		</c:when>
 																		<c:otherwise>
 																				<a title="Like" href="#" id="accion_cancion_like" class="snackbar ml-3" 
-																						onclick="document.getElementById('idAudioLike').value ='${cancion.getId()}';document.getElementById('audioLike').value ='true';" 
+																						onclick="document.getElementById('idAudioLike').value ='${cancion.getId()}';"	
 																						data-text="Ya no te gusta esta canción"
 																					   data-pos="top-right"
 																					   data-showAction="true"
 																					   data-actionText="ok"
 																					   data-actionTextColor="#fff"
-																					   data-backgroundColor="#0c101b"><i class="icon-thumbs-up s-24"></i>
+																					   data-backgroundColor="#0c101b">
+																					   <i onclick="if(this.className == 'icon-thumbs-up s-24'){this.className='icon-thumbs-o-up s-24';document.getElementById('audioLike').value ='true';} else{this.className='icon-thumbs-up s-24';document.getElementById('audioLike').value ='false';}"
+																					   class="icon-thumbs-up s-24"></i>
 																				</a>
 																		</c:otherwise>																	
 																	</c:choose>
@@ -575,18 +585,25 @@ String imagen = (String) session.getAttribute("imagen");
     </script>
     
 <script>
-	$(document).ready(function() {
-	        $('#accion_like_lista').click(function(event) { // dar like a lista
-	            var listaId = $('#idListaLike').val();
-	            var like = $('#likeLista').val();
-	            console.log(like);
-	            console.log(listaId);
-	            $.get('like_lista', {
-	                    idLista : listaId,
-	                    like : like
-	            });
-	        });
-	});
+$(document).ready(function() {
+    $('#accion_like_lista').click(function(event) { // dar like a lista
+        var listaId = $('#idListaLike').val();
+        var like = $('#likeLista').val();
+        console.log(like);
+        console.log(listaId);
+        $.get('like_lista', {
+                idLista : listaId,
+                like : like
+        }, function(){
+        	$.get('obtener_num_likes',{
+				tipo : "ListaRep",
+				idLike : listaId
+			}, function(data){
+				$('#numLikesText').text(data);
+			});
+		});
+    });
+});
 </script>
  <script>
     $(document).ready(function() {
@@ -619,11 +636,18 @@ String imagen = (String) session.getAttribute("imagen");
 	        var like = $('#audioLike').val();
 	        console.log(audioId);
 	        console.log(like);
+	        console.log(numLikes);
 			$.get('like_audio', {
 	           idAudio: audioId,
 	            like : like
 			}, function(){
-				
+				$.get('obtener_num_likes',{
+					tipo : "Audio",
+					idLike : audioId
+				}, function(data){
+					var id = '#' + audioId;
+					$(id).text(data);
+				});
 			});
 	   });
 	});
@@ -641,27 +665,41 @@ String imagen = (String) session.getAttribute("imagen");
 	        var like = $('#audioLike').val();
 	        console.log(audioId);
 	        console.log(like);
+	        console.log(numLikes);
 			$.get('like_audio', {
 	           idAudio: audioId,
 	            like : like
 			}, function(){
-				
+				$.get('obtener_num_likes',{
+					tipo : "Audio",
+					idLike : audioId
+				}, function(data){
+					var id = '#' + audioId;
+					$(id).text(data);
+				});
 			});
 	   });
 	});
 </script>
 <script>
 $(document).ready(function() {
-        $('#accion_like_lista').click(function(event) { // dar like a lista
-            var listaId = $('#idListaLike').val();
-            var like = $('#likeLista').val();
-            console.log(like);
-            console.log(listaId);
-            $.get('like_lista', {
-                    idLista : listaId,
-                    like : like
-            });
-        });
+    $('#accion_like_lista').click(function(event) { // dar like a lista
+        var listaId = $('#idListaLike').val();
+        var like = $('#likeLista').val();
+        console.log(like);
+        console.log(listaId);
+        $.get('like_lista', {
+                idLista : listaId,
+                like : like
+        }, function(){
+        	$.get('obtener_num_likes',{
+				tipo : "ListaRep",
+				idLike : listaId
+			}, function(data){
+				$('#numLikesText').text(data);
+			});
+		});
+    });
 });
 </script>
 

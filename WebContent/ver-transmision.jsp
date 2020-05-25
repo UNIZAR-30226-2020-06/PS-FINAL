@@ -306,7 +306,10 @@ String like = (String) request.getAttribute("like");
                     </div>
                     <h3>${transmision.getNombre()}</h3>
 					<h6>${transmision.getDescripcion()}</h6>
-					<h5>LIKES</h5>${transmision.getNumLikes() }
+					<div>
+						<h6 >LIKES</h6>
+						<label id='transmisionNumLikes'>${transmision.getNumLikes() }</label>
+					</div>
                    <ul id="transmision" class="playlist list-group">
                    	<li class="list-group-item my-1">
               			<div class="d-flex align-items-center">
@@ -318,26 +321,29 @@ String like = (String) request.getAttribute("like");
 							<div class="col-6">
 								<form action="like_transmision">
 	                                  <input type="hidden" id="idTransmisionLike" name=""idTransmisionLike"" value="${transmision.getId()}">
+	                                  <input type="hidden" id="likeTransmision" name="likeTransmision" value="">
 	                                 <%if(like == null){%>
-		                                  <input type="hidden" id="likeTransmision" name="likeTransmision" value="false">
 		                                  <a href="#" id="accion_like_transmision" class="btn-favorito"  
 		                                  	data-text="Te gusta este directo"
-		                                     data-pos="top-right"
-		                                     data-showAction="true"
-		                                     data-actionText="ok"
-		                                     data-actionTextColor="#fff"
-		                                     data-backgroundColor="#0c101b"><i class="icon-thumbs-o-up s-24"></i>
-		                                  </a>
+		                                    data-pos="top-right"
+										   data-showAction="true"
+										   data-actionText="ok"
+										   data-actionTextColor="#fff"
+										   data-backgroundColor="#0c101b">
+										   <i onclick="if(this.className == 'icon-thumbs-up s-24'){this.className='icon-thumbs-o-up s-24';document.getElementById('likeTransmision').value ='true';} else{this.className='icon-thumbs-up s-24';document.getElementById('likeTransmision').value ='false';}"
+										   class="icon-thumbs-up s-24"></i>
+										  </a>
 	                                 <%}else{ %>
-	                                  		<input type="hidden" id="likeTransmision" name="likeTransmision" value="true">
 		                                  <a href="#" id="accion_like_transmision" class="btn-favorito"
 		                                     data-text="Ya no te gusta este directo"
 										   data-pos="top-right"
 										   data-showAction="true"
 										   data-actionText="ok"
 										   data-actionTextColor="#fff"
-										   data-backgroundColor="#0c101b"><i class="icon-thumbs-up s-24"></i>
-									</a>	                                  
+										   data-backgroundColor="#0c101b">
+										   <i onclick="if(this.className == 'icon-thumbs-up s-24'){this.className='icon-thumbs-o-up s-24';document.getElementById('likeTransmision').value ='true';} else{this.className='icon-thumbs-up s-24';document.getElementById('likeTransmision').value ='false';}"
+										   class="icon-thumbs-up s-24"></i>
+										  </a>
 									<%} %>
 								</form>
 							</div>
@@ -420,7 +426,14 @@ $(document).ready(function() {
             $.get('like_transmision', {
                     idTransmision : transmsionId,
                     like : like
-            });
+            }, function(){
+            	$.get('obtener_num_likes',{
+					tipo : "Transmision",
+					idLike : transmsionId
+				}, function(data){
+					$('#transmisionNumLikes').text(data);
+				});
+			});
         });
 });
 </script>
@@ -433,7 +446,7 @@ $(document).ready(function() {
 
 <script>
 $(document).ready(function() {
-        $('#accion_like_transmision').click(function(event) { // dar like a lista
+        $('#accion_like_transmision').click(function(event) { // dar like a transmision
             var transmsionId = $('#idTransmisionLike').val();
             var like = $('#likeTransmision').val();
             console.log(like);
@@ -441,7 +454,14 @@ $(document).ready(function() {
             $.get('like_transmision', {
                     idTransmision : transmsionId,
                     like : like
-            });
+            }, function(){
+            	$.get('obtener_num_likes',{
+					tipo : "Transmision",
+					idLike : transmsionId
+				}, function(data){
+					$('#transmisionNumLikes').text(data);
+				});
+			});
         });
 });
 </script>
