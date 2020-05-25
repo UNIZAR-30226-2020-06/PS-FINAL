@@ -21,6 +21,7 @@ public class CapituloPodcastDAO {
 	private final static String INSERT_URL_QUERY = "UPDATE Reproductor_musica.Audio SET url = ? WHERE id = ?";
 	private final static String DELETE_QUERY = "DELETE FROM Reproductor_musica.Audio WHERE id = ?";
 	private final static String GET_ID_CAPITULO_QUERY = "SELECT a.id FROM Reproductor_musica.Audio a WHERE titulo = ?";
+	private final static String GET_ID_CAPITULO_AUTOR_QUERY = "SELECT a.id FROM Reproductor_musica.Audio a WHERE titulo = ? AND usuario = ?";
 	private final static String GET_ID_ULTIMO_CAPITULO_QUERY = "SELECT a.id FROM Reproductor_musica.Audio a ORDER BY a.id DESC LIMIT 1";
 	private final static String UPDATE_QUERY = "UPDATE Reproductor_musica.Audio SET titulo = ?, genero = ? WHERE id = ?";
 	private final static String GET_NOMBRE_AUTOR_QUERY = "SELECT a.nombre FROM Reproductor_musica.Usuario a WHERE a.id = ?";
@@ -116,12 +117,11 @@ public class CapituloPodcastDAO {
 	
 	
 	
-	public boolean insertar_url(String url) {
+	public boolean insertar_url(String url, int id) {
 		Connection conn;
 		try {
 			conn = ConnectionManager.getConnection();
 			PreparedStatement ps = conn.prepareStatement(INSERT_URL_QUERY);
-			int id = obtenerUltimoCapituloPodcast();
 			System.out.println(id);
 			ps.setString(1, url);
 			ps.setInt(2, id);
@@ -306,6 +306,29 @@ public class CapituloPodcastDAO {
 			PreparedStatement ps = conn.prepareStatement(GET_ID_CAPITULO_QUERY);
 			
 			ps.setString(1, titulo);
+			
+			ResultSet rs = ps.executeQuery();
+			int id = 0;
+			while(rs.next())
+				id = rs.getInt(1);
+			ConnectionManager.releaseConnection(conn);
+			return id;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			System.out.println("Error al obtener el id del ultimo capitulo");
+			return 0;
+		}
+	}
+	
+	public int obtenerIdCapituloPodcast(String titulo, int autor) {
+		System.out.println("obtenerIDCapituloPodcast Entro +++++++++++++++++");
+		Connection conn;
+		try {
+			conn = ConnectionManager.getConnection();
+			PreparedStatement ps = conn.prepareStatement(GET_ID_CAPITULO_AUTOR_QUERY);
+			
+			ps.setString(1, titulo);
+			ps.setInt(2, autor);
 			
 			ResultSet rs = ps.executeQuery();
 			int id = 0;

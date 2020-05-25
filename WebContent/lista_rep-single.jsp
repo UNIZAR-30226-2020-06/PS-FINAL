@@ -466,7 +466,7 @@ String imagen = (String) session.getAttribute("imagen");
 																					   data-actionText="ok"
 																					   data-actionTextColor="#fff"
 																					   data-backgroundColor="#0c101b">
-																					   <i onclick="if(this.className == 'icon-thumbs-up s-24'){this.className='icon-thumbs-o-up s-24';} else{this.className='icon-thumbs-up s-24';document.getElementById('audioLike').value ='false';}"
+																					   <i onclick="if(this.className == 'icon-thumbs-up s-24'){this.className='icon-thumbs-o-up s-24';document.getElementById('audioLike').value ='true';} else{this.className='icon-thumbs-up s-24';document.getElementById('audioLike').value ='false';}"
 																						   class="icon-thumbs-o-up s-24"></i>
 																					</a>
 																			</c:when>

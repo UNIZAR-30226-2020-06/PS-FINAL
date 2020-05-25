@@ -58,39 +58,44 @@ public class SubirAudioCapitulo_Servlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		int autor = Integer.valueOf((String) session.getAttribute("id"));
 		
-		
 		getServletContext().log("Comienza subida de MP3...");
 		if(!ServletFileUpload.isMultipartContent(request)){
 			throw new ServletException("Content type is not multipart/form-data");
 		}
 		
-		
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
 		out.write("<html><head></head><body>");
-
+		
 		try {
 			List<FileItem> fileItemsList = uploader.parseRequest(request);
-
-			/*for(FileItem file: fileItemsList)
-				getServletContext().log("POSICION: "+ fileItemsList.indexOf(file) + " Contenido: " + file.getFieldName() + "---" + file.getString());*/
+			
+			
+	
+			for(FileItem file: fileItemsList)
+				getServletContext().log("POSICION: "+ fileItemsList.indexOf(file) + " Contenido: " + file.getFieldName() + "---" + file.getString());
 			String nombre = (String)fileItemsList.get(1).getString();
 			int genero = Integer.valueOf((String)fileItemsList.get(2).getString());
 			
-			int lastId = SubirAudioDAO.obtenerUltimaCancionId();
-			String ruta = subirAudioAlmacen((lastId+1), fileItemsList.get(0));
-			if(ruta != null) {			
-				CapituloPodcastDAO capitulo = new CapituloPodcastDAO();
-				if (capitulo.subirCapituloPodcast(nombre, autor, genero, ruta) != 0) {
-					request.getRequestDispatcher("/obtener_contenido_perfil?pagina=10").forward(request, response);
+			
+			CapituloPodcastDAO capitulo = new CapituloPodcastDAO();
+			if (capitulo.subirCapituloPodcast(nombre, autor, genero, "") != 0) {
+				int id = capitulo.obtenerIdCapituloPodcast(nombre, autor);
+				String ruta = subirAudioAlmacen(id, fileItemsList.get(0));
+				if(ruta != null) {
+					if(capitulo.insertar_url(ruta, id)) {
+						request.getRequestDispatcher("/obtener_contenido_perfil?pagina=10").forward(request, response);
+					} else {
+						capitulo.borrarCapituloPodcast(id);
+						getServletContext().log("ERROR AL AGREGAR LA URL: " + ruta);
+					}
 				} else {
-					out.write("Se ha producido un error al guardar en la base de datos");
+					capitulo.borrarCapituloPodcast(id);
+					getServletContext().log("ERROR AL SUBIR EL CAPITULO AL ALMACEN");
 				}
-			}else {
-				out.write("Se ha producido un error al subir el fichero");
+			} else {
+				out.write("Se ha producido un error al guardar en la base de datos");
 			}
-			
-			
 		} catch (FileUploadException e) {
 			getServletContext().log("FAIL: " + e.toString());
 			out.write("Se ha producido un error al subir el fichero");
