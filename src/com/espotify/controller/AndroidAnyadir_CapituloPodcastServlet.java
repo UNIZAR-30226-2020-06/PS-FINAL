@@ -51,16 +51,16 @@ public class AndroidAnyadir_CapituloPodcastServlet extends HttpServlet {
 		JSONObject parametrosPeticion = JSONAdapter.parsarJSON(request);
         getServletContext().log(JSONAdapter.obtenerParametros(request)); 
         
-        String nombreAudio = parametrosPeticion.getString("nombreCapitulo");
+        String idAudio = parametrosPeticion.getString("idCapitulo");
         String nombreLista = parametrosPeticion.getString("nombrePodcast");
         
+        
         CancionDAO cancion = new CancionDAO();
-        int idAudio = cancion.obtenerIdCancion(nombreAudio);
         int idLista = ListaReproduccionDAO.obtenerIdLista(nombreLista);
         
         JSONObject respuestaPeticion = new JSONObject();
        
-        boolean resultado = ListaReproduccionDAO.anyadirAudio(idAudio, idLista);
+        boolean resultado = ListaReproduccionDAO.anyadirAudio(Integer.parseInt(idAudio), idLista);
         if (resultado) {
         	respuestaPeticion.put("status", "ok");
         } else {

@@ -54,19 +54,18 @@ public class AndroidEliminar_CapituloPodcastServlet extends HttpServlet {
         
         String email = parametrosPeticion.getString("email");
         String nombreLista = parametrosPeticion.getString("nombrePodcast");
-        String nombreCancion = parametrosPeticion.getString("nombreCapitulo");
+        String idCapitulo = parametrosPeticion.getString("idCapitulo");
         
         
-        getServletContext().log("Parametros: " + email + "," + nombreLista + "," + nombreCancion);
+        getServletContext().log("Parametros: " + email + "," + nombreLista + "," + idCapitulo);
         
         CancionDAO canciondao = new CancionDAO();
         
         int idLista = ListaReproduccionDAO.obtenerIdLista(nombreLista);
-        int idCancion = new CancionDAO().obtenerIdCancion(nombreCancion);
         
-        getServletContext().log("ID's: " + idLista + "," + idCancion);
+        getServletContext().log("ID's: " + idLista + "," + idCapitulo);
         
-        boolean borrado = ListaReproduccionDAO.borrarCancionLista(idCancion, idLista);
+        boolean borrado = ListaReproduccionDAO.borrarCancionLista(Integer.parseInt(idCapitulo), idLista);
        
         // Lanzar JSON
         JSONObject respuestaPeticion = new JSONObject();
@@ -76,7 +75,7 @@ public class AndroidEliminar_CapituloPodcastServlet extends HttpServlet {
         	respuestaPeticion.put("estado", "fail");
         }
         
-        canciondao.borrarCancion(idCancion);
+        canciondao.borrarCancion(Integer.parseInt(idCapitulo));
         
         
         PrintWriter out = response.getWriter();

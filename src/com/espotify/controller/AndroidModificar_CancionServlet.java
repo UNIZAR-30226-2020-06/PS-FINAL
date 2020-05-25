@@ -51,16 +51,15 @@ public class AndroidModificar_CancionServlet extends HttpServlet {
         getServletContext().log("--- ~AndroidModificar_CancionServlet~ ---");
         
         String email = parametrosPeticion.getString("email");
+        String idCancion = parametrosPeticion.getString("idCancion");
         String nombreViejoCancion = parametrosPeticion.getString("nombreCancionViejo");
         String nombreNuevoCancion = parametrosPeticion.getString("nombreCancionNuevo");
         String generoNuevoCancion = parametrosPeticion.getString("generoCancionNuevo");
         
         CancionDAO canciondao = new CancionDAO();
-        int idCancion = canciondao.obtenerIdCancion(nombreViejoCancion);
-        
         // TODO: GÉNERO!!!!!!!
         
-        boolean cambiado = canciondao.modificarCancion(nombreNuevoCancion, 1, idCancion);
+        boolean cambiado = canciondao.modificarCancion(nombreNuevoCancion, 1, Integer.parseInt(idCancion));
         
         JSONObject respuestaPeticion = new JSONObject();
         if(cambiado) {

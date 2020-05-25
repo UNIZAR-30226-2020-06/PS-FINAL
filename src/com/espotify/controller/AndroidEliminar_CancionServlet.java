@@ -52,20 +52,18 @@ public class AndroidEliminar_CancionServlet extends HttpServlet {
         getServletContext().log("--- ~AndroidEliminar_CancionServlet~ ---"); 
         
         String email = parametrosPeticion.getString("email");
-        String nombreCancion = parametrosPeticion.getString("nombreCancion");
+        String idCancion = parametrosPeticion.getString("idAudio");
         
         String idUsuario = UsuarioDAO.obtenerIdDesdeEmail(email);
         CancionDAO canciondao = new CancionDAO();
         
         JSONObject respuestaPeticion = new JSONObject();
-        int idCancion = canciondao.obtenerIdCancion(nombreCancion);
-        if(canciondao.borrarCancion(idCancion)) {
+        
+        if(canciondao.borrarCancion(Integer.parseInt(idCancion))) {
         	respuestaPeticion.put("estado", "ok");
         } else {
         	respuestaPeticion.put("estado", "fail");
         }
-        
-        
         
         PrintWriter out = response.getWriter();
         response.setContentType("application/json");

@@ -53,17 +53,17 @@ public class AndroidModificar_CapituloServlet extends HttpServlet {
         getServletContext().log("Parametros: " +parametrosPeticion);
         
         String email = parametrosPeticion.getString("email");
+        String idCacncion = parametrosPeticion.getString("idCapitulo");
         String nombreViejoCancion = parametrosPeticion.getString("nombrePodcastViejo");
         String nombreNuevoCancion = parametrosPeticion.getString("nombrePodcastNuevo");
         String generoNuevoCancion = parametrosPeticion.getString("generoPodcastNuevo");
         
         CancionDAO canciondao = new CancionDAO();
         GeneroDAO generodao = new GeneroDAO();
-        int idCancion = canciondao.obtenerIdCancion(nombreViejoCancion);
         int idGenero = generodao.obtenerIdGenero(generoNuevoCancion);
         
         
-        boolean cambiado = canciondao.modificarCancion(nombreNuevoCancion, idGenero, idCancion);
+        boolean cambiado = canciondao.modificarCancion(nombreNuevoCancion, idGenero, Integer.parseInt(idCacncion));
         
         JSONObject respuestaPeticion = new JSONObject();
         if(cambiado) {

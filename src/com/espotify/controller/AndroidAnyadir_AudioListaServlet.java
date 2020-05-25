@@ -52,15 +52,15 @@ public class AndroidAnyadir_AudioListaServlet extends HttpServlet {
         getServletContext().log(JSONAdapter.obtenerParametros(request)); 
         
         String nombreAudio = parametrosPeticion.getString("nombreAudio");
+        String idAudio = parametrosPeticion.getString("idAudio");
         String nombreLista = parametrosPeticion.getString("nombreLista");
         
         CancionDAO cancion = new CancionDAO();
-        int idAudio = cancion.obtenerIdCancion(nombreAudio);
         int idLista = ListaReproduccionDAO.obtenerIdLista(nombreLista);
         
         JSONObject respuestaPeticion = new JSONObject();
        
-        boolean resultado = ListaReproduccionDAO.anyadirAudio(idAudio, idLista);
+        boolean resultado = ListaReproduccionDAO.anyadirAudio(Integer.parseInt(idAudio), idLista);
         if (resultado) {
         	respuestaPeticion.put("status", "ok");
         } else {
