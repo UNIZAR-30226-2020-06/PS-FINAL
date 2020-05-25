@@ -92,7 +92,11 @@ public class SubirImagenListRep_Servlet extends HttpServlet {
 				request.setAttribute("ruta", RUTA + idLista + ".jpg");
 				//out.write("<a href=\"UploadDownloadFileServlet?fileName="+fileItem.getName()+"\">Download "+fileItem.getName()+"</a>");
 				//gooogle.es
-				request.getRequestDispatcher("mostrar_lrs?tipo=ListaRep&pagina=10").forward(request, response);
+				if (usuario ==ADMIN){
+					request.getRequestDispatcher("obtener_info_lr_usuario?id="+idLista+"&pagina=10").forward(request, response);
+				}else {
+					request.getRequestDispatcher("mostrar_lrs?tipo=ListaRep&pagina=10").forward(request, response);
+				}
 
 		} catch (FileUploadException e) {
 			getServletContext().log("FAIL: " + e.toString());

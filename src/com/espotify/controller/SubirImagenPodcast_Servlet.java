@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
@@ -24,6 +25,7 @@ public class SubirImagenPodcast_Servlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final String ALMACEN_PATH = "/var/www/html/almacen-mp3/almacen-img/listas/";
 	private static final String RUTA = "https://espotify.ddns.net/almacen-mp3/almacen-img/listas/";
+	private static final int ADMIN = 100;  
 	/*
 	 * Constructor principal
 	 * 
@@ -48,7 +50,8 @@ public class SubirImagenPodcast_Servlet extends HttpServlet {
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
 		out.write("<html><head></head><body>");
-		
+		HttpSession session = request.getSession();
+		int usuario=Integer.valueOf((String)session.getAttribute("id"));
 
 		try {
 			List<FileItem> fileItemsList = uploader.parseRequest(request);
@@ -81,13 +84,18 @@ public class SubirImagenPodcast_Servlet extends HttpServlet {
 				ficheroImagen.setReadable(true, false);
 				ficheroImagen.setExecutable(true, false);
 				ficheroImagen.setWritable(true, false);
-				
 				request.setAttribute("ruta", RUTA + idPodcast + ".jpg");
+				if (usuario ==ADMIN){
+					request.getRequestDispatcher("obtener_info_podcast_usuario?id="+idPodcast+"&pagina=10").forward(request, response);
+				}else {
+					
+					request.getRequestDispatcher("mostrar_podcasts?tipo=podcast&pagina=10").forward(request, response);
+				}
 				//out.write("<a href=\"UploadDownloadFileServlet?fileName="+fileItem.getName()+"\">Download "+fileItem.getName()+"</a>");
 				//gooogle.es
 				
 			
-			request.getRequestDispatcher("mostrar_podcasts?tipo=podcast&pagina=10").forward(request, response);
+			
 
 		} catch (FileUploadException e) {
 			getServletContext().log("FAIL: " + e.toString());
