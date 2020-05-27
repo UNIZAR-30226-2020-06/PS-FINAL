@@ -379,14 +379,19 @@ String imagen = (String) session.getAttribute("imagen");
 <!-- INICIAR TRANSMISION -->
 <div class="overlay-pop-up" id="overlay-iniciar-transmision">	
 		<div class="col-md-7 card p-5">	
-	        <a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-iniciar-transmision" class="btn-cerrar-popup-perfil"	
+	        <a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-borrar-listas-reproduccion" class="btn-cerrar-popup-perfil"	
 	        class="btn btn-outline-primary btn-sm pl-4 pr-4"  onclick="document.getElementById('overlay-iniciar-transmision').classList.remove('active');"><i class="icon-close1"></i></a>	
 			<form class="form-material" action="iniciar_transmision" method="post">
 					<div class="p5 b-b">
-						<input type="text" name="nombre" class="formulario-subir-cancion" placeholder="Nombre de la transmisión" required=""/>
+						<input type="text" name="nombre" class="formulario-subir-cancion" placeholder="Nombre de la transmisión" required/>
 						<input type="text" name="descripcion" class="formulario-subir-cancion" placeholder="Descripcion"/>
+						<select id="estacion" name="estacion">
+						   <c:forEach var="estacion" items="${estaciones}">
+						   		<option value="${estacion.getUrl()}">${estacion.getUrl()}</option>
+						   </c:forEach>
+						</select>
 					</div>
-					<div="p-4">
+					<div class="p-4">
 						<input type="submit" class="btn btn-outline-primary btn-sm  mt-3" value="INICIAR">
 					</div>
 			</form>

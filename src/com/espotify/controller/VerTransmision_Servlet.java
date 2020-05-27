@@ -43,7 +43,7 @@ public class VerTransmision_Servlet extends HttpServlet {
 		
 		transmision.setNumLikes(like.obtenerNLikesTransmision(idTransmision));
 		if(like.tieneLikeTrans(id, transmision.getId())) {
-			System.out.println("ENTRO NULL");
+			System.out.println("ENTRO LIKE");
 			request.setAttribute("like", "like");
 		}else {
 			request.setAttribute("like", null);
