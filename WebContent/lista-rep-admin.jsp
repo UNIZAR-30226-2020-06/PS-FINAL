@@ -465,13 +465,13 @@ String imagen = (String) session.getAttribute("imagen");
 												</div>
 											</div>
 											<!-- END EDICION LISTA DE REPRODUCCION -->
-											<!-- CAMBIAR FOTO -->
+											
 											<!-- CAMBIAR FOTO -->
 											<div class="overlay-pop-up" id="overlay-foto">
 											    <div class="col-md-7 card p-5">
 													<a href="#" style="position: absolute;top: 20px;right: 30px;"
 													 onClick="document.getElementById('overlay-foto').classList.remove('active');"  id="btn-cerrar-foto" class="btn-cerrar-popup-perfil"><i class="icon-close1"></i></a>
-													<form class="form-material" action="modImagenLista" method=POST enctype=multipart/form-data>
+													<form class="form-material" action="modImagenLista" method="POST" enctype=multipart/form-data>
 														<!-- Input -->
 														<div class="body">
 															<header class="relative nav-sticky card">
@@ -479,7 +479,7 @@ String imagen = (String) session.getAttribute("imagen");
 															</header>
 															<div class="contenedor-inputs">
 																<input type="file" class="btn btn-outline-primary btn-sm  mt-3" name="imagen" accept="image/jpeg"> 
-																<input type="hidden" name="idLista" id="idLista" value=${infoLista.getId() }>
+																<input type="hidden" name="idLista" id="idLista" value="${infoLista.getId()}">
 															</div>
 											
 															<input type="submit" class="btn btn-outline-primary btn-sm pl-4 pr-4"
@@ -512,6 +512,26 @@ String imagen = (String) session.getAttribute("imagen");
 												</div>	
 											</div>	
 											<!-- END BORRAR COMENTARIO DE CANCION -->
+											<!-- CERRAR SESIÓN -->	
+											<div class="overlay-pop-up" id="overlay-cerrar-sesion">	
+											    <div class="col-md-7 card p-5">	
+											        <a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-sesion" class="btn-cerrar-popup-perfil"	
+											        class="btn btn-outline-primary btn-sm pl-4 pr-4"  onclick="document.getElementById('overlay-cerrar-sesion').classList.remove('active');"><i class="icon-close1"></i></a>	
+													<form class="form-material" action="borrar_coment_cancion">	
+														<!-- Input -->	
+														<div class="body">	
+															<header class="relative nav-sticky card">	
+											                    <h3>Vas a cerrar tu sesión.</h3>
+											                    <h5>¿Estás seguro?</h5>	
+															</header>	
+												
+															<a href="<%= request.getContextPath()+"/Cerrar_SesionServlet"%>" class="btn btn-outline-primary btn-sm pl-4 pr-4">Aceptar</a>
+														</div>	
+														<!-- #END# Input -->	
+											        </form>	
+												</div>	
+											</div>	
+										<!-- END CERRAR SESIÓN -->
 										</div>
 									
 										<div class="text-orange my-2">
@@ -576,26 +596,7 @@ String imagen = (String) session.getAttribute("imagen");
 		</div>
 	</div>
 
-<!-- CERRAR SESIÓN -->	
-	<div class="overlay-pop-up" id="overlay-cerrar-sesion">	
-	    <div class="col-md-7 card p-5">	
-	        <a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-sesion" class="btn-cerrar-popup-perfil"	
-	        class="btn btn-outline-primary btn-sm pl-4 pr-4"  onclick="document.getElementById('overlay-cerrar-sesion').classList.remove('active');"><i class="icon-close1"></i></a>	
-			<form class="form-material" action="borrar_coment_cancion">	
-				<!-- Input -->	
-				<div class="body">	
-					<header class="relative nav-sticky card">	
-	                    <h3>Vas a cerrar tu sesión.</h3>
-	                    <h5>¿Estás seguro?</h5>	
-					</header>	
-		
-					<a href="<%= request.getContextPath()+"/Cerrar_SesionServlet"%>" class="btn btn-outline-primary btn-sm pl-4 pr-4">Aceptar</a>
-				</div>	
-				<!-- #END# Input -->	
-	        </form>	
-		</div>	
-	</div>	
-<!-- END CERRAR SESIÓN -->
+
 
 <script>
     $(document).ready(function() {

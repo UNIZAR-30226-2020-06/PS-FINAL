@@ -320,7 +320,7 @@ String like = (String) request.getAttribute("like");
 							</div>
 							<div class="col-6">
 								<form action="like_transmision">
-	                                  <input type="hidden" id="idTransmisionLike" name=""idTransmisionLike"" value="${transmision.getId()}">
+	                                  <input type="hidden" id="idTransmisionLike" name="idTransmisionLike" value="${transmision.getId()}">
 	                                  <input type="hidden" id="likeTransmision" name="likeTransmision" value="">
 	                                 <%if(like == null){%>
 		                                  <a href="#" id="accion_like_transmision" class="btn-favorito"  
@@ -361,11 +361,7 @@ String like = (String) request.getAttribute("like");
 						<div class="sidebar-header" style="margin-bottom: 1rem !important;">
 				            <h4><b>Comentarios</b></h4>
 				        </div>
-				        <script type="text/javascript">
-						$(".slimScroll").slimscroll({
-							height: "285px"
-						});
-						</script>
+				        
 						<div class="slimScroll" style="overflow: hidden; width: auto; height: 285px;">
 					        <div class="p-3">
 					        	<div id="listaComentariosTransmision"></div> <!-- DONDE SE MUESTRAN LOS COMENTARIOS -->
@@ -416,27 +412,7 @@ String like = (String) request.getAttribute("like");
 	</div>	
 <!-- END CERRAR SESIÓN -->
 
-<script>
-$(document).ready(function() {
-        $('#accion_like_transmision').click(function(event) { // dar like a transmision
-            var transmsionId = $('#idTransmisionLike').val();
-            var like = $('#likeTransmision').val();
-            console.log(like);
-            console.log(transmsionId);
-            $.get('like_transmision', {
-                    idTransmision : transmsionId,
-                    like : like
-            }, function(){
-            	$.get('obtener_num_likes',{
-					tipo : "Transmision",
-					idLike : transmsionId
-				}, function(data){
-					$('#transmisionNumLikes').text(data);
-				});
-			});
-        });
-});
-</script>
+
 
 </main><!--@Page Content-->
 </div><!--@#app-->
@@ -468,7 +444,7 @@ $(document).ready(function() {
 
 <script>
     $(document).ready(function() {
-    	setTimeout(recargar,1000);
+    	setTimeout(recargar,10000);
     	$(".slimScroll").slimscroll({
 			height: "285px"
 		});
@@ -517,7 +493,7 @@ function recargar(){
 		}, function(data){
 			$('#listaComentariosTransmision').html(data);
 		});
-		setTimeout(recargar,1000);
+		setTimeout(recargar,10000);
 }
 	function loopAudio(){
 		var audio = document.getElementsByTagName("audio")[0];

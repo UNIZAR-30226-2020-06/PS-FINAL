@@ -466,9 +466,9 @@ String imagen = (String) session.getAttribute("imagen");
 																<div class="col-6">
 																	<h6>${capitulo.getTitulo()}</h6>${capitulo.getGenero()}
 																</div>
-																	<a href="#" data-toggle="control-sidebar">
-												                        <i style="position: relative;left: 10px;" class="icon-commenting-o s-24"></i>
-												                    </a>															
+																	<a title="Comentarios" href="#" data-toggle="control-sidebar" onclick="document.getElementById('audioIDcomment').value = '${capitulo.getId()}';">
+										                        		<i style="position: relative;left: 10px;" class="icon-commenting-o s-24"></i>
+										                    		</a>															
 																<div class="ml-auto">
 																	<a href="${pageContext.request.contextPath}/ir_modificar?id_audio=${capitulo.getId()}&cancion=false&pagina=10" class="btn-icono icon-pencil" ></a>
 																	<a href="${pageContext.request.contextPath}/eliminar_capitulo?id_capitulo=${capitulo.getId()}&pagina=10" class="btn-icono icon-trash-o" ></a>												
@@ -490,20 +490,6 @@ String imagen = (String) session.getAttribute("imagen");
         </div>
     </div>
 
-<script>
-    $(document).ready(function() {
-    	$('#iconoPlay').replaceWith("<i id='iconoPlay' class='icon-play s-28'></i>")
-    	$('#playlist a').click(function(event) { // cargar los comentarios de cancion
-			var audioId = $('#audioIDcomment').val();
-			console.log(audioId);
-			$.get('getall_coment_cancion', {
-				idAudio: audioId
-			}, function(data){
-				$('#listaComentariosCancion').html(data);
-			});
-		});
-    });
-    </script>
 
 </main><!--@Page Content-->
 </div><!--@#app-->

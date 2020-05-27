@@ -273,7 +273,6 @@ String likePodcast = (String) request.getAttribute("likePodcast");
 					<a href="#" id="btn-searchOverlay" class="nav-link mr-3 btn--searchOverlay no-ajaxy">
 						<i class="icon icon-search s-24"></i>
 					</a>
-
 				</li>
 				<!-- User Account-->
 				<li class="dropdown custom-dropdown user user-menu ">
@@ -422,7 +421,60 @@ String likePodcast = (String) request.getAttribute("likePodcast");
                                                   </form>											
                                                  </div>
 										</div>
-									
+										<!-- AÑADIR CAPITULO A PODCAST -->
+										<div class="overlay-pop-up" id="overlay-anadir-listas-reproduccion">
+										    <div class="col-md-7 card p-5">
+												<a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-anadir-listas-reproduccion" class="btn-cerrar-popup-perfil"><i class="icon-close1"></i></a>			
+													<!-- Input -->
+														<div class="body">
+															<div class="row has-items-overlay">
+																<c:forEach var="listalr" items="${podcasts}">
+																<div class="col-lg-3 col-md-4 col-sm-6 my-2">
+																	<figure>
+																		<div class="img-wrapper">
+													
+																			<img src="assets/img/demo/a1.jpg" alt="/">
+																			
+																			<div class="figure-title text-center p-2">
+																				<h5>${listalr.getNombre()}</h5>
+																			</div>
+																		</div>
+																	</figure>
+																	<form class="form-material" action="anyadir_cancion_lr" method="post">
+																		<input type="submit" class="btn btn-outline-primary btn-sm pl-4 pr-4" value="Añadir">
+																		<input type="hidden" name="idLista" value="${listalr.getId()}">
+																		<input type="hidden" name="idAudio" value="">
+																		<input type="hidden" name="nombreLista" value="${listalr.getNombre()}">
+																	</form>	
+																</div>
+															</c:forEach>
+														<!-- #END# Input -->
+														</div>
+													</div>		
+											</div>
+										</div>
+										<!-- END AÑADIR CAPITULO A PODCAST -->
+										
+										<!-- CERRAR SESIÓN -->	
+											<div class="overlay-pop-up" id="overlay-cerrar-sesion">	
+											    <div class="col-md-7 card p-5">	
+											        <a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-sesion" class="btn-cerrar-popup-perfil"	
+											        class="btn btn-outline-primary btn-sm pl-4 pr-4"  onclick="document.getElementById('overlay-cerrar-sesion').classList.remove('active');"><i class="icon-close1"></i></a>	
+													<form class="form-material" action="borrar_coment_cancion">	
+														<!-- Input -->	
+														<div class="body">	
+															<header class="relative nav-sticky card">	
+											                    <h3>Vas a cerrar tu sesión.</h3>
+											                    <h5>¿Estás seguro?</h5>	
+															</header>	
+												
+															<a href="<%= request.getContextPath()+"/Cerrar_SesionServlet"%>" class="btn btn-outline-primary btn-sm pl-4 pr-4">Aceptar</a>
+														</div>	
+														<!-- #END# Input -->	
+											        </form>	
+												</div>	
+											</div>	
+										<!-- END CERRAR SESIÓN -->
 										<div class="text-orange my-2">
 											<p>${infoPodcast.getDescripcion()}</p>
 										</div>
@@ -496,9 +548,9 @@ String likePodcast = (String) request.getAttribute("likePodcast");
 																			</c:otherwise>																	
 																		</c:choose>
 																	</form>
-																<a href="#" data-toggle="control-sidebar">
-											                        <i style="position: relative;left: 10px;" class="icon-commenting-o s-24"></i>
-											                    </a>
+																<a title="Comentarios" href="#" data-toggle="control-sidebar" onclick="document.getElementById('audioIDcomment').value = '${capitulo.getId()}';">
+										                        	<i style="position: relative;left: 10px;" class="icon-commenting-o s-24"></i>
+										                    	</a>
 															</div>
 														</li>
 													</div>								                
@@ -517,60 +569,7 @@ String likePodcast = (String) request.getAttribute("likePodcast");
 	</div>
 
 
-<!-- AÑADIR CAPITULO A PODCAST -->
-<div class="overlay-pop-up" id="overlay-anadir-listas-reproduccion">
-    <div class="col-md-7 card p-5">
-		<a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-anadir-listas-reproduccion" class="btn-cerrar-popup-perfil"><i class="icon-close1"></i></a>			
-			<!-- Input -->
-				<div class="body">
-					<div class="row has-items-overlay">
-						<c:forEach var="listalr" items="${podcasts}">
-						<div class="col-lg-3 col-md-4 col-sm-6 my-2">
-							<figure>
-								<div class="img-wrapper">
-			
-									<img src="assets/img/demo/a1.jpg" alt="/">
-									
-									<div class="figure-title text-center p-2">
-										<h5>${listalr.getNombre()}</h5>
-									</div>
-								</div>
-							</figure>
-							<form class="form-material" action="anyadir_cancion_lr" method="post">
-								<input type="submit" class="btn btn-outline-primary btn-sm pl-4 pr-4" value="Añadir">
-								<input type="hidden" name="idLista" value="${listalr.getId()}">
-								<input type="hidden" name="idAudio" value="">
-								<input type="hidden" name="nombreLista" value="${listalr.getNombre()}">
-							</form>	
-						</div>
-					</c:forEach>
-				<!-- #END# Input -->
-				</div>
-			</div>		
-	</div>
-</div>
-<!-- END AÑADIR CAPITULO A PODCAST -->
 
-<!-- CERRAR SESIÓN -->	
-	<div class="overlay-pop-up" id="overlay-cerrar-sesion">	
-	    <div class="col-md-7 card p-5">	
-	        <a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-sesion" class="btn-cerrar-popup-perfil"	
-	        class="btn btn-outline-primary btn-sm pl-4 pr-4"  onclick="document.getElementById('overlay-cerrar-sesion').classList.remove('active');"><i class="icon-close1"></i></a>	
-			<form class="form-material" action="borrar_coment_cancion">	
-				<!-- Input -->	
-				<div class="body">	
-					<header class="relative nav-sticky card">	
-	                    <h3>Vas a cerrar tu sesión.</h3>
-	                    <h5>¿Estás seguro?</h5>	
-					</header>	
-		
-					<a href="<%= request.getContextPath()+"/Cerrar_SesionServlet"%>" class="btn btn-outline-primary btn-sm pl-4 pr-4">Aceptar</a>
-				</div>	
-				<!-- #END# Input -->	
-	        </form>	
-		</div>	
-	</div>	
-<!-- END CERRAR SESIÓN -->
 
 <script>
     $(document).ready(function() {

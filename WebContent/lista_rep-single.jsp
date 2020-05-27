@@ -678,6 +678,26 @@ String imagen = (String) session.getAttribute("imagen");
 												</div>	
 											</div>	
 											<!-- END BORRAR COMENTARIO DE CANCION -->
+											<!-- CERRAR SESIÓN -->	
+											<div class="overlay-pop-up" id="overlay-cerrar-sesion">	
+											    <div class="col-md-7 card p-5">	
+											        <a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-sesion" class="btn-cerrar-popup-perfil"	
+											        class="btn btn-outline-primary btn-sm pl-4 pr-4"  onclick="document.getElementById('overlay-cerrar-sesion').classList.remove('active');"><i class="icon-close1"></i></a>	
+													<form class="form-material" action="borrar_coment_cancion">	
+														<!-- Input -->	
+														<div class="body">	
+															<header class="relative nav-sticky card">	
+											                    <h3>Vas a cerrar tu sesión.</h3>
+											                    <h5>¿Estás seguro?</h5>	
+															</header>	
+												
+															<a href="<%= request.getContextPath()+"/Cerrar_SesionServlet"%>" class="btn btn-outline-primary btn-sm pl-4 pr-4">Aceptar</a>
+														</div>	
+														<!-- #END# Input -->	
+											        </form>	
+												</div>	
+											</div>	
+										<!-- END CERRAR SESIÓN -->
 										</div>
 									
 										<div class="text-orange my-2">
@@ -788,26 +808,6 @@ String imagen = (String) session.getAttribute("imagen");
 		</div>
 	</div>
 
-<!-- CERRAR SESIÓN -->	
-	<div class="overlay-pop-up" id="overlay-cerrar-sesion">	
-	    <div class="col-md-7 card p-5">	
-	        <a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-sesion" class="btn-cerrar-popup-perfil"	
-	        class="btn btn-outline-primary btn-sm pl-4 pr-4"  onclick="document.getElementById('overlay-cerrar-sesion').classList.remove('active');"><i class="icon-close1"></i></a>	
-			<form class="form-material" action="borrar_coment_cancion">	
-				<!-- Input -->	
-				<div class="body">	
-					<header class="relative nav-sticky card">	
-	                    <h3>Vas a cerrar tu sesión.</h3>
-	                    <h5>¿Estás seguro?</h5>	
-					</header>	
-		
-					<a href="<%= request.getContextPath()+"/Cerrar_SesionServlet"%>" class="btn btn-outline-primary btn-sm pl-4 pr-4">Aceptar</a>
-				</div>	
-				<!-- #END# Input -->	
-	        </form>	
-		</div>	
-	</div>	
-<!-- END CERRAR SESIÓN -->
 
 <%session.setAttribute("fav", 0); %>
 
