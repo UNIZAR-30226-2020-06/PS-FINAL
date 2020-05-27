@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 import java.util.List;
 
 import com.espotify.dao.TransmisionDAO;
+import com.espotify.model.Estacion;
 import com.espotify.model.Transmision;
 
 /**
@@ -35,6 +36,9 @@ public class GetAll_TransmisionesServlet extends HttpServlet {
 		//int idUsuario = Integer.parseInt(session.getId());
 		List<Transmision> transmisiones = new TransmisionDAO().getTransmisionPorNombre("PruebaEscuchar");
 		//List<Transmision> transmisiones = new TransmisionDAO().getTransmisionesUsersSeguidos(idUsuario);
+		List<Estacion> estaciones =  new TransmisionDAO().getEstacionesLibres();
+		request.setAttribute("estaciones", estaciones);
+		
 		request.setAttribute("transmisiones", transmisiones);
 		request.getRequestDispatcher("mostrar_transmisiones.jsp").forward( request, response );
 	}
