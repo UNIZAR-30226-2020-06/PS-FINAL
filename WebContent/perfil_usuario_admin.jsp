@@ -112,7 +112,7 @@ String nombre = (String) request.getParameter("nombre");
 </aside>
 <!-- END MENU DE LA IZQUIERDA-->
 
-<!-- MENU DONDE ESTAN LAS CANCIONES EN LA COLA (DERECHA) -->
+<!-- MENU DONDE ESTAN LOS COMENTARIOS (DERECHA) -->
 <aside class="control-sidebar fixed ">
     <div class="slimScroll">
         <div class="sidebar-header" style="margin-bottom: 1rem !important;">
@@ -122,6 +122,25 @@ String nombre = (String) request.getParameter("nombre");
         <div class="p-3">
         	<div id="listaComentariosCancion"></div>
         	
+            <form action="anyadir_coment_cancion">
+			<div class="row">
+                 <div class="col-lg-12">
+                     <div class="form-group">
+                         <div class="form-line">
+                               <textarea id="textarea" style="color: white;" rows="5" class="form-control r-0"
+                                         placeholder="Escribir comentario..."></textarea>
+                         </div>
+                     </div>
+
+                 </div>
+             </div>
+             <input type="hidden" id="audioIDcomment" name="nombre" value="">
+             <div class="row text-center">
+                 <div class="col-lg-12">
+                 	<a id="publicar" href="#"  class="btn btn-primary" style="border-radius: 7px;position: relative;left: 95px;">Publicar</a>
+                 </div>
+             </div>
+             </form>
         </div>
     </div>
 </aside>

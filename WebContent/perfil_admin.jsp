@@ -398,7 +398,7 @@ String email = (String) session.getAttribute("email");
 															<div class="ml-auto">
 																<a href="#" onclick="document.getElementById('mod').innerHTML='MODIFICAR GENERO';document.getElementById('id_genero2').value='${cancion.getId()}';document.getElementById('overlay-mod-generos').classList.add('active');document.getElementById('oldname').placeholder='${cancion.getNombre()}';" 
 																	class="btn-icono icon-pencil" ></a>
-																<a href="#" onclick="document.getElementById('distinto').innerHTML='ELIMINAR GENERO';document.getElementById('id_genero').value='${cancion.getId()}';document.getElementById('overlay-eliminar-generos').classList.add('active');document.getElementById('oldname').value='${cancion.getNombre()};"
+																<a href="#" onclick="document.getElementById('distinto').innerHTML='ELIMINAR GENERO';document.getElementById('id_genero').value='${cancion.getId()}';document.getElementById('overlay-eliminar-generos').classList.add('active');"
 																   class="btn-icono icon-trash-o">
 																</a>
 																

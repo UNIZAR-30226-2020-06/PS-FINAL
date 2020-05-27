@@ -85,7 +85,8 @@ public class SubirImagenPodcast_Servlet extends HttpServlet {
 				ficheroImagen.setExecutable(true, false);
 				ficheroImagen.setWritable(true, false);
 				request.setAttribute("ruta", RUTA + idPodcast + ".jpg");
-				if (usuario ==ADMIN){
+				Boolean subir =subirImagenAlmacen(idPodcast, fileItemsList.get(0));
+				if (usuario ==ADMIN){					
 					request.getRequestDispatcher("obtener_info_podcast_usuario?id="+idPodcast+"&pagina=10").forward(request, response);
 				}else {
 					
@@ -105,6 +106,37 @@ public class SubirImagenPodcast_Servlet extends HttpServlet {
 			out.write("Se ha producido un error al subir el fichero");
 		}
 		//out.write("</body></html>");
+	}
+	private boolean subirImagenAlmacen(int id, FileItem fileItem) {
+		getServletContext().log("FieldName="+fileItem.getFieldName());
+		getServletContext().log("FileName="+fileItem.getName());
+		getServletContext().log("Contenido="+fileItem.getContentType());
+		getServletContext().log("Tama�o (B)="+fileItem.getSize());
+		//getServletContext().log("Directorio fichero: " + request.getServletContext().getAttribute("FILES_DIR"));
+		getServletContext().log("Nombre fichero: " + fileItem.getName());
+	//	getServletContext().log("Got a form field: " + fileItem.getFieldName()+ " " +fileItem.getString());
+		String rutaImagen = ALMACEN_PATH + id + ".jpg";
+		
+		getServletContext().log("Ruta audio: " + rutaImagen);
+		
+		File ficheroImagen = new File(rutaImagen);
+		getServletContext().log("Absolute Path at server="+ficheroImagen.getAbsolutePath());
+		
+		if(ficheroImagen.exists()) {
+			ficheroImagen.delete();
+		}
+		
+		try {
+			fileItem.write(ficheroImagen);
+			ficheroImagen.setReadable(true, false);
+			ficheroImagen.setExecutable(true, false);
+			ficheroImagen.setWritable(true, false);
+			
+			return true;
+		} catch (Exception e) {
+			getServletContext().log("FAIL: " + e.toString());		
+			return false;
+		}
 	}
 
 }

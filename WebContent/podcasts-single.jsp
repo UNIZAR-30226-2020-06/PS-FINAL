@@ -147,21 +147,35 @@ String likePodcast = (String) request.getAttribute("likePodcast");
 </aside>
 <!-- END MENU DE LA IZQUIERDA-->
 
-<!-- MENU DONDE ESTAN LAS CANCIONES EN LA COLA (DERECHA) -->
+<!-- MENU DONDE ESTAN LOS COMENTARIOS (DERECHA) -->
 <aside class="control-sidebar fixed ">
     <div class="slimScroll">
-        <div class="sidebar-header">
-            <h4>PlayList</h4>
-            <p>Awesome Collection for you</p>
+        <div class="sidebar-header" style="margin-bottom: 1rem !important;">
+            <h4>Comentarios</h4>
             <a href="#" data-toggle="control-sidebar" class="paper-nav-toggle  active"><i></i></a>
         </div>
         <div class="p-3">
-            <ul id="playlist" class="playlist list-group">
-                
+        	<div id="listaComentariosCancion"></div>
+        	
+            <form action="anyadir_coment_cancion">
+			<div class="row">
+                 <div class="col-lg-12">
+                     <div class="form-group">
+                         <div class="form-line">
+                               <textarea id="textarea" style="color: white;" rows="5" class="form-control r-0"
+                                         placeholder="Escribir comentario..."></textarea>
+                         </div>
+                     </div>
 
-
-            </ul>
-
+                 </div>
+             </div>
+             <input type="hidden" id="audioIDcomment" name="nombre" value="">
+             <div class="row text-center">
+                 <div class="col-lg-12">
+                 	<a id="publicar" href="#"  class="btn btn-primary" style="border-radius: 7px;position: relative;left: 95px;">Publicar</a>
+                 </div>
+             </div>
+             </form>
         </div>
     </div>
 </aside>
@@ -444,7 +458,7 @@ String imagen = (String) session.getAttribute("imagen");
 																</div>
 																<input type="hidden" name="nombreOld" id="nombreOld" value="${infoPodcast.getNombre()}">
 											
-																<a id="submit1" href="#" class="btn btn-outline-primary btn-sm pl-4 pr-4">Cambiar información</a>
+																<input type="submit" value="Cambiar información">
 															</div>
 														</form>
 														<!-- #END# Input -->

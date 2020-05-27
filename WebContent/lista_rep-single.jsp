@@ -625,7 +625,7 @@ String imagen = (String) session.getAttribute("imagen");
 																<input type="hidden" name="idLista" id="idLista" value="${infoLista.getId()}">
 																<input type="hidden" name="nombreOld" id="nombreOld" value="${infoLista.getNombre()}">
 											
-																<a id="submit" href="#" class="btn btn-outline-primary btn-sm pl-4 pr-4">Cambiar información</a>
+																<input type="submit" value="Cambiar información">
 															</div>
 														</form>
 														<!-- #END# Input -->

@@ -43,10 +43,11 @@ public class ModInfo_ListaRepServlet extends HttpServlet {
 		log(nombreOld);
 		log(descripcion);
 		log(tipo);
-		int idLista = Integer.valueOf(request.getParameter("idLista"));
+		
 			
 		Boolean cambiada = false;
 		if (usuario ==ADMIN) {
+			int idLista = Integer.valueOf(request.getParameter("idLista"));
 			cambiada = new ListaReproduccionDAO().cambiar_info(nombreNew, descripcion, imagen, idLista);
 			if(cambiada) {
 				try{
@@ -98,14 +99,15 @@ public class ModInfo_ListaRepServlet extends HttpServlet {
 						System.out.println("ENTRO");
 						log("PODCAST");
 						request.setAttribute("infoPodcast", infoLista);
-						redir = "obtener_info_podcast?nombre=" + nombreNew;
-						request.getRequestDispatcher("redir").forward(request, response);
+						redir = "obtener_info_podcast?nombre=" + nombreNew+"&pagina=10";
+						log(redir);
+						request.getRequestDispatcher(redir).forward(request, response);
 						}
 					else {
 						log("LISTA");
 						request.setAttribute("infoLista", infoLista);
-						redir = "obtener_info_lr?nombre=" + nombreNew;
-						request.getRequestDispatcher("redir").forward(request, response);
+						redir = "obtener_info_lr?nombre=" + nombreNew+"&pagina=10";
+						request.getRequestDispatcher(redir).forward(request, response);
 						}
 					
 					
