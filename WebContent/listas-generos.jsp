@@ -344,7 +344,7 @@ String imagen = (String) session.getAttribute("imagen");
 								<div class="row my-5 pt-5">
 
 									<div class="col-md-3">
-										<img src="assets/img/demo/a1.jpg" alt="/">
+										<img src="${infoLista.getImagen()}" alt="/">
 									</div>
 									<div class="col-md-9">
 										<div class="d-md-flex align-items-center justify-content-between">
