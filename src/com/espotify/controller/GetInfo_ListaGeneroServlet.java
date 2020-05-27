@@ -67,7 +67,7 @@ public class GetInfo_ListaGeneroServlet extends HttpServlet {
 			}
 
 			request.setAttribute("audios", audios);
-			
+			request.setAttribute("id", infoLista.getId());
 			request.setAttribute("infoLista", infoLista);
 			request.setAttribute("gen", gen);
 			//RequestDispatcher dispatcher=request.getRequestDispatcher("favoritos.jsp");

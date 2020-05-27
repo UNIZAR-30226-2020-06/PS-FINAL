@@ -7,7 +7,7 @@ pageEncoding="UTF-8"%>
 
 <% 
 int pagina = Integer.valueOf((String) request.getParameter("pagina"));
-String id = (String) request.getParameter("id");
+
 String likeLista = (String) request.getAttribute("likeLista");
 %>
 
@@ -381,7 +381,7 @@ String imagen = (String) session.getAttribute("imagen");
 																		<i id="iconoPlay" class="icon-play s-28"></i>
 																	</a>
 																	<% } else {%>
-																	<a href="obtener_info_lr_usuario?id=<%=id%>&pagina=5" onclick="setTimeout(location.reload.bind(location), 1)">
+																	<a href="obtener_info_lr_usuario?id=${infoLista.getId()}&pagina=5" onclick="setTimeout(location.reload.bind(location), 1)">
 																		<i id="iconoPlay" class="icon-play s-28"></i>
 																	</a>
 																	<%} %>					
