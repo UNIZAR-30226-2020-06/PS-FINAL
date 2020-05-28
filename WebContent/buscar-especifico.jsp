@@ -218,7 +218,7 @@ String imagen = (String) session.getAttribute("imagen");
         <!--Top Menu Start -->
 		<div class="navbar-custom-menu">
 			<ul class="nav navbar-nav">
-
+				<li id="contenido" style="position: relative;right: 300px;top: 10px;"></li>
 				<!-- Right Sidebar Toggle Button -->
 				<li class="searchOverlay-wrap">
 					<a href="#" id="btn-searchOverlay" class="nav-link mr-3 btn--searchOverlay no-ajaxy">

@@ -121,26 +121,7 @@ String nombre = (String) request.getParameter("nombre");
         </div>
         <div class="p-3">
         	<div id="listaComentariosCancion"></div>
-        	
-            <form action="anyadir_coment_cancion">
-			<div class="row">
-                 <div class="col-lg-12">
-                     <div class="form-group">
-                         <div class="form-line">
-                               <textarea id="textarea" style="color: white;" rows="5" class="form-control r-0"
-                                         placeholder="Escribir comentario..."></textarea>
-                         </div>
-                     </div>
-
-                 </div>
-             </div>
-             <input type="hidden" id="audioIDcomment" name="nombre" value="">
-             <div class="row text-center">
-                 <div class="col-lg-12">
-                 	<a id="publicar" href="#"  class="btn btn-primary" style="border-radius: 7px;position: relative;left: 95px;">Publicar</a>
-                 </div>
-             </div>
-             </form>
+        	<input type="hidden" id="audioIDcomment" name="nombre" value="">
         </div>
     </div>
 </aside>
@@ -148,7 +129,7 @@ String nombre = (String) request.getParameter("nombre");
 <!-- Add the sidebar's background. This div must be placed
          immediately after the control sidebar -->
 <div class="control-sidebar-bg shadow  fixed"></div>
-<!-- END MENU DONDE ESTAN LAS CANCIONES EN LA COLA (DERECHA) -->
+<!-- END MENU DONDE ESTAN LOS COMENTARIOS (DERECHA) -->
 
 <!-- ALGO RANDOM DE LA PARTE DERECHA -->									
 <svg class="d-none">
@@ -213,7 +194,7 @@ String imagen = (String) session.getAttribute("imagen");
         <!--Top Menu Start -->
         <div class="navbar-custom-menu">
             <ul class="nav navbar-nav">
-
+				<li id="contenido" style="position: relative;right: 300px;top: 10px;"></li>
                 <!-- Right Sidebar Toggle Button -->
                 <li class="searchOverlay-wrap">
                     <a href="#" id="btn-searchOverlay" class="nav-link mr-3 btn--searchOverlay no-ajaxy">
@@ -279,7 +260,7 @@ String imagen = (String) session.getAttribute("imagen");
                         <button id="nextTrack" class="btn btn-link d-none d-sm-block">
                             <i class="icon-next s-18"></i>
                         </button>
-                        <button class=" btn btn-control" id="btn-loop" onclick="loopAudio();document.getElementById('btn-loop').classList.add('active');"">
+                        <button class="btn btn-link" onclick="loopAudio();">
                             <i class="icon-repeat s-18"></i>
                         </button>
                     </div>
@@ -324,9 +305,7 @@ String imagen = (String) session.getAttribute("imagen");
     <div class="card no-b shadow no-r">
         <div class="row no-gutters">
 			<div class="col-md-4 b-r">
-				<button style="position: absolute;left: 10px;border-color: transparent;color: #fd7e14;background-color: #fd7e1400;" class="btn btn-abrir-popup-perfil btn-sm  mt-3" id="abrir-popup-perfil"><i class="icon-edit  s-24"></i>Editar perfil</button>
-				<button style="position: absolute;left: 130px;border-color: transparent;color: #fd7e14;background-color: #fd7e1400;" class="btn btn-abrir-popup-perfil btn-sm  mt-3" id="abrir-popup-cuenta"><i class="icon-cog  s-24"></i>Cambiar contraseña</button>
-                <button style="position: absolute;left: 280px;border-color: transparent;color: #fd7e14;background-color: #fd7e1400;" class="btn btn-abrir-popup-perfil btn-sm  mt-3"
+				<button style="position: absolute;left: 280px;border-color: transparent;color: #fd7e14;background-color: #fd7e1400;" class="btn btn-abrir-popup-perfil btn-sm  mt-3"
                 		onClick="document.getElementById('overlay-borrar-usuario').classList.add('active')"><i class="icon-trash  s-24"></i>Borrar Cuenta</button>
                 <div class="text-center p-5 mt-5">
 					
@@ -355,12 +334,7 @@ String imagen = (String) session.getAttribute("imagen");
                     <div class="row">
                         <div class="col-md-4">
                             <div class="p-4">
-                                <a href="#w3-tab3" ><h5>Seguidores</h5></a><h6>(numero)</h6></a>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="p-4">
-                                <a href="#w3-tab4" ><h5>Siguiendo</h5><h6>(numero)</h6></a>
+                                <a href="#w3-tab3" ><h5>Seguidores</h5></a><h6>${numSeguidores}</h6></a>
                             </div>
                         </div>
                     </div>
@@ -429,12 +403,14 @@ String imagen = (String) session.getAttribute("imagen");
 															<div class="col-6">
 																<h6>${cancion.getTitulo()}</h6>${cancion.getGenero()}
 															</div>
-															<a href="#" data-toggle="control-sidebar" onclick="document.getElementById('audioIDcomment').value = '${cancion.getId()}';">
+															<a title="Comentarios" href="#" data-toggle="control-sidebar" onclick="document.getElementById('audioIDcomment').value = '${cancion.getId()}';">
 										                        <i style="position: relative;left: 10px;" class="icon-commenting-o s-24"></i>
 										                    </a>
 															<div class="ml-auto">																
 																<a href="${pageContext.request.contextPath}/ir_modificar?id_audio=${cancion.getId()}&cancion=true&pagina=<%=pagina %>" class="btn-icono icon-pencil" ></a>
-																<a href="${pageContext.request.contextPath}/eliminar_cancion?id_cancion=${cancion.getId()}&pagina=<%=pagina %>" class="btn-icono icon-trash-o" ></a>
+																<a href="#" 
+																onclick="document.getElementById('cancionIDborrar').value = '${cancion.getId()}';
+																document.getElementById('overlay-borrar-cancion').classList.add('active');" class="btn-icono icon-trash-o" ></a>
 															</div>
 														</div>
 													</li>
@@ -515,7 +491,9 @@ String imagen = (String) session.getAttribute("imagen");
 										                    </a>
 															<div class="ml-auto">
 																<a href="${pageContext.request.contextPath}/ir_modificar?id_audio=${capitulo.getId()}&cancion=false&pagina=<%=pagina %>" class="btn-icono icon-pencil" ></a>
-																<a href="${pageContext.request.contextPath}/eliminar_capitulo?id_capitulo=${capitulo.getId()}&pagina=<%=pagina %>" class="btn-icono icon-trash-o" ></a>
+																<a href="#" 
+																onclick="document.getElementById('capituloIDborrar').value = '${capitulo.getId()}';
+																document.getElementById('overlay-borrar-capitulo').classList.add('active');" class="btn-icono icon-trash-o" ></a>
 															</div>
 														</div>
 													</li>
@@ -583,13 +561,14 @@ String imagen = (String) session.getAttribute("imagen");
 					</header>	
 		
 					<input type="hidden" name="idUser" value="${usuario.getId()}">
-					<input type="submit" value="Aceptar">	
+					<input type="submit" class="btn btn-outline-primary btn-sm pl-4 pr-4" value="Aceptar">	
 	             </div>   
 				<!-- #END# Input -->	
 	        </form>	
 		</div>	
 	</div>	
 <!--  END BORRAR USUARIO -->
+
 <!-- BORRAR PODCAST -->	
 	<div class="overlay-pop-up" id="overlay-borrar-podcast">	
 	    <div class="col-md-7 card p-5">	
@@ -612,6 +591,7 @@ String imagen = (String) session.getAttribute("imagen");
 		</div>	
 	</div>	
 <!-- END BORRAR PODCAST -->
+
 <!-- BORRAR LISTA DE REPRODUCCIÓN -->	
 	<div class="overlay-pop-up" id="overlay-borrar-listas-reproduccion">	
 	    <div class="col-md-7 card p-5">	
@@ -634,6 +614,7 @@ String imagen = (String) session.getAttribute("imagen");
 		</div>	
 	</div>	
 <!-- END BORRAR LISTA DE REPRODUCCIÓN -->
+
 <!-- BORRAR COMENTARIO DE CANCION -->	
 	<div class="overlay-pop-up" id="overlay-borrar-coment-cancion">	
 	    <div class="col-md-7 card p-5">	
@@ -677,12 +658,125 @@ String imagen = (String) session.getAttribute("imagen");
 	</div>	
 <!-- END CERRAR SESIÓN -->
 
+<!-- EDICION PERFIL -->
+<div class="overlay-pop-up" id="overlay-perfil-usuario">
+    <div class="col-md-7 card p-5">
+			<a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-perfil" class="btn-cerrar-popup-perfil" 
+			 class="btn btn-outline-primary btn-sm pl-4 pr-4"  onclick="document.getElementById('overlay-perfil-usuario').classList.remove('active');"><i class="icon-close1"></i></a>
+			<header class="relative nav-sticky card">
+				<h3>CAMBIAR INFORMACIÓN DE PERFIL</h3>
+			</header>
+			<form  action="modinfo">
+				<!-- Input -->
+				<div class="body">
+					
+					<div class="form-group form-float">
+						<div class="form-line">
+							<input type="text" name="nombre" id="nombre" class="form-control" value="${usuario.getNombre()}">
+							<label class="form-label">Nombre de usuario</label>
+						</div>
+					</div>
+
+					<div class="form-group form-float">
+						<div class="form-line">
+							<input type="text" name="descripcion" id="descripcion" class="form-control" value="${usuario.getDescripcion()}">
+							<label class="form-label">Descripción</label>
+						</div>
+					</div>
+					
+					<div class="form-group form-float">
+						<div class="form-line">
+							<input type="email" name="email" id="email" class="form-control" value="${usuario.getCorreo()}">
+							<label class="form-label">Email</label>
+						</div>
+					</div>
+					<a id="submit1" href="#" class="btn btn-outline-primary btn-sm pl-4 pr-4">
+						Cambiar información
+					</a>
+				</div>
+			</form>
+			<!-- #END# Input -->
+	</div>
+</div>
+<!-- END EDICION PERFIL -->
+
+<!-- BORRAR CANCION -->
+	<div class="overlay-pop-up" id="overlay-borrar-cancion">	
+	    <div class="col-md-7 card p-5">	
+	        <a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-borrar-cancion" class="btn-cerrar-popup-perfil"	
+	        class="btn btn-outline-primary btn-sm pl-4 pr-4"  onclick="document.getElementById('overlay-borrar-cancion').classList.remove('active');"><i class="icon-close1"></i></a>	
+			<form class="form-material" action="eliminar_cancion">	
+				<!-- Input -->	
+				<div class="body">	
+					<header class="relative nav-sticky card">	
+	                    <h3>¿Estás seguro?</h3>	
+	                    <h5>Vas a borrar esta canción del perfil de <i>${usuario.getNombre()}</i>.</h5>	
+					</header>	
+		
+					<input type="hidden" id="cancionIDborrar" value="">
+					<a id="borrarCancion" href="#" onclick="location.reload();" class="btn btn-outline-primary btn-sm pl-4 pr-4">Aceptar</a>	
+	             </div>   
+				<!-- #END# Input -->	
+	        </form>	
+		</div>	
+	</div>	
+<!-- END BORRAR CANCION -->
+
+<!-- BORRAR CAPITULO PODCAST -->
+	<div class="overlay-pop-up" id="overlay-borrar-capitulo">	
+	    <div class="col-md-7 card p-5">	
+	        <a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-borrar-capitulo" class="btn-cerrar-popup-perfil"	
+	        class="btn btn-outline-primary btn-sm pl-4 pr-4"  onclick="document.getElementById('overlay-borrar-capitulo').classList.remove('active');"><i class="icon-close1"></i></a>	
+			<form class="form-material" action="eliminar_capitulo">	
+				<!-- Input -->	
+				<div class="body">	
+					<header class="relative nav-sticky card">	
+	                    <h3>¿Estás seguro?</h3>	
+	                    <h5>Vas a borrar este capítulo del perfil de <i>${usuario.getNombre()}</i>.</h5>	
+					</header>	
+		
+					<input type="hidden" id="capituloIDborrar" value="">
+					<a id="borrarCapitulo" href="obtener_usuario?nombre=${usuario.getId()}&pagina=<%=pagina %>" class="btn btn-outline-primary btn-sm pl-4 pr-4">Aceptar</a>	
+	             </div>   
+				<!-- #END# Input -->	
+	        </form>	
+		</div>	
+	</div>	
+<!-- END BORRAR CAPITULO PODCAST -->
 
 
 <!--/#app -->
 <script src="https://maps.googleapis.com/maps/api/js?&amp;key=AIzaSyC3YkZNNySdyR87o83QEHWglHfHD_PZqiw&amp;libraries=places"></script>
 <script src="assets/js/app.js"></script>
 <script  src="assets/js/mostrar-popup.js"></script>
+
+<script>
+    $(document).ready(function() {
+    	$('#borrarCapitulo').click(function(event) { // cargar los comentarios de cancion
+			var capituloId = $('#capituloIDborrar').val();
+			console.log(capituloId);
+			$.get('eliminar_capitulo', {
+				id_capitulo: capituloId
+			}, function(data){
+				$('#contenido').html(data);
+			});
+		});
+    });
+    </script>
+    <script>
+    $(document).ready(function() {
+    	$('#borrarCancion').click(function(event) { // cargar los comentarios de cancion
+			var cancionId = $('#cancionIDborrar').val();
+			console.log(cancionId);
+			$.get('eliminar_cancion', {
+				id_cancion: cancionId
+			}, function(data){
+				$('#contenido').html(data);
+			});
+		});
+    });
+    </script>
+
  <script>
 		function darbaja(){
 			if (confirm("¿Estás seguro que quieres eliminar tu cuenta?\nEsta operación es irreversible. Todos tus datos y canciones se perderán.")){
@@ -739,7 +833,20 @@ String imagen = (String) session.getAttribute("imagen");
     </script>
     <script>
     $(document).ready(function() {
-    	$('#iconoPlay').replaceWith("<i id='iconoPlay' class='icon-play s-28'></i>")
+    	$('#iconoPlay').replaceWith("<i id='iconoPlay' class='icon-play s-28'></i>");
+    	$('#submit1').click(function(event) { // cambiar info imagen
+			var nombreVar = $('#nombre').val();
+			var descripcionVar = $('#descripcion').val();
+			var emailVar = $('#email').val();
+			// Si en vez de por post lo queremos hacer por get, cambiamos el $.post por $.get
+			$.get('modinfo', {
+				nombre : nombreVar,
+				descripcion : descripcionVar,
+				email : emailVar
+			}, function(responseText){
+				$('#contenido').html(responseText);
+			});
+		});
     	$('#playlist a').click(function(event) { // cargar los comentarios de cancion
 			var audioId = $('#audioIDcomment').val();
 			console.log(audioId);
@@ -749,7 +856,15 @@ String imagen = (String) session.getAttribute("imagen");
 				$('#listaComentariosCancion').html(data);
 			});
 		});
-
+    	$('#borrarComentario').click(function(event) { // borrar comentario en cancion
+			var idComentario = $('#comentarioID').val();
+			console.log(idComentario);
+			$.get('borrar_coment_cancion', {
+				idComentario: idComentario
+			}, function(responseText){
+				$('#contenido').html(responseText);
+			});
+		});
     });
     </script>
     
@@ -758,7 +873,20 @@ String imagen = (String) session.getAttribute("imagen");
 
 <script>
     $(document).ready(function() {
-    	$('#iconoPlay').replaceWith("<i id='iconoPlay' class='icon-play s-28'></i>")
+    	$('#iconoPlay').replaceWith("<i id='iconoPlay' class='icon-play s-28'></i>");
+    	$('#submit1').click(function(event) { // cambiar info imagen
+			var nombreVar = $('#nombre').val();
+			var descripcionVar = $('#descripcion').val();
+			var emailVar = $('#email').val();
+			// Si en vez de por post lo queremos hacer por get, cambiamos el $.post por $.get
+			$.get('modinfo', {
+				nombre : nombreVar,
+				descripcion : descripcionVar,
+				email : emailVar
+			}, function(responseText){
+				$('#contenido').html(responseText);
+			});
+		});
     	$('#playlist a').click(function(event) { // cargar los comentarios de cancion
 			var audioId = $('#audioIDcomment').val();
 			console.log(audioId);
@@ -767,32 +895,6 @@ String imagen = (String) session.getAttribute("imagen");
 			}, function(data){
 				$('#listaComentariosCancion').html(data);
 			});
-		});
-    	$('#publicar').click(function(event) { // publicar comentario en cancion
-			var textarea = $('#textarea').val();
-			var audioId = $('#audioIDcomment').val();
-			var idUsuarioVar = <%=session.getAttribute("id")%>;
-			console.log(textarea);
-			console.log(audioId);
-			console.log(idUsuarioVar);
-			if(textarea != ""){
-				$.get('anyadir_coment_cancion', {
-					descripcion : textarea,
-					idUsuario : idUsuarioVar,
-					idAudio: audioId
-				}, function(){
-					document.getElementById('textarea').value="";
-					$('.playlist a').ready(function(event) { // cargar los comentarios de cancion
-						var audioId = $('#audioIDcomment').val();
-						console.log(audioId);
-						$.get('getall_coment_cancion', {
-							idAudio: audioId
-						}, function(data){
-							$('#listaComentariosCancion').html(data);
-						});
-					});
-				});
-			}
 		});
     	$('#borrarComentario').click(function(event) { // borrar comentario en cancion
 			var idComentario = $('#comentarioID').val();

@@ -243,13 +243,13 @@ String imagen = (String) session.getAttribute("imagen");
 					<div class="dropdown-menu p-4 dropdown-menu-right">
 						<div class="row box justify-content-between my-4">
 							<div class="col text-center">
-								<a class="ajaxifyPage" href="${pageContext.request.contextPath}/obtener_contenido_perfil?pagina=<%=pagina %>">
+								<a class="no-ajaxy" href="${pageContext.request.contextPath}/obtener_contenido_perfil?pagina=<%=pagina %>">
 									<i class="icon-user-4  s-24"></i>
 									<div class="pt-1">Mi perfil</div>
 								</a>
 							</div>
 							<div class="col text-center">
-								<a class="ajaxifyPage" onclick="document.getElementById('overlay-cerrar-sesion').classList.add('active');" href="#" >
+								<a class="no-ajaxy" onclick="document.getElementById('overlay-cerrar-sesion').classList.add('active');" href="#" >
 									<i class="icon-exit-2  s-24"></i>
                                     <div class="pt-1">Cerrar sesión</div>
 								</a>
@@ -561,7 +561,7 @@ String imagen = (String) session.getAttribute("imagen");
 
 <script>
     $(document).ready(function() {
-    	$('#iconoPlay').replaceWith("<i id='iconoPlay' class='icon-play s-28'></i>")
+    	$('#iconoPlay').replaceWith("<i id='iconoPlay' class='icon-play s-28'></i>");
     	$('#playlist a').click(function(event) { // cargar los comentarios de cancion
 			var audioId = $('#audioIDcomment').val();
 			console.log(audioId);

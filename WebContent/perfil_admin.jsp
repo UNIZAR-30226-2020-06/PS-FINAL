@@ -334,18 +334,6 @@ String email = (String) session.getAttribute("email");
                         <h5>Descripción</h5>
 						<span><%=descripcion %></span>
                     </div>
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="p-4">
-                                <a href="#w3-tab3" ><h5>Seguidores</h5></a><h6>(numero)</h6></a>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="p-4">
-                                <a href="#w3-tab4" ><h5>Siguiendo</h5><h6>(numero)</h6></a>
-                            </div>
-                        </div>
-                    </div>
                 </div>
                 
 			</div>

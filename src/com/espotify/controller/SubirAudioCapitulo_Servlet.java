@@ -84,7 +84,7 @@ public class SubirAudioCapitulo_Servlet extends HttpServlet {
 				String ruta = subirAudioAlmacen(id, fileItemsList.get(0));
 				if(ruta != null) {
 					if(capitulo.insertar_url(ruta, id)) {
-						request.getRequestDispatcher("/obtener_contenido_perfil?pagina=10").forward(request, response);
+						request.getRequestDispatcher("/obtener_contenido_perfil?pagina=4").forward(request, response);
 					} else {
 						capitulo.borrarCapituloPodcast(id);
 						getServletContext().log("ERROR AL AGREGAR LA URL: " + ruta);

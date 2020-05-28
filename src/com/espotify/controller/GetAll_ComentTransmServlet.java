@@ -61,7 +61,7 @@ public class GetAll_ComentTransmServlet extends HttpServlet {
 			out.println("<div class='media my-5 ' style='margin-top: -1rem !important;margin-bottom: 2rem !important;'>");
 			out.println("<div class='media-body'>");
 			out.println("<div class='form-line'>");
-			out.println("No hay ning�n comentario todav�a.");
+			out.println("No hay ningún comentario todavía.");
 			out.println("</div>");
 		}
 	}

@@ -113,7 +113,7 @@ pageEncoding="UTF-8"%>
         </div>
         <div class="p-3">
         	<div id="listaComentariosCancion"></div>
-        	
+        	<input type="hidden" id="audioIDcomment" name="nombre" value="">
         </div>
     </div>
 </aside>
@@ -186,7 +186,7 @@ String imagen = (String) session.getAttribute("imagen");
         <!--Top Menu Start -->
 		<div class="navbar-custom-menu">
 			<ul class="nav navbar-nav">
-
+				<li id="contenido" style="position: relative;right: 300px;top: 10px;"></li>
 				<!-- Right Sidebar Toggle Button -->
 				<li class="searchOverlay-wrap">
 					<a href="#" id="btn-searchOverlay" class="nav-link mr-3 btn--searchOverlay no-ajaxy">
@@ -251,7 +251,7 @@ String imagen = (String) session.getAttribute("imagen");
                         <button id="nextTrack" class="btn btn-link d-none d-sm-block">
                             <i class="icon-next s-18"></i>
                         </button>
-                        <button class=" btn btn-control" id="btn-loop" onclick="loopAudio();document.getElementById('btn-loop').classList.add('active');"">
+                        <button class="btn btn-link" onclick="loopAudio();">
                             <i class="icon-repeat s-18"></i>
                         </button>
                     </div>
@@ -420,7 +420,7 @@ String imagen = (String) session.getAttribute("imagen");
 														<div class="d-flex align-items-center">
 															<div class="col-1">
 																<a class="no-ajaxy media-url" href="${cancion.getUrl()}">
-																	<i class="icon-play s-28"></i>
+																	<i id="iconoPlay" class="icon-play s-28"></i>
 																</a>					
 															</div>
 															<div class="col-6">
@@ -561,13 +561,13 @@ String imagen = (String) session.getAttribute("imagen");
 														<div class="d-flex align-items-center">
 															<div class="col-1">
 																<a class="no-ajaxy media-url" href="${capitulo.getUrl()}">
-																	<i class="icon-play s-28"></i>
+																	<i id="iconoPlay" class="icon-play s-28"></i>
 																</a>					
 															</div>
 															<div class="col-6">
 																<h6>${capitulo.getTitulo()}</h6>${capitulo.getGenero()}
 															</div>
-																<a href="#" data-toggle="control-sidebar">
+																<a href="#" data-toggle="control-sidebar" onclick="document.getElementById('audioIDcomment').value = '${capitulo.getId()}';">
 											                        <i style="position: relative;left: 10px;" class="icon-commenting-o s-24"></i>
 											                    </a>															
 															<div class="ml-auto">																
@@ -648,6 +648,15 @@ String imagen = (String) session.getAttribute("imagen");
 				$('#listaComentariosCancion').html(data);
 			});
 		});
+    	$('#borrarComentario').click(function(event) { // borrar comentario en cancion
+			var idComentario = $('#comentarioID').val();
+			console.log(idComentario);
+			$.get('borrar_coment_cancion', {
+				idComentario: idComentario
+			}, function(responseText){
+				$('#contenido').html(responseText);
+			});
+		});
     });
     </script>
 
@@ -716,32 +725,7 @@ String imagen = (String) session.getAttribute("imagen");
 				$('#listaComentariosCancion').html(data);
 			});
 		});
-    	$('#publicar').click(function(event) { // publicar comentario en cancion
-			var textarea = $('#textarea').val();
-			var audioId = $('#audioIDcomment').val();
-			var idUsuarioVar = <%=session.getAttribute("id")%>;
-			console.log(textarea);
-			console.log(audioId);
-			console.log(idUsuarioVar);
-			if(textarea != ""){
-				$.get('anyadir_coment_cancion', {
-					descripcion : textarea,
-					idUsuario : idUsuarioVar,
-					idAudio: audioId
-				}, function(){
-					document.getElementById('textarea').value="";
-					$('.playlist a').ready(function(event) { // cargar los comentarios de cancion
-						var audioId = $('#audioIDcomment').val();
-						console.log(audioId);
-						$.get('getall_coment_cancion', {
-							idAudio: audioId
-						}, function(data){
-							$('#listaComentariosCancion').html(data);
-						});
-					});
-				});
-			}
-		});
+    	
     	$('#borrarComentario').click(function(event) { // borrar comentario en cancion
 			var idComentario = $('#comentarioID').val();
 			console.log(idComentario);
