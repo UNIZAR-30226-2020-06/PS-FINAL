@@ -78,10 +78,12 @@ public class AndroidReg_UsuarioServlet extends HttpServlet {
         
         int  idUsuario = Integer.parseInt(UsuarioDAO.obtenerIdDesdeEmail(email));
         String ficheroImagen = idUsuario + ".jpg";
-
-        byte[] decodedString = Base64.getDecoder().decode(new String(imagenCodificada).getBytes("UTF-8"));
-        try (OutputStream stream = new FileOutputStream(DIRECTORIO_IMAGEN_USUARIO + ficheroImagen)) {
-            stream.write(decodedString);
+        
+        if (imagenCodificada != null && !imagenCodificada.equals(" ")) {
+	        byte[] decodedString = Base64.getDecoder().decode(new String(imagenCodificada).getBytes("UTF-8"));
+	        try (OutputStream stream = new FileOutputStream(DIRECTORIO_IMAGEN_USUARIO + ficheroImagen)) {
+	            stream.write(decodedString);
+	        }
         }
         
         File ficheroImagenLocal = new File(DIRECTORIO_IMAGEN_USUARIO + ficheroImagen);

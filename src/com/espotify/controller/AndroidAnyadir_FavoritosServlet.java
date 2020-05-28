@@ -48,13 +48,13 @@ public class AndroidAnyadir_FavoritosServlet extends HttpServlet {
 		JSONObject parametrosPeticion = JSONAdapter.parsarJSON(request);
         getServletContext().log(JSONAdapter.obtenerParametros(request)); 
         
-        String nombreAudio = parametrosPeticion.getString("nombreCancion");
+        String idAudio = parametrosPeticion.getString("idAudio");
         String email = parametrosPeticion.getString("email");
         
         String idUsuario = UsuarioDAO.obtenerIdDesdeEmail(email);
         
         FavoritosDAO fa = new FavoritosDAO();
-        fa.anyadirAudio(Integer.parseInt(idUsuario), new CancionDAO().obtenerIdCancion(nombreAudio));
+        fa.anyadirAudio(Integer.parseInt(idUsuario), Integer.parseInt(idAudio));
         
         JSONObject respuestaPeticion = new JSONObject();
         

@@ -51,6 +51,7 @@ public class AndroidModificar_UsuarioServlet extends HttpServlet {
         String nombre = parametrosPeticion.getString("nombre");
         String descripcion = parametrosPeticion.getString("descripcion");
         String email = parametrosPeticion.getString("email");
+        String emailNuevo = parametrosPeticion.getString("emailNuevo");
         String nuevaContrasenya = parametrosPeticion.getString("contrasenya");
         getServletContext().log("Parametros: " + parametrosPeticion);
         JSONObject respuestaPeticion = new JSONObject();
@@ -59,9 +60,14 @@ public class AndroidModificar_UsuarioServlet extends HttpServlet {
         response.setCharacterEncoding("utf-8");
         PrintWriter out = response.getWriter();
         
+        getServletContext().log("Nuevo email: " + emailNuevo);
+        
         String idUsuario = UsuarioDAO.obtenerIdDesdeEmail(email);
-        UsuarioDAO.cambiar_info(nombre, descripcion, email, idUsuario);
-        UsuarioDAO.cambiar_pass_noverify(nuevaContrasenya, idUsuario);
+        UsuarioDAO.cambiar_info(nombre, descripcion, emailNuevo, idUsuario);
+        if (!nuevaContrasenya.equals("")) {
+        	UsuarioDAO.cambiar_pass_noverify(nuevaContrasenya, idUsuario);
+        }
+        
         
         respuestaPeticion.put("estado", "ok");
         

@@ -48,16 +48,15 @@ public class AndroidEliminar_FavoritosServlet extends HttpServlet {
 		JSONObject parametrosPeticion = JSONAdapter.parsarJSON(request);
         getServletContext().log("Parametros: " + parametrosPeticion); 
         
-        String nombreAudio = parametrosPeticion.getString("nombreCancion");
+        int idAudio = Integer.parseInt(parametrosPeticion.getString("idAudio"));
         String email = parametrosPeticion.getString("email");
         
         String idUsuario = UsuarioDAO.obtenerIdDesdeEmail(email);
-        int idCancion = new CancionDAO().obtenerIdCancion(nombreAudio);
         
         FavoritosDAO fa = new FavoritosDAO();
-        fa.quitarAudio((Integer.parseInt(idUsuario)), idCancion);
+        fa.quitarAudio((Integer.parseInt(idUsuario)), idAudio);
         
-        getServletContext().log("idUsuario: " + idUsuario + " idCancion: " + idCancion); 
+        getServletContext().log("idUsuario: " + idUsuario + " idCancion: " + idAudio); 
         
         JSONObject respuestaPeticion = new JSONObject();
         

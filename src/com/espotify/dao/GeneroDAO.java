@@ -110,7 +110,7 @@ public class GeneroDAO {
 	}
 	
 
-	public int obtenerIdGenero(String genero) {
+	public static int obtenerIdGenero(String genero) {
 		int idGenero = -1;
 		Connection conn;
 		try {

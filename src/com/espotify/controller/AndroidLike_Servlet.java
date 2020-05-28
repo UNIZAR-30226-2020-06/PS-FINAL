@@ -50,7 +50,8 @@ public class AndroidLike_Servlet extends HttpServlet {
 		JSONObject parametrosPeticion = JSONAdapter.parsarJSON(request);
         getServletContext().log("Parametros: " + parametrosPeticion); 
         
-        String nombre = parametrosPeticion.getString("titulo");
+        
+        int id = -1;
         String email = parametrosPeticion.getString("email");
         String tipo = parametrosPeticion.getString("tipo");
         String url = parametrosPeticion.getString("url");
@@ -59,33 +60,34 @@ public class AndroidLike_Servlet extends HttpServlet {
         
         switch (tipo) {
         	case "playlist":
-        		gestionarLikeLista(nombre, idUsuario);
+        		id = Integer.parseInt(parametrosPeticion.getString("id"));
+        		gestionarLikeLista(id, idUsuario);
         		break;
         		
         	case "audio":
-        		String tipoDos = url.length() > 3 ? url.substring(url.length() - 3) : url;
-        		if (tipoDos.equals("mp3")) {
-        			gestionarLikeAudio(nombre, idUsuario);
-        		} else {
-        			gestionarLikeTransmision(nombre, idUsuario);
-        		}
+        		id = Integer.parseInt(parametrosPeticion.getString("id"));
+        		gestionarLikeAudio(id, idUsuario);
         		break;
+        		
+        	case "directo":
+        		String nombre = parametrosPeticion.getString("titulo");
+        		gestionarLikeTransmision(nombre, idUsuario);
+        		break;
+        	
         }
         
         
         getServletContext().log("-------------------------------------------");
 	}
 	
-	private void gestionarLikeLista(String nombre, int idUsuario) {
-		int idLista = ListaReproduccionDAO.obtenerIdLista(nombre);
+	private void gestionarLikeLista(int idLista, int idUsuario) {
 		if(!LikesDAO.anyadirLikeLista(idUsuario, idLista)) {
 			LikesDAO.quitarLikeLista(idUsuario, idLista);
 		}
 	}
 	
-	private void gestionarLikeAudio(String nombre, int idUsuario) {
-		CancionDAO ca = new CancionDAO();
-		int idAudio = ca.obtenerIdCancion(nombre);
+	private void gestionarLikeAudio(int idAudio, int idUsuario) {
+
 		
 		if(!LikesDAO.anyadirLikeAudio(idUsuario, idAudio)) {
 			LikesDAO.quitarLikeAudio(idUsuario, idAudio);
@@ -96,7 +98,7 @@ public class AndroidLike_Servlet extends HttpServlet {
 		int idTransmision = TransmisionDAO.getIdTransmision(nombre);
 		
 		if(!LikesDAO.anyadirLikeTrans(idUsuario, idTransmision)) {
-			LikesDAO.anyadirLikeTrans(idUsuario, idTransmision);
+			LikesDAO.quitarLikeTrans(idUsuario, idTransmision);
 		}
 	}
 	

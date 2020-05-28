@@ -36,7 +36,7 @@ public class UsuarioDAO {
 	private final static String USER_GETID_NAME_QUERY = "SELECT id FROM Reproductor_musica.Usuario WHERE nombre = ?";
 	private final static String USER_GETINFO_QUERY = "SELECT nombre, descripcion, mail, imagen FROM Reproductor_musica.Usuario WHERE id = ?";
 	private final static String USER_GETIMAGE_BLOB_QUERY = "SELECT imagen FROM Reproductor_musica.Usuario WHERE mail = ?";
-	private final static String USER_GETALL_QUERY = "SELECT * FROM Reproductor_musica.Usuario";
+	private final static String USER_GETALL_QUERY = "SELECT * FROM Reproductor_musica.Usuario WHERE id != 100";
 	private final static String NUM_SEGUIDORES_QUERY = "SELECT COUNT(*) sumaLikes FROM Reproductor_musica.Sigue sigue WHERE sigue.usuario2 = ? ";
 	private final static String ALMACEN_IMG_URL = "https://espotify.ddns.net/almacen-mp3/almacen-img/usuarios/";
 	

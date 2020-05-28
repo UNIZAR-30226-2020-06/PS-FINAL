@@ -22,6 +22,7 @@ import com.espotify.dao.JSONAdapter;
 import com.espotify.dao.LikesDAO;
 import com.espotify.dao.ListaReproduccionDAO;
 import com.espotify.dao.SeguirDAO;
+import com.espotify.dao.TransmisionDAO;
 import com.espotify.dao.UsuarioDAO;
 import com.espotify.model.Audio;
 import com.espotify.model.ListaReproduccion;
@@ -52,36 +53,39 @@ public class AndroidLike_BoolServlet extends HttpServlet {
         getServletContext().log("Parametros: " + parametrosPeticion);
         
         String email = parametrosPeticion.getString("email");
-        String titulo = parametrosPeticion.getString("titulo");
         String tipo = parametrosPeticion.getString("tipo");
-        String url = parametrosPeticion.getString("url");
 
         int idUsuario = Integer.parseInt(UsuarioDAO.obtenerIdDesdeEmail(email));
         
         JSONObject respuestaPeticion = new JSONObject();
         String tieneLike = "false";
         
+        int id = -1;
         
         switch (tipo) {
 	    	case "playlist":
-	    		if(tieneLikeLista(titulo, idUsuario)) {
+	    		id = Integer.parseInt(parametrosPeticion.getString("id"));
+	    		if(tieneLikeLista(id, idUsuario)) {
 	    			tieneLike = "true";
 	    		} 
 	    		break;
 	    		
 	    	case "audio":
-	    		String tipoDos = url.length() > 3 ? url.substring(url.length() - 3) : url;
-	    		if(tipoDos.equals("mp3")) {
-		    		if(tieneLikeAudio(titulo, idUsuario)) {
-			    		tieneLike = "true";
-			    	}
-	    		} else {
-	    			if(tieneLikeAudio(titulo, idUsuario)) {
-			    		tieneLike = "true";
-			    	}
-	    		}
+	    		id = Integer.parseInt(parametrosPeticion.getString("id"));
+		    	if(tieneLikeAudio(id, idUsuario)) {
+			    	tieneLike = "true";
+	    		} 
+	    		break;
+	    		
+	    	case "directo":
+	    		String titulo = parametrosPeticion.getString("titulo");
+	    		if(tieneLikeTransmision(titulo, idUsuario)) {
+			    	tieneLike = "true";
+	    		} 
 	    		break;
         }
+        
+        
         
         respuestaPeticion.put("likeado", tieneLike);
         getServletContext().log("Respuesta: " + respuestaPeticion);
@@ -103,23 +107,19 @@ public class AndroidLike_BoolServlet extends HttpServlet {
 	}
 	
 	
-	private boolean tieneLikeAudio(String titulo, int idUsuario) {
-		CancionDAO ca = new CancionDAO();
-		int idAudio = ca.obtenerIdCancion(titulo);
-		getServletContext().log("ID AUDIO A COMPROBAR LIKE: " + idAudio);
+	private boolean tieneLikeAudio(int idAudio, int idUsuario) {
+		
 		boolean tieneLike = LikesDAO.tieneLikeAudio(idUsuario, idAudio);
 		getServletContext().log("Tiene like LIKE: " + tieneLike);
 		return tieneLike;
 	}
 	
-	private boolean tieneLikeLista(String titulo, int idUsuario) {
-		int idLista = ListaReproduccionDAO.obtenerIdLista(titulo);
+	private boolean tieneLikeLista(int idLista, int idUsuario) {
 		return LikesDAO.tieneLikeLista(idUsuario, idLista);
 	}
 	
 	private boolean tieneLikeTransmision(String titulo, int idUsuario) {
-		CancionDAO ca = new CancionDAO();
-		int idTransmision = ca.obtenerIdCancion(titulo);
+		int idTransmision = TransmisionDAO.getIdTransmision(titulo);
 		return LikesDAO.tieneLikeTrans(idUsuario, idTransmision);
 	}
 

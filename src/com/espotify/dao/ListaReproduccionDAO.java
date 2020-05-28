@@ -55,7 +55,7 @@ public class ListaReproduccionDAO {
 													+ "lista.id = ? ORDER BY audio.titulo";
 	
 	private final static String SHOWLISTS_QUERY = "SELECT * FROM Reproductor_musica.ListasRep WHERE usuario = ? AND tipo = ? ORDER BY nombre";
-	private final static String SHOW_ALL_LISTS_QUERY = "SELECT * FROM Reproductor_musica.ListasRep WHERE tipo = ? ORDER BY nombre";
+	private final static String SHOW_ALL_LISTS_QUERY = "SELECT * FROM Reproductor_musica.ListasRep WHERE tipo = ? AND usuario != 100 ORDER BY nombre";
 	
 	private final static String INSERTAUDIO_QUERY =  "INSERT INTO Reproductor_musica.Contiene (audio, lista) VALUES (?,?)";
 	private final static String DELETE_AUDIO_QUERY = "DELETE FROM Reproductor_musica.Contiene WHERE audio = ? AND lista = ?";

@@ -50,7 +50,9 @@ public class AndroidGet_CapitulosPodcastServlet extends HttpServlet {
         getServletContext().log("Parametros: " + parametrosPeticion);
         
         String nombrePodcast = parametrosPeticion.getString("podcast");
-        
+        String email = parametrosPeticion.getString("email");
+        		
+        int idUsuario = Integer.parseInt(UsuarioDAO.obtenerIdDesdeEmail(email));
         response.setContentType("application/json");
         response.setCharacterEncoding("utf-8");
         
@@ -66,6 +68,7 @@ public class AndroidGet_CapitulosPodcastServlet extends HttpServlet {
         String nombresPodcast = "";
         String urlsPodcast = "";
         String idsPodcast = "";
+        String sonMios = "";
       
         boolean tieneCapitulos = false;
         
@@ -73,6 +76,12 @@ public class AndroidGet_CapitulosPodcastServlet extends HttpServlet {
         	nombresPodcast += podcast.getTitulo() + "|";
         	urlsPodcast += podcast.getUrl() + "|";
         	idsPodcast += podcast.getId() + "|";
+        	getServletContext().log("podcast usuario: " + podcast.getUsuario() + "user " + idUsuario);
+        	if (podcast.getUsuario().equals(String.valueOf(idUsuario))) {
+        		sonMios += "true" + "|";
+        	} else {
+        		sonMios += "false" + "|";
+        	}
         	tieneCapitulos = true;
         }
         
@@ -80,6 +89,7 @@ public class AndroidGet_CapitulosPodcastServlet extends HttpServlet {
         	nombresPodcast = nombresPodcast.substring(0, nombresPodcast.length() - 1);
         	urlsPodcast = urlsPodcast.substring(0, urlsPodcast.length() - 1);
         	idsPodcast = idsPodcast.substring(0, idsPodcast.length() - 1);
+        	sonMios = sonMios.substring(0, sonMios.length() - 1);
         }
         
         JSONObject respuestaPeticion =new JSONObject();
@@ -89,7 +99,7 @@ public class AndroidGet_CapitulosPodcastServlet extends HttpServlet {
         respuestaPeticion.put("nombresPodcast", nombresPodcast);
         respuestaPeticion.put("urlsPodcast", urlsPodcast);
         respuestaPeticion.put("idsPodcast", idsPodcast);
-        
+        respuestaPeticion.put("sonMios", sonMios);
         getServletContext().log("Respuesta: " + respuestaPeticion);
         PrintWriter out = response.getWriter();
         response.setContentType("application/json");

@@ -73,7 +73,7 @@ public class AndroidModificar_PodcastServlet extends HttpServlet {
         }
         
         
-        if (imagenCodificada != null) {
+        if (imagenCodificada != null && imagenCodificada.equals("")) {
         	int  idLista = ListaReproduccionDAO.obtenerIdLista(nombreNuevoPlayList);
             String ficheroImagen = idLista + ".jpg";
             

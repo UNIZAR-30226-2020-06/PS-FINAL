@@ -56,12 +56,19 @@ public class AndroidModificar_CapituloServlet extends HttpServlet {
         String idCacncion = parametrosPeticion.getString("idCapitulo");
         String nombreViejoCancion = parametrosPeticion.getString("nombrePodcastViejo");
         String nombreNuevoCancion = parametrosPeticion.getString("nombrePodcastNuevo");
+        String generoViejoCancion = parametrosPeticion.getString("generoPodcastViejo");
         String generoNuevoCancion = parametrosPeticion.getString("generoPodcastNuevo");
         
         CancionDAO canciondao = new CancionDAO();
         GeneroDAO generodao = new GeneroDAO();
-        int idGenero = generodao.obtenerIdGenero(generoNuevoCancion);
         
+        int idGenero = -1;
+        
+        if (generoNuevoCancion.equals(" ") ) {
+        	idGenero = generodao.obtenerIdGenero(generoViejoCancion);
+        } else {
+        	idGenero = generodao.obtenerIdGenero(generoNuevoCancion);
+        }
         
         boolean cambiado = canciondao.modificarCancion(nombreNuevoCancion, idGenero, Integer.parseInt(idCacncion));
         

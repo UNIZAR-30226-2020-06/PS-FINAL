@@ -54,18 +54,16 @@ public class AndroidEliminar_CancionListaRepServlet extends HttpServlet {
         
         String email = parametrosPeticion.getString("email");
         String nombreLista = parametrosPeticion.getString("nombrePlaylist");
-        String nombreCancion = parametrosPeticion.getString("nombreCancion");
+        String idCancion = parametrosPeticion.getString("idAudio");
         
-        getServletContext().log("Parametros: " + email + "," + nombreLista + "," + nombreCancion);
         
         CancionDAO canciondao = new CancionDAO();
         
         int idLista = ListaReproduccionDAO.obtenerIdLista(nombreLista);
-        int idCancion = new CancionDAO().obtenerIdCancion(nombreCancion);
         
         getServletContext().log("ID's: " + idLista + "," + idCancion);
         
-        boolean borrado = ListaReproduccionDAO.borrarCancionLista(idCancion, idLista);
+        boolean borrado = ListaReproduccionDAO.borrarCancionLista(Integer.parseInt(idCancion), idLista);
        
         // Lanzar JSON
         JSONObject respuestaPeticion = new JSONObject();

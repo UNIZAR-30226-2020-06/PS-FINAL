@@ -27,6 +27,8 @@ public class TransmisionDAO {
 	private final static String INSERT_TRANSM_QUERY = "INSERT INTO Reproductor_musica.TransmisionVivo (nombre, descripcion, activa, usuario, estacion) VALUES (?,?,?,?,?)";
 	private final static String GET_ESTACION_QUERY = "SELECT id FROM Reproductor_musica.Estacion WHERE libre = 1 AND url = ? LIMIT 1";
 	private final static String GET_URLESTACIONLIBRE_QUERY = "SELECT DISTINCT url FROM Reproductor_musica.Estacion WHERE libre = 1";
+	private final static String GET_URL_TRANSMISION_QUERY = "SELECT url FROM Reproductor_musica.Estacion e, Reproductor_musica.TransmisionVivo tv WHERE tv.estacion = e.id AND tv.id = ?";
+
 	private final static String GET_TRANSM_QUERY = "SELECT id FROM Reproductor_musica.TransmisionVivo WHERE estacion = ? ORDER BY id DESC LIMIT 1";
 	private final static String GET_IDESTACION_QUERY = "SELECT estacion FROM Reproductor_musica.TransmisionVivo WHERE id = ?";
 	private final static String GET_ESTACIONES_LIBRES_QUERY = "SELECT id, url, libre FROM Reproductor_musica.Estacion WHERE libre = 1";
@@ -43,8 +45,7 @@ public class TransmisionDAO {
 	private final static String GET_TRANSM_NOMBRE_QUERY = "SELECT transmision.id id, transmision.nombre nombre, transmision.descripcion descripcion, transmision.activa activa, transmision.usuario usuario, estacion.url url " 
 															+ "FROM Reproductor_musica.TransmisionVivo transmision, Reproductor_musica.Estacion estacion "
 															+ "WHERE transmision.estacion = estacion.id AND transmision.nombre = ?";
-	private final static String GET_TRANSM_ALL_QUERY = "SELECT * FROM Reproductor_musica.TransmisionVivo transmision"
-			+ "WHERE transmision.estacion = estacion.id AND transmision.nombre = ?";
+	private final static String GET_TRANSM_ALL_QUERY = "SELECT * FROM Reproductor_musica.TransmisionVivo";
 
 	
 	private final static String GET_TRANSM_ID_QUERY = "SELECT transmision.id id, transmision.nombre nombre, transmision.descripcion descripcion, transmision.activa activa, transmision.usuario usuario, estacion.url url " 
@@ -134,6 +135,31 @@ public class TransmisionDAO {
 			e.printStackTrace(System.err);
 		}
 		return estacionesURL;
+	}
+	
+	/*
+	 * Parametros: id estacion
+	 * Devuelve: Un string con la URL de la transmisión
+	*/
+	public static String getURLTransmision(int id) {
+		String url = "";
+		try {
+			
+			Connection conn = ConnectionManager.getConnection();
+			
+			PreparedStatement ps = conn.prepareStatement(GET_URL_TRANSMISION_QUERY);
+			ps.setInt(1, id);
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()) {
+				url = rs.getString("url");
+			}
+			
+		} catch(SQLException se) {
+			se.printStackTrace();
+		} catch(Exception e) {
+			e.printStackTrace(System.err);
+		}
+		return url;
 	}
 	
 	/*
@@ -390,7 +416,7 @@ public class TransmisionDAO {
 			while(rs.next()){
 				Transmision result = new Transmision(rs.getInt("id"), rs.getString("nombre"), 
 									rs.getString("descripcion"), rs.getBoolean("activa"), 
-									rs.getInt("usuario"), rs.getString("url"));
+									rs.getInt("usuario"), "");
                 directos.add(result);
 			}
 			

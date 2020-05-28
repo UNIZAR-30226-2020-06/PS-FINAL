@@ -44,11 +44,11 @@ public class AndroidGet_InfoAudioServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		getServletContext().log("--- ~AndroidGet_IndoAudioServlet~ ---");
+		getServletContext().log("--- ~AndroidGet_InfoAudioServlet~ ---");
         JSONObject parametrosPeticion = JSONAdapter.parsarJSON(request);
         getServletContext().log("Parmatros: " + parametrosPeticion);
         
-        int idAudio = parametrosPeticion.getInt("idCancion");
+        int idAudio = Integer.parseInt(parametrosPeticion.getString("idCancion"));
         CancionDAO ca = new CancionDAO();
         
         Audio a = ca.obtenerInfoAudio(idAudio);
@@ -61,11 +61,13 @@ public class AndroidGet_InfoAudioServlet extends HttpServlet {
         
         JSONObject respuestaPeticion = new JSONObject();
         
+        getServletContext().log("numLikes: " + a.getNumLikes());
+        
         response.setContentType("application/json");
         response.setCharacterEncoding("utf-8");
         PrintWriter out = response.getWriter();
         respuestaPeticion.put("autor", a.getUsuario());
-        respuestaPeticion.put("numLikes", a.getLikeUsuario());
+        respuestaPeticion.put("numLikes", String.valueOf(a.getNumLikes()));
         respuestaPeticion.put("genero", a.getGenero());
         respuestaPeticion.put("tipo", tipo);
         getServletContext().log("Respuesta: " + parametrosPeticion);

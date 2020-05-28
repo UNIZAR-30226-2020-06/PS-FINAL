@@ -27,16 +27,16 @@ import com.espotify.model.Transmision;
 import com.espotify.model.Usuario;
 
 /**
- * Servlet implementation class AndroidGet_TransmisionesServlet
+ * Servlet implementation class AndroidGet_AllTransmisionesServlet
  */
-@WebServlet("/AndroidGet_TransmisionesServlet")
-public class AndroidGet_TransmisionesServlet extends HttpServlet {
+@WebServlet("/AndroidGet_AllTransmisionesServlet")
+public class AndroidGet_AllTransmisionesServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AndroidGet_TransmisionesServlet() {
+    public AndroidGet_AllTransmisionesServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -47,20 +47,16 @@ public class AndroidGet_TransmisionesServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         JSONObject parametrosPeticion = JSONAdapter.parsarJSON(request);
-        getServletContext().log("--- ~AndroidGet_TransmisionesServlet~ ---");
+        getServletContext().log("--- ~AndroidGet_AllTransmisionesServlet~ ---");
         getServletContext().log("Parametros: " + parametrosPeticion);
         
-        String email = parametrosPeticion.getString("email");
         
         response.setContentType("application/json");
         response.setCharacterEncoding("utf-8");
         PrintWriter out = response.getWriter();
-        
-        UsuarioDAO u = new UsuarioDAO();
-        String idUsuario = u.obtenerIdDesdeEmail(email);
-        
-        TransmisionDAO tr = new TransmisionDAO();
-        List<Transmision> lista = tr.getTransmisionesUsersSeguidos(Integer.parseInt(idUsuario));
+
+        List<Transmision> lista = TransmisionDAO.getTodasTransmisiones();
+        getServletContext().log("Transmisiones: " + lista);
         
         boolean hayTransmisiones = false;
         String nombresTransmision = "";
@@ -69,23 +65,27 @@ public class AndroidGet_TransmisionesServlet extends HttpServlet {
         String activaTransmision = "";
         
         for (Transmision t : lista) {
-        	if (t.getActiva()) {
-        		nombresTransmision += t.getNombre() + "|";
-        		urlsTransmision += t.getUrl() + "|";
-        		usuariosTransmision += t.getUsuario() + "|";
-        		activaTransmision += "true|";
-        	}
+    		nombresTransmision += t.getNombre() + "|";
+    		usuariosTransmision += t.getUsuario() + "|";
+    		
+    		if(t.getActiva()) {
+    			activaTransmision += "true|";
+    			urlsTransmision += TransmisionDAO.getURLTransmision(t.getId()) + "|";
+    		} else {
+    			activaTransmision += "false|";
+    			urlsTransmision += "|";
+    		}
         	hayTransmisiones = true;
         }
-        
-        
+
         JSONObject respuestaPeticion = new JSONObject();
         
         if (hayTransmisiones) {
         	nombresTransmision = nombresTransmision.substring(0, nombresTransmision.length() - 1);
         	urlsTransmision = urlsTransmision.substring(0, urlsTransmision.length() - 1);
         	usuariosTransmision = usuariosTransmision.substring(0, usuariosTransmision.length() - 1);
-        
+        	activaTransmision = activaTransmision.substring(0, activaTransmision.length() - 1);
+        	
         }
         
         respuestaPeticion.put("nombresTransmision", nombresTransmision);

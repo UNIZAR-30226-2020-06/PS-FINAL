@@ -62,9 +62,7 @@ public class AndroidEliminar_CapituloPodcastServlet extends HttpServlet {
         CancionDAO canciondao = new CancionDAO();
         
         int idLista = ListaReproduccionDAO.obtenerIdLista(nombreLista);
-        
         getServletContext().log("ID's: " + idLista + "," + idCapitulo);
-        
         boolean borrado = ListaReproduccionDAO.borrarCancionLista(Integer.parseInt(idCapitulo), idLista);
        
         // Lanzar JSON

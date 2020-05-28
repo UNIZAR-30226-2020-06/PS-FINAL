@@ -70,7 +70,7 @@ public class AndroidModificar_ListaRepServlet extends HttpServlet {
         	respuestaPeticion.put("estado", "fail");
         }
         
-        if (imagenCodificada != null) {
+        if (imagenCodificada != null && !imagenCodificada.equals("")) {
         	int  idLista = ListaReproduccionDAO.obtenerIdLista(nombreNuevoPlayList);
             String ficheroImagen = idLista + ".jpg";
             

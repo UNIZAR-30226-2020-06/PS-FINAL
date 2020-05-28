@@ -175,6 +175,15 @@
 	</servlet-mapping>
 	
 	<servlet>
+		<servlet-name>AndroidGet_AllTransmisionesServlet</servlet-name>
+		<servlet-class>com.espotify.controller.AndroidGet_AllTransmisionesServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AndroidGet_AllTransmisionesServlet</servlet-name>
+		<url-pattern>/todas_transmisiones_android</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
 		<servlet-name>AndroidAnyadir_CapitulosPodcastServlet</servlet-name>
 		<servlet-class>com.espotify.controller.AndroidAnyadir_CapitulosPodcastServlet</servlet-class>
 	</servlet>

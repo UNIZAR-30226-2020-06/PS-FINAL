@@ -85,7 +85,19 @@ public class AndroidGet_ProfileServlet extends HttpServlet {
         respuestaPeticion.put("nombreUsuario", u.getNombre());
         respuestaPeticion.put("descripcion", u.getDescripcion());
         respuestaPeticion.put("email", u.getCorreo());
-        respuestaPeticion.put("imagen", u.getImagen());
+        
+        URL obj = new URL(u.getImagen());
+		HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+		con.setRequestMethod("GET");
+
+		int responseCode = con.getResponseCode();
+		
+		if(responseCode == 200) {
+			respuestaPeticion.put("imagen", u.getImagen());
+		} else {
+			respuestaPeticion.put("imagen", "");
+		}
+
         
         int nSeguidores = SeguirDAO.getNumFollowers(idUsuario);
         
@@ -113,11 +125,11 @@ public class AndroidGet_ProfileServlet extends HttpServlet {
         	listasReproduccion += lista.getNombre() + "|";
         	listasDescripcion += lista.getDescripcion() + "|";
         	if(lista.getImagen() != null && !lista.getImagen().equals("")) {
-        		URL obj = new URL(lista.getImagen());
-        		HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+        		obj = new URL(lista.getImagen());
+        		con = (HttpURLConnection) obj.openConnection();
         		con.setRequestMethod("GET");
 
-        		int responseCode = con.getResponseCode();
+        		responseCode = con.getResponseCode();
         		
         		if(responseCode == 200) {
         			listasImagenes += lista.getImagen() + "|";
@@ -142,11 +154,11 @@ public class AndroidGet_ProfileServlet extends HttpServlet {
         	podcasts += podcast.getNombre() + "|";
         	podcastsUsuarioDescripcion += podcast.getDescripcion() + "|";
         	if(podcast.getImagen() != null && !podcast.getImagen().equals("")) {
-        		URL obj = new URL(podcast.getImagen());
-        		HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+        		obj = new URL(podcast.getImagen());
+        		con = (HttpURLConnection) obj.openConnection();
         		con.setRequestMethod("GET");
 
-        		int responseCode = con.getResponseCode();
+        		responseCode = con.getResponseCode();
         		
         		if(responseCode == 200) {
         			podcastsImagenes += podcast.getImagen() + "|";

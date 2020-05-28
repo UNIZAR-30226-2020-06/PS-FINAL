@@ -70,19 +70,19 @@ public class AndroidGet_AudiosGeneroServlet extends HttpServlet {
         for(Audio audio : audios) {
         	nombresAudio += audio.getTitulo() + "|";
         	urlsAudio += audio.getUrl() + "|";
-        	idsAudio += audio.getUrl() + "|";
+        	idsAudio += audio.getId() + "|";
         	hayAudios = true;
         }
         
         if(hayAudios) {
         	nombresAudio = nombresAudio.substring(0, nombresAudio.length() - 1);
         	urlsAudio = urlsAudio.substring(0, urlsAudio.length() - 1);
-        	idsAudio = urlsAudio.substring(0, idsAudio.length() - 1);
+        	idsAudio = idsAudio.substring(0, idsAudio.length() - 1);
         }
         
         respuestaPeticion.put("nombresAudio", nombresAudio);
         respuestaPeticion.put("urlsAudio", urlsAudio);
-        
+        respuestaPeticion.put("idsAudio", idsAudio);
         getServletContext().log("Respuesta: " + respuestaPeticion);
         getServletContext().log("-------------------------------");
         // finally output the json string       
