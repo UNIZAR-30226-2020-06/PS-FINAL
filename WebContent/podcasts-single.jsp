@@ -511,6 +511,26 @@ String imagen = (String) session.getAttribute("imagen");
 												</div>	
 											</div>	
 											<!-- END BORRAR COMENTARIO DE CANCION -->
+											<!-- CERRAR SESIÓN -->	
+											<div class="overlay-pop-up" id="overlay-cerrar-sesion">	
+											    <div class="col-md-7 card p-5">	
+											        <a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-sesion" class="btn-cerrar-popup-perfil"	
+											        class="btn btn-outline-primary btn-sm pl-4 pr-4"  onclick="document.getElementById('overlay-cerrar-sesion').classList.remove('active');"><i class="icon-close1"></i></a>	
+													<form class="form-material" action="borrar_coment_cancion">	
+														<!-- Input -->	
+														<div class="body">	
+															<header class="relative nav-sticky card">	
+											                    <h3>Vas a cerrar tu sesión.</h3>
+											                    <h5>¿Estás seguro?</h5>	
+															</header>	
+												
+															<a href="<%= request.getContextPath()+"/Cerrar_SesionServlet"%>" class="btn btn-outline-primary btn-sm pl-4 pr-4">Aceptar</a>
+														</div>	
+														<!-- #END# Input -->	
+											        </form>	
+												</div>	
+											</div>	
+										<!-- END CERRAR SESIÓN -->
 
 										</div>
 										
@@ -594,9 +614,9 @@ String imagen = (String) session.getAttribute("imagen");
 																			</c:otherwise>																	
 																		</c:choose>
 																	</form>
-																<a href="#" data-toggle="control-sidebar" onclick="document.getElementById('audioIDcomment').value = '${cancion.getId()}';">
-											                        <i style="position: relative;left: 10px;" class="icon-commenting-o s-24"></i>
-											                    </a>
+																<a title="Comentarios" href="#" data-toggle="control-sidebar" onclick="document.getElementById('audioIDcomment').value = '${capitulo.getId()}';">
+										                        	<i style="position: relative;left: 10px;" class="icon-commenting-o s-24"></i>
+										                    	</a>
 																<div class="ml-auto">
 																	<a href="${pageContext.request.contextPath}/borrar_cancion_lr?idAudio=${cancion.getId()}&idLista=${infoPodcast.getId()}&nombreLista=${infoPodcast.getNombre()}&tipo=podcast&pagina=<%=pagina %>" class="btn-icono icon-trash-o" ></a>
 																</div>
@@ -656,26 +676,7 @@ String imagen = (String) session.getAttribute("imagen");
 </div>
 <!-- END AÑADIR CAPITULO A PODCAST -->
 
-<!-- CERRAR SESIÓN -->	
-	<div class="overlay-pop-up" id="overlay-cerrar-sesion">	
-	    <div class="col-md-7 card p-5">	
-	        <a style="position: absolute;top: 20px;right: 30px;" href="#" id="btn-cerrar-sesion" class="btn-cerrar-popup-perfil"	
-	        class="btn btn-outline-primary btn-sm pl-4 pr-4"  onclick="document.getElementById('overlay-cerrar-sesion').classList.remove('active');"><i class="icon-close1"></i></a>	
-			<form class="form-material" action="borrar_coment_cancion">	
-				<!-- Input -->	
-				<div class="body">	
-					<header class="relative nav-sticky card">	
-	                    <h3>Vas a cerrar tu sesión.</h3>
-	                    <h5>¿Estás seguro?</h5>	
-					</header>	
-		
-					<a href="<%= request.getContextPath()+"/Cerrar_SesionServlet"%>" class="btn btn-outline-primary btn-sm pl-4 pr-4">Aceptar</a>
-				</div>	
-				<!-- #END# Input -->	
-	        </form>	
-		</div>	
-	</div>	
-<!-- END CERRAR SESIÓN -->
+
 
 
 <script src="https://maps.googleapis.com/maps/api/js?&amp;key=AIzaSyC3YkZNNySdyR87o83QEHWglHfHD_PZqiw&amp;libraries=places"></script>

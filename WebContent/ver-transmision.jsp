@@ -34,51 +34,7 @@ String nombre = (String) session.getAttribute("nombre");
   To disable preloader remove 'has-preloader' from body
  -->
 
-<div id="loader" class="loader">
-    <div class="loader-container">
-        <div class="preloader-wrapper big active">
-            <div class="spinner-layer spinner-blue">
-                <div class="circle-clipper left">
-                    <div class="circle"></div>
-                </div><div class="gap-patch">
-                <div class="circle"></div>
-            </div><div class="circle-clipper right">
-                <div class="circle"></div>
-            </div>
-            </div>
 
-            <div class="spinner-layer spinner-red">
-                <div class="circle-clipper left">
-                    <div class="circle"></div>
-                </div><div class="gap-patch">
-                <div class="circle"></div>
-            </div><div class="circle-clipper right">
-                <div class="circle"></div>
-            </div>
-            </div>
-
-            <div class="spinner-layer spinner-yellow">
-                <div class="circle-clipper left">
-                    <div class="circle"></div>
-                </div><div class="gap-patch">
-                <div class="circle"></div>
-            </div><div class="circle-clipper right">
-                <div class="circle"></div>
-            </div>
-            </div>
-
-            <div class="spinner-layer spinner-green">
-                <div class="circle-clipper left">
-                    <div class="circle"></div>
-                </div><div class="gap-patch">
-                <div class="circle"></div>
-            </div><div class="circle-clipper right">
-                <div class="circle"></div>
-            </div>
-            </div>
-        </div>
-    </div>
-</div>
 
 <!-- @Pre loader-->
 <div id="app">
@@ -320,19 +276,19 @@ String like = (String) request.getAttribute("like");
 							</div>
 							<div class="col-6">
 								<form action="like_transmision">
-	                                  <input type="hidden" id="idTransmisionLike" name=""idTransmisionLike"" value="${transmision.getId()}">
+	                                  <input type="hidden" id="idTransmisionLike" name="idTransmisionLike" value="${transmision.getId()}">
 	                                  <input type="hidden" id="likeTransmision" name="likeTransmision" value="">
 	                                 <%if(like == null){%>
 		                                  <a href="#" id="accion_like_transmision" class="btn-favorito"  
-		                                  	data-text="Te gusta este directo"
-		                                    data-pos="top-right"
+		                                  	data-text="Te gusta esta canción"
+										   data-pos="top-right"
 										   data-showAction="true"
 										   data-actionText="ok"
 										   data-actionTextColor="#fff"
 										   data-backgroundColor="#0c101b">
 										   <i onclick="if(this.className == 'icon-thumbs-up s-24'){this.className='icon-thumbs-o-up s-24';document.getElementById('likeTransmision').value ='true';} else{this.className='icon-thumbs-up s-24';document.getElementById('likeTransmision').value ='false';}"
-										   class="icon-thumbs-up s-24"></i>
-										  </a>
+											   class="icon-thumbs-o-up s-24"></i>
+										</a>
 	                                 <%}else{ %>
 		                                  <a href="#" id="accion_like_transmision" class="btn-favorito"
 		                                     data-text="Ya no te gusta este directo"
@@ -343,7 +299,7 @@ String like = (String) request.getAttribute("like");
 										   data-backgroundColor="#0c101b">
 										   <i onclick="if(this.className == 'icon-thumbs-up s-24'){this.className='icon-thumbs-o-up s-24';document.getElementById('likeTransmision').value ='true';} else{this.className='icon-thumbs-up s-24';document.getElementById('likeTransmision').value ='false';}"
 										   class="icon-thumbs-up s-24"></i>
-										  </a>
+									</a>
 									<%} %>
 								</form>
 							</div>
@@ -361,11 +317,7 @@ String like = (String) request.getAttribute("like");
 						<div class="sidebar-header" style="margin-bottom: 1rem !important;">
 				            <h4><b>Comentarios</b></h4>
 				        </div>
-				        <script type="text/javascript">
-						$(".slimScroll").slimscroll({
-							height: "285px"
-						});
-						</script>
+				        
 						<div class="slimScroll" style="overflow: hidden; width: auto; height: 285px;">
 					        <div class="p-3">
 					        	<div id="listaComentariosTransmision"></div> <!-- DONDE SE MUESTRAN LOS COMENTARIOS -->
@@ -416,27 +368,7 @@ String like = (String) request.getAttribute("like");
 	</div>	
 <!-- END CERRAR SESIÓN -->
 
-<script>
-$(document).ready(function() {
-        $('#accion_like_transmision').click(function(event) { // dar like a transmision
-            var transmsionId = $('#idTransmisionLike').val();
-            var like = $('#likeTransmision').val();
-            console.log(like);
-            console.log(transmsionId);
-            $.get('like_transmision', {
-                    idTransmision : transmsionId,
-                    like : like
-            }, function(){
-            	$.get('obtener_num_likes',{
-					tipo : "Transmision",
-					idLike : transmsionId
-				}, function(data){
-					$('#transmisionNumLikes').text(data);
-				});
-			});
-        });
-});
-</script>
+
 
 </main><!--@Page Content-->
 </div><!--@#app-->
@@ -468,7 +400,7 @@ $(document).ready(function() {
 
 <script>
     $(document).ready(function() {
-    	setTimeout(recargar,1000);
+    	setTimeout(recargar,10000);
     	$(".slimScroll").slimscroll({
 			height: "285px"
 		});
@@ -517,7 +449,7 @@ function recargar(){
 		}, function(data){
 			$('#listaComentariosTransmision').html(data);
 		});
-		setTimeout(recargar,1000);
+		setTimeout(recargar,10000);
 }
 	function loopAudio(){
 		var audio = document.getElementsByTagName("audio")[0];

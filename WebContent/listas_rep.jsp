@@ -1,4 +1,3 @@
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%><!DOCTYPE html>
@@ -418,7 +417,6 @@ String imagen = (String) session.getAttribute("imagen");
                     </div>
                     <c:forEach var="lista" items="${listas}" >
                    			<script type="text/javascript">
-                    			console.log(${lista.getId()});
                     		</script>
 							<div class="col-lg-3 col-md-4 col-sm-6 my-2">
 								<figure>

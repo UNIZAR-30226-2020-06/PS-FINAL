@@ -597,9 +597,9 @@ String imagen = (String) session.getAttribute("imagen");
 																		</c:otherwise>																	
 																	</c:choose>
 																</form>																		
-																<a href="#" data-toggle="control-sidebar">
-													                        <i style="position: relative;left: 10px;" class="icon-commenting-o s-24"></i>
-													                    </a>															
+																<a title="Comentarios" href="#" data-toggle="control-sidebar" onclick="document.getElementById('audioIDcomment').value = '${capitulo.getId()}';">
+										                        	<i style="position: relative;left: 10px;" class="icon-commenting-o s-24"></i>
+										                    	</a>															
 																	<div class="ml-auto">
 																		<a href="#" class="btn-icono icon-indent" onclick="rellenarCamposP('${podcastslr.size()}','${capitulo.getId()}');
 																		document.getElementById('overlay-anadir-podcast').classList.add('active');"></a>													
@@ -620,53 +620,6 @@ String imagen = (String) session.getAttribute("imagen");
 			
         </div>
     </div>
-
-<script>
-    $(document).ready(function() {
-    	$('#iconoPlay').replaceWith("<i id='iconoPlay' class='icon-play s-28'></i>")
-    	$('#playlist a').click(function(event) { // cargar los comentarios de cancion
-			var audioId = $('#audioIDcomment').val();
-			console.log(audioId);
-			$.get('getall_coment_cancion', {
-				idAudio: audioId
-			}, function(data){
-				$('#listaComentariosCancion').html(data);
-			});
-		});
-    	$('#borrarComentario').click(function(event) { // borrar comentario en cancion
-			var idComentario = $('#comentarioID').val();
-			console.log(idComentario);
-			$.get('borrar_coment_cancion', {
-				idComentario: idComentario
-			}, function(responseText){
-				$('#contenido').html(responseText);
-			});
-		});
-    });
-    </script>
-<script>
-	$(document).ready(function() {
-	    $('#playlist a').click(function(event) {//dar like a un audio
-		 	var audioId = $('#idAudioLike').val();
-	        var like = $('#audioLike').val();
-	        console.log(audioId);
-	        console.log(like);
-	        console.log(numLikes);
-			$.get('like_audio', {
-	           idAudio: audioId,
-	            like : like
-			}, function(){
-				$.get('obtener_num_likes',{
-					tipo : "Audio",
-					idLike : audioId
-				}, function(data){
-					var id = '#' + audioId;
-					$(id).text(data);
-				});
-			});
-	   });
-	});
-</script>
 
 </main><!--@Page Content-->
 </div><!--@#app-->

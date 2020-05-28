@@ -107,10 +107,9 @@ public class SubirImagenListRep_Servlet extends HttpServlet {
 			getServletContext().log("FAIL: " + e.toString());
 			out.write("Se ha producido un error al subir el fichero");
 		}
-		//out.write("</body></html>");
-		
-		
+		//out.write("</body></html>");	
 	}
+	
 	private boolean subirImagenAlmacen(int id, FileItem fileItem) {
 		getServletContext().log("FieldName="+fileItem.getFieldName());
 		getServletContext().log("FileName="+fileItem.getName());
